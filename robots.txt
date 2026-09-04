@@ -1,3 +1,8 @@
 User-agent: *
 Allow: /
-Sitemap: https://studioshift.audio/sitemap.xml
+
+Disallow: /ffmpeg/
+Disallow: /*?*
+Disallow: /cdn-cgi/
+
+Sitemap: https://freeonlineconverters.cc/sitemap.xml
