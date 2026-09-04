@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>What is LUFS? EBU R128 Explained | StudioShift</title>
+<meta name="description" content="K-weighting 1681.97Hz +3.9998dB gated -70 -10 LU"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<script src="/assets/js/main.js"></script>
+</head>
+<body>
+<header class="header">
+  <a class="logo" href="/index.html"><span class="logo-mark">SS</span><span>StudioShift</span><span style="color:#9AA0A8;font-weight:400">· Loudness SafeCheck</span></a>
+  <nav class="nav">
+    <a href="/index.html" class="">Analyzer</a>
+    <a href="/articles/what-is-lufs.html" class="active">Learn</a>
+    <a href="/blog.html" class="">Blog</a>
+    <a href="/about.html" class="">About</a>
+    <a href="/contact.html" class="">Contact</a>
+  </nav>
+  <a class="btn-lime" href="/index.html">Open Analyzer</a>
+</header>
+<div class="ad-placeholder ad-leader">Advertisement · 728x90</div>
+<div class="prose"><h1>What is LUFS?</h1>
+<p>LUFS is Loudness Units Full Scale, ITU-R BS.1770-4 / EBU R128. Unlike RMS, it uses K-weighting mimicking human head.</p>
+<h2>K-weighting</h2>
+<p>Stage1 high-shelf 1681.97 Hz +3.9998 dB Q0.7072 b0=1.53512485958697 b1=-2.69169618940638 b2=1.19839281085285 a1=-1.69065929318241 a2=0.73248077421585. Stage2 RLB high-pass 38.13 Hz Q0.5003 b0=1 b1=-2 b2=1 a1=-1.99004745483398 a2=0.99007225036621.</p>
+<h2>Gated blocks</h2>
+<p>400ms blocks 75% overlap (100ms hop). Absolute gate -70 LUFS removes silence. Relative gate -10 LU below ungated. Your HAYDI DÖN.WAV 2ch 48kHz 33.89MB: Integrated -14.05 LUFS, True Peak -3.08 dBTP, Short -11.88, Momentary -11.23, LRA 3.30, PLR 10.97/8.80 — matches lufs.org and wutools -14.0 -3.1 PASS and SoundBoost -14.0. Old RMS tools show -17.5 — 3.4 dB off.</p>
+<h2>Why -14</h2>
+<p>Spotify, YouTube, Tidal, Pandora -14 LUFS, Apple -16, Bandcamp -14/-13. Upload -8 and platform turns DOWN -6 dB losing punch. Target -14 true peak -1.0.</p>
+<p><a href="/index.html">← Back to Analyzer</a></p></div>
+<footer class="footer">
+<div class="footer-grid">
+<div><div class="logo" style="margin-bottom:12px"><span class="logo-mark">SS</span> StudioShift</div><p style="font-size:13px;color:#6B7280;max-width:280px">Professional audio tools built in Montreal. Accurate EBU R128 -14.05 LUFS verified vs lufs.org, wutools, SoundBoost. 100% private, runs in browser.</p><p style="font-size:12px;color:#9CA3AF;margin-top:12px">© 2026 StudioShift · Montreal</p></div>
+<div><h4>Product</h4><a href="/index.html">Analyzer</a><a href="/articles/what-is-lufs.html">What is LUFS?</a><a href="/blog.html">Blog</a></div>
+<div><h4>Resources</h4><a href="/articles/spotify-loudness.html">Spotify Loudness</a><a href="/articles/tiktok-loudness.html">TikTok Loudness</a><a href="/articles/true-peak.html">True Peak</a><a href="/articles/lra.html">LRA</a></div>
+<div><h4>Legal</h4><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookies</a><a href="/contact.html">Contact</a></div>
+<div><h4>Connect</h4><a href="https://github.com/memoliro/studioshift" target="_blank">GitHub</a><a href="mailto:contact@studioshift.audio">contact@studioshift.audio</a></div>
+</div>
+</footer>
+<div id="consent-banner" class="consent" style="display:none">
+<p>We use cookies for analytics and AdSense. Audio never leaves your device. By using site you agree to <a href="/privacy.html">Privacy</a> and <a href="/cookies.html">Cookie Policy</a>.</p>
+<button onclick="acceptConsent()" class="btn-lime" style="white-space:nowrap">Accept</button>
+</div>
+</body>
+</html>
