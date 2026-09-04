@@ -1,6 +1,9 @@
-# jsm-loudness.com - Final Consistent Dark
-- Small JSM lime logo 28px, no StudioShift, no ads
-- Dark #080A0C lime #D6FF57 glass blur consistent across all pages
-- Accurate EBU R128 -14.05 LUFS verified vs lufs.org / wutools / SoundBoost
-- Structure: assets/css, assets/js, articles/ (5), flat html, robots.txt sitemap.xml
-- Deploy: GitHub memoliro/jsm-loudness.com -> Cloudflare Pages, no build, output / , custom domain jsm-loudness.com, enable Clean URLs optional
+# StudioShift Flat - 2 folders
+
+Structure you asked:
+- assets/ (css, js)
+- articles/ (5 guides)
+- *.html flat files at root (index.html, about.html, contact.html, privacy.html, terms.html, cookies.html, blog.html)
+- robots.txt, sitemap.xml
+
+Deploy: drag-drop to Cloudflare Pages, no build. Clean URLs will be /contact.html (or configure Pages to serve /contact). For clean /contact without .html, enable Pages clean URLs or rename to /contact/index.html - but you asked for flat.

@@ -1,1 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://jsm-loudness.com/</loc><priority>1.0</priority></url><url><loc>https://jsm-loudness.com/articles/what-is-lufs.html</loc><priority>0.8</priority></url><url><loc>https://jsm-loudness.com/articles/spotify-loudness.html</loc><priority>0.8</priority></url><url><loc>https://jsm-loudness.com/articles/tiktok-loudness.html</loc><priority>0.8</priority></url><url><loc>https://jsm-loudness.com/articles/true-peak.html</loc><priority>0.8</priority></url><url><loc>https://jsm-loudness.com/articles/lra.html</loc><priority>0.8</priority></url><url><loc>https://jsm-loudness.com/blog.html</loc><priority>0.7</priority></url><url><loc>https://jsm-loudness.com/about.html</loc></url><url><loc>https://jsm-loudness.com/contact.html</loc></url><url><loc>https://jsm-loudness.com/privacy.html</loc></url></urlset>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://studioshift.audio/index.html</loc><priority>1.0</priority></url>
+<url><loc>https://studioshift.audio/articles/what-is-lufs.html</loc><priority>0.8</priority></url>
+<url><loc>https://studioshift.audio/articles/spotify-loudness.html</loc><priority>0.8</priority></url>
+<url><loc>https://studioshift.audio/articles/tiktok-loudness.html</loc><priority>0.8</priority></url>
+<url><loc>https://studioshift.audio/articles/true-peak.html</loc><priority>0.8</priority></url>
+<url><loc>https://studioshift.audio/articles/lra.html</loc><priority>0.8</priority></url>
+<url><loc>https://studioshift.audio/blog.html</loc><priority>0.7</priority></url>
+<url><loc>https://studioshift.audio/about.html</loc><priority>0.5</priority></url>
+<url><loc>https://studioshift.audio/contact.html</loc><priority>0.5</priority></url>
+<url><loc>https://studioshift.audio/privacy.html</loc><priority>0.3</priority></url>
+<url><loc>https://studioshift.audio/terms.html</loc><priority>0.3</priority></url>
+<url><loc>https://studioshift.audio/cookies.html</loc><priority>0.3</priority></url>
+</urlset>
