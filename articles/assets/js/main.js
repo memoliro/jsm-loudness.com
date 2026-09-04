@@ -1,0 +1,1 @@
+const K='jsm_consent_v1';function show(){const el=document.getElementById('consent-banner');if(!el)return;if(localStorage.getItem(K)){el.style.display='none';return;}el.style.display='flex';}function accept(){localStorage.setItem(K,'1');document.getElementById('consent-banner').style.display='none';}window.acceptConsent=accept;document.addEventListener('DOMContentLoaded',show);
