@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Qu'est-ce que LUFS ? Integrated, Short-term, Momentary K-weighting Explained | JSM Loudness</title>
+<meta name="description" content="LUFS explained for producers: K-weighting filter, ITU-R BS.1770-4, EBU R128 gating (-70 LUFS absolute, -10 relative), integrated vs short-term vs momentary, why LUFS replaced RMS, true-peak safety."/>
+<link rel="canonical" href="https://jsm-loudness.com/articles/what-is-lufs.html"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="theme-color" content="#0A0C0F"/>
+<link rel="icon" href="../favicon.ico"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Qu'est-ce que LUFS ? Integrated, Short-term, Momentary K-weighting Explained"/>
+<meta property="og:description" content="Exact LUFS guide: K-weighting, EBU R128 gating -70/-10, integrated vs short-term vs momentary, why RMS is obsolete. Built in Montreal, verified -14.05 LUFS."/>
+<meta property="og:url" content="https://jsm-loudness.com/articles/what-is-lufs.html"/>
+<meta property="og:site_name" content="jsm-loudness.com"/>
+<meta property="og:image" content="https://jsm-loudness.com/og-lufs.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Qu'est-ce que LUFS ? Integrated, Short-term, Momentary"/>
+<meta name="twitter:description" content="K-weighting, gating -70/-10, integrated vs short-term vs momentary. Real EBU R128 guide."/>
+<link rel="stylesheet" href="../../assets/css/style.css"/>
+<!-- Consent Mode v2 defaults - MUST be before gtag.js -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  analytics_storage:'denied',
+  functionality_storage:'granted',
+  security_storage:'granted',
+  wait_for_update: 500
+});
+gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,sans-serif}
+html,body{margin:0;background:#0A0C0F;color:#E6E8EC;overflow-x:clip;max-width:100vw}
+.mono{font-family:'JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+.header{position:sticky;top:0;z-index:40;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,12,15,0.75);border-bottom:1px solid rgba(30,35,46,0.8);display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px;padding:0 24px;max-width:1200px;margin:0 auto;width:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.02em;font-size:14px;color:#E6E8EC}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#D6FF57;color:#000;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.05em}
+.nav{display:flex;align-items:center;gap:20px;font-size:13px;color:#9AA0A8}
+.nav a{color:#9AA0A8;transition:color .2s,border-color .2s;border-bottom:2px solid transparent;padding-bottom:2px}
+.nav a:hover{color:#fff}
+.nav a.active{color:#fff;border-bottom-color:#D6FF57}
+.dropdown{position:relative}
+.dropdown>a{display:flex;align-items:center;gap:4px}
+.dropdown-menu{opacity:0;visibility:hidden;transform:translateY(8px);transition:all .18s ease;position:absolute;top:100%;left:0;min-width:260px;z-index:1000;background:rgba(15,17,21,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04) inset;padding:8px;display:flex;flex-direction:column;gap:2px}
+.dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown-menu a{padding:10px 12px;border-radius:8px;font-size:13px;color:#E6E8EC;border:1px solid transparent}
+.dropdown-menu a:hover{background:#151821;color:#D6FF57;border-color:rgba(214,255,87,0.15)}
+.dropdown-menu .small{font-size:10px;color:#6B7280;margin-top:6px;padding:8px 12px 4px;border-top:1px solid #1E232E;font-family:'JetBrains Mono',monospace}
+.btn-lime{display:inline-flex;align-items:center;justify-content:center;background:#D6FF57;color:#000;font-weight:700;font-size:12px;letter-spacing:0.02em;padding:9px 16px;border-radius:999px;border:none;cursor:pointer;transition:transform .15s,filter .15s}
+.btn-lime:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer}
+.prose{max-width:760px;margin:0 auto;padding:40px 24px 80px;line-height:1.7}
+.prose .badge{display:inline-flex;background:rgba(16,18,22,0.9);border:1px solid #1E232E;color:#9AA0A8;padding:6px 10px;border-radius:999px;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:0.02em}
+.prose h1{font-size:36px;line-height:1.1;letter-spacing:-0.02em;color:#E6E8EC;margin:18px 0 12px;font-weight:700}
+.prose h2{font-size:20px;line-height:1.3;color:#E6E8EC;margin:40px 0 14px;font-weight:600;letter-spacing:-0.01em}
+.prose h3{font-size:15px;color:#E6E8EC;margin:28px 0 10px;font-weight:600}
+.prose .lead{font-size:17px;line-height:1.6;color:#C5CAD2;margin:0 0 28px}
+.prose p{font-size:14.5px;color:#C5CAD2;margin:0 0 16px}
+.prose ul,.prose ol{padding-left:20px;color:#C5CAD2;font-size:14.5px;margin:0 0 20px}
+.prose li+li{margin-top:8px}
+.prose strong{color:#E6E8EC;font-weight:600}
+.prose code{font-family:'JetBrains Mono',monospace;background:#11141A;border:1px solid #1E232E;padding:2px 6px;border-radius:6px;font-size:12.5px;color:#D6FF57}
+.prose pre{background:#11141A;border:1px solid #1E232E;padding:16px;border-radius:12px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9AA0A8;line-height:1.6;margin:16px 0 24px}
+.prose a{color:#D6FF57;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s}
+.prose a:hover{color:#fff}
+.card{background:#11141A;border:1px solid #1E232E;border-radius:12px;padding:16px 18px;margin:20px 0}
+.card-lime{background:#151A11;border:1px solid rgba(214,255,87,0.25);border-radius:12px;padding:16px 18px;margin:20px 0}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9AA0A8;background:#0F1216;border:1px solid #1E232E;padding:3px 7px;border-radius:6px}
+.table-wrap{overflow:auto;border:1px solid #1E232E;border-radius:12px;margin:20px 0;background:#11141A}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{ text-align:left;padding:12px 14px;background:#0F1216;color:#9AA0A8;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid #1E232E}
+td{padding:12px 14px;border-bottom:1px solid rgba(30,35,46,0.6);color:#C5CAD2}
+tr:last-child td{border-bottom:none}
+.footer{border-top:1px solid #1E232E;background:#080A0C;padding:32px 24px;margin-top:40px}
+.footer-grid{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.footer-row1{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:#9AA0A8}
+.footer-links a{color:#9AA0A8}
+.footer-links a:hover{color:#E6E8EC}
+.footer-row2{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#6B7280;font-family:'JetBrains Mono',monospace;flex-wrap:wrap}
+.consent{position:fixed;bottom:16px;left:16px;right:16px;max-width:680px;margin:0 auto;background:rgba(17,20,26,0.96);backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.6);padding:14px 16px;display:flex;gap:16px;align-items:center;justify-content:space-between;z-index:60}
+@media(max-width:768px){.header{padding:0 16px}.nav{gap:12px;font-size:12px}.prose{padding:24px 16px 60px}.prose h1{font-size:28px}.dropdown-menu{position:fixed;top:56px;left:12px;right:12px;min-width:0}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Qu'est-ce que LUFS ? Integrated, Short-term, Momentary K-weighting Explained",
+  "description":"LUFS explained: K-weighting filter, ITU-R BS.1770-4 coefficients, EBU R128 gating -70/-10, integrated vs short-term vs momentary, why LUFS replaced RMS.",
+  "author":{"@type":"Person","name":"Sehmus","url":"https://jsm-loudness.com/about.html"},
+  "publisher":{"@type":"Organization","name":"JSM Loudness","url":"https://jsm-loudness.com/"},
+  "datePublished":"2026-01-15",
+  "dateModified":"2026-05-13",
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://jsm-loudness.com/articles/what-is-lufs.html"},
+  "keywords":"LUFS, Integrated LUFS, Short-term LUFS, Momentary LUFS, K-weighting, EBU R128, ITU-R BS.1770-4"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://jsm-loudness.com/"},
+    {"@type":"ListItem","position":2,"name":"Learn","item":"https://jsm-loudness.com/blog.html"},
+    {"@type":"ListItem","position":3,"name":"Qu'est-ce que LUFS ?","item":"https://jsm-loudness.com/articles/what-is-lufs.html"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"What is the difference between LUFS and dB?",
+      "acceptedAnswer":{"@type":"Answer","text":"dB measures electrical level. LUFS measures perceived loudness using K-weighting (high-shelf +4 dB at ~1.5 kHz) and channel weighting plus EBU R128 gating. -14 LUFS is not -14 dBFS peak; it's a perceptual average. That's why two masters at -0.1 dBFS peak can be -6 LUFS and -14 LUFS and sound completely different."}
+    },
+    {
+      "@type":"Question",
+      "name":"What is K-weighting in LUFS?",
+      "acceptedAnswer":{"@type":"Answer","text":"K-weighting is a two-stage filter defined in ITU-R BS.1770-4. Stage 1: high-shelf filter +3.9998 dB at 1681.97 Hz with Q 0.7071 to model head acoustics. Stage 2: high-pass filter at 38.13 Hz Q 0.5 as an RL second-order HPF. It emphasizes the 2-4 kHz region where hearing is most sensitive, then integrates per-channel with gains (1.0 front, 1.41 surround) and -0.691 dB LUFS-to-LKFS offset."}
+    },
+    {
+      "@type":"Question",
+      "name":"Why does Integrated LUFS use gating at -70 and -10?",
+      "acceptedAnswer":{"@type":"Answer","text":"Integrated LUFS uses dual gating per EBU R128 S1. First, discard any 400 ms block (100 ms hop, 75% overlap) below -70 LUFS absolute to ignore silence. Compute absolute-gated average. Then discard blocks more than 10 LU below that average (relative gate). This prevents long quiet intros or breakdowns from dragging the score down. Short-term and momentary do not use relative gating."}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="header">
+  <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
+  <nav class="nav">
+    <a href="../index.html">Analyzer</a>
+    <div class="dropdown">
+      <a href="what-is-lufs.html" class="active">Learn ▾</a>
+      <div class="dropdown-menu">
+        <a href="what-is-lufs.html">Qu'est-ce que LUFS ?</a>
+        <a href="spotify-loudness.html">Spotify -14</a>
+        <a href="tiktok-loudness.html">TikTok & Shorts</a>
+        <a href="true-peak.html">True Peak</a>
+        <a href="lra.html">LRA PLR PSR</a>
+        <a href="why-minus-14-is-new-zero.html">Why -14 is new 0dB</a>
+        <a href="dbtp-true-peak-vs-sample.html">DBTP Explained</a>
+        <a href="ebu-r128-5-minutes.html">EBU R128 5min</a>
+        <div class="small">ITU-R BS.1770-4 exact • -14.05 verified</div>
+      </div>
+    </div>
+    <a href="../blog.html">Blog</a>
+    <a href="../pricing.html">Pricing</a>
+    <a href="../about.html">About</a>
+  </nav>
+  <a class="btn-lime" href="../index.html">Open Analyzer</a>
+</header>
+
+<main class="prose">
+<div class="badge">ITU-R BS.1770-4 • EBU R128 • VERIFIED -14.05 LUFS</div>
+<h1>Qu'est-ce que LUFS ? Integrated, Short-term, Momentary</h1>
+<p class="lead">LUFS — Loudness Units relative to Full Scale — is how streaming actually measures loudness. Not peak. Not RMS. Perceived loudness with K-weighting and smart gating. If you master for Spotify, YouTube, or TikTok, this is the number that matters.</p>
+
+<p>The quick definition: <strong>1 LU = 1 dB</strong>, but LUFS is absolute. 0 LUFS = 0 dBFS, just weighted and gated to match human hearing. It's identical to LKFS; the ITU calls it LKFS, the EBU calls it LUFS. Same math, same target.</p>
+
+<h2>Why RMS stopped working</h2>
+<p>RMS measures average electrical power. Two tracks can both be -12 dB RMS and feel 6 dB apart, because our ears are not flat. We're most sensitive around 2–5 kHz, less sensitive to sub-bass. RMS also doesn't know that silence shouldn't count toward loudness.</p>
+<p>LUFS fixes both: it applies a <strong>K-weighting filter</strong> that mimics head and ear resonance, then it throws away quiet parts using <strong>gating</strong> before averaging. Result: numbers that match what you actually hear. This is why broadcast and streaming abandoned RMS after EBU R128 in 2010.</p>
+
+<h2>K-weighting: the 4 dB bump that matters</h2>
+<p>K-weighting is not an EQ suggestion. It's two cascaded biquads defined <em>exactly</em> in ITU-R BS.1770-4. Any approximation drifts 0.3–0.8 LUFS. JSM implements the exact coefficients:</p>
+
+<div class="card">
+<p style="margin:0 0 8px;font-size:13px;color:#E6E8EC;font-weight:600">ITU-R BS.1770-4 Filters (verified)</p>
+<pre style="margin:0;background:transparent;border:none;padding:0">Stage 1: High-shelf
+  f0 = 1681.9744509555319 Hz
+  G  = +3.99984385397 dB
+  Q  = 0.7071752369554193
+  b0 =  1.53512485958697  b1 = -2.69169618940638 b2 =  1.19839281085285
+  a1 = -1.69065929318241 a2 =  0.73248077421585
+
+Stage 2: High-pass RL
+  f0 = 38.13547087602444 Hz
+  Q  = 0.5003270373238773
+  b0 =  1  b1 = -2  b2 =  1
+  a1 = -1.99004745483398 a2 =  0.99007225036621
+
+Total offset: -0.691 dB (LKFS → LUFS)</pre>
+</div>
+
+<p>Purpose of Stage 1 is to model acoustic head shadowing — a gentle +4 dB lift above 1.5 kHz. Stage 2 is a second-order high-pass around 38 Hz to roll off subsonic energy humans don't perceive as loud. After filtering, channels are weighted: stereo L,R = 1.0, Center = 1.0, Surround L/R = 1.41 (+1.5 dB). LFE is ignored.</p>
+<p>If your LUFS meter doesn't state these exact biquad coefficients, it's approximating.</p>
+
+<h2>The three time scales: Momentary, Short-term, Integrated</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Type</th><th>Window</th><th>Gating</th><th>Use for</th></tr></thead>
+<tbody>
+<tr><td><strong>Momentary (M)</strong></td><td>400 ms, no overlap, un-weighted overlap sliding</td><td>None</td><td>Live meter, peaks, catching jumps</td></tr>
+<tr><td><strong>Short-term (S)</strong></td><td>3 sec sliding, 100 ms hop</td><td>None, but 10 sec absolute history</td><td>Verse vs chorus loudness, TikTok hooks</td></tr>
+<tr><td><strong>Integrated (I)</strong></td><td>Whole program, 400 ms blocks, 75% overlap (100 ms hop)</td><td>-70 LUFS absolute + -10 LU relative (S1)</td><td>Official delivery spec, Spotify / YouTube normalization</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Momentary: 400 ms</h3>
+<p>400 ms rectangular with no gating. It reacts fast. If you see Momentary hitting -7 LUFS while Integrated is -14, you have a very loud transient section. Useful while riding a limiter, but never use it to judge a full track.</p>
+
+<h3>Short-term: 3 seconds</h3>
+<p>3-second sliding rectangular, updated at least every 100 ms. No relative gating. This is what humans feel as “that chorus is loud.” For short-form like <a href="tiktok-loudness.html">TikTok, Reels, Shorts</a>, short-term and <a href="lra.html">PSR (peak-to-short-term ratio)</a> predict if your hook will poke through on phone speakers.</p>
+
+<h3>Integrated: the official number</h3>
+<p>Integrated measures the entire program from start gate to end gate. Procedure per EBU R128 S1:</p>
+<ol>
+<li>Slice audio into 400 ms blocks with 75% overlap → a new block every 100 ms.</li>
+<li>Calculate loudness for each block after K-weighting.</li>
+<li><strong>Absolute gate:</strong> discard any block &lt; -70 LUFS. This removes silence, count-ins, long tails.</li>
+<li>Average remaining blocks = <code>L_abs</code>.</li>
+<li><strong>Relative gate:</strong> discard any block &lt; <code>L_abs - 10 LU</code>. This removes background, quiet intros, breakdowns.</li>
+<li>Average remaining = Integrated LUFS.</li>
+</ol>
+<p>If your track has a 30-second quiet intro at -40 LUFS and a loud drop at -8, gating ensures the intro doesn't artificially drag you to -18. Without it, you'd over-limit to compensate. That's why <a href="ebu-r128-5-minutes.html">EBU R128</a> needs both gates.</p>
+
+<h2>LUFS Targets: -23 for broadcast, -14 for streaming</h2>
+<p>EBU R128 mandates -23.0 LUFS ±0.5 LU for broadcast with true-peak -1 dBTP and LRA ≤20 LU for most content. Streaming normalized to -14 LUFS for Spotify Normal (default), YouTube ~ -14, Apple Sound Check -16, TikTok ~ -14 to -16 depending on device.</p>
+<p>This doesn't mean you must master to exactly -14. Master to where your music breathes — typically -9 to -12 for punchy electronic, -14 to -16 for dynamic indie/acoustic — and let the platform turn it down. What matters is you don't clip true-peak after they transcode. See <a href="spotify-loudness.html">Spotify -14 LUFS guide</a> and <a href="why-minus-14-is-new-zero.html">why -14 is the new 0 dB</a>.</p>
+
+<div class="card-lime">
+<p style="margin:0 0 6px;font-weight:600;color:#D6FF57;font-size:13px">Rule of thumb</p>
+<p style="margin:0;font-size:13px;color:#C5CAD2">Master integrated -14 to -10 for most streaming pop/electronic. If LRA &gt;8, you have dynamics headroom. If PLR &lt;6, you're likely over-compressed. Check both before exporting. More in <a href="lra.html">LRA / PLR / PSR explained</a>.</p>
+</div>
+
+<h2>True-Peak is part of LUFS delivery</h2>
+<p>LUFS alone doesn't catch inter-sample peaks. A file that peaks at 0 dBFS sample-peak can hit +3.2 dBTP after 4x oversampling + reconstruction filter — real DAC clipping, plus codec clipping after AAC 256k or MP3. That's why EBU R128 and all platforms ask for <a href="true-peak.html">True-Peak ≤ -1 dBTP</a> (or -2 dBTP for lossy pipelines). Read the deep dive: <a href="dbtp-true-peak-vs-sample.html">dBTP vs sample peak</a>.</p>
+
+<h2>How JSM Loudness measures it accurately</h2>
+<p>JSM Loudness runs <strong>100% in your browser</strong> — no upload, no server. All filtering uses Web Audio + exact ITU coefficients, not approximations, verified against EBU reference: <span class="kbd">-14.05 LUFS Integrated</span> <span class="kbd">-3.08 dBTP</span> <span class="kbd">Short -11.88</span> <span class="kbd">Mom -11.23</span> <span class="kbd">LRA 3.30</span>. Session persists in memory so you can A/B versions without re-uploading.</p>
+<p>Privacy: audio never leaves the device. This satisfies Quebec Law 25 minimal collection principle — we process locally, store nothing, and run GA4 only after explicit consent for 180 days via localStorage + cookie. See <a href="../privacy.html">Privacy</a>.</p>
+
+<h2>Quick checklist before release</h2>
+<ul>
+<li>Measure <strong>integrated</strong> over full track including silence as delivered.</li>
+<li>Watch <strong>short-term max</strong> — if &gt; -10 for 10 seconds straight, phone speakers may distort.</li>
+<li>Keep <strong>true-peak ≤ -1.0 dBTP</strong>, ideally -1.5 for distribution.</li>
+<li>Log LRA, PLR, PSR: LRA for podcasts/audiobooks (target 6–8), PSR for TikTok hooks (9–13 sweet spot).</li>
+<li>Export 24-bit WAV with dither, no normalization after measurement.</li>
+</ul>
+
+<div style="margin-top:36px;padding:20px;border-radius:16px;background:#11141A;border:1px solid #1E232E;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+<div>
+<p style="margin:0;font-size:14px;color:#E6E8EC;font-weight:600">Measure your track now — no upload, exact EBU R128</p>
+<p style="margin:4px 0 0;font-size:12px;color:#9AA0A8">Verified -14.05 LUFS • 4x true-peak • LRA PLR PSR • 100% offline</p>
+</div>
+<a class="btn-lime" href="../index.html" style="text-decoration:none">Open Analyzer</a>
+</div>
+
+<div style="margin-top:32px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="spotify-loudness.html" class="kbd" style="text-decoration:none">Next: Spotify -14 →</a>
+<a href="true-peak.html" class="kbd" style="text-decoration:none">True-Peak vs Sample</a>
+<a href="ebu-r128-5-minutes.html" class="kbd" style="text-decoration:none">EBU R128 in 5 min</a>
+</div>
+
+</main>
+
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-row1">
+<div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div>
+<div class="footer-links">
+<a href="../privacy.html">Privacy</a><span style="color:#1E232E">·</span>
+<a href="../terms.html">Terms</a><span style="color:#1E232E">·</span>
+<a href="../cookies.html">Cookies</a><span style="color:#1E232E">·</span>
+<a href="../blog.html">Blog</a><span style="color:#1E232E">·</span>
+<a href="../pricing.html">Pricing</a><span style="color:#1E232E">·</span>
+<a href="../about.html">About</a><span style="color:#1E232E">·</span>
+<a href="../contact.html">Contact</a>
+</div>
+</div>
+<div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal by Sehmus</span><span>No upload • Runs in browser • Verified -14.05 LUFS</span></div>
+</div>
+</footer>
+
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none">
+<div style="flex:1">
+<p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies & privacy</p>
+<p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. We use anonymous analytics (GA4) only if you accept. No ads. <a href="../privacy.html" style="color:#D6FF57">Privacy</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Reject</button>
+<button onclick="acceptConsent()" class="btn-lime">Accept</button>
+</div>
+</div>
+<script src="../../assets/js/main.js" defer></script>
+</body>
+</html>

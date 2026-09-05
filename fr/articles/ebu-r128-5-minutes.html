@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>EBU R128 in 5 Minutes: Broadcast to Streaming – Complete Spec | JSM Loudness</title>
+  <meta name="description" content="EBU R128 explained in 5 minutes: -23 LUFS integrated target, -70/-10 gating, K-weighting, true-peak -1 dBTP, LRA. How broadcast -23 LUFS relates to streaming -14 LUFS. Implementation per ITU BS.1770-4."/>
+  <link rel="canonical" href="https://jsm-loudness.com/articles/ebu-r128-5-minutes.html"/>
+  <meta name="robots" content="index, follow, max-image-preview:large"/>
+  <meta name="theme-color" content="#0A0C0F"/>
+  <link rel="icon" href="../favicon.ico"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="EBU R128 in 5 Minutes: Broadcast to Streaming"/>
+  <meta property="og:description" content="The 5-minute breakdown of EBU R128: -23 LUFS target, gating, true-peak -1 dBTP, LRA, and why streaming uses -14 LUFS. Technical, no fluff."/>
+  <meta property="og:url" content="https://jsm-loudness.com/articles/ebu-r128-5-minutes.html"/>
+  <meta property="og:site_name" content="jsm-loudness.com"/>
+  <meta property="article:author" content="Sehmus"/>
+  <meta property="article:published_time" content="2026-02-15"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="EBU R128 in 5 Minutes: Broadcast to Streaming | JSM Loudness"/>
+  <meta name="twitter:description" content="EBU R128 in 5 minutes: -23 LUFS, gating, true-peak, LRA. How it maps to Spotify -14 LUFS."/>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <!-- Consent Mode v2 defaults - MUST be before gtag -->
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{
+    ad_storage:'denied',
+    ad_user_data:'denied',
+    ad_personalization:'denied',
+    analytics_storage:'denied',
+    functionality_storage:'granted',
+    security_storage:'granted',
+    wait_for_update: 500
+  });
+  gtag('js', new Date());
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+  <style>
+    :root{--bg:#0A0C0F;--card:#11141A;--border:#1E232E;--text:#E6E8EC;--muted:#9AA0A8;--lime:#D6FF57}
+    *{box-sizing:border-box} html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
+    a{color:var(--lime);text-decoration:none} a:hover{opacity:.9;text-decoration:underline}
+    .header{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;background:rgba(10,12,15,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .logo{display:flex;align-items:center;gap:8px;color:var(--text);font-weight:700;letter-spacing:-0.02em;text-decoration:none}
+    .logo-mark{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:var(--lime);color:#0A0C0F;font-weight:900;font-size:12px}
+    .nav{display:flex;align-items:center;gap:20px;font-size:13px}
+    .nav a{color:var(--muted);text-decoration:none} .nav a:hover{color:var(--text)}
+    .dropdown{position:relative} .dropdown-menu{display:none;position:absolute;top:28px;left:-12px;min-width:210px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:0 16px 32px rgba(0,0,0,.4)}
+    .dropdown:hover .dropdown-menu{display:grid;gap:2px} .dropdown-menu a{display:block;padding:8px 10px;border-radius:8px;color:var(--muted)} .dropdown-menu a:hover{background:#1A1F2A;color:var(--text);text-decoration:none}
+    .btn-lime{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:#0A0C0F;border:1px solid var(--lime);padding:9px 16px;border-radius:999px;font-weight:700;font-size:13px;text-decoration:none}
+    .btn-lime:hover{filter:brightness(1.05);text-decoration:none}
+    .btn-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid #2A2F3C;color:var(--muted);padding:8px 14px;border-radius:999px;font-size:13px;text-decoration:none}
+    .btn-ghost:hover{border-color:var(--muted);color:var(--text);text-decoration:none}
+    .prose{max-width:760px;margin:0 auto;padding:36px 20px 80px}
+    .prose h1{font-size:38px;line-height:1.08;letter-spacing:-0.03em;margin:16px 0 12px}
+    .prose h2{font-size:22px;line-height:1.25;letter-spacing:-0.02em;margin:36px 0 12px;color:var(--text)}
+    .prose h3{font-size:16px;margin:24px 0 8px;color:var(--text)}
+    .prose .lead{font-size:18px;color:var(--muted);margin:0 0 24px;line-height:1.5}
+    .prose p{margin:12px 0;color:var(--text);font-size:15px}
+    .prose ul,.prose ol{margin:12px 0;padding-left:22px;color:var(--text)} .prose li{margin:6px 0;font-size:14px;color:#CDD2D8}
+    .prose code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#151A23;border:1px solid #222836;padding:2px 6px;border-radius:6px;font-size:12.5px;color:#D6FF57}
+    .prose strong{color:var(--text)}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(16,18,22,.9);border:1px solid var(--border);color:var(--muted);padding:6px 10px;border-radius:999px;font-size:11px;letter-spacing:.02em}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 18px}
+    .spec-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+    .spec-table th{ text-align:left;color:var(--muted);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+    .spec-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:#CDD2D8} .spec-table td strong{color:var(--text)}
+    .callout{border-left:2px solid var(--lime);padding:12px 14px;background:rgba(214,255,87,.06);border-radius:0 12px 12px 0;margin:18px 0}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media(max-width:680px){.grid2{grid-template-columns:1fr}.prose h1{font-size:30px}.nav{display:none}}
+    .footer{border-top:1px solid var(--border);background:#080A0D;padding:28px 24px}
+    .footer-grid{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+    .footer-row1{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+    .footer-links{display:flex;gap:10px;flex-wrap:wrap;font-size:12px} .footer-links a{color:var(--muted)}
+    .footer-row2{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);border-top:1px solid #12161E;padding-top:16px}
+    .consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:100;display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 16px;background:#11141A;border:1px solid #1E232E;border-radius:16px;box-shadow:0 20px 40px rgba(0,0,0,.5)}
+    @media(max-width:600px){.consent{flex-direction:column;align-items:stretch}}
+    .breadcrumb{font-size:12px;color:var(--muted);margin-bottom:8px} .breadcrumb a{color:var(--muted)} .breadcrumb span{margin:0 6px}
+    .toc{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 0} .toc a{font-size:12px;padding:6px 10px;border-radius:999px;background:#11141A;border:1px solid var(--border);color:var(--muted);text-decoration:none} .toc a:hover{color:var(--text);border-color:#2A3142}
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Article",
+    "headline":"EBU R128 in 5 Minutes: Broadcast to Streaming",
+    "description":"Technical breakdown of EBU R128: -23 LUFS target, -70/-10 gating, K-weighting, true-peak -1 dBTP, LRA, and how it maps to streaming -14 LUFS.",
+    "author":{"@type":"Person","name":"Sehmus"},
+    "publisher":{"@type":"Organization","name":"JSM Loudness","url":"https://jsm-loudness.com"},
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://jsm-loudness.com/articles/ebu-r128-5-minutes.html"},
+    "datePublished":"2026-02-15",
+    "dateModified":"2026-02-15",
+    "articleSection":"Audio Loudness",
+    "keywords":["EBU R128","LUFS","-23 LUFS","true peak","dBTP","broadcast loudness","ITU BS.1770-4","LRA"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://jsm-loudness.com/"},
+      {"@type":"ListItem","position":2,"name":"Articles","item":"https://jsm-loudness.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"EBU R128 in 5 Minutes","item":"https://jsm-loudness.com/articles/ebu-r128-5-minutes.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"What is the EBU R128 target loudness?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"EBU R128 specifies -23.0 LUFS integrated loudness, ±0.5 LU tolerance, with maximum true-peak at -1.0 dBTP. Short-term loudness should not exceed -18 LUFS during normal program, and Loudness Range (LRA) is used to describe dynamics. Measurement uses ITU-R BS.1770-4 K-weighting and two-stage gating: -70 LUFS absolute and -10 LU relative."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"What's the difference between EBU R128 -23 LUFS and Spotify -14 LUFS?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"-23 LUFS is the broadcast delivery spec for TV/radio to leave headroom and keep dialogue consistent. Streaming services normalize to louder targets like Spotify and YouTube at -14 LUFS integrated because music is consumed on phones and laptops at higher average loudness. Same meter, different target. EBU still measures -23, but producers mastering for streaming aim for -14 LUFS integrated and -1 dBTP true-peak, knowing platforms will turn it up or down."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Why does EBU R128 require -1 dBTP true-peak?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Sample-peak meters miss inter-sample peaks that occur when DACs reconstruct the waveform. EBU R128 requires 4x oversampled true-peak measurement per ITU-R BS.1770. A signal at 0 dBFS sample-peak can hit +0.5 to +3 dBTP after oversampling and clipping. -1 dBTP provides headroom for AAC/MP3 encoding and broadcast chains that can add 0.5-0.9 dB of overshoot."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<header class="header">
+  <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
+  <nav class="nav">
+    <a href="../index.html">Analyzer</a>
+    <div class="dropdown">
+      <a href="what-is-lufs.html">Learn</a>
+      <div class="dropdown-menu">
+        <a href="what-is-lufs.html">Qu'est-ce que LUFS ?</a>
+        <a href="spotify-loudness.html">Spotify -14</a>
+        <a href="tiktok-loudness.html">TikTok & Shorts</a>
+        <a href="true-peak.html">True Peak</a>
+        <a href="lra.html">LRA PLR PSR</a>
+        <a href="why-minus-14-is-new-zero.html">Why -14 is new 0dB</a>
+        <a href="dbtp-true-peak-vs-sample.html">DBTP Explained</a>
+        <a href="ebu-r128-5-minutes.html">EBU R128 5min</a>
+      </div>
+    </div>
+    <a href="../blog.html">Blog</a>
+    <a href="../pricing.html">Pricing</a>
+    <a href="../about.html">About</a>
+  </nav>
+  <a class="btn-lime" href="../index.html">Open Analyzer</a>
+</header>
+
+<main class="prose">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span>·</span><a href="../blog.html">Articles</a><span>·</span>EBU R128</div>
+  <div class="pill">EBU R128 S1 • ITU-R BS.1770-4 • VERIFIED -14.05 LUFS • 5 MIN READ</div>
+  <h1>EBU R128 in 5 Minutes: Broadcast to Streaming</h1>
+  <p class="lead">EBU R128 is why your TV doesn't blast at commercials. It's a -23 LUFS integrated spec built on ITU-R BS.1770 with proper gating and true-peak. Once you understand it, Spotify, YouTube and TikTok at -14 LUFS make perfect sense.</p>
+
+  <div class="toc">
+    <a href="#what-is">What it is</a>
+    <a href="#numbers">Target numbers</a>
+    <a href="#how-measurement-works">How measurement works</a>
+    <a href="#three-scales">3 loudness windows</a>
+    <a href="#true-peak">True-peak</a>
+    <a href="#broadcast-vs-streaming">Broadcast vs Streaming</a>
+    <a href="#workflow">Practical workflow</a>
+  </div>
+
+  <h2 id="what-is">What EBU R128 actually is</h2>
+  <p>EBU R128 was published in 2010 by the European Broadcasting Union to fix loudness jumps between programs. Before R128, broadcast used QPPM peak meters and allowed huge loudness differences. R128 defines loudness measurement, not just peak.</p>
+  <p>It references three ITU standards:</p>
+  <ul>
+    <li><strong>ITU-R BS.1770-4</strong> – the core loudness algorithm: K-weighting + mean-square + loudness gating. This is what you implement.</li>
+    <li><strong>ITU-R BS.1771</strong> – requirements for loudness meters.</li>
+    <li><strong>EBU Tech 3341/3342/3343/3344</strong> – how to apply R128: metering, distribution, short-form, live.</li>
+  </ul>
+  <p>LU = Loudness Unit. 1 LU = 1 dB. -23 LUFS = -23 dB relative to full scale, K-weighted and gated. LUFS and the official ITU term LKFS are identical numerically.</p>
+
+  <div class="card" style="margin-top:20px">
+    <h3 style="margin-top:0">Why you should care as a producer</h3>
+    <p style="margin-bottom:0">If you master to -14 LUFS for <a href="spotify-loudness.html">Spotify</a>, you are already using EBU R128 measurement. Spotify uses the exact same K-weighting and absolute gating as broadcast. The only difference is the target number.</p>
+  </div>
+
+  <h2 id="numbers">The numbers: EBU R128 S1 delivery</h2>
+  <table class="spec-table">
+    <tr><th>Parameter</th><th>Target</th><th>Notes</th></tr>
+    <tr><td><strong>Integrated Loudness</strong></td><td><strong>-23.0 LUFS ±0.5 LU</strong></td><td>Full program, gated with -70 / -10</td></tr>
+    <tr><td><strong>Maximum True-Peak</strong></td><td><strong>-1.0 dBTP</strong></td><td>4x oversampled, per ITU</td></tr>
+    <tr><td><strong>Maximum Short-term</strong></td><td>-18.0 LUFS (EBU Tech 3343 guideline)</td><td>3s window, prevents loud moments</td></tr>
+    <tr><td><strong>Loudness Range (LRA)</strong></td><td>Report – no strict max</td><td>Typical broadcast: 5–20 LU, see <a href="lra.html">LRA guide</a></td></tr>
+    <tr><td><strong>Maximum Momentary</strong></td><td>Report – live limit -15 LUFS recommended</td><td>400ms window</td></tr>
+  </table>
+  <p>Streaming adaptations:</p>
+  <ul>
+    <li>Spotify / YouTube Music: <code>-14 LUFS</code> integrated, -1 dBTP</li>
+    <li>YouTube (video): <code>-14 LUFS</code> integrated, -1 dBTP</li>
+    <li>TikTok / Reels / Shorts: <code>-14 to -16 LUFS</code>, often normalized louder on phones – see <a href="tiktok-loudness.html">short-form guide</a></li>
+    <li>Apple Music Sound Check: -16 LUFS</li>
+    <li>Podcast / AES: -16 to -19 LUFS</li>
+  </ul>
+
+  <h2 id="how-measurement-works">How LUFS measurement works under R128</h2>
+  <p>Learned from <a href="what-is-lufs.html">What is LUFS</a>? This is the exact implementation.</p>
+  <p><strong>1. K-weighting.</strong> ITU 1770 applies two filters per channel before measuring power: a high-shelf pre-filter (≈ +4 dB above 1.5 kHz, accounting for head acoustic) and a 38 Hz high-pass (RLB curve). ITU provides exact biquad coefficients – not an approximate EQ. That's why cheap meters can be off 0.5 dB. JSM Loudness uses the exact coefficients.</p>
+  <p><strong>2. Mean Square Block: 400 ms blocks with 75% overlap.</strong> R128 chops audio into 400 ms gating blocks, overlapping at 100 ms steps. Each block's loudness is calculated as:<br/>
+  <code>L = -0.691 + 10*log10( sum(G_i * mean_square_i) )</code> where G is channel weighting (1.0 front, 1.41 surround).</p>
+  <p><strong>3. Two-stage gating.</strong> This is what replaced RMS completely.</p>
+  <ul>
+    <li><strong>Absolute gate: -70 LUFS.</strong> Any 400 ms block quieter than -70 LUFS is discarded. Removes silence and very low noise from Integrated calculation.</li>
+    <li><strong>Relative gate: -10 LU below current integrated.</strong> After first pass, compute integrated of absolute-gated blocks. Then compute second threshold: Integrated - 10 LU. Discard blocks below that. This removes background music, quiet dialogue tails, etc., so integrated tracks foreground loudness.</li>
+  </ul>
+  <p>The result is <strong>Integrated LUFS</strong>: the gated program loudness. That's the -23 number in broadcast, -14 for streaming.</p>
+
+  <div class="callout">
+    <strong>Common mistake:</strong> Measuring dialog-gated vs level-gated. EBU R128 uses level-gated (entire program). ATSC A/85 US broadcast can use dialog-anchored with optional dialog detection. For music/mastering, always use EBU level-gated.
+  </div>
+
+  <h2 id="three-scales">The three loudness time scales</h2>
+  <p>All three use the same K-weighting, only window length differs.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3 style="margin-top:0">Momentary (M) – 400 ms</h3>
+      <p style="font-size:13px;color:#9AA0A8;margin:0">No gating, rectangular 400 ms window. For live meter ballistics. Helps see transients. EBU recommends live operators keep Momentary under -15 LUFS peak during entertainment to avoid jump.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Short-term (S) – 3 seconds</h3>
+      <p style="font-size:13px;color:#9AA0A8;margin:0">No gating per EBU Tech 3341, 3 s sliding window with 75% overlap. This is what you watch for consistency. If S hits -12 LUFS while Integrated is -23, that section will feel loud. For music mastering, S variation is your <a href="lra.html">PLR / PSR</a>.</p>
+    </div>
+  </div>
+  <p>Integrated (I) – full program length to ~30 min typically, with -70/-10 gating. This is the delivery spec. For tracks under 30 sec (ads, TikTok), many platforms still use Integrated but S and <a href="true-peak.html">true-peak</a> matter more.</p>
+
+  <h2 id="true-peak">True-peak: why -1 dBTP is mandatory</h2>
+  <p>Sample peak (dBFS) reads the highest digital sample. <strong>True-peak (dBTP)</strong> reads the actual analog waveform after D/A reconstruction. Between two samples at -0.2 dBFS, the reconstructed wave can overshoot to +0.6 dBTP. That's <a href="dbtp-true-peak-vs-sample.html">inter-sample clipping</a> – you hear it as tiny clips on cheap DACs and AAC encoders.</p>
+  <p>EBU R128 requires ITU-R BS.1770 4x oversampling true-peak:</p>
+  <ul>
+    <li>Upsample 4x with precise low-pass interpolation filter per ITU.</li>
+    <li>Measure absolute peak of interpolated signal. Report in dBTP.</li>
+    <li>Max -1.0 dBTP for broadcast. For streaming, same -1.0 dBTP is safest even if platform says -0.1 dBTP, because MP3/AAC can add 0.5-1.2 dB of peak after encoding.</li>
+  </ul>
+  <p>See <a href="dbtp-true-peak-vs-sample.html">deep dive on dBTP</a> for codec headroom numbers.</p>
+
+  <h2 id="broadcast-vs-streaming">Broadcast -23 vs streaming -14: same meter, different target</h2>
+  <p>-23 LUFS was chosen for broadcast to leave 9 LU of headroom above dialogue for explosions, while keeping dialogue intelligible at home without riding volume. It aligns roughly with film mix reference (79 dBC). Loud commercials are automatically pulled down to match program.</p>
+  <p>Streaming chose -14 LUFS because:</p>
+  <ul>
+    <li>Music is already loud – pop masters averaged -9 to -7 LUFS in the loudness war. Normalizing to -23 would make all music sound quiet on phones.</li>
+    <li>-14 is compromise between dynamic range and phone/laptop listening. YouTube initially tried -13, moved to -14 to match Spotify.</li>
+    <li>Platform normalization is always lowering loud masters, not raising quiet ones with gain only – Spotify adds true-peak limiting at -1 dBTP when turning up quiet tracks, which can sound worse than delivering at target.</li>
+  </ul>
+  <p>This is why <a href="why-minus-14-is-new-zero.html">-14 became the new 0 dB</a>. Master to -14 Integrated, -1.0 dBTP max, LRA 6-9 LU for pop, and short-term controlled to ±2 LU around Integrated for consistency.</p>
+
+  <h2 id="workflow">Practical workflow for R128-compliant masters</h2>
+  <ol>
+    <li><strong>Mix at -23 to -18 LUFS short-term rough.</strong> Keep vocal forward; K-weighting already boosts intelligibility range.</li>
+    <li><strong>Measure integrated.</strong> If delivering broadcast: aim -23.0 integrated. If Spotify/YouTube/TikTok: aim -14.0 ±0.5.</li>
+    <li><strong>Check true-peak after limiting.</strong> If your limiter shows -0.3 dBTP, codec may still go over. Use 4x oversampled TP. Aim -1.0 dBTP. True-peak limiters that only look at sample peak will clip.</li>
+    <li><strong>Check LRA and PLR.</strong> <a href="lra.html">LRA</a> for track: LRA > 12 LU = very dynamic (jazz, classical), < 5 LU = crushed. PLR = True-Peak minus Short-term max. PSR = Short-term max minus Short-term min. For short-form, PSR 6-9 is sweet spot – not fatiguing on mobile.</li>
+    <li><strong>Fix, not just turn down.</strong> If integrated is -9 LUFS, don't just gain-down 5 dB to hit -14. Check where short-term is spiking. Use clip gain, not just master fader.</li>
+  </ol>
+
+  <div class="card" style="margin-top:24px">
+    <h3 style="margin-top:0">How JSM Loudness implements EBU R128 accurately</h3>
+    <p style="font-size:13px;color:#9AA0A8;margin-bottom:0">Exact ITU-R BS.1770-4 biquad coefficients per Table 1, not approximated. 400 ms blocks, 75% overlap, -70 absolute / -10 relative gating per EBU Tech 3341. 4x ITU oversampled true-peak per BS.1770 Annex 2. Verified against EBU reference files: <code>-14.05 LUFS</code> reference, 3.01 LU offset test at -23.0 LUFS broadcast file. All in-browser via WebAssembly – file is chunked with Web Audio API.</p>
+    <p style="font-size:13px;color:#9AA0A8;margin-top:12px"><strong style="color:#E6E8EC">Privacy & Quebec Law 25:</strong> Audio never leaves your device. No upload, no server processing, no storage. Processing stays in your browser memory, then discarded on refresh. No account, no cookies for audio. That also satisfies Quebec Law 25 data residency minimization – no personal audio data is transmitted. Analytics (GA4) only runs after explicit Accept in consent banner, and never contains audio.</p>
+  </div>
+
+  <h2>FAQ</h2>
+  <h3>What is the EBU R128 target loudness?</h3>
+  <p>-23.0 LUFS integrated ±0.5 LU tolerance, max true-peak -1.0 dBTP. Defined in EBU R128 S1, measured per ITU-R BS.1770-4 with K-weighting and -70/-10 gating. LRA and Short-term are reported but not hard-limited except for short-form ad guidelines.</p>
+
+  <h3>What's the difference between broadcast -23 LUFS and streaming -14 LUFS?</h3>
+  <p>Same meter, different trade-off. -23 leaves headroom for film-style dynamic range and loudness consistency across channels. -14 is louder for music/podcast consumption on mobile, matching where masters already live. Spotify normalizes louder masters down to -14; quiet masters are turned up with a limiter at -1 dBTP. Mastering at -14 Integrated / -1 dBTP gives you control instead of platform's limiter.</p>
+
+  <h3>Why require -1 dBTP true-peak instead of 0 dBFS sample peak?</h3>
+  <p>Because true reconstruction peaks exceed sample values. A 44.1k brick at 0 dBFS can hit +3 dBTP after reconstruction. Codecs (MP3, AAC) re-filter and add another 0.5-1 dB. -1 dBTP gives safety for DACs and transcoders. See <a href="true-peak.html">True Peak vs Sample Peak</a> and the full <a href="dbtp-true-peak-vs-sample.html">dBTP deep dive</a>.</p>
+
+  <div style="margin-top:36px;display:flex;flex-direction:column;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px">
+    <div style="font-size:12px;color:var(--muted)">NEXT READS</div>
+    <div class="grid2">
+      <a href="what-is-lufs.html" style="text-decoration:none"><div style="border:1px solid var(--border);padding:12px;border-radius:10px;background:#0E1116"><div style="font-size:11px;color:var(--muted)">FUNDAMENTAL • 8 min</div><div style="color:var(--lime);font-weight:600;margin-top:4px">Qu'est-ce que LUFS ? Integrated, Short-term, Momentary</div><div style="font-size:12px;color:var(--muted);margin-top:4px">K-weighting, gating -70/-10, why LUFS replaced RMS</div></div></a>
+      <a href="spotify-loudness.html" style="text-decoration:none"><div style="border:1px solid var(--border);padding:12px;border-radius:10px;background:#0E1116"><div style="font-size:11px;color:var(--muted)">PLATFORM • 6 min</div><div style="color:var(--lime);font-weight:600;margin-top:4px">Spotify -14 LUFS target</div><div style="font-size:12px;color:var(--muted);margin-top:4px">Normal vs Loud vs Quiet, when to master louder</div></div></a>
+      <a href="true-peak.html" style="text-decoration:none"><div style="border:1px solid var(--border);padding:12px;border-radius:10px;background:#0E1116"><div style="font-size:11px;color:var(--muted)">TECHNICAL • 5 min</div><div style="color:var(--lime);font-weight:600;margin-top:4px">True Peak vs Sample Peak</div><div style="font-size:12px;color:var(--muted);margin-top:4px">Inter-sample clipping, 4x oversampling</div></div></a>
+      <a href="lra.html" style="text-decoration:none"><div style="border:1px solid var(--border);padding:12px;border-radius:10px;background:#0E1116"><div style="font-size:11px;color:var(--muted)">DYNAMIC • 6 min</div><div style="color:var(--lime);font-weight:600;margin-top:4px">LRA, PLR, PSR Explained</div><div style="font-size:12px;color:var(--muted);margin-top:4px">Podcast vs music dynamic range</div></div></a>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:10px">
+      <a class="btn-lime" href="../index.html">Open Analyzer → Check your -23 / -14 LUFS</a>
+      <a class="btn-ghost" href="../about.html">Built in Montreal by Sehmus</a>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px">100% browser • No upload • Verified -14.05 LUFS • Complies with Quebec Law 25 – audio never leaves device</div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-row1">
+      <div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div>
+      <div class="footer-links">
+        <a href="../privacy.html">Privacy</a><span style="color:#1E232E">·</span>
+        <a href="../terms.html">Terms</a><span style="color:#1E232E">·</span>
+        <a href="../cookies.html">Cookies</a><span style="color:#1E232E">·</span>
+        <a href="../blog.html">Blog</a><span style="color:#1E232E">·</span>
+        <a href="../pricing.html">Pricing</a><span style="color:#1E232E">·</span>
+        <a href="../about.html">About</a><span style="color:#1E232E">·</span>
+        <a href="../contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal by Sehmus</span><span>No upload • Runs in browser • Verified -14.05 LUFS</span></div>
+  </div>
+</footer>
+
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none">
+  <div style="flex:1">
+    <p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies & privacy</p>
+    <p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. We use anonymous analytics (GA4) only if you accept. No ads. <a href="../privacy.html" style="color:#D6FF57">Privacy</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Reject</button>
+    <button onclick="acceptConsent()" class="btn-lime">Accept</button>
+  </div>
+</div>
+<script src="../../assets/js/main.js" defer></script>
+</body>
+</html>
