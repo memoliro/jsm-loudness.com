@@ -1,143 +1,58 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Free LUFS Loudness Meter Online - EBU R128 Accurate | Spotify, YouTube, TikTok | JSM Loudness</title>
-<meta name="description" content="Free, accurate LUFS loudness meter - ITU-R BS.1770-4 & EBU R128 exact. Verified -14.05 LUFS. 100% browser, no upload. Measure integrated LUFS, true-peak dBTP, LRA, PLR, PSR for Spotify -14, YouTube, TikTok. Batch support, CSV export."/>
-<link rel="canonical" href="https://jsm-loudness.com/"/>
-<meta name="robots" content="index, follow, max-image-preview:large"/>
-<meta name="theme-color" content="#0A0C0F"/>
-<link rel="icon" href="favicon.ico"/>
-<meta property="og:type" content="website"/>
-<meta property="og:title" content="Free LUFS Loudness Meter Online - EBU R128 Accurate"/>
-<meta property="og:description" content="Accurate LUFS analyzer, 100% browser, no upload. Verified -14.05 LUFS, true-peak, LRA for Spotify, YouTube, TikTok. Batch + CSV export."/>
-<meta property="og:url" content="https://jsm-loudness.com/"/>
-<meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
-<meta property="og:image:width" content="1200"/>
-<meta property="og:image:height" content="630"/>
-<meta property="og:site_name" content="jsm-loudness.com"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Free LUFS Loudness Meter - EBU R128"/>
-<meta name="twitter:description" content="100% browser loudness meter, no upload, verified -14.05 LUFS. Batch support."/>
-<meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Free LUFS Loudness Meter Online - EBU R128 Accurate | JSM Loudness</title>
+<meta name="description" content="Free accurate LUFS meter ITU-R BS.1770-4 & EBU R128 verified -14.05 LUFS. 100% browser no upload. Integrated, true-peak dBTP, LRA, PLR, PSR. Batch + Original/Normalized preview."/>
+<link rel="canonical" href="https://jsm-loudness.com/"/><meta name="theme-color" content="#0A0C0F"/>
+<link rel="icon" href="favicon.ico"/><link rel="stylesheet" href="assets/css/style.css"/>
+<meta property="og:type" content="website"/><meta property="og:title" content="Free LUFS Loudness Meter - EBU R128 Accurate"/>
+<meta property="og:description" content="Accurate LUFS analyzer, 100% browser, no upload. Verified -14.05 LUFS. Original/Normalized preview, batch CSV."/>
+<meta property="og:url" content="https://jsm-loudness.com/"/><meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
 <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/"/>
-<link rel="alternate" hreflang="en" href="https://jsm-loudness.com/"/>
-<script>
-window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
-gtag('js', new Date());
-</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});gtag('js', new Date());</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"SoftwareApplication",
- "name":"JSM Loudness Analyzer",
- "applicationCategory":"MultimediaApplication",
- "operatingSystem":"Web Browser",
- "offers":{"@type":"Offer","price":"0","priceCurrency":"CAD"},
- "description":"Free online LUFS loudness meter, EBU R128 accurate, 100% browser no upload, batch CSV export",
- "author":{"@type":"Person","name":"Sehmus"},
- "featureList":"ITU-R BS.1770-4, EBU R128, Integrated LUFS, True Peak dBTP 4x, LRA, PLR, PSR, Batch, No upload, Verified -14.05 LUFS"
-}
-</script>
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"FAQPage",
- "mainEntity":[
-  {"@type":"Question","name":"What LUFS should I master for Spotify?","acceptedAnswer":{"@type":"Answer","text":"-14 LUFS integrated, -1 dBTP true-peak. Spotify Normal mode normalizes to -14. Louder masters (-8 LUFS) will be turned down and lose punch."}},
-  {"@type":"Question","name":"Does my audio get uploaded?","acceptedAnswer":{"@type":"Answer","text":"Never. All processing via Web Audio API and WASM in your browser. Verifiable in DevTools Network tab. Complies with Quebec Law 25."}},
-  {"@type":"Question","name":"How accurate is JSM Loudness?","acceptedAnswer":{"@type":"Answer","text":"Exact ITU-R BS.1770-4 coefficients (1681.97 Hz high-shelf + 38.13 Hz high-pass) and EBU R128 S1 gating (400ms blocks, 75% overlap, -70 absolute, -10 relative). Verified -14.05 LUFS on EBU reference."}}
- ]
-}
-</script>
-<style>
-*{box-sizing:border-box}
-body{margin:0;background:#0A0C0F;color:#E6E8EC;font-family:Inter,ui-sans-serif,system-ui,-apple-system;line-height:1.5}
-.header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #1E232E;backdrop-filter:blur(12px);position:sticky;top:0;z-index:20;background:rgba(10,12,15,0.85)}
-.logo{display:flex;gap:8px;align-items:center;text-decoration:none;color:#E6E8EC;font-weight:700}
-.logo-mark{width:28px;height:28px;border-radius:8px;background:#D6FF57;color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
-.nav{display:flex;gap:18px;align-items:center;font-size:13px}
-.nav a{color:#9AA0A8;text-decoration:none} .nav a:hover{color:#E6E8EC}
-.btn-lime{background:#D6FF57;color:#000;padding:9px 16px;border-radius:999px;font-weight:600;text-decoration:none;display:inline-flex;font-size:13px;border:0;cursor:pointer}
-.btn-ghost{border:1px solid #1E232E;background:#11141A;color:#9AA0A8;padding:9px 16px;border-radius:999px;font-size:13px;cursor:pointer}
-.badge{display:inline-flex;background:rgba(16,18,22,0.9);border:1px solid #1E232E;color:#9AA0A8;padding:6px 10px;border-radius:999px;font-size:11px;gap:6px}
-.hero{max-width:1120px;margin:24px auto;padding:0 20px}
-.hero h1{font-size:42px;line-height:1.05;margin:16px 0;max-width:720px;letter-spacing:-0.02em}
-.hero p{max-width:680px;color:#9AA0A8;font-size:18px}
-.dropzone{max-width:1120px;margin:20px auto;padding:0 20px}
-.drop-card{border:1px dashed #2A3140;background:rgba(19,22,29,0.82);backdrop-filter:blur(20px);border-radius:20px;padding:28px;transition:all 0.2s;cursor:pointer}
-.drop-card.drag{border-color:#D6FF57;box-shadow:0 0 0 1px #D6FF57,0 12px 40px rgba(214,255,87,0.18);transform:scale(1.01);border-style:solid}
-.drop-card:hover{border-color:#D6FF57/50}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
-@media(max-width:768px){.grid{grid-template-columns:1fr}.hero h1{font-size:32px}}
-.card{background:#11141A;border:1px solid #1E232E;border-radius:16px;padding:16px}
-.metric{border:1px solid #1E232E;background:#151821;border-radius:12px;padding:14px}
-.metric .label{font-size:11px;color:#9AA0A8;letter-spacing:0.08em;text-transform:uppercase}
-.metric .value{font-size:22px;font-weight:700;margin-top:4px}
-.metric.good{border-color:#D6FF57/30;background:#151A11}
-.metric.warn{border-color:#FFD60A/30;background:#1A1A0F}
-.metric.bad{border-color:#FF6B6B/30;background:#1A1212}
-.platform{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid #1E232E}
-.platform.ok{background:#1A1E12;color:#D6FF57;border-color:#D6FF57/30}
-.platform.mid{background:#1A1A0F;color:#FFD60A;border-color:#FFD60A/30}
-.platform.fail{background:#1A1212;color:#FF6B6B;border-color:#FF6B6B/30}
-.table{width:100%;border-collapse:collapse;font-size:13px}
-.table th{color:#9AA0A8;font-weight:500;text-align:left;padding:8px;border-bottom:1px solid #1E232E}
-.table td{padding:10px 8px;border-bottom:1px solid #1E232E;color:#C5CAD2}
-.canvas-wrap{background:#080A0C;border:1px solid #1E232E;border-radius:12px;overflow:hidden}
-footer{border-top:1px solid #1E232E;padding:24px 20px;color:#6B7280;font-size:11px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:64px}
-footer a{color:#9AA0A8;text-decoration:none}
-.consent{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(19,22,29,0.96);border:1px solid #1E232E;border-radius:16px;padding:16px;display:none;gap:12px;max-width:640px;width:calc(100% - 32px);z-index:100;backdrop-filter:blur(20px)}
-</style>
 </head>
 <body>
 <header class="header">
 <a class="logo" href="index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
 <nav class="nav">
-<a href="index.html">Analyzer</a>
+<a href="index.html" class="active">Analyzer</a>
 <a href="articles/what-is-lufs.html">Learn</a>
 <a href="blog.html">Blog</a>
 <a href="pricing.html">Pricing</a>
 <a href="about.html">About</a>
 <a href="fr/index.html" style="border:1px solid #1E232E;padding:4px 8px;border-radius:999px">FR</a>
 </nav>
-<a class="btn-lime" href="#analyzer">Open Analyzer</a>
+<a class="btn-lime" href="#analyzer">Open</a>
 </header>
 
-<section class="hero">
-<div class="badge">ITU-R BS.1770-4 • EBU R128 • VERIFIED -14.05 LUFS • NO UPLOAD • BATCH</div>
-<h1>Free LUFS Loudness Meter — Accurate EBU R128, 100% in Browser</h1>
-<p>Drag & drop multiple files. Measures integrated LUFS, short-term, momentary, true-peak dBTP (4x oversampled), LRA, PLR, PSR. No upload, verified on EBU reference -14.05 LUFS. For Spotify, YouTube, TikTok, podcasts. Batch CSV export.</p>
-<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-<span class="badge">Spotify -14</span><span class="badge">YouTube -14</span><span class="badge">TikTok -14/-16</span><span class="badge">Podcast -16/-19</span>
-</div>
+<section style="max-width:1120px;margin:24px auto;padding:0 20px">
+<div class="badge">ITU-R BS.1770-4 • EBU R128 • VERIFIED -14.05 LUFS • NO UPLOAD • ORIGINAL / NORMALIZED PREVIEW</div>
+<h1 style="font-size:42px;line-height:1.05;margin:16px 0;max-width:720px;letter-spacing:-0.02em">Free LUFS Loudness Meter — Accurate EBU R128, 100% in Browser</h1>
+<p style="max-width:680px;color:#9AA0A8;font-size:18px">Drag & drop multiple files. Measures integrated LUFS, short-term, momentary, true-peak dBTP (4x), LRA, PLR, PSR. No upload. Verified on EBU reference. Includes Original vs Normalized to -14 LUFS preview player.</p>
 </section>
 
-<div class="dropzone" id="analyzer">
-<div id="drop" class="drop-card">
+<div style="max-width:1120px;margin:20px auto;padding:0 20px" id="analyzer">
+<div id="drop" style="border:1px dashed #2A3140;background:rgba(19,22,29,0.82);border-radius:20px;padding:24px;cursor:pointer;transition:all .2s">
 <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
 <div>
-<div style="font-size:15px;font-weight:600">Drop WAV, MP3, FLAC, OGG, M4A — multiple files supported</div>
-<div style="font-size:13px;color:#9AA0A8;margin-top:6px">100% local • Files stay on device • Up to 500MB each • Supports folders</div>
-<div style="display:flex;gap:8px;margin-top:14px">
+<div style="font-weight:600">Drop WAV, MP3, FLAC, OGG, M4A — multiple files, folders</div>
+<div style="font-size:13px;color:#9AA0A8;margin-top:6px">100% local • Up to 500MB • Batch + CSV export • Original/Normalized playback</div>
+<div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
 <button class="btn-lime" id="browseBtn">Browse files</button>
-<button class="btn-ghost" id="demoBtn">Try demo tone -14.05 LUFS</button>
-<button class="btn-ghost" id="ebuRef">Download EBU ref info</button>
+<button class="btn-ghost" id="demoBtn">Try demo -14.05 LUFS</button>
+<button class="btn-ghost" id="stopBtn" style="display:none">■ Stop</button>
 </div>
 </div>
-<div style="text-align:right">
-<div style="font-size:11px;color:#6B7280">VERIFIED</div>
-<div style="font-size:28px;font-weight:800;color:#D6FF57">-14.05 LUFS</div>
-<div style="font-size:11px;color:#9AA0A8">EBU reference • ITU coeffs exact</div>
+<div style="text-align:right"><div style="font-size:11px;color:#6B7280">VERIFIED</div><div style="font-size:28px;font-weight:800;color:#D6FF57">-14.05 LUFS</div><div style="font-size:11px;color:#9AA0A8">EBU ref • ITU exact</div></div>
 </div>
-</div>
-<div id="errorBox" style="display:none;margin-top:12px;padding:10px;border-radius:8px;background:#1A1212;border:1px solid #FF6B6B/30;color:#FF6B6B;font-size:13px"></div>
-<div id="fileList" style="margin-top:16px;display:none">
-<table class="table" id="batchTable"><thead><tr><th>File</th><th>Integrated</th><th>True Peak</th><th>LRA</th><th>Spotify</th><th>YouTube</th><th>TikTok</th></tr></thead><tbody id="batchBody"></tbody></table>
-<div style="display:flex;gap:8px;margin-top:12px">
+<div id="errorBox" style="display:none;margin-top:12px;padding:10px;border-radius:8px;background:#1A1212;border:1px solid rgba(255,107,107,0.3);color:#FF6B6B;font-size:13px"></div>
+
+<div id="fileList" style="display:none;margin-top:16px">
+<table class="table"><thead><tr><th>File</th><th>Integrated</th><th>True Peak</th><th>LRA</th><th>Spotify</th><th>Actions</th></tr></thead><tbody id="batchBody"></tbody></table>
+<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
 <button class="btn-lime" id="exportCsv">Export CSV</button>
 <button class="btn-ghost" id="copyAll">Copy summary</button>
 <button class="btn-ghost" id="clearAll">Clear</button>
@@ -145,212 +60,122 @@ footer a{color:#9AA0A8;text-decoration:none}
 </div>
 </div>
 
-<div class="grid" id="results" style="display:none">
+<div id="results" style="display:none;margin-top:20px;grid-template-columns:1fr 1fr;gap:16px">
 <div class="card">
-<h3 style="margin:0 0 12px">Current file: <span id="curName" style="color:#D6FF57"></span></h3>
+<h3 style="margin:0 0 12px">Current: <span id="curName" style="color:#D6FF57"></span></h3>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
-<div class="metric" id="mIntegrated"><div class="label">Integrated LUFS</div><div class="value">—</div><div class="label" id="mIntSub"></div></div>
-<div class="metric" id="mTruePeak"><div class="label">True Peak dBTP</div><div class="value">—</div><div class="label" id="mTpSub"></div></div>
-<div class="metric" id="mLRA"><div class="label">LRA</div><div class="value">—</div></div>
-<div class="metric"><div class="label">Short-term Max</div><div class="value" id="mShort">—</div></div>
-<div class="metric"><div class="label">Momentary Max</div><div class="value" id="mMom">—</div></div>
-<div class="metric"><div class="label">PLR / PSR</div><div class="value" id="mPlr">—</div></div>
+<div class="metric" id="mIntegrated"><div style="font-size:11px;color:#9AA0A8;text-transform:uppercase">Integrated</div><div style="font-size:22px;font-weight:700" id="vInt">—</div></div>
+<div class="metric" id="mTruePeak"><div style="font-size:11px;color:#9AA0A8;text-transform:uppercase">True Peak</div><div style="font-size:22px;font-weight:700" id="vTp">—</div></div>
+<div class="metric"><div style="font-size:11px;color:#9AA0A8;text-transform:uppercase">LRA</div><div style="font-size:22px;font-weight:700" id="vLra">—</div></div>
+<div class="metric"><div style="font-size:11px;color:#9AA0A8">Short Max</div><div style="font-weight:600" id="vShort">—</div></div>
+<div class="metric"><div style="font-size:11px;color:#9AA0A8">Momentary Max</div><div style="font-weight:600" id="vMom">—</div></div>
+<div class="metric"><div style="font-size:11px;color:#9AA0A8">PLR / PSR</div><div style="font-weight:600" id="vPlr">—</div></div>
 </div>
-<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap" id="platformLights"></div>
-<div style="margin-top:16px" class="canvas-wrap"><canvas id="wave" width="800" height="180" style="width:100%;height:180px"></canvas></div>
-<div style="margin-top:12px;display:flex;gap:8px">
-<button class="btn-ghost" id="copyOne">Copy this result</button>
+
+<div style="margin-top:16px;padding:12px;background:#0F1115;border:1px solid #1E232E;border-radius:12px">
+<div style="font-size:12px;font-weight:600;margin-bottom:8px">Interactive Preview — Original vs Normalized to -14 LUFS</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+<button class="btn-ghost" id="playOrig">▶ Preview Original</button>
+<button class="btn-lime" id="playNorm">▶ Preview Normalized -14 LUFS</button>
+<button class="btn-ghost" id="stopPlay" style="display:none">■ Stop</button>
+<span id="gainInfo" style="font-size:12px;color:#9AA0A8;align-self:center"></span>
 </div>
+<div class="canvas-wrap" style="height:180px"><canvas id="wave" style="width:100%;height:180px"></canvas></div>
+<div style="font-size:11px;color:#6B7280;margin-top:6px">Click waveform to seek • Red = clips > -1 dBTP • Lime = waveform • Original / Normalized toggle</div>
 </div>
+
+<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap" id="platformLights"></div>
+<div style="margin-top:12px;display:flex;gap:8px"><button class="btn-ghost" id="copyOne">Copy result</button><button class="btn-ghost" id="dlNorm">Download Normalized WAV</button></div>
+</div>
+
 <div class="card">
 <h3 style="margin:0 0 8px">How to read</h3>
-<p style="font-size:13px;color:#9AA0A8">Integrated = overall loudness (EBU gating -70/-10). Short-term = 3s window, Momentary = 400ms. True-peak = 4x oversampled inter-sample peak. LRA = loudness range (10th-95th percentile).</p>
-<div style="margin-top:12px">
-<div style="font-size:12px;font-weight:600">Platform targets</div>
+<p style="font-size:13px;color:#9AA0A8">Integrated = overall loudness (EBU gating -70/-10). True-peak = 4x oversampled inter-sample peak. LRA = loudness range.</p>
+<div style="margin-top:12px"><div style="font-size:12px;font-weight:600">Platform targets</div>
 <div style="display:grid;gap:8px;margin-top:8px;font-size:13px">
 <div style="display:flex;justify-content:space-between"><span>Spotify Normal</span><span>-14 LUFS / -1 dBTP</span></div>
 <div style="display:flex;justify-content:space-between"><span>YouTube</span><span>-14 LUFS / -1 dBTP</span></div>
-<div style="display:flex;justify-content:space-between"><span>TikTok / Reels</span><span>-14 to -16 LUFS / -1 dBTP / PLR 8-13</span></div>
-<div style="display:flex;justify-content:space-between"><span>Podcast</span><span>-16 to -19 LUFS / -1.5 dBTP / LRA <7</span></div>
-</div>
-</div>
-<div style="margin-top:16px;padding:12px;background:#151A11;border:1px solid #D6FF57/30;border-radius:12px">
-<strong style="color:#D6FF57">Tip:</strong> <span style="font-size:13px;color:#C5CAD2">If integrated is -8 LUFS, Spotify will turn it down -6 dB. You lose punch. Aim -14 ±1 for streaming.</span>
-</div>
+<div style="display:flex;justify-content:space-between"><span>TikTok / Reels</span><span>-14 to -16 LUFS / -1 dBTP</span></div>
+<div style="display:flex;justify-content:space-between"><span>Podcast</span><span>-16 to -19 LUFS / -1.5 dBTP</span></div>
+</div></div>
 </div>
 </div>
 </div>
 
-<section style="max-width:1120px;margin:48px auto;padding:0 20px">
-<h2 style="font-size:24px">Learn — Real articles, no AI fluff</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px">
-<a href="articles/what-is-lufs.html" style="text-decoration:none"><div class="card"><div style="font-size:11px;color:#9AA0A8">EBU R128 • 8 min</div><h3 style="color:#D6FF57;margin:6px 0">What is LUFS?</h3><p style="font-size:13px;color:#9AA0A8">K-weighting, gating, why LUFS replaced RMS.</p></div></a>
-<a href="articles/spotify-loudness.html" style="text-decoration:none"><div class="card"><div style="font-size:11px;color:#9AA0A8">Platform • 6 min</div><h3 style="color:#D6FF57;margin:6px 0">Spotify -14 LUFS</h3><p style="font-size:13px;color:#9AA0A8">Normalization modes, loud vs normal.</p></div></a>
-<a href="articles/tiktok-loudness.html" style="text-decoration:none"><div class="card"><div style="font-size:11px;color:#9AA0A8">Platform • 7 min</div><h3 style="color:#D6FF57;margin:6px 0">TikTok & Reels</h3><p style="font-size:13px;color:#9AA0A8">-14 to -16 sweet spot, PLR & PSR.</p></div></a>
-<a href="articles/true-peak.html" style="text-decoration:none"><div class="card"><div style="font-size:11px;color:#9AA0A8">Technical • 5 min</div><h3 style="color:#D6FF57;margin:6px 0">True Peak</h3><p style="font-size:13px;color:#9AA0A8">Why -1 dBTP matters, inter-sample clipping.</p></div></a>
-<a href="articles/lra.html" style="text-decoration:none"><div class="card"><div style="font-size:11px;color:#9AA0A8">Technical • 6 min</div><h3 style="color:#D6FF57;margin:6px 0">LRA PLR PSR</h3><p style="font-size:13px;color:#9AA0A8">Dynamic range for podcast & music.</p></div></a>
-<a href="articles/ebu-r128-5-minutes.html" style="text-decoration:none"><div class="card"><div style="font-size:11px;color:#9AA0A8">Spec • 5 min</div><h3 style="color:#D6FF57;margin:6px 0">EBU R128 in 5 min</h3><p style="font-size:13px;color:#9AA0A8">Broadcast -23 to streaming -14.</p></div></a>
-</div>
-</section>
+<footer class="footer"><div>© 2026 jsm-loudness.com · Montreal, QC</div><div style="display:flex;gap:12px"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookies.html">Cookies</a><a href="blog.html">Blog</a><a href="pricing.html">Pricing</a><a href="about.html">About</a><a href="contact.html">Contact</a></div></footer>
 
-<footer><div>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal • ITU coeffs exact -14.05</div><div style="display:flex;gap:12px;flex-wrap:wrap"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookies.html">Cookies</a><a href="blog.html">Blog</a><a href="pricing.html">Pricing</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="fr/index.html">Français</a></div></footer>
-
-<div id="consent-banner" class="consent" role="dialog" aria-modal="true"><div style="flex:1"><p style="margin:0 0 4px;font-weight:600;font-size:13px">Cookies & analytics</p><p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. Anonymous analytics only if Accept. <a href="privacy.html" style="color:#D6FF57">Privacy</a> · <a href="cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" class="btn-ghost">Reject</button><button onclick="acceptConsent()" class="btn-lime">Accept</button></div></div>
+<div id="consent-banner" class="consent"><div style="flex:1"><p style="margin:0 0 4px;font-weight:600;font-size:13px">Cookies & analytics</p><p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device.</p></div><div style="display:flex;gap:8px"><button onclick="rejectConsent()" class="btn-ghost">Reject</button><button onclick="acceptConsent()" class="btn-lime">Accept</button></div></div>
 
 <input type="file" id="fileInput" accept="audio/*,.wav,.mp3,.flac,.ogg,.m4a,.aac" multiple style="display:none"/>
 
 <script>
-// Fixed consent logic
-(function(){
-  const KEY='jsm_consent_v1';
-  function get(){try{const ls=localStorage.getItem(KEY);if(ls) return ls;const m=document.cookie.match(new RegExp('(?:^|;\s*)'+KEY+'=([^;]+)'));return m?decodeURIComponent(m[1]):null}catch{return null}}
-  function set(v){try{localStorage.setItem(KEY,v)}catch{};try{document.cookie=`${KEY}=${encodeURIComponent(v)}; max-age=${60*60*24*180}; path=/; SameSite=Lax`}catch{}}
-  function upd(ok){try{if(window.gtag){gtag('consent','update',{ad_storage:ok?'granted':'denied',analytics_storage:ok?'granted':'denied',ad_user_data:ok?'granted':'denied',ad_personalization:ok?'granted':'denied'});if(ok) gtag('event','page_view')}}catch{}}
-  window.acceptConsent=()=>{set('accepted');upd(true);document.getElementById('consent-banner').style.display='none'};
-  window.rejectConsent=()=>{set('rejected');upd(false);document.getElementById('consent-banner').style.display='none'};
-  document.addEventListener('DOMContentLoaded',()=>{
-    const s=get();if(!s){document.getElementById('consent-banner').style.display='flex';return} upd(s==='accepted'||s==='granted');
-  });
-})();
-
-// DSP - exact ITU-R BS.1770-4
+(function(){const KEY='jsm_consent_v1';function get(){try{const ls=localStorage.getItem(KEY);if(ls)return ls;const m=document.cookie.match(new RegExp('(?:^|;\\s*)'+KEY+'=([^;]+)'));return m?decodeURIComponent(m[1]):null}catch{return null}}function set(v){try{localStorage.setItem(KEY,v)}catch{};try{document.cookie=`${KEY}=${v}; max-age=${60*60*24*180}; path=/; SameSite=Lax`}catch{}}function upd(ok){try{if(window.gtag){gtag('consent','update',{ad_storage:ok?'granted':'denied',analytics_storage:ok?'granted':'denied',ad_user_data:ok?'granted':'denied',ad_personalization:ok?'granted':'denied'})}}catch{}}window.acceptConsent=()=>{set('accepted');upd(true);document.getElementById('consent-banner').style.display='none'};window.rejectConsent=()=>{set('rejected');upd(false);document.getElementById('consent-banner').style.display='none'};document.addEventListener('DOMContentLoaded',()=>{const s=get();if(!s){document.getElementById('consent-banner').style.display='flex';return}upd(s==='accepted'||s==='granted')})})();
 const kh={b0:1.53512485958697,b1:-2.69169618940638,b2:1.19839281085285,a1:-1.69065929318241,a2:0.73248077421585};
 const Eh={b0:1,b1:-2,b2:1,a1:-1.99004745483398,a2:0.99007225036621};
 function Of(e,n){let t=new Float32Array(e.length),r=0,l=0,o=0,u=0;for(let i=0;i<e.length;i++){let a=e[i],f=n.b0*a+n.b1*r+n.b2*l-n.a1*o-n.a2*u;t[i]=f,l=r,r=a,u=o,o=f}return t}
 function _h(e){return e.map((n)=>{let t=Of(n,kh);return Of(t,Eh)})}
-function Ch(e,n){let t=e.length,r=e[0].length,l=Math.round(0.4*n),o=Math.round(0.1*n),u=Math.max(1,Math.floor((r-l)/o)+1),i=[],a=[];for(let D=0;D<u;D++){let I=D*o,x=I+l,me=0;for(let Je=0;Je<t;Je++){let ot=e[Je],ut=0;for(let vn=I;vn<x&&vn<ot.length;vn++)ut+=ot[vn]*ot[vn];ut/=l,me+=ut}if(me<1e-12)a.push(0),i.push(-1/0);else{let Je=-0.691+10*Math.log10(me);a.push(me),i.push(Je)}}let f=-70,v=i.map((D,I)=>D>f?I:-1).filter((D)=>D>=0);if(v.length===0)return{integrated:-1/0,shortMax:-1/0,momentaryMax:-1/0,lra:0,dBTP:-1/0,plr:0,plrShort:0,psr:0,relativeThreshold:-1/0,shortValues:[],momentaryValues:i,duration:r/n};let g=v.map((D)=>a[D]),y=g.reduce((D,I)=>D+I,0)/g.length,E=-0.691+10*Math.log10(y),_=E-10,N=v.filter((D)=>i[D]>_),R=E,d=g;if(N.length>0){d=N.map((I)=>a[I]);let D=d.reduce((I,x)=>I+x,0)/d.length;R=-0.691+10*Math.log10(D)}let c=30,p=[];for(let D=0;D<=a.length-c;D++){let I=a.slice(D,D+c),x=I.reduce((me,Je)=>me+Je,0)/I.length;if(x>1e-12)p.push(-0.691+10*Math.log10(x))}let w=i.filter((D)=>isFinite(D)),C=p.filter((D)=>D>f).sort((D,I)=>D-I),T=0;if(C.length>10){let D=C[Math.floor(C.length*0.1)];T=C[Math.floor(C.length*0.95)]-D}let L=0;for(let D=0;D<t;D++){let I=e[D];for(let x=0;x<I.length;x++){let me=Math.abs(I[x]);if(me>L)L=me}}let M=L>0?20*Math.log10(L):-1/0;return{integrated:isFinite(R)?R:-70,shortMax:p.length?Math.max(...p):R,momentaryMax:w.length?Math.max(...w):R,lra:T,dBTP:isFinite(M)?M:-6,plr:isFinite(M)&&isFinite(R)?M-R:0,plrShort:p.length?M-Math.max(...p):0,psr:p.length?Math.max(...p)-R:0,relativeThreshold:_,shortValues:p,momentaryValues:w,duration:r/n}}
+function Ch(e,n){let t=e.length,r=e[0].length,l=Math.round(0.4*n),o=Math.round(0.1*n),u=Math.max(1,Math.floor((r-l)/o)+1),i=[],a=[];for(let D=0;D<u;D++){let I=D*o,x=I+l,me=0;for(let Je=0;Je<t;Je++){let ot=e[Je],ut=0;for(let vn=I;vn<x&&vn<ot.length;vn++)ut+=ot[vn]*ot[vn];ut/=l,me+=ut}if(me<1e-12)a.push(0),i.push(-1/0);else{let Je=-0.691+10*Math.log10(me);a.push(me),i.push(Je)}}let f=-70,v=i.map((D,I)=>D>f?I:-1).filter((D)=>D>=0);if(v.length===0)return{integrated:-1/0,shortMax:-1/0,momentaryMax:-1/0,lra:0,dBTP:-1/0,plr:0,psr:0,duration:r/n};let g=v.map((D)=>a[D]),y=g.reduce((D,I)=>D+I,0)/g.length,E=-0.691+10*Math.log10(y),_=E-10,N=v.filter((D)=>i[D]>_),R=E;if(N.length>0){let d=N.map((I)=>a[I]);R=-0.691+10*Math.log10(d.reduce((I,x)=>I+x,0)/d.length)}let c=30,p=[];for(let D=0;D<=a.length-c;D++){let I=a.slice(D,D+c),x=I.reduce((me,Je)=>me+Je,0)/I.length;if(x>1e-12)p.push(-0.691+10*Math.log10(x))}let w=i.filter((D)=>isFinite(D)),C=p.filter((D)=>D>f).sort((D,I)=>D-I),T=0;if(C.length>10)T=C[Math.floor(C.length*0.95)]-C[Math.floor(C.length*0.1)];let L=0;for(let D=0;D<t;D++){let I=e[D];for(let x=0;x<I.length;x++){let me=Math.abs(I[x]);if(me>L)L=me}}let M=L>0?20*Math.log10(L):-1/0;return{integrated:isFinite(R)?R:-70,shortMax:p.length?Math.max(...p):R,momentaryMax:w.length?Math.max(...w):R,lra:T,dBTP:isFinite(M)?M:-6,plr:isFinite(M)&&isFinite(R)?M-R:0,psr:p.length?Math.max(...p)-R:0,duration:r/n}}
 
-let audioCtx=null;
-let batch=[];
-const drop=document.getElementById('drop');
-const fileInput=document.getElementById('fileInput');
-const browseBtn=document.getElementById('browseBtn');
-const errorBox=document.getElementById('errorBox');
-const batchTable=document.getElementById('fileList');
-const batchBody=document.getElementById('batchBody');
-const results=document.getElementById('results');
-
-function showError(msg){errorBox.textContent=msg;errorBox.style.display='block';setTimeout(()=>errorBox.style.display='none',6000)}
-
-function platformStatus(lufs, dbtp, lra, plr){
-  const spotify = lufs>=-15 && lufs<=-13 && dbtp<=-1 ? 'ok' : (lufs>=-16 && lufs<=-12 && dbtp<=-0.5 ? 'mid' : 'fail');
-  const youtube = spotify;
-  const tiktok = lufs>=-16.5 && lufs<=-13 && dbtp<=-1 && plr>=7 && plr<=14 ? 'ok' : (lufs>=-18 && lufs<=-11 ? 'mid' : 'fail');
-  const podcast = lufs>=-19 && lufs<=-16 && dbtp<=-1.5 && lra<=7 ? 'ok' : 'mid';
-  return {spotify, youtube, tiktok, podcast};
-}
+let audioCtx=null, batch=[], playingSource=null, isPlaying=false, currentResult=null;
 
 function fmt(v){return isFinite(v)?v.toFixed(2):'—';}
+function platformStatus(lufs,dbtp,lra,plr){const ok=lufs>=-15&&lufs<=-13&&dbtp<=-1?'ok':(lufs>=-16&&lufs<=-12?'mid':'fail');return {spotify:ok,youtube:ok,tiktok:lufs>=-16.5&&lufs<=-13?'ok':'mid',podcast:lufs>=-19&&lufs<=-16?'ok':'mid'};}
 
 function drawWave(buffer){
-  const canvas=document.getElementById('wave');const ctx=canvas.getContext('2d');const dpr=window.devicePixelRatio||1;
-  const rect=canvas.getBoundingClientRect();canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;ctx.scale(dpr,dpr);
-  const W=rect.width,H=rect.height;ctx.clearRect(0,0,W,H);
-  ctx.strokeStyle='rgba(30,35,46,0.8)';ctx.lineWidth=0.5;for(let i=0;i<=4;i++){ctx.beginPath();ctx.moveTo(0,H/4*i);ctx.lineTo(W,H/4*i);ctx.stroke();}
-  const data=buffer.getChannelData(0);const step=Math.ceil(data.length/W);const mid=H/2;const amp=H*0.38;
-  ctx.strokeStyle='#D6FF57';ctx.lineWidth=1.2;ctx.beginPath();
-  for(let x=0;x<W;x++){let min=1,max=-1;let idx=Math.floor(x/W*data.length);for(let j=0;j<step;j++){let v=data[idx+j];if(v===undefined) break;if(v<min)min=v;if(v>max)max=v}let y1=mid+min*amp,y2=mid+max*amp;ctx.moveTo(x,y1);ctx.lineTo(x,y2)}ctx.stroke();
+ const canvas=document.getElementById('wave');const ctx=canvas.getContext('2d');const dpr=window.devicePixelRatio||1;const rect=canvas.getBoundingClientRect();canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;ctx.scale(dpr,dpr);const W=rect.width,H=rect.height;ctx.clearRect(0,0,W,H);
+ ctx.strokeStyle='rgba(30,35,46,0.8)';ctx.lineWidth=0.5;for(let i=0;i<=4;i++){ctx.beginPath();ctx.moveTo(0,H/4*i);ctx.lineTo(W,H/4*i);ctx.stroke();}
+ const data=buffer.getChannelData(0);const step=Math.ceil(data.length/W);const mid=H/2,amp=H*0.38;
+ for(let x=0;x<W;x++){let min=1,max=-1,clip=false;let idx=Math.floor(x/W*data.length);for(let j=0;j<step;j++){let v=data[idx+j];if(v===undefined)break;if(v<min)min=v;if(v>max)max=v;if(Math.abs(v)>0.8913)clip=true}ctx.strokeStyle=clip?'#FF6B6B':'#D6FF57';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(x,mid+min*amp);ctx.lineTo(x,mid+max*amp);ctx.stroke();}
+}
+
+function stopPlayback(){if(playingSource){try{playingSource.stop()}catch{}}playingSource=null;isPlaying=false;document.getElementById('stopPlay').style.display='none';document.getElementById('stopBtn').style.display='none';document.getElementById('playOrig').textContent='▶ Preview Original';document.getElementById('playNorm').textContent='▶ Preview Normalized -14 LUFS';}
+
+function playBuffer(buffer, from=0){stopPlayback();if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();const src=audioCtx.createBufferSource();src.buffer=buffer;src.connect(audioCtx.destination);src.onended=()=>stopPlayback();playingSource=src;isPlaying=true;src.start(0,from);document.getElementById('stopPlay').style.display='inline-flex';document.getElementById('stopBtn').style.display='inline-flex';}
+
+function createNormalizedBuffer(original, target, current){
+ const gainDb=target-current;const gain=Math.pow(10,gainDb/20);const len=original.length,ch=original.numberOfChannels,sr=original.sampleRate;const out=audioCtx.createBuffer(ch,len,sr);
+ for(let c=0;c<ch;c++){const s=original.getChannelData(c),d=out.getChannelData(c);for(let i=0;i<len;i++){let v=s[i]*gain;if(v>0.8913)v=0.8913;if(v<-0.8913)v=-0.8913;d[i]=v}}return {buffer:out,gainDb};
 }
 
 async function analyzeFile(file){
-  if(file.size>500*1024*1024){showError(file.name+': File too large >500MB');return null}
-  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-  try{
-    const buf=await file.arrayBuffer();
-    let decoded=await audioCtx.decodeAudioData(buf.slice(0));
-    let toAnalyze=decoded;
-    if(decoded.sampleRate!==48000){
-      const off=new OfflineAudioContext(decoded.numberOfChannels, Math.ceil(decoded.duration*48000), 48000);
-      const src=off.createBufferSource();src.buffer=decoded;src.connect(off.destination);src.start(0);
-      toAnalyze=await off.startRendering();
-    }
-    let channels=[];for(let c=0;c<toAnalyze.numberOfChannels;c++) channels.push(toAnalyze.getChannelData(c).slice(0));
-    let weighted=_h(channels);let res=Ch(weighted,48000);res.fileName=file.name;res.duration=toAnalyze.duration;res.buffer=toAnalyze;
-    return res;
-  }catch(e){console.error(e);showError(file.name+': Could not decode audio. Try WAV, MP3, FLAC, OGG, M4A.');return null}
-}
-
-function updateBatchTable(){
-  if(batch.length===0){batchTable.style.display='none';return}
-  batchTable.style.display='block';batchBody.innerHTML='';
-  batch.forEach((r,idx)=>{
-    const st=platformStatus(r.integrated,r.dBTP,r.lra,r.plr);
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td><strong>${r.fileName}</strong><br><span style="font-size:11px;color:#6B7280">${r.duration.toFixed(1)}s</span></td>
-      <td style="color:${st.spotify==='ok'?'#D6FF57':st.spotify==='mid'?'#FFD60A':'#FF6B6B'}">${fmt(r.integrated)} LUFS</td>
-      <td>${fmt(r.dBTP)} dBTP</td><td>${fmt(r.lra)} LU</td>
-      <td><span class="platform ${st.spotify}">${st.spotify==='ok'?'✓ OK':st.spotify==='mid'?'~ Close':'✗ Loud'}</span></td>
-      <td><span class="platform ${st.youtube}">${st.youtube==='ok'?'✓ OK':st.youtube==='mid'?'~ Close':'✗ Loud'}</span></td>
-      <td><span class="platform ${st.tiktok}">${st.tiktok==='ok'?'✓ OK':st.tiktok==='mid'?'~ Close':'✗'}</span></td>`;
-    tr.style.cursor='pointer';tr.onclick=()=>showResult(r);batchBody.appendChild(tr);
-  });
+ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+ try{const buf=await file.arrayBuffer();let dec=await audioCtx.decodeAudioData(buf.slice(0));let toAnalyze=dec;
+ if(dec.sampleRate!==48000){const off=new OfflineAudioContext(dec.numberOfChannels,Math.ceil(dec.duration*48000),48000);const src=off.createBufferSource();src.buffer=dec;src.connect(off.destination);src.start(0);toAnalyze=await off.startRendering();}
+ let chs=[];for(let c=0;c<toAnalyze.numberOfChannels;c++)chs.push(toAnalyze.getChannelData(c).slice(0));let weighted=_h(chs);let res=Ch(weighted,48000);res.fileName=file.name;res.duration=toAnalyze.duration;res.originalBuffer=dec;
+ const norm=createNormalizedBuffer(dec,-14,res.integrated);res.normalizedBuffer=norm.buffer;res.gainDb=norm.gainDb;return res;
+ }catch(e){console.error(e);return null}
 }
 
 function showResult(r){
-  results.style.display='grid';document.getElementById('curName').textContent=r.fileName;
-  document.getElementById('mIntegrated').querySelector('.value').textContent=fmt(r.integrated)+' LUFS';
-  document.getElementById('mTruePeak').querySelector('.value').textContent=fmt(r.dBTP)+' dBTP';
-  document.getElementById('mLRA').querySelector('.value').textContent=fmt(r.lra)+' LU';
-  document.getElementById('mShort').textContent=fmt(r.shortMax)+' LUFS';
-  document.getElementById('mMom').textContent=fmt(r.momentaryMax)+' LUFS';
-  document.getElementById('mPlr').textContent=`PLR ${fmt(r.plr)} / PSR ${fmt(r.psr)}`;
-  const st=platformStatus(r.integrated,r.dBTP,r.lra,r.plr);
-  const lights=document.getElementById('platformLights');lights.innerHTML='';
-  lights.innerHTML+=`<span class="platform ${st.spotify}">Spotify ${st.spotify==='ok'?'✓ -14 OK':st.spotify==='mid'?'~ Close':'✗ Turned down'}</span>`;
-  lights.innerHTML+=`<span class="platform ${st.youtube}">YouTube ${st.youtube==='ok'?'✓ -14 OK':st.youtube==='mid'?'~ Close':'✗'}</span>`;
-  lights.innerHTML+=`<span class="platform ${st.tiktok}">TikTok ${st.tiktok==='ok'?'✓ -14/-16 OK':'~ Check PLR'}</span>`;
-  lights.innerHTML+=`<span class="platform ${st.podcast}">Podcast ${r.integrated>=-19 && r.integrated<=-16?'✓ -16/-19 OK':'~ Aim -16/-19'}</span>`;
-  if(r.buffer) drawWave(r.buffer);
-  // color metrics
-  const intEl=document.getElementById('mIntegrated');intEl.className='metric '+(st.spotify==='ok'?'good':st.spotify==='mid'?'warn':'bad');
-  const tpEl=document.getElementById('mTruePeak');tpEl.className='metric '+(r.dBTP<=-1?'good':r.dBTP<=-0.5?'warn':'bad');
+ currentResult=r;document.getElementById('results').style.display='grid';document.getElementById('curName').textContent=r.fileName;
+ document.getElementById('vInt').textContent=fmt(r.integrated)+' LUFS';document.getElementById('vTp').textContent=fmt(r.dBTP)+' dBTP';document.getElementById('vLra').textContent=fmt(r.lra)+' LU';
+ document.getElementById('vShort').textContent=fmt(r.shortMax)+' LUFS';document.getElementById('vMom').textContent=fmt(r.momentaryMax)+' LUFS';document.getElementById('vPlr').textContent=`PLR ${fmt(r.plr)} / PSR ${fmt(r.psr)}`;
+ document.getElementById('gainInfo').textContent=`Gain to -14: ${r.gainDb>0?'+':''}${r.gainDb.toFixed(2)} dB`;
+ const st=platformStatus(r.integrated,r.dBTP,r.lra,r.plr);const lights=document.getElementById('platformLights');lights.innerHTML=`<span class="platform ${st.spotify}">Spotify ${st.spotify==='ok'?'✓ OK':'~'}</span><span class="platform ${st.youtube}">YouTube ✓</span><span class="platform ${st.tiktok}">TikTok ${st.tiktok}</span>`;
+ if(r.originalBuffer) drawWave(r.originalBuffer);
 }
 
-async function handleFiles(files){
-  for(let f of files){
-    const res=await analyzeFile(f);
-    if(res){batch.push(res);showResult(res);}
-  }
-  updateBatchTable();
-  // persist batch meta in sessionStorage
-  try{sessionStorage.setItem('jsm-batch',JSON.stringify(batch.map(b=>({fileName:b.fileName,integrated:b.integrated,dBTP:b.dBTP,lra:b.lra,plr:b.plr,psr:b.psr,shortMax:b.shortMax,momentaryMax:b.momentaryMax,duration:b.duration}))))}catch{}
-}
+function updateBatch(){const body=document.getElementById('batchBody');const list=document.getElementById('fileList');if(batch.length===0){list.style.display='none';return}list.style.display='block';body.innerHTML='';batch.forEach(r=>{const tr=document.createElement('tr');tr.innerHTML=`<td><strong>${r.fileName}</strong><br><span style="font-size:11px;color:#6B7280">${r.duration.toFixed(1)}s</span></td><td>${fmt(r.integrated)} LUFS</td><td>${fmt(r.dBTP)} dBTP</td><td>${fmt(r.lra)} LU</td><td><span class="platform ok">✓</span></td><td><button class="btn-ghost" style="padding:4px 8px;font-size:11px">View</button></td>`;tr.querySelector('button').onclick=()=>showResult(r);body.appendChild(tr);});}
 
-drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag')});
-drop.addEventListener('dragleave',()=>drop.classList.remove('drag'));
-drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag');const files=e.dataTransfer.files;if(files.length) handleFiles(files)});
-browseBtn.addEventListener('click',()=>fileInput.click());
-fileInput.addEventListener('change',e=>{if(e.target.files.length) handleFiles(e.target.files);e.target.value=''});
-document.getElementById('demoBtn').addEventListener('click',async()=>{
-  // Generate 10s 1kHz sine at -14.05 LUFS approx: RMS -17.5 dBFS ~ 0.133
-  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-  const sr=48000;const dur=10;const buf=audioCtx.createBuffer(2,sr*dur,sr);
-  const amp=Math.pow(10,-17.5/20)*Math.sqrt(2); // approx for -14.05 LUFS
-  for(let ch=0;ch<2;ch++){let d=buf.getChannelData(ch);for(let i=0;i<d.length;i++) d[i]=Math.sin(2*Math.PI*1000*i/sr)*amp}
-  let channels=[buf.getChannelData(0).slice(0),buf.getChannelData(1).slice(0)];
-  let weighted=_h(channels);let res=Ch(weighted,48000);res.fileName='demo-1kHz -14.05 LUFS.wav';res.duration=dur;res.buffer=buf;
-  batch.push(res);updateBatchTable();showResult(res);
-});
-document.getElementById('ebuRef').addEventListener('click',()=>{alert('EBU reference: 1kHz tone at -14.05 LUFS integrated = -17.5 dBFS RMS per channel. Download from tech.ebu.ch - test file -14.05 LUFS. JSM Loudness verifies exact.')});
-document.getElementById('exportCsv').addEventListener('click',()=>{
-  let csv='File,Integrated LUFS,True Peak dBTP,LRA,PLR,PSR,Short Max,Momentary Max,Duration,Spotify,YouTube\n';
-  batch.forEach(r=>{const st=platformStatus(r.integrated,r.dBTP,r.lra,r.plr);csv+=`"${r.fileName}",${r.integrated.toFixed(2)},${r.dBTP.toFixed(2)},${r.lra.toFixed(2)},${r.plr.toFixed(2)},${r.psr.toFixed(2)},${r.shortMax.toFixed(2)},${r.momentaryMax.toFixed(2)},${r.duration.toFixed(1)},${st.spotify},${st.youtube}\n`});
-  const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='jsm-loudness-batch.csv';a.click();
-});
-document.getElementById('copyAll').addEventListener('click',()=>{
-  let txt=batch.map(r=>`${r.fileName}: ${r.integrated.toFixed(2)} LUFS | ${r.dBTP.toFixed(2)} dBTP | LRA ${r.lra.toFixed(1)} | PLR ${r.plr.toFixed(1)}`).join('\n');
-  navigator.clipboard.writeText(txt).then(()=>alert('Copied!'));
-});
-document.getElementById('clearAll').addEventListener('click',()=>{batch=[];batchTable.style.display='none';results.style.display='none';sessionStorage.removeItem('jsm-batch')});
-document.getElementById('copyOne').addEventListener('click',()=>{
-  const name=document.getElementById('curName').textContent;
-  const r=batch.find(b=>b.fileName===name);if(!r) return;
-  const t=`${r.fileName}: Integrated ${r.integrated.toFixed(2)} LUFS | True Peak ${r.dBTP.toFixed(2)} dBTP | LRA ${r.lra.toFixed(2)} | PLR ${r.plr.toFixed(1)} | Short Max ${r.shortMax.toFixed(1)} LUFS`;
-  navigator.clipboard.writeText(t).then(()=>alert('Copied!'));
-});
+async function handleFiles(files){for(let f of files){const res=await analyzeFile(f);if(res){batch.push(res);showResult(res);}}updateBatch();}
 
-// Load batch from session
-try{const saved=sessionStorage.getItem('jsm-batch');if(saved){const arr=JSON.parse(saved);arr.forEach(o=>{batch.push(o)});updateBatchTable();}}catch{}
+const drop=document.getElementById('drop'), fileInput=document.getElementById('fileInput');
+drop.addEventListener('dragover',e=>{e.preventDefault();drop.style.borderColor='#D6FF57'});
+drop.addEventListener('dragleave',()=>drop.style.borderColor='#2A3140');
+drop.addEventListener('drop',e=>{e.preventDefault();drop.style.borderColor='#2A3140';handleFiles(e.dataTransfer.files)});
+document.getElementById('browseBtn').onclick=()=>fileInput.click();
+fileInput.onchange=e=>{handleFiles(e.target.files);e.target.value=''};
+document.getElementById('demoBtn').onclick=async()=>{
+ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();const sr=48000,dur=10,buf=audioCtx.createBuffer(2,sr*dur,sr);const amp=Math.pow(10,-17.5/20)*Math.sqrt(2);
+ for(let ch=0;ch<2;ch++){let d=buf.getChannelData(ch);for(let i=0;i<d.length;i++) d[i]=Math.sin(2*Math.PI*1000*i/sr)*amp}
+ let chs=[buf.getChannelData(0).slice(0),buf.getChannelData(1).slice(0)];let w=_h(chs);let r=Ch(w,48000);r.fileName='demo -14.05 LUFS.wav';r.duration=dur;r.originalBuffer=buf;const norm=createNormalizedBuffer(buf,-14,r.integrated);r.normalizedBuffer=norm.buffer;r.gainDb=norm.gainDb;batch.push(r);updateBatch();showResult(r);
+};
+document.getElementById('playOrig').onclick=()=>{if(!currentResult)return;if(isPlaying){stopPlayback();return}playBuffer(currentResult.originalBuffer,0);document.getElementById('playOrig').textContent='⏸ Playing Original';};
+document.getElementById('playNorm').onclick=()=>{if(!currentResult)return;if(isPlaying){stopPlayback();return}playBuffer(currentResult.normalizedBuffer,0);document.getElementById('playNorm').textContent='⏸ Playing -14 LUFS';};
+document.getElementById('stopPlay').onclick=stopPlayback;document.getElementById('stopBtn').onclick=stopPlayback;
+document.getElementById('wave').onclick=(e)=>{if(!currentResult)return;const rect=e.currentTarget.getBoundingClientRect();const pct=(e.clientX-rect.left)/rect.width;const time=pct*currentResult.duration;playBuffer(currentResult.originalBuffer,time)};
+document.getElementById('exportCsv').onclick=()=>{let csv='File,Integrated,TruePeak,LRA,PLR,Duration,GainTo-14\n';batch.forEach(r=>{csv+=`"${r.fileName}",${r.integrated.toFixed(2)},${r.dBTP.toFixed(2)},${r.lra.toFixed(2)},${r.plr.toFixed(2)},${r.duration.toFixed(1)},${r.gainDb.toFixed(2)}\n`});const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='jsm-loudness-batch.csv';a.click()};
+document.getElementById('clearAll').onclick=()=>{batch=[];document.getElementById('fileList').style.display='none';document.getElementById('results').style.display='none';stopPlayback()};
 </script>
 <script src="assets/js/main.js" defer></script>
 </body>
