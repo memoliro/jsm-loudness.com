@@ -1,25 +1,47 @@
 
 (function(){
   const KEY = 'jsm_consent_v1';
-  const BANNER = document.getElementById('consent-banner');
-  function get(){ try { return localStorage.getItem(KEY); } catch(e){ return null; } }
-  function setGranted(){
+  function getLS(){ try { return localStorage.getItem(KEY); } catch(e){ return null; } }
+  function setLS(v){ try { localStorage.setItem(KEY, v); } catch(e){} }
+  function getCookie(){
     try {
-      localStorage.setItem(KEY, 'granted');
-      document.cookie = KEY + '=granted; path=/; max-age=' + (365*24*3600) + '; SameSite=Lax; Secure';
+      var m = document.cookie.match(new RegExp('(?:^|; )' + KEY + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : null;
+    } catch(e){ return null; }
+  }
+  function setCookie(v, days){
+    try {
+      var expires = '';
+      if(days){
+        var d = new Date();
+        d.setTime(d.getTime() + (days*24*60*60*1000));
+        expires = '; expires=' + d.toUTCString();
+      }
+      var secure = location.protocol === 'https:' ? '; Secure' : '';
+      document.cookie = KEY + '=' + encodeURIComponent(v) + expires + '; path=/' + '; SameSite=Lax' + secure;
     } catch(e){}
+  }
+  function getConsent(){
+    return getLS() || getCookie();
+  }
+  function setGranted(){
+    setLS('granted');
+    setCookie('granted', 365);
   }
   function setDenied(){
-    try {
-      localStorage.setItem(KEY, 'denied');
-      document.cookie = KEY + '=denied; path=/; max-age=' + (24*3600) + '; SameSite=Lax; Secure';
-    } catch(e){}
+    setLS('denied');
+    setCookie('denied', 1);
   }
-  function show(){ if(BANNER) BANNER.style.display='flex'; }
-  function hide(){ if(BANNER) BANNER.style.display='none'; }
-
-  window.acceptConsent = function(){
-    setGranted();
+  function getBanner(){ return document.getElementById('consent-banner'); }
+  function showBanner(){
+    var b = getBanner();
+    if(b) b.style.display = 'flex';
+  }
+  function hideBanner(){
+    var b = getBanner();
+    if(b) b.style.display = 'none';
+  }
+  function enableGA(){
     if(typeof gtag === 'function'){
       gtag('consent','update',{
         analytics_storage:'granted',
@@ -28,25 +50,41 @@
         ad_personalization:'denied'
       });
       gtag('config','G-64EC8JJF7Q',{anonymize_ip:true});
-      gtag('event','page_view');
     }
-    hide();
+  }
+
+  window.acceptConsent = function(){
+    setGranted();
+    enableGA();
+    if(typeof gtag === 'function'){ try { gtag('event','page_view'); } catch(e){} }
+    hideBanner();
+    console.log('[JSM] consent granted, will never ask again');
   };
   window.rejectConsent = function(){
     setDenied();
-    hide();
-    // Per request: ask until Accept - show again after short delay
-    setTimeout(show, 1500);
+    hideBanner();
+    // As per your request: ask until Accept - show again after 2 sec
+    setTimeout(showBanner, 2000);
+    console.log('[JSM] consent denied, will ask again');
   };
 
-  var c = get();
-  if(c === 'granted'){
-    if(typeof gtag === 'function'){
-      gtag('consent','update',{analytics_storage:'granted'});
-      gtag('config','G-64EC8JJF7Q',{anonymize_ip:true});
+  function init(){
+    var c = getConsent();
+    console.log('[JSM] consent check:', c);
+    if(c === 'granted'){
+      enableGA();
+      hideBanner();
+    } else {
+      // not granted -> show until accepted
+      showBanner();
     }
-    hide();
-  } else {
-    setTimeout(show, 600);
   }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  // also try again after 800ms in case banner injected late (React)
+  setTimeout(init, 800);
 })();
