@@ -54,8 +54,11 @@
 </style>
 <style id="jsm-theme-styles">
 body.jsm-light{background:#f5f6f8!important;color:#18202a!important}
-body.jsm-light [class*="bg-[#0A0C0F]"],body.jsm-light [class*="bg-[#080A0C]"],body.jsm-light [class*="bg-[#0F1115]"],body.jsm-light [class*="bg-[#13161D]"],body.jsm-light [class*="bg-[#151821]"],body.jsm-light [class*="bg-[#1A1E12]"],body.jsm-light [class*="bg-[rgba(19,22,29"]{background:#fff!important}
-body.jsm-light [class*="bg-[rgba(15,17,21"]{background:rgba(255,255,255,.92)!important}
+body.jsm-light [class*="bg-[#0A0C0F]" i],body.jsm-light [class*="bg-[#080A0C]" i],body.jsm-light [class*="bg-[#0F1115]" i],body.jsm-light [class*="bg-[#13161D]" i],body.jsm-light [class*="bg-[#151821]" i],body.jsm-light [class*="bg-[#1A1E12]" i],body.jsm-light [class*="bg-[rgba(19,22,29]" i]{background:#fff!important}
+body.jsm-light [class*="bg-[rgba(15,17,21]" i]{background:rgba(255,255,255,.92)!important}
+body.jsm-light [style*="background:#0A0C0F" i],body.jsm-light [style*="background:#080A0C" i],body.jsm-light [style*="background:#0F1115" i],body.jsm-light [style*="background:#13161D" i],body.jsm-light [style*="background:#151821" i],body.jsm-light [style*="background:rgb(10, 12, 15)" i],body.jsm-light [style*="background:rgb(15, 17, 21)" i]{background:#fff!important}
+body.jsm-light [style*="color:#E6E8EC" i],body.jsm-light [style*="color:#E6E8EC" i] *{color:#18202a!important}
+body.jsm-light [style*="color:#9AA0A8" i]{color:#5d6673!important}
 body.jsm-light [class*="text-[#E6E8EC]"]{color:#18202a!important}
 body.jsm-light [class*="text-[#9AA0A8]"]{color:#5d6673!important}
 body.jsm-light [class*="text-[#6B7280]"]{color:#697381!important}
@@ -145,8 +148,14 @@ body.jsm-light .jsm-lang-option{color:#394352!important}
 }
 function initTheme(){
  applyTheme(localStorage.getItem('jsm-theme')==='light'?'light':'dark');
- document.addEventListener('click',e=>{if(e.target.closest('#jsm-theme-toggle'))applyTheme(document.body.classList.contains('jsm-light')?'dark':'light')});
 }
+document.addEventListener('click',function(e){
+  const btn=e.target.closest && e.target.closest('#jsm-theme-toggle');
+  if(!btn)return;
+  e.preventDefault();
+  e.stopPropagation();
+  applyTheme(document.body.classList.contains('jsm-light')?'dark':'light');
+});
 
 function addLanguageSelector(){
     document.querySelectorAll('header nav').forEach(nav=>{
@@ -163,7 +172,7 @@ function addLanguageSelector(){
     applyLanguage();
   }
   document.querySelectorAll('header').forEach(h=>{if(h.textContent.includes('Open Analyzer')&&h.textContent.includes('VERIFIED'))h.style.display='none';});
-  document.addEventListener('DOMContentLoaded',addLanguageSelector);
+  document.addEventListener('DOMContentLoaded',function(){initTheme();addLanguageSelector();});
   new MutationObserver(()=>{addLanguageSelector();if(isFrench())translateText(document.body);}).observe(document.body,{childList:true,subtree:true});
   setInterval(addLanguageSelector,1000);
 })();
