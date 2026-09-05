@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jsm-loudness.com/</loc><lastmod>2026-09-04</lastmod><priority>1.0</priority></url>
-  <url><loc>https://jsm-loudness.com/blog.html</loc><lastmod>2026-09-04</lastmod><priority>0.8</priority></url>
-  <url><loc>https://jsm-loudness.com/pricing.html</loc><lastmod>2026-09-04</lastmod><priority>0.6</priority></url>
-  <url><loc>https://jsm-loudness.com/about.html</loc><lastmod>2026-09-04</lastmod><priority>0.5</priority></url>
-  <url><loc>https://jsm-loudness.com/articles/what-is-lufs.html</loc><lastmod>2026-09-04</lastmod><priority>0.8</priority></url>
-  <url><loc>https://jsm-loudness.com/articles/spotify-loudness.html</loc><lastmod>2026-09-04</lastmod><priority>0.8</priority></url>
-  <url><loc>https://jsm-loudness.com/articles/tiktok-loudness.html</loc><lastmod>2026-09-04</lastmod><priority>0.8</priority></url>
-  <url><loc>https://jsm-loudness.com/articles/why-minus-14-is-new-zero.html</loc><lastmod>2026-09-04</lastmod><priority>0.8</priority></url>
-  <url><loc>https://jsm-loudness.com/articles/true-peak.html</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
-  <url><loc>https://jsm-loudness.com/articles/dbtp-true-peak-vs-sample.html</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
-  <url><loc>https://jsm-loudness.com/articles/lra.html</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
-  <url><loc>https://jsm-loudness.com/articles/ebu-r128-5-minutes.html</loc><lastmod>2026-09-04</lastmod><priority>0.7</priority></url>
-  <url><loc>https://jsm-loudness.com/privacy.html</loc><lastmod>2026-09-04</lastmod><priority>0.3</priority></url>
-  <url><loc>https://jsm-loudness.com/terms.html</loc><lastmod>2026-09-04</lastmod><priority>0.3</priority></url>
-  <url><loc>https://jsm-loudness.com/cookies.html</loc><lastmod>2026-09-04</lastmod><priority>0.3</priority></url>
-  <url><loc>https://jsm-loudness.com/contact.html</loc><lastmod>2026-09-04</lastmod><priority>0.3</priority></url>
+  <url><loc>https://jsm-loudness.com/</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/blog.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/pricing.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/about.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/articles/what-is-lufs.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/articles/spotify-loudness.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/articles/tiktok-loudness.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/articles/why-minus-14-is-new-zero.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/articles/true-peak.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/articles/dbtp-true-peak-vs-sample.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/articles/lra.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/articles/ebu-r128-5-minutes.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/privacy.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/terms.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/cookies.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/contact.html</loc><lastmod>2026-09-05</lastmod></url>
+  <url><loc>https://jsm-loudness.com/fr/</loc><lastmod>2026-09-05</lastmod></url>
 </urlset>

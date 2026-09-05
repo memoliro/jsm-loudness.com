@@ -1,9 +1,4 @@
 User-agent: *
 Allow: /
 
-# Sitemap
 Sitemap: https://jsm-loudness.com/sitemap.xml
-
-# Block AI scrapers if you want privacy (optional)
-# User-agent: GPTBot
-# Disallow: /
