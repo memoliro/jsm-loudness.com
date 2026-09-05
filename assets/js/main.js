@@ -1,90 +1,68 @@
-
+// assets/js/main.js - FIXED for jsm-loudness.com
+// Fixes consent persistence - saves to localStorage + cookie for 180 days
 (function(){
   const KEY = 'jsm_consent_v1';
-  function getLS(){ try { return localStorage.getItem(KEY); } catch(e){ return null; } }
-  function setLS(v){ try { localStorage.setItem(KEY, v); } catch(e){} }
-  function getCookie(){
-    try {
-      var m = document.cookie.match(new RegExp('(?:^|; )' + KEY + '=([^;]*)'));
-      return m ? decodeURIComponent(m[1]) : null;
-    } catch(e){ return null; }
-  }
-  function setCookie(v, days){
-    try {
-      var expires = '';
-      if(days){
-        var d = new Date();
-        d.setTime(d.getTime() + (days*24*60*60*1000));
-        expires = '; expires=' + d.toUTCString();
-      }
-      var secure = location.protocol === 'https:' ? '; Secure' : '';
-      document.cookie = KEY + '=' + encodeURIComponent(v) + expires + '; path=/' + '; SameSite=Lax' + secure;
-    } catch(e){}
-  }
+  const BANNER_ID = 'consent-banner';
+
   function getConsent(){
-    return getLS() || getCookie();
+    try{
+      const ls = localStorage.getItem(KEY);
+      if(ls) return ls;
+      const m = document.cookie.match(new RegExp('(?:^|;\\s*)'+KEY+'=([^;]+)'));
+      return m ? decodeURIComponent(m[1]) : null;
+    }catch{ return null; }
   }
-  function setGranted(){
-    setLS('granted');
-    setCookie('granted', 365);
+
+  function setConsent(value){
+    try{ localStorage.setItem(KEY, value); }catch{}
+    try{
+      document.cookie = `${KEY}=${encodeURIComponent(value)}; max-age=${60*60*24*180}; path=/; SameSite=Lax`;
+    }catch{}
   }
-  function setDenied(){
-    setLS('denied');
-    setCookie('denied', 1);
+
+  function updateGtag(isGranted){
+    try{
+      if(!window.gtag) return;
+      window.gtag('consent','update',{
+        ad_storage: isGranted ? 'granted' : 'denied',
+        analytics_storage: isGranted ? 'granted' : 'denied',
+        ad_user_data: isGranted ? 'granted' : 'denied',
+        ad_personalization: isGranted ? 'granted' : 'denied'
+      });
+      if(isGranted){
+        window.gtag('event','page_view');
+      }
+    }catch{}
   }
-  function getBanner(){ return document.getElementById('consent-banner'); }
-  function showBanner(){
-    var b = getBanner();
-    if(b) b.style.display = 'flex';
-  }
+
   function hideBanner(){
-    var b = getBanner();
+    const b = document.getElementById(BANNER_ID);
     if(b) b.style.display = 'none';
   }
-  function enableGA(){
-    if(typeof gtag === 'function'){
-      gtag('consent','update',{
-        analytics_storage:'granted',
-        ad_storage:'denied',
-        ad_user_data:'denied',
-        ad_personalization:'denied'
-      });
-      gtag('config','G-64EC8JJF7Q',{anonymize_ip:true});
-    }
+  function showBanner(){
+    const b = document.getElementById(BANNER_ID);
+    if(b) b.style.display = 'flex';
   }
 
   window.acceptConsent = function(){
-    setGranted();
-    enableGA();
-    if(typeof gtag === 'function'){ try { gtag('event','page_view'); } catch(e){} }
+    setConsent('accepted');
+    updateGtag(true);
     hideBanner();
-    console.log('[JSM] consent granted, will never ask again');
   };
   window.rejectConsent = function(){
-    setDenied();
+    setConsent('rejected');
+    updateGtag(false);
     hideBanner();
-    // As per your request: ask until Accept - show again after 2 sec
-    setTimeout(showBanner, 2000);
-    console.log('[JSM] consent denied, will ask again');
   };
 
-  function init(){
-    var c = getConsent();
-    console.log('[JSM] consent check:', c);
-    if(c === 'granted'){
-      enableGA();
-      hideBanner();
-    } else {
-      // not granted -> show until accepted
+  document.addEventListener('DOMContentLoaded', function(){
+    const saved = getConsent();
+    if(!saved){
       showBanner();
+      return;
     }
-  }
-
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-  // also try again after 800ms in case banner injected late (React)
-  setTimeout(init, 800);
+    const isGranted = saved === 'accepted' || saved === 'granted';
+    hideBanner();
+    updateGtag(isGranted);
+  });
 })();
