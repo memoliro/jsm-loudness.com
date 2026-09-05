@@ -1,55 +1,52 @@
 
 (function(){
-  const CONSENT_KEY = 'jsm_consent_v1';
+  const KEY = 'jsm_consent_v1';
   const BANNER = document.getElementById('consent-banner');
-  
-  function getConsent(){ try { return localStorage.getItem(CONSENT_KEY); } catch(e){ return null; } }
-  
-  function setConsent(value){
+  function get(){ try { return localStorage.getItem(KEY); } catch(e){ return null; } }
+  function setGranted(){
     try {
-      localStorage.setItem(CONSENT_KEY, value);
-      document.cookie = CONSENT_KEY + '=' + value + '; path=/; max-age=' + (6*30*24*3600) + '; SameSite=Lax';
+      localStorage.setItem(KEY, 'granted');
+      document.cookie = KEY + '=granted; path=/; max-age=' + (365*24*3600) + '; SameSite=Lax; Secure';
     } catch(e){}
   }
-  
-  function showBanner(){ if(BANNER) BANNER.style.display='flex'; }
-  function hideBanner(){ if(BANNER) BANNER.style.display='none'; }
-  
+  function setDenied(){
+    try {
+      localStorage.setItem(KEY, 'denied');
+      document.cookie = KEY + '=denied; path=/; max-age=' + (24*3600) + '; SameSite=Lax; Secure';
+    } catch(e){}
+  }
+  function show(){ if(BANNER) BANNER.style.display='flex'; }
+  function hide(){ if(BANNER) BANNER.style.display='none'; }
+
   window.acceptConsent = function(){
-    setConsent('granted');
-    gtag('consent','update',{
-      analytics_storage:'granted',
-      ad_storage:'denied',
-      ad_user_data:'denied',
-      ad_personalization:'denied'
-    });
-    gtag('config','G-64EC8JJF7Q',{anonymize_ip:true});
-    gtag('event','page_view');
-    hideBanner();
+    setGranted();
+    if(typeof gtag === 'function'){
+      gtag('consent','update',{
+        analytics_storage:'granted',
+        ad_storage:'denied',
+        ad_user_data:'denied',
+        ad_personalization:'denied'
+      });
+      gtag('config','G-64EC8JJF7Q',{anonymize_ip:true});
+      gtag('event','page_view');
+    }
+    hide();
   };
-  
   window.rejectConsent = function(){
-    setConsent('denied');
-    gtag('consent','update',{
-      analytics_storage:'denied',
-      ad_storage:'denied',
-      ad_user_data:'denied',
-      ad_personalization:'denied'
-    });
-    // No GA page_view sent
-    hideBanner();
+    setDenied();
+    hide();
+    // Per request: ask until Accept - show again after short delay
+    setTimeout(show, 1500);
   };
-  
-  // Init
-  var c = getConsent();
-  if(!c){
-    // No choice yet -> show banner after 400ms, keep analytics denied (default already set in head)
-    setTimeout(showBanner, 400);
-  } else if(c==='granted'){
-    gtag('consent','update',{analytics_storage:'granted'});
-    gtag('config','G-64EC8JJF7Q',{anonymize_ip:true});
-    gtag('event','page_view');
+
+  var c = get();
+  if(c === 'granted'){
+    if(typeof gtag === 'function'){
+      gtag('consent','update',{analytics_storage:'granted'});
+      gtag('config','G-64EC8JJF7Q',{anonymize_ip:true});
+    }
+    hide();
   } else {
-    // denied -> keep denied, no page_view
+    setTimeout(show, 600);
   }
 })();

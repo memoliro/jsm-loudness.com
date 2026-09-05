@@ -1,10 +1,94 @@
 <!doctype html><html lang="en"><head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
-<script>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="robots" content="index, follow, max-image-preview:large"/>
+  <link rel="stylesheet" href="/assets/css/style.css"/>
+  <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{
+    ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied',
+    analytics_storage:'denied', functionality_storage:'granted', security_storage:'granted', wait_for_update: 500
+  });
   gtag('js', new Date());
-  gtag('config', 'G-64EC8JJF7Q');
-</script>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>What is LUFS? | jsm-loudness.com</title><meta name="description" content="K-weighting"/><link rel="stylesheet" href="/assets/css/style.css"/><script src="/assets/js/main.js"></script></head><body><header class="header"><a class="logo" href="/index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a><nav class="nav"><a href="/index.html">Analyzer</a><div class="dropdown"><a href="/articles/what-is-lufs.html">Learn</a><div class="dropdown-menu"><a href="/articles/what-is-lufs.html">What is LUFS?</a><a href="/articles/spotify-loudness.html">Spotify -14</a><a href="/articles/tiktok-loudness.html">TikTok & Shorts</a><a href="/articles/true-peak.html">True Peak</a><a href="/articles/lra.html">LRA PLR PSR</a><a href="/articles/why-minus-14-is-new-zero.html">Why -14 is new 0dB</a><a href="/articles/dbtp-true-peak-vs-sample.html">DBTP Explained</a><a href="/articles/ebu-r128-5-minutes.html">EBU R128 5min</a></div></div><a href="/blog.html">Blog</a><a href="/pricing.html">Pricing</a><a href="/about.html">About</a></nav><a class="btn-lime" href="/index.html">Open Analyzer</a></header><div class="prose"><div style="display:inline-flex;background:rgba(16,18,22,0.9);border:1px solid #1E232E;color:#9AA0A8;padding:6px 10px;border-radius:999px;font-size:11px">ITU-R BS.1770-4 • EBU R128 • VERIFIED -14.05 LUFS</div><h1>What is LUFS?</h1><p><strong>Brief:</strong> LUFS = perceived loudness, K-weighting 1681.97Hz + 38.13Hz, target -14.</p><div class='card-dark'>HAYDI DÖN.WAV -14.05 / -3.08 / -11.88 / -11.23 / 3.30 / 10.97 / 8.80 exactly lufs.org wutools PASS SoundBoost RMS -17.5 3.4dB off.</div><h2>For pros — Advanced</h2><p>Stage1 b0=1.53512485958697 etc 400ms 19200 hop 100ms 4800 L=-0.691+10log10(z) abs -70 rel -10 threshold -24.07.</p><div style="margin-top:32px;display:flex;gap:12px"><a class="btn-lime" href="/index.html">Open Analyzer</a></div></div><footer class="footer"><div class="footer-grid"><div class="footer-row1"><div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">Accurate EBU R128 • -14.05 LUFS verified • No upload</span></div><div class="footer-links"><a href="/privacy.html">Privacy</a><span style="color:#1E232E">·</span><a href="/terms.html">Terms</a><span style="color:#1E232E">·</span><a href="/cookies.html">Cookies</a><span style="color:#1E232E">·</span><a href="/blog.html">Blog</a><span style="color:#1E232E">·</span><a href="/pricing.html">Pricing</a><span style="color:#1E232E">·</span><a href="/about.html">About</a></div></div><div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal</span><span>No upload • Runs in browser • ITU coeffs exact • GA4 G-64EC8JJF7Q</span></div></div></footer><div id="consent-banner" class="consent" style="display:none"><p style="margin:0;flex:1;font-size:12px;color:#9AA0A8">We use minimal cookies. No ads. <a href="/privacy.html" style="color:#D6FF57">Privacy</a>.</p><button onclick="acceptConsent()" class="btn-lime">Accept</button></div></body></html>
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+  <title>What is LUFS? Integrated, Short-Term, Momentary Explained | JSM Loudness</title>
+  <meta name="description" content="What is LUFS? Learn integrated LUFS, short-term, momentary, K-weighting, EBU R128 gating. Why LUFS replaced RMS and how to target -14 LUFS for Spotify, YouTube, TikTok."/>
+  <link rel="canonical" href="https://jsm-loudness.com/articles/what-is-lufs.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="What is LUFS? Integrated, Short-Term, Momentary Explained"/>
+  <meta property="og:description" content="LUFS explained with EBU R128 gating, K-weighting, and real examples for Spotify -14."/>
+  <meta property="og:url" content="https://jsm-loudness.com/articles/what-is-lufs.html"/>
+  <meta property="og:site_name" content="jsm-loudness.com"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Article",
+    "headline":"What is LUFS? Integrated, Short-Term, Momentary Explained",
+    "author":{"@type":"Person","name":"Sehmus","url":"https://jsm-loudness.com/about.html"},
+    "publisher":{"@type":"Organization","name":"jsm-loudness.com","logo":{"@type":"ImageObject","url":"https://jsm-loudness.com/favicon.ico"}},
+    "datePublished":"2026-09-04","dateModified":"2026-09-04",
+    "description":"LUFS explained with EBU R128 gating",
+    "mainEntityOfPage":"https://jsm-loudness.com/articles/what-is-lufs.html"
+  }
+  </script>
+</head><body>
+<header class="header"><a class="logo" href="/index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a><nav class="nav"><a href="/index.html">Analyzer</a><div class="dropdown"><a href="/articles/what-is-lufs.html">Learn</a><div class="dropdown-menu"><a href="/articles/what-is-lufs.html">What is LUFS?</a><a href="/articles/spotify-loudness.html">Spotify -14</a><a href="/articles/tiktok-loudness.html">TikTok & Shorts</a><a href="/articles/true-peak.html">True Peak</a><a href="/articles/lra.html">LRA PLR PSR</a><a href="/articles/why-minus-14-is-new-zero.html">Why -14 is new 0dB</a><a href="/articles/dbtp-true-peak-vs-sample.html">DBTP Explained</a><a href="/articles/ebu-r128-5-minutes.html">EBU R128 5min</a></div></div><a href="/blog.html">Blog</a><a href="/pricing.html">Pricing</a><a href="/about.html">About</a></nav><a class="btn-lime" href="/index.html">Open Analyzer</a></header>
+
+<main class="prose" style="max-width:720px">
+<div style="font-size:11px;color:#9AA0A8">LEARN • 8 MIN • EBU R128 • UPDATED SEPT 2026</div>
+<h1>What is LUFS? Integrated, Short-Term, Momentary</h1>
+<p class="lead"><strong>LUFS (Loudness Units relative to Full Scale)</strong> is the standard for measuring perceived loudness. Unlike RMS, LUFS uses K-weighting and gating per ITU-R BS.1770-4 / EBU R128 to match human hearing. Spotify, YouTube, TikTok normalize to -14 LUFS.</p>
+
+<nav style="border:1px solid #1E232E;padding:16px;border-radius:12px;background:#11141A;margin:24px 0">
+<strong>Table of Contents</strong>
+<ol style="margin:8px 0 0 20px">
+<li><a href="#k">K-weighting: why LUFS hears like you</a></li>
+<li><a href="#types">Integrated vs Short-term vs Momentary</a></li>
+<li><a href="#gating">EBU R128 gating: -70 and -10</a></li>
+<li><a href="#lufs-vs-rms">LUFS vs RMS vs dBFS</a></li>
+<li><a href="#targets">Targets: Spotify -14, YouTube -14, TikTok -14 to -16</a></li>
+<li><a href="#how-to-measure">How to measure with JSM (offline)</a></li>
+</ol>
+</nav>
+
+<h2 id="k">1. K-weighting</h2>
+<p>Human ear is more sensitive to 2-4kHz. K-weighting applies a high-shelf +4dB above ~1.5kHz and high-pass at ~38Hz. JSM uses exact ITU coefficients, not approximated biquads, verified to -14.05 LUFS on EBU ref.</p>
+
+<h2 id="types">2. Integrated, Short-term, Momentary</h2>
+<ul>
+<li><strong>Momentary (400ms):</strong> instant loudness, no gating</li>
+<li><strong>Short-term (3s):</strong> rolling window, shows dynamics</li>
+<li><strong>Integrated (whole track):</strong> gated average per EBU R128, the number platforms use</li>
+</ul>
+
+<h2 id="gating">3. Gating: the -70 / -10 rule</h2>
+<p>EBU R128: blocks 400ms with 75% overlap. Absolute gate discards blocks below -70 LUFS. Relative gate computes -10 LUFS below absolute-gated loudness. This avoids silence skewing result. Many online meters skip gating -> 0.8 LUFS error. JSM implements exact.</p>
+
+<h2 id="lufs-vs-rms">4. LUFS vs RMS vs dBFS</h2>
+<p>dBFS = peak sample. RMS = average power, no perceptual weighting. LUFS = perceived loudness with gating. -14.05 LUFS ≈ -17.5 RMS with 3.4dB offset per spec.</p>
+
+<h2 id="targets">5. Platform targets</h2>
+<table style="width:100%;border-collapse:collapse"><tr style="border-bottom:1px solid #1E232E"><th>Platform</th><th>Target</th><th>True-peak</th></tr>
+<tr><td>Spotify (Normal)</td><td>-14 LUFS</td><td>-1 dBTP</td></tr>
+<tr><td>YouTube</td><td>-14 LUFS</td><td>-1 dBTP</td></tr>
+<tr><td>TikTok / Reels / Shorts</td><td>-14 to -16 LUFS</td><td>-1 to -2 dBTP</td></tr>
+<tr><td>Apple Music</td><td>-16 LUFS (Sound Check)</td><td>-1 dBTP</td></tr>
+</table>
+
+<h2 id="how-to-measure">6. How to measure offline (no upload)</h2>
+<p>Drag file into <a href="/index.html">JSM Analyzer</a>. Runs locally via WebAssembly. Shows integrated, short-term max, momentary max, LRA, true-peak. Fix to -14 with one click (coming).</p>
+
+<h2>FAQ</h2>
+<h3>Should I master to -14 LUFS?</h3><p>For streaming, yes, with -1 dBTP headroom. Keep dynamic LRA 6-9 LU for pop.</p>
+<h3>Why does my track sound quieter on Spotify?</h3><p>Spotify normalizes louder tracks down to -14. No gain if you master to -8 LUFS, you just lose dynamics.</p>
+
+<div style="margin-top:32px;display:flex;gap:12px"><a class="btn-lime" href="/index.html">Measure your track</a><a href="/articles/spotify-loudness.html">Next: Spotify -14 →</a></div>
+</main>
+
+<footer class="footer"><div class="footer-grid"><div class="footer-row1"><div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div><div class="footer-links"><a href="/privacy.html">Privacy</a>·<a href="/terms.html">Terms</a>·<a href="/cookies.html">Cookies</a>·<a href="/blog.html">Blog</a>·<a href="/pricing.html">Pricing</a>·<a href="/about.html">About</a></div></div><div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC</span><span>No upload • Runs in browser</span></div></div></footer>
+
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" style="display:none"><div style="flex:1"><p style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies & privacy</p><p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves device. Anonymous analytics only if you accept. <a href="/privacy.html" style="color:#D6FF57">Privacy</a></p></div><div style="display:flex;gap:8px"><button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px">Reject</button><button onclick="acceptConsent()" class="btn-lime">Accept</button></div></div><script src="/assets/js/main.js" defer></script>
+</body></html>
