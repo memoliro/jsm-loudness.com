@@ -96,9 +96,6 @@
 <style id="jsm-theme-styles">
 /* Dark-only: light theme retired */
 </style>
-
-
-
 </head>
 <body>
 <!-- Language selector - CSP safe, no inline JS -->
@@ -217,49 +214,8 @@
   <noscript><div style="max-width:720px;margin:20px auto;padding:20px;border:1px solid #1E232E;background:#11141A;border-radius:12px">
     <p>Analyzer requires JavaScript. Your audio never leaves your device. Learn about 
     <a href="/articles/what-is-lufs.html">What is LUFS</a>.</p></div></noscript>
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- JSM Platform Compare START -->
-<div id="jsm-platform-compare" style="max-width:1120px;margin:24px auto;padding:0 20px;">
-  <div style="background:rgba(19,22,29,0.82);border:1px solid #1E232E;border-radius:20px;padding:20px 20px 16px;backdrop-filter:blur(20px);">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:16px">
-      <div>
-        <h2 style="margin:0;font-size:18px;font-weight:700;color:#E6E8EC">How streaming platforms will handle this</h2>
-        <p style="margin:6px 0 0;font-size:12px;color:#9AA0A8">Based on Integrated LUFS vs platform target</p>
-      </div>
-      <div id="jsm-platform-integrated-badge" style="background:rgba(214,255,87,0.12);border:1px solid rgba(214,255,87,0.22);color:#D6FF57;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:600">-14.05 LUFS • HAYDI DÖN.WAV</div>
-    </div>
-    <div id="jsm-platform-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px"></div>
-  </div>
-</div>
-<script>
-(function(){
-  const PLATFORMS=[
-    {name:'Spotify',target:-14},{name:'Apple Music',target:-16},{name:'YouTube',target:-14},{name:'TIDAL',target:-14},{name:'Deezer',target:-14},{name:'Amazon Music',target:-14},{name:'Pandora',target:-14},{name:'SoundCloud',target:-14},{name:'YouTube Music',target:-14},{name:'Bandcamp',target:-14},
-  ];
-  function fmt(v){const a=Math.abs(v);if(a<0.05)return '±0.0 dB';return (v>0?'+':'')+v.toFixed(1)+' dB';}
-  function get(){try{const r=sessionStorage.getItem('jsm-session-v2');if(r){const j=JSON.parse(r);if(j&&j.analysis&&typeof j.analysis.integrated==='number')return j.analysis.integrated;}}catch(e){}return -14.05;}
-  function render(){const integ=get();const grid=document.getElementById('jsm-platform-grid');const badge=document.getElementById('jsm-platform-integrated-badge');if(badge)badge.textContent=integ.toFixed(2)+' LUFS • HAYDI DÖN.WAV';if(!grid)return;grid.innerHTML='';PLATFORMS.forEach(p=>{const diff=p.target-integ;const c=document.createElement('div');c.style.cssText='background:rgba(12,14,18,0.9);border:1px solid #1E232E;border-radius:12px;padding:12px';c.innerHTML=`<div style="font-size:12px;font-weight:700;color:#E6E8EC">${p.name}</div><div style="font-size:20px;font-weight:800;color:#E6E8EC;margin-top:8px">${fmt(diff)}</div>`;grid.appendChild(c);});}
-  render();setInterval(render,1000);
-})();
-</script>
-<!-- JSM Platform Compare END -->
-
 </main>
 <!--
-
-
-
 <footer class="footer"><div class="footer-grid">
   <div class="footer-row1">
   <div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span>
@@ -405,21 +361,5 @@ case"about":return h("div",{className:"max-w-[680px] mx-auto",children:[s("h1",{
   }, true);
 })();
 </script>
-
-<!-- JSM Hide Duplicate Footer START -->
-<script>
-(function(){
-  function hideDup(){
-    try{
-      const root=document.getElementById('root');
-      if(root) root.querySelectorAll('footer').forEach(f=>f.style.display='none');
-    }catch(e){}
-  }
-  setTimeout(hideDup,1000);
-  setInterval(hideDup,3000);
-})();
-</script>
-<!-- JSM Hide Duplicate Footer END -->
-
 </body>
 </html>
