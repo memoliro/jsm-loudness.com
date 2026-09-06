@@ -3,20 +3,23 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>TikTok, Reels & Shorts Loudness: -14 to -16 LUFS Sweet Spot | JSM Loudness</title>
-<meta name="description" content="TikTok and Instagram Reels loudness target is -14 to -16 LUFS, -1 dBTP. Learn PLR and PSR for short-form, why mobile speakers need dynamics."/>
-<link rel="canonical" href="https://jsm-loudness.com/articles/tiktok-loudness.html"/>
+<title>Loudness TikTok et Shorts : cibles LUFS et true-peak | JSM Loudness</title>
+<meta name="description" content="Cibles loudness pour TikTok, Reels et Shorts : short-term plus fort que Spotify, true-peak sûr, LRA adapté aux formats courts. Guide pratique EBU R128."/>
+  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/tiktok-loudness.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/tiktok-loudness.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/tiktok-loudness.html"/>
+  <link rel="canonical" href="https://jsm-loudness.com/fr/articles/tiktok-loudness.html"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="TikTok, Reels & Shorts Loudness: -14 to -16 LUFS Sweet Spot"/>
 <meta property="og:description" content="TikTok and Instagram Reels loudness target is -14 to -16 LUFS, -1 dBTP. Learn PLR and PSR for short-form, why mobile speakers need dynamics."/>
-<meta property="og:url" content="https://jsm-loudness.com/articles/tiktok-loudness.html"/>
+<meta property="og:url" content="https://jsm-loudness.com/fr/articles/tiktok-loudness.html"/>
 <meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
 <meta property="og:site_name" content="jsm-loudness.com"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="TikTok, Reels & Shorts Loudness: -14 to -16 LUFS Sweet Spot"/>
 <meta name="twitter:description" content="TikTok and Instagram Reels loudness target is -14 to -16 LUFS, -1 dBTP. Learn PLR and PSR for short-form, why mobile speakers need dynamics."/>
 <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
-<link rel="icon" href="../favicon.ico"/>
+<link rel="icon" href="../../favicon.ico"/>
 <link rel="stylesheet" href="../../assets/css/style.css"/>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -81,34 +84,55 @@ body{margin:0;background:#0A0C0F;color:#E6E8EC;font-family:Inter,ui-sans-serif,s
 </style>
 </head>
 <body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
+  <a href="../../articles/tiktok-loudness.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a>
+  <span style="color:#2A3140">|</span>
+  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span>
+</div>
+
 <header class="header">
 <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
 <nav class="nav">
-<a href="../index.html">Analyzer</a>
+<a href="../index.html">Analyseur</a>
 <div style="position:relative"><a href="what-is-lufs.html">Learn ▾</a></div>
-<a href="../blog.html">Blog</a><a href="../pricing.html">Pricing</a><a href="../about.html">About</a>
+<a href="../blog.html">Blog</a><a href="../pricing.html">Tarifs</a><a href="../about.html">À propos</a>
 </nav>
-<div id="lang-selector" style="display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;margin-left:12px"><span style="display:flex;gap:6px;opacity:0.6"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span><span style="color:#2A3140">|</span><a href="../index.html" style="display:flex;gap:6px;color:#E6E8EC;text-decoration:none;font-weight:600"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a></div>
-<a class="btn-lime" href="../index.html">Open Analyzer</a>
+
+<a class="btn-lime" href="../index.html">Ouvrir l'Analyseur</a>
 </header>
 <main class="prose">
-<div class="badge">ITU-R BS.1770-4 • EBU R128 • VERIFIED -14.05 LUFS • NO UPLOAD</div>
-<h1>TikTok, Reels & Shorts Loudness</h1>
-<p class="lead">TikTok and Instagram Reels loudness target is -14 to -16 LUFS, -1 dBTP. Learn PLR and PSR for short-form, why mobile speakers need dynamics.</p>
+<div class="badge">ITU-R BS.1770-4 • EBU R128 • VÉRIFIÉ -14,05 LUFS</div>
+<h1>Loudness TikTok, Reels et Shorts</h1>
+<p class="lead">TikTok, Instagram Reels et YouTube Shorts n'ont pas la même normalisation stable que Spotify. Les formats courts sont souvent plus forts. Visez un short-term plus élevé tout en gardant un true-peak sûr.</p>
 
-<h2>Why TikTok is different</h2>
-<p>Phone speakers compress heavily. A track with PLR 14 dB (loudness vs peak) sounds louder and clearer than a crushed -7 LUFS master with PLR 6 dB. TikTok normalizes to around -14 LUFS, but doesn't publish spec like Spotify.</p>
-<div class="card">Sweet spot tested: <strong>-14 to -16 LUFS integrated, -11 to -9 LUFS short-term max, PLR 8-13, PSR 6-10, dBTP -1</strong>. This keeps voice intelligible on phone.</div>
-<h2>PLR and PSR</h2>
-<p>PLR = Peak to Loudness Ratio = dBTP - Integrated LUFS. Low PLR = heavily compressed. PSR = Short-term Max - Integrated. For TikTok hook, PSR 5-8 dB keeps chorus punchy.</p>
-<h2>Workflow for short-form</h2>
-<ul><li>Cut to 15-30s, measure integrated</li><li>If integrated -18 (too quiet), lift gain but keep true-peak -1</li><li>Check LRA < 6 LU for consistent phone playback</li></ul>
+<h2>Cibles pratiques</h2>
+<ul>
+<li><strong>Short-term :</strong> souvent -12 à -9 LUFS (selon le style et la concurrence dans le feed)</li>
+<li><strong>Integrated :</strong> moins critique sur les clips de 15–60 s, mais utile comme référence</li>
+<li><strong>True-peak :</strong> ≤ -1,0 dBTP pour éviter le clipping mobile</li>
+<li><strong>LRA :</strong> peut être plus bas (contenu dense, voix + musique)</li>
+</ul>
 
-<div style="margin-top:32px;display:flex;gap:12px"><a class="btn-lime" href="../index.html">Open Analyzer — Free, No Upload</a><a href="../blog.html" style="border:1px solid #1E232E;padding:8px 14px;border-radius:999px;text-decoration:none;color:#9AA0A8">Back to Learn</a></div>
-<div class="card" style="margin-top:24px"><strong>Note confidentialité (Loi 25):</strong> Votre audio ne quitte jamais votre appareil. Web Audio + WASM runs locally, verifiable in DevTools Network tab. GA4 only after Accept, anonymized IP.</div>
+<h2>Différences avec Spotify</h2>
+<p>Sur Spotify, dépasser -14 intégré fait surtout baisser le gain. Sur TikTok, un titre trop calme disparaît dans le feed. D'où la tentation d'aller plus fort — mais sans sacrifier le true-peak, sous peine de distortion sur les écouteurs et haut-parleurs de téléphone.</p>
+
+<h2>Conseils de mastering court format</h2>
+<ol>
+<li>Priorisez l'intelligibilité de la voix et le punch des 2–3 premières secondes.</li>
+<li>Mesurez short-term et true-peak sur le export final.</li>
+<li>Gardez -1 dBTP (ou mieux) même si le short-term est à -10 LUFS.</li>
+<li>Testez sur téléphone, pas seulement sur moniteurs de studio.</li>
+</ol>
+
+<p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
+  <a class="btn-lime" href="../../index.html">Ouvrir l'Analyseur</a>
+  <a class="btn-ghost" href="spotify-loudness.html">Spotify -14</a>
+  <a class="btn-ghost" href="lra.html">LRA / PLR / PSR</a>
+</p>
 </main>
-<footer class="footer"><div>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal</div><div><a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../cookies.html">Cookies</a> · <a href="../blog.html">Blog</a> · <a href="../pricing.html">Pricing</a> · <a href="../about.html">About</a> · <a href="../contact.html">Contact</a></div></footer>
-<div id="consent-banner" class="consent"><div style="flex:1"><p style="margin:0 0 4px;font-weight:600;font-size:13px">Cookies & privacy</p><p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. Anonymous analytics only if Accept. <a href="../privacy.html" style="color:#D6FF57">Privacy</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Reject</button><button onclick="acceptConsent()" class="btn-lime">Accept</button></div></div>
+<footer class="footer"><div>© 2026 jsm-loudness.com · Montreal, QC · Construit à Montréal</div><div><a href="../privacy.html">Confidentialité</a> · <a href="../terms.html">Conditions</a> · <a href="../cookies.html">Cookies</a> · <a href="../blog.html">Blog</a> · <a href="../pricing.html">Tarifs</a> · <a href="../about.html">À propos</a> · <a href="../contact.html">Contact</a></div></footer>
+<div id="consent-banner" class="consent"><div style="flex:1"><p style="margin:0 0 4px;font-weight:600;font-size:13px">Cookies et confidentialité</p><p style="margin:0;font-size:12px;color:#9AA0A8">L'audio ne quitte jamais votre appareil. Anonymous analytics only if Accept. <a href="../privacy.html" style="color:#D6FF57">Confidentialité</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button><button onclick="acceptConsent()" class="btn-lime">Accepter</button></div></div>
 <script src="../../assets/js/main.js" defer></script>
 </body>
 </html>

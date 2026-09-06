@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Why -14 LUFS is the New 0 dB — Streaming Killed the Loudness War | JSM Loudness</title>
   <meta name="description" content="For decades we chased 0 dBFS. Now streaming platforms normalize to -14 LUFS. Learn how the loudness war started, why ITU-R BS.1770 and EBU R128 ended it, and why -1 dBTP true-peak and PLR matter more than peak level."/>
+    <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/why-minus-14-is-new-zero.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/why-minus-14-is-new-zero.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/why-minus-14-is-new-zero.html"/>
   <link rel="canonical" href="https://jsm-loudness.com/articles/why-minus-14-is-new-zero.html"/>
   <meta name="robots" content="index, follow, max-image-preview:large"/>
   <meta name="theme-color" content="#0A0C0F"/>
@@ -16,6 +19,10 @@
   <meta property="og:description" content="From CD loudness war to Spotify -14 LUFS normalization. Technical breakdown of LUFS, true-peak dBTP, PLR and why louder masters now sound smaller."/>
   <meta property="og:url" content="https://jsm-loudness.com/articles/why-minus-14-is-new-zero.html"/>
   <meta property="og:site_name" content="jsm-loudness.com"/>
+  <meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
   <meta property="og:article:published_time" content="2026-03-10T00:00:00Z"/>
   <meta property="og:article:author" content="Sehmus"/>
   <meta name="twitter:card" content="summary_large_image"/>
@@ -173,6 +180,13 @@
   </script>
 </head>
 <body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
+  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</span>
+  <span style="color:#2A3140">|</span>
+  <a href="fr/articles/why-minus-14-is-new-zero.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</a>
+</div>
+
   <header class="site-header">
     <div class="header-inner">
       <a class="logo" href="../index.html">
@@ -198,7 +212,7 @@
         <a class="nav-link" href="../pricing.html">Pricing</a>
         <a class="nav-link" href="../about.html">About</a>
       </nav>
-<div id="lang-selector" style="display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;margin-left:12px"><span style="display:flex;gap:6px;opacity:0.6"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</span><span style="color:#2A3140">|</span><a href="../fr/articles/why-minus-14-is-new-zero.html" style="display:flex;gap:6px;color:#E6E8EC;text-decoration:none;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</a></div>
+
       <a class="btn-lime" href="../index.html#analyzer">Open Analyzer</a>
     </div>
   </header>

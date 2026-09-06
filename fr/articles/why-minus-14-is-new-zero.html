@@ -3,19 +3,26 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Why -14 LUFS is the New 0 dB — Streaming Killed the Loudness War | JSM Loudness</title>
-  <meta name="description" content="For decades we chased 0 dBFS. Now streaming platforms normalize to -14 LUFS. Learn how the loudness war started, why ITU-R BS.1770 and EBU R128 ended it, and why -1 dBTP true-peak and PLR matter more than peak level."/>
-  <link rel="canonical" href="https://jsm-loudness.com/articles/why-minus-14-is-new-zero.html"/>
+  <title>Pourquoi -14 LUFS est le nouveau 0 dB | JSM Loudness</title>
+  <meta name="description" content="Pourquoi le streaming a imposé -14 LUFS comme référence, la fin de la loudness war, et comment masteriser pour la perception plutôt que pour le peak maximum."/>
+    <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/why-minus-14-is-new-zero.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/why-minus-14-is-new-zero.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/why-minus-14-is-new-zero.html"/>
+  <link rel="canonical" href="https://jsm-loudness.com/fr/articles/why-minus-14-is-new-zero.html"/>
   <meta name="robots" content="index, follow, max-image-preview:large"/>
   <meta name="theme-color" content="#0A0C0F"/>
-  <link rel="icon" href="../favicon.ico"/>
+  <link rel="icon" href="../../favicon.ico"/>
 
   <!-- Open Graph -->
   <meta property="og:type" content="article"/>
   <meta property="og:title" content="Why -14 LUFS is the New 0 dB — Streaming Killed the Loudness War"/>
   <meta property="og:description" content="From CD loudness war to Spotify -14 LUFS normalization. Technical breakdown of LUFS, true-peak dBTP, PLR and why louder masters now sound smaller."/>
-  <meta property="og:url" content="https://jsm-loudness.com/articles/why-minus-14-is-new-zero.html"/>
+  <meta property="og:url" content="https://jsm-loudness.com/fr/articles/why-minus-14-is-new-zero.html"/>
   <meta property="og:site_name" content="jsm-loudness.com"/>
+  <meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
   <meta property="og:article:published_time" content="2026-03-10T00:00:00Z"/>
   <meta property="og:article:author" content="Sehmus"/>
   <meta name="twitter:card" content="summary_large_image"/>
@@ -173,6 +180,13 @@
   </script>
 </head>
 <body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
+  <a href="../../articles/why-minus-14-is-new-zero.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a>
+  <span style="color:#2A3140">|</span>
+  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span>
+</div>
+
   <header class="site-header">
     <div class="header-inner">
       <a class="logo" href="../index.html">
@@ -180,7 +194,7 @@
         <span style="color:#E6E8EC">jsm-loudness.com</span>
       </a>
       <nav class="nav">
-        <a class="nav-link" href="../index.html">Analyzer</a>
+        <a class="nav-link" href="../index.html">Analyseur</a>
         <div class="dropdown">
           <a class="nav-link active dropdown-trigger" href="what-is-lufs.html">Learn ▾</a>
           <div class="dropdown-menu">
@@ -195,134 +209,39 @@
           </div>
         </div>
         <a class="nav-link" href="../blog.html">Blog</a>
-        <a class="nav-link" href="../pricing.html">Pricing</a>
-        <a class="nav-link" href="../about.html">About</a>
+        <a class="nav-link" href="../pricing.html">Tarifs</a>
+        <a class="nav-link" href="../about.html">À propos</a>
       </nav>
-<div id="lang-selector" style="display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;margin-left:12px"><span style="display:flex;gap:6px;opacity:0.6"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span><span style="color:#2A3140">|</span><a href="../index.html" style="display:flex;gap:6px;color:#E6E8EC;text-decoration:none;font-weight:600"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a></div>
-      <a class="btn-lime" href="../index.html#analyzer">Open Analyzer</a>
+
+      <a class="btn-lime" href="../index.html#analyzer">Ouvrir l'Analyseur</a>
     </div>
   </header>
 
-  <main class="container">
-    <article class="article-wrap">
-      <div class="k-badge"><span class="mono">EBU REF VERIFIED</span> <span style="color:#1E232E">·</span> <b>-14.05 LUFS</b> <span style="color:#1E232E">·</span> <span class="mono">-3.08 dBTP / LRA 3.30</span></div>
-      <h1>Why -14 LUFS is the New 0 dB</h1>
-      <p class="lead">If you learned to mix in the CD era, 0 dBFS was the target. Hit the ceiling, make it as loud as possible. For streaming, that instinct ruins your masters. Here is what changed, technically, and how to work now.</p>
+  <main class="prose">
+<div class="badge">ITU-R BS.1770-4 • EBU R128 • VÉRIFIÉ -14,05 LUFS</div>
+<h1>Pourquoi -14 LUFS est le nouveau 0 dB</h1>
+<p class="lead">La loudness war a poussé les masters vers le clipping. Les plateformes de streaming ont répondu en normalisant. Aujourd'hui, livrer plus fort que -14 LUFS n'apporte plus d'avantage : Spotify et les autres baissent simplement le gain.</p>
 
-      <div class="prose" style="margin-top:28px">
-        <p>In 1992, <strong>0 dBFS sample-peak</strong> was the only ceiling that mattered. RMS meters showed -8 to -6 dB RMS, limiters shaved transients, and whoever was loudest won the A/B in the car. By 2008, some commercial CDs hit <code>-6.5 dB RMS</code> with crest factor under 5 dB. It measured loud. It sounded small.</p>
+<h2>Les plateformes ont gagné</h2>
+<p>Une fois la normalisation généralisée, le « plus fort gagne » ne fonctionne plus. Un master à -7 LUFS est atténué ; un master à -14 LUFS avec de la dynamique sonne souvent plus grand, plus clair et moins fatiguant.</p>
 
-        <h2>1. The loudness war was a measurement problem</h2>
-        <p>RMS does not hear like humans. A 100 Hz sine and a 3 kHz sine at same RMS are not equally loud. Our ears follow something closer to <strong>K-weighting</strong> — defined in <a href="what-is-lufs.html">ITU-R BS.1770-4</a>: a high-shelf at ~1.68 kHz +4 dB, Q 0.707, and a high-pass at 38.135 Hz. That weighting predicts loudness across spectrum far better than RMS or flat-weighted power.</p>
-        <p>Worse, RMS has no gating. Intro silence, breaks, and fade-outs drag the number down, so engineers pushed everything up. The result: hyper-compressed choruses, dead verses, no <a href="lra.html">LRA</a>.</p>
+<h2>La perception plutôt que le peak</h2>
+<p>-14 LUFS n'est pas un plafond magique de qualité — c'est une référence de niveau perçu partagée. Masteriser pour la perception (équilibre spectral, punch, profondeur) tout en respectant -14 intégré et un true-peak sûr donne de meilleurs résultats que de coller le limiteur à 0 dBFS.</p>
 
-        <div class="callout">
-          <div class="callout-dot"></div>
-          <p><strong style="color:#E6E8EC">Key figure:</strong> PLR — Peak-to-Loudness Ratio. Difference between true-peak max and integrated LUFS. A healthy modern master: PLR 8–12 dB. A loudness-war master: PLR 5–6 dB. Same Spotify loudness after normalization, but the first punches.</p>
-        </div>
+<h2>En pratique</h2>
+<ul>
+<li>Visez -14 LUFS intégré pour Spotify / YouTube / la plupart des DSP.</li>
+<li>Gardez true-peak ≤ -1 dBTP.</li>
+<li>Utilisez LRA / PLR pour ne pas écraser inutilement la dynamique.</li>
+<li>Mesurez sur le fichier final avec un outil conforme EBU R128.</li>
+</ul>
 
-        <h2>2. EBU R128 fixed broadcast, then streaming copied it</h2>
-        <p>EBU R128 (2011) did three things that killed the war:</p>
-        <ul>
-          <li><strong>Target: -23.0 LUFS ±0.5 LU integrated</strong> for broadcast program, not peak.</li>
-          <li><strong>Two-stage gating:</strong> absolute gate at -70 LUFS excludes silence, relative gate at -10 LU below absolute-gated loudness excludes quiet background that would skew the measurement. This is why <a href="ebu-r128-5-minutes.html">EBU R128 in 5 minutes</a> matters — without gating, a podcast with long pauses measures too quiet.</li>
-          <li><strong>True-peak ceiling: -1.0 dBTP</strong> measured with at least 4× oversampling (48 kHz → 192 kHz) to catch inter-sample overs. Read <a href="true-peak.html">true peak vs sample peak</a> and <a href="dbtp-true-peak-vs-sample.html">dBTP explained</a>.</li>
-        </ul>
-        <p>Broadcast adopted -23 fast. Streaming needed louder for headphones and noisy environments, but wanted the same principle: normalize everything to one reference so users stop reaching for volume.</p>
-
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Platform</th><th>Integrated target</th><th>True-peak</th><th>Behavior</th></tr></thead>
-            <tbody>
-              <tr><td><b>Spotify Normal</b></td><td>-14 LUFS</td><td>-1.0 dBTP</td><td>Turns down louder, turns up quieter to -14 (cap). Loud/Quiet modes -11 / -19.</td></tr>
-              <tr><td><b>YouTube</b></td><td>-14 LUFS</td><td>-1.0 dBTP</td><td>Always normalizes down; up only ~+6 dB. See <a href="spotify-loudness.html">Spotify guide</a>.</td></tr>
-              <tr><td><b>Apple Music</b></td><td>-16 LUFS</td><td>-1.0 dBTP</td><td>Sound Check on by default, uses proprietary algorithm but approx -16.</td></tr>
-              <tr><td><b>TikTok / Reels / Shorts</b></td><td>-14 to -16 LUFS</td><td>-1.0 dBTP</td><td>Short-form measures short-term heavily. <a href="tiktok-loudness.html">Details for vertical.</a></td></tr>
-              <tr><td><b>AES / Podcast</b></td><td>-16 to -19 LUFS stereo / -19 mono</td><td>-2.0 dBTP</td><td>More headroom for speech, lower LRA target.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h2>3. What -14 LUFS actually measures</h2>
-        <p><strong>Integrated</strong> is the whole-program number with both gates applied. Algorithm per ITU:</p>
-        <ol>
-          <li>Apply K-weighting to each channel, apply channel weights (L/R 1.0, C 1.0, Ls/Rs 1.41 for 5.1).</li>
-          <li>Slice into 400 ms blocks, 75% overlap → compute mean-square.</li>
-          <li>Exclude blocks below <code>-70 LUFS absolute</code>.</li>
-          <li>Compute integrated loudness of remaining blocks, then exclude blocks &lt; <code>integrated -10 LU</code> (relative gate).</li>
-          <li>Re-integrate survivors → your integrated LUFS.</li>
-        </ol>
-        <p>That is what JSM Loudness implements exactly, verified against EBU reference file: <code>-14.05 LUFS integrated, TP -3.08 dBTP, Short-term -11.88, Momentary -11.23, LRA 3.30, PLR 10.97</code>. No approximation, same biquad coefficients: Stage1 1681.97445 Hz +3.999843 dB Q0.707175, Stage2 38.13547 Hz Q0.500327.</p>
-        <p><a href="what-is-lufs.html">Qu'est-ce que LUFS ?</a> explains momentary (400 ms) and short-term (3 s) too — short-term tells you if your chorus parks above -11 for too long and will feel crushed after normalization.</p>
-
-        <h2>4. Normalization: why louder is now smaller</h2>
-        <p>Say you master to -8 LUFS integrated, true-peak -0.1 dBFS sample-peak. Spotify Normal applies -6 dB gain. YouTube does same. Result:</p>
-        <ul>
-          <li>Perceived loudness = identical to a -14 LUFS track.</li>
-          <li>But your true-peak now sits at -7.1 dB after gain? No — the gain is applied after decoding, and your inter-sample peaks that were at +0.7 dBTP now become -5.3 dBTP, but you already distorted the DAC and codecs.</li>
-          <li>Your PLR is 8 -? Actually -0.1 - (-8) = 7.9 dB. A dynamic -14 LUFS master with TP -1.0 gives PLR 13 dB. After normalization, the dynamic track hits harder because transients survive.</li>
-        </ul>
-        <p>Listeners describe it as: loud masters sound <em>thinner and more fatiguing</em> on normalized playlists. Meters confirm: PSR (Peak-to-Short-term) 5 dB vs 8 dB.</p>
-
-        <h2>5. True-peak and codec headroom</h2>
-        <p>0 dBFS sample-peak ≠ 0 dBTP. Reconstruction filter overshoot adds up to +0.6 dB on real DACs. MP3/AAC encoders need even more — 320k MP3 can overshoot +1.2 dB. That is why <code>-1.0 dBTP</code> is the new 0 dB. If you master to -0.3 dBTP and platform transcodes to AAC 256k, you create audible clipping on phones. <a href="dbtp-true-peak-vs-sample.html">Deep dive on DBTP</a> has codec tests.</p>
-        <p>Fix: limiter ceiling -1.0 dBTP true-peak, 4× minimum, 8× or 16× better in final check. Your ISP meter must oversample.</p>
-
-        <h2>6. How to work at -14 today</h2>
-        <div class="grid-2">
-          <div class="card">
-            <h4>Music — Spotify / YouTube</h4>
-            <p>Target: -14 LUFS ±1 LU integrated, max TP -1.0 dBTP, PLR 8–12 dB, short-term max around -11 to -9, momentary not constantly above -8. LRA 4–8 LU for modern pop, wider for acoustic.</p>
-          </div>
-          <div class="card">
-            <h4>Podcast / Voice</h4>
-            <p>Target: -16 LUFS stereo (-19 mono), TP -2.0 dBTP, LRA &lt;6 LU. Use gentle compression, not limiting, for consistency. PLR 10–14.</p>
-          </div>
-        </div>
-        <p>Workflow in JSM Loudness (100% browser, Quebec Law 25 compliant — see privacy note):</p>
-        <ol>
-          <li>Drop WAV/AAC/MP3 — nothing leaves your device.</li>
-          <li>Check integrated. If -11.2, you need -2.8 dB gain or less limiting.</li>
-          <li>Check short-term graph: if chorus sits at -9 short-term for 40 seconds, pull 2 dB.</li>
-          <li>Check true-peak. If -0.4 dBTP, lower limiter ceiling to -1.0 dBTP true-peak.</li>
-          <li>Export gain-adjusted file, re-check. PLR should rise.</li>
-        </ol>
-
-        <h2>7. When to break -14 on purpose</h2>
-        <p>Three cases: <br>
-        <strong>Club / DJ</strong>: you still deliver -9 to -7 LUFS integrated for raw files used on CDJs without normalization, but keep a -14 streaming version. <br>
-        <strong>Short-form</strong>: TikTok measures heavily on 3-second short-term; some creators master vertical hooks to -11/-9 short-term while integrated stays -14. <br>
-        <strong>Intentionally crushed aesthetic</strong>: lo-fi, hyperpop. Do it knowing it will be turned down.</p>
-        <p>In all cases, never go above -1.0 dBTP true-peak. That rule has no exception.</p>
-
-        <p style="margin-top:36px">Bottom line: -14 LUFS is not a limiter preset. It is a listening reference, like 83 dB SPL in film. When everyone aims there, tracks with dynamics win A/Bs. The war ended because measurement finally matched hearing. Stop chasing 0 dBFS sample peak. Start watching integrated LUFS, true-peak dBTP, and PLR. Those three decide how you translate on every phone, speaker, and codec.</p>
-
-        <div class="legal">
-          <b style="color:#C5CAD2">Privacy / Quebec Law 25:</b> JSM Loudness analyzes audio with Web Audio API + AudioWorklet in your browser. Files are decoded locally with <code>OfflineAudioContext</code>. No upload, no server, no third-party audio processing. Analytics (GA4) only after you Accept consent, and IP is anonymized. Your audio never leaves device — verified by opening devtools Network tab while analyzing. Built in Montreal, QC.
-        </div>
-      </div>
-
-      <div class="cta">
-        <div>
-          <h3>Check your track — is it really -14?</h3>
-          <p>Drag & drop. ITU-R BS.1770-4 exact, 4× oversampled true-peak, EBU gating, LRA PLR PSR. Free, verified -14.05 LUFS, 100% browser.</p>
-        </div>
-        <a class="btn-lime" style="height:44px;padding:0 20px;font-size:13px" href="../index.html#analyzer">Open Analyzer →</a>
-      </div>
-
-      <div class="related">
-        <h4 class="mono" style="font-size:12px;letter-spacing:0.06em;color:#9AA0A8;text-transform:uppercase">Continue learning</h4>
-        <div class="related-grid">
-          <a href="what-is-lufs.html"><span class="related-title">Qu'est-ce que LUFS ? Integrated vs Short-term</span><span class="related-desc">K-weighting, gating -70 / -10 LU, why LUFS replaced RMS.</span></a>
-          <a href="spotify-loudness.html"><span class="related-title">Spotify -14 Guide</span><span class="related-desc">Normal / Loud / Quiet modes and when to master louder.</span></a>
-          <a href="true-peak.html"><span class="related-title">True Peak vs Sample Peak</span><span class="related-desc">Inter-sample clipping and why -1 dBTP.</span></a>
-          <a href="lra.html"><span class="related-title">LRA, PLR, PSR Explained</span><span class="related-desc">Dynamic range metrics that matter for punch.</span></a>
-          <a href="ebu-r128-5-minutes.html"><span class="related-title">EBU R128 in 5 Minutes</span><span class="related-desc">Absolute gate, relative gate, LRA spec summary.</span></a>
-          <a href="tiktok-loudness.html"><span class="related-title">TikTok & Shorts Loudness</span><span class="related-desc">-14 to -9 LUFS short-term targets for mobile.</span></a>
-        </div>
-      </div>
-    </article>
-  </main>
+<p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
+  <a class="btn-lime" href="../../index.html">Ouvrir l'Analyseur</a>
+  <a class="btn-ghost" href="spotify-loudness.html">Spotify -14</a>
+  <a class="btn-ghost" href="what-is-lufs.html">Qu'est-ce que LUFS ?</a>
+</p>
+</main>
 
   <footer class="footer">
     <div class="footer-inner">
@@ -333,24 +252,24 @@
           <span style="font-size:11px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser — No Upload</span>
         </div>
         <div class="footer-links">
-          <a href="../privacy.html">Privacy</a><span style="color:#1E232E">·</span>
-          <a href="../terms.html">Terms</a><span style="color:#1E232E">·</span>
+          <a href="../privacy.html">Confidentialité</a><span style="color:#1E232E">·</span>
+          <a href="../terms.html">Conditions</a><span style="color:#1E232E">·</span>
           <a href="../cookies.html">Cookies</a><span style="color:#1E232E">·</span>
           <a href="../blog.html">Blog</a><span style="color:#1E232E">·</span>
-          <a href="../pricing.html">Pricing</a><span style="color:#1E232E">·</span>
-          <a href="../about.html">About</a><span style="color:#1E232E">·</span>
+          <a href="../pricing.html">Tarifs</a><span style="color:#1E232E">·</span>
+          <a href="../about.html">À propos</a><span style="color:#1E232E">·</span>
           <a href="../contact.html">Contact</a>
         </div>
       </div>
-      <div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Built by Sehmus in Montreal</span><span>No upload • Runs in browser • Verified -14.05 LUFS</span></div>
+      <div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Built by Sehmus in Montreal</span><span>Aucun envoi • Tourne dans le navigateur • Vérifié -14,05 LUFS</span></div>
     </div>
   </footer>
 
   <div id="consent-banner">
-    <p>We use anonymized GA4 only after you Accept. No ads until consent. Audio never leaves your device. <a href="../privacy.html" style="color:#E6E8EC;text-decoration:underline">Privacy</a> — Quebec Law 25 compliant.</p>
+    <p>We use anonymized GA4 only after you Accept. No ads until consent. L'audio ne quitte jamais votre appareil. <a href="../privacy.html" style="color:#E6E8EC;text-decoration:underline">Confidentialité</a> — Quebec Law 25 compliant.</p>
     <div class="consent-actions">
-      <button class="btn-ghost" onclick="rejectConsent()">Reject</button>
-      <button class="btn-lime" style="height:34px" onclick="acceptConsent()">Accept</button>
+      <button class="btn-ghost" onclick="rejectConsent()">Refuser</button>
+      <button class="btn-lime" style="height:34px" onclick="acceptConsent()">Accepter</button>
     </div>
   </div>
 

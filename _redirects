@@ -1,8 +1,35 @@
-/about    /about.html    200
-/blog     /blog.html     200
-/pricing  /pricing.html  200
-/privacy  /privacy.html  200
-/terms    /terms.html    200
-/cookies  /cookies.html  200
-/contact  /contact.html  200
-/learn    /articles/what-is-lufs.html  302
+# Extensionless pretty URLs → actual HTML files (200 = rewrite, not redirect)
+/about                    /about.html                    200
+/blog                     /blog.html                     200
+/pricing                  /pricing.html                  200
+/privacy                  /privacy.html                  200
+/terms                    /terms.html                    200
+/cookies                  /cookies.html                  200
+/contact                  /contact.html                  200
+/learn                    /articles/what-is-lufs.html    200
+
+/fr/about                 /fr/about.html                 200
+/fr/blog                  /fr/blog.html                  200
+/fr/pricing               /fr/pricing.html               200
+/fr/privacy               /fr/privacy.html               200
+/fr/terms                 /fr/terms.html                 200
+/fr/cookies               /fr/cookies.html               200
+/fr/contact               /fr/contact.html               200
+
+/articles/what-is-lufs              /articles/what-is-lufs.html              200
+/articles/spotify-loudness          /articles/spotify-loudness.html          200
+/articles/tiktok-loudness           /articles/tiktok-loudness.html           200
+/articles/true-peak                 /articles/true-peak.html                 200
+/articles/lra                       /articles/lra.html                       200
+/articles/why-minus-14-is-new-zero  /articles/why-minus-14-is-new-zero.html  200
+/articles/dbtp-true-peak-vs-sample  /articles/dbtp-true-peak-vs-sample.html  200
+/articles/ebu-r128-5-minutes        /articles/ebu-r128-5-minutes.html        200
+
+/fr/articles/what-is-lufs              /fr/articles/what-is-lufs.html              200
+/fr/articles/spotify-loudness          /fr/articles/spotify-loudness.html          200
+/fr/articles/tiktok-loudness           /fr/articles/tiktok-loudness.html           200
+/fr/articles/true-peak                 /fr/articles/true-peak.html                 200
+/fr/articles/lra                       /fr/articles/lra.html                       200
+/fr/articles/why-minus-14-is-new-zero  /fr/articles/why-minus-14-is-new-zero.html  200
+/fr/articles/dbtp-true-peak-vs-sample  /fr/articles/dbtp-true-peak-vs-sample.html  200
+/fr/articles/ebu-r128-5-minutes        /fr/articles/ebu-r128-5-minutes.html        200
