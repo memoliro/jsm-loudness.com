@@ -24,6 +24,7 @@
     { "source": "/cookies", "destination": "/cookies.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/learn", "destination": "/articles/what-is-lufs.html" },
+    { "source": "/fr/", "destination": "/fr/index.html" },
     { "source": "/fr/about", "destination": "/fr/about.html" },
     { "source": "/fr/blog", "destination": "/fr/blog.html" },
     { "source": "/fr/pricing", "destination": "/fr/pricing.html" },
