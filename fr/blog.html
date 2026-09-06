@@ -18,6 +18,7 @@
     wait_for_update: 500
   });
   gtag('js', new Date());
+  gtag('config', 'G-64EC8JJF7Q', { 'anonymize_ip': true, 'send_page_view': true });
   // Do not send page_view until consent granted - we trigger it in main.js after consent
   </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
@@ -117,4 +118,4 @@
             <div style="display:flex;gap:8px;align-items:center">
               <button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button>
               <button onclick="acceptConsent()" class="btn-lime">Accepter</button></div></div>
-              <script src="assets/js/main.js" defer></script></body></html>
+              <script src="../assets/js/main.js" defer></script></body></html>

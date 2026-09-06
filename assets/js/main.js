@@ -1,68 +1,97 @@
-// assets/js/main.js - FIXED for jsm-loudness.com
-// Fixes consent persistence - saves to localStorage + cookie for 180 days
+// JSM Loudness - Clean consent handler (no translation, no duplicate)
+// Handles GA4 Consent Mode v2, restores saved choice, sends page_view
 (function(){
-  const KEY = 'jsm_consent_v1';
-  const BANNER_ID = 'consent-banner';
+  const MEASUREMENT_ID = 'G-64EC8JJF7Q';
+  const CONSENT_KEY = 'jsm_consent_v1';
 
-  function getConsent(){
+  function getSavedConsent(){
     try{
-      const ls = localStorage.getItem(KEY);
-      if(ls) return ls;
-      const m = document.cookie.match(new RegExp('(?:^|;\\s*)'+KEY+'=([^;]+)'));
-      return m ? decodeURIComponent(m[1]) : null;
-    }catch{ return null; }
+      return localStorage.getItem(CONSENT_KEY) || (document.cookie.match(new RegExp(CONSENT_KEY+'=([^;]+)'))||[])[1] || null;
+    }catch(e){return null;}
   }
 
-  function setConsent(value){
-    try{ localStorage.setItem(KEY, value); }catch{}
+  function setCookieConsent(val){
     try{
-      document.cookie = `${KEY}=${encodeURIComponent(value)}; max-age=${60*60*24*180}; path=/; SameSite=Lax`;
-    }catch{}
+      localStorage.setItem(CONSENT_KEY, val);
+    }catch(e){}
+    try{
+      document.cookie = CONSENT_KEY + '=' + val + '; max-age=' + (60*60*24*180) + '; path=/; SameSite=Lax';
+    }catch(e){}
   }
 
-  function updateGtag(isGranted){
+  function updateGtag(granted){
+    if(!window.gtag) return;
     try{
-      if(!window.gtag) return;
       window.gtag('consent','update',{
-        ad_storage: isGranted ? 'granted' : 'denied',
-        analytics_storage: isGranted ? 'granted' : 'denied',
-        ad_user_data: isGranted ? 'granted' : 'denied',
-        ad_personalization: isGranted ? 'granted' : 'denied'
+        ad_storage: granted ? 'granted' : 'denied',
+        ad_user_data: granted ? 'granted' : 'denied',
+        ad_personalization: granted ? 'granted' : 'denied',
+        analytics_storage: granted ? 'granted' : 'denied'
       });
-      if(isGranted){
-        window.gtag('event','page_view');
+      if(granted){
+        window.gtag('event','consent_granted');
+        // Send page_view after granting
+        window.gtag('config', MEASUREMENT_ID, { anonymize_ip: true });
       }
-    }catch{}
+    }catch(e){}
   }
 
   function hideBanner(){
-    const b = document.getElementById(BANNER_ID);
-    if(b) b.style.display = 'none';
-  }
-  function showBanner(){
-    const b = document.getElementById(BANNER_ID);
-    if(b) b.style.display = 'flex';
+    try{
+      var b=document.getElementById('consent-banner');
+      if(b){ b.style.display='none'; }
+      var b2=document.getElementById('cookie-banner');
+      if(b2){ b2.style.display='none'; }
+    }catch(e){}
   }
 
+  // Public functions called by banner buttons
   window.acceptConsent = function(){
-    setConsent('accepted');
+    setCookieConsent('granted');
     updateGtag(true);
     hideBanner();
+    console.log('[JSM] Consent granted');
   };
   window.rejectConsent = function(){
-    setConsent('rejected');
+    setCookieConsent('denied');
     updateGtag(false);
     hideBanner();
+    console.log('[JSM] Consent denied');
   };
 
-  document.addEventListener('DOMContentLoaded', function(){
-    const saved = getConsent();
-    if(!saved){
-      showBanner();
-      return;
+  // Init on load
+  function init(){
+    var saved = getSavedConsent();
+    var banner = document.getElementById('consent-banner');
+    if(saved){
+      var ok = saved === 'granted' || saved === 'accepted';
+      // Apply saved consent
+      if(window.gtag){
+        try{
+          window.gtag('consent','update',{
+            ad_storage: ok ? 'granted' : 'denied',
+            ad_user_data: ok ? 'granted' : 'denied',
+            ad_personalization: ok ? 'granted' : 'denied',
+            analytics_storage: ok ? 'granted' : 'denied'
+          });
+        }catch(e){}
+      }
+      hideBanner();
+      // If granted, ensure config sent
+      if(ok && window.gtag){
+        try{ window.gtag('config', MEASUREMENT_ID, { anonymize_ip: true }); }catch(e){}
+      }
+    }else{
+      // No choice yet -> show banner
+      if(banner){
+        banner.style.display='flex';
+      }
     }
-    const isGranted = saved === 'accepted' || saved === 'granted';
-    hideBanner();
-    updateGtag(isGranted);
-  });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  }else{
+    init();
+  }
 })();
