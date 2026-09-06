@@ -3,23 +3,20 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Loudness Spotify -14 LUFS : comment masteriser pour la normalisation | JSM Loudness</title>
-<meta name="description" content="Guide Spotify loudness : cible -14 LUFS intégré, true-peak -1 dBTP, pourquoi la normalisation Spotify atténue les masters trop forts, et comment viser juste avec un mesureur EBU R128 exact."/>
-  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/spotify-loudness.html"/>
-  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/spotify-loudness.html"/>
-  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/spotify-loudness.html"/>
-  <link rel="canonical" href="https://jsm-loudness.com/fr/articles/spotify-loudness.html"/>
+<title>Loudness Spotify: -14 LUFS Target Explained | JSM Loudness</title>
+<meta name="description" content="Spotify normalizes to -14 LUFS integrated, -1 dBTP. Learn Normal/Loud/Quiet modes, when to master louder than -14, and how to avoid loudness penalty."/>
+<link rel="canonical" href="https://jsm-loudness.com/articles/spotify-loudness.html"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Loudness Spotify: -14 LUFS Target Explained"/>
 <meta property="og:description" content="Spotify normalizes to -14 LUFS integrated, -1 dBTP. Learn Normal/Loud/Quiet modes, when to master louder than -14, and how to avoid loudness penalty."/>
-<meta property="og:url" content="https://jsm-loudness.com/fr/articles/spotify-loudness.html"/>
+<meta property="og:url" content="https://jsm-loudness.com/articles/spotify-loudness.html"/>
 <meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
 <meta property="og:site_name" content="jsm-loudness.com"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Loudness Spotify: -14 LUFS Target Explained"/>
 <meta name="twitter:description" content="Spotify normalizes to -14 LUFS integrated, -1 dBTP. Learn Normal/Loud/Quiet modes, when to master louder than -14, and how to avoid loudness penalty."/>
 <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
-<link rel="icon" href="../../favicon.ico"/>
+<link rel="icon" href="../favicon.ico"/>
 <link rel="stylesheet" href="../../assets/css/style.css"/>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -84,62 +81,36 @@ body{margin:0;background:#0A0C0F;color:#E6E8EC;font-family:Inter,ui-sans-serif,s
 </style>
 </head>
 <body>
-<!-- Language selector -->
-<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
-  <a href="../../articles/spotify-loudness.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a>
-  <span style="color:#2A3140">|</span>
-  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span>
-</div>
-
 <header class="header">
 <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
 <nav class="nav">
-<a href="../index.html">Analyseur</a>
+<a href="../index.html">Analyzer</a>
 <div style="position:relative"><a href="what-is-lufs.html">Learn ▾</a></div>
-<a href="../blog.html">Blog</a><a href="../pricing.html">Tarifs</a><a href="../about.html">À propos</a>
+<a href="../blog.html">Blog</a><a href="../pricing.html">Pricing</a><a href="../about.html">About</a>
 </nav>
-
-<a class="btn-lime" href="../index.html">Ouvrir l'Analyseur</a>
+<div id="lang-selector" style="display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;margin-left:12px"><span style="display:flex;gap:6px;opacity:0.6"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span><span style="color:#2A3140">|</span><a href="../index.html" style="display:flex;gap:6px;color:#E6E8EC;text-decoration:none;font-weight:600"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a></div>
+<a class="btn-lime" href="../index.html">Open Analyzer</a>
 </header>
 <main class="prose">
-<div class="badge">ITU-R BS.1770-4 • EBU R128 • VÉRIFIÉ -14,05 LUFS</div>
-<h1>Loudness Spotify : masteriser pour -14 LUFS</h1>
-<p class="lead">Spotify normalise vers environ -14 LUFS intégré. Si votre master est plus fort, Spotify le baisse. S'il est plus calme, il peut le monter (avec un plafond). Viser -14 intégré avec un true-peak sous -1 dBTP est le chemin le plus propre.</p>
+<div class="badge">ITU-R BS.1770-4 • EBU R128 • VERIFIED -14.05 LUFS • NO UPLOAD</div>
+<h1>Loudness Spotify: -14 LUFS Target</h1>
+<p class="lead">Spotify normalizes to -14 LUFS integrated, -1 dBTP. Learn Normal/Loud/Quiet modes, when to master louder than -14, and how to avoid loudness penalty.</p>
 
-<h2>Comment fonctionne la normalisation Spotify</h2>
-<p>Spotify calcule un loudness intégré (proche EBU R128 / ITU BS.1770) sur tout le titre, puis applique un gain pour rapprocher le niveau de -14 LUFS. Les titres très dynamiques ou très denses peuvent être traités un peu différemment, mais la règle pratique reste : <strong>-14 LUFS intégré</strong>.</p>
-<p>Si vous livrez à -8 LUFS, Spotify atténue d'environ 6 dB. Votre limiting agressif devient inutile : le titre sonne plus petit, et souvent plus compressé, que un master à -14 avec de la dynamique.</p>
+<h2>Spotify normalization modes</h2>
+<p>Spotify uses 3 loudness modes: <strong>Normal (-14 LUFS)</strong> default on mobile/desktop, <strong>Loud (-11 LUFS)</strong> for noisy environments, <strong>Quiet (-19 LUFS)</strong>. All apply loudness gain + limiter if needed, never extra compression.</p>
+<div class="card"><strong>Rule:</strong> If your track is -8 LUFS integrated, Spotify turns it down -6 dB to -14. You lose punch because your transients were already crushed. Mastering at -14 retains dynamics.</div>
+<h2>When to master louder than -14?</h2>
+<p>Club tracks, TikTok edits: -9 to -12 LUFS can still sound louder on Loud mode, because -11 target gives you 3 dB headroom. But on Normal mode they will be turned down.</p>
+<h2>True-peak for Spotify</h2>
+<p>Spotify recommends -1 dBTP, prefers -2 dBTP for lossy transcodes to Ogg Vorbis 96/160/320kbps. Inter-sample peaks +0.8 dB after transcoding cause distortion if you master at 0 dBFS.</p>
+<h2>Workflow</h2>
+<ul><li>Measure integrated with JSM Loudness (verified -14.05)</li><li>Check short-term max < -9 LUFS for dynamic verses</li><li>Keep dBTP < -1</li><li>Export WAV, test Ogg preview</li></ul>
 
-<h2>Cible recommandée</h2>
-<ul>
-<li><strong>Integrated :</strong> -14,0 LUFS ± 0,5 LU</li>
-<li><strong>True-peak :</strong> ≤ -1,0 dBTP (idéalement -1,5 dBTP pour AAC)</li>
-<li><strong>LRA :</strong> selon le genre (souvent 5–12 LU pour la pop moderne)</li>
-</ul>
-
-<h2>Flux de travail recommandé</h2>
-<ol>
-<li>Masterisez en laissant de la marge (true-peak sous -1 dBTP).</li>
-<li>Mesurez avec un outil EBU R128 exact (comme JSM Loudness) sur le fichier final.</li>
-<li>Ajustez le gain global ou le limiteur pour atterrir près de -14 intégré.</li>
-<li>Exportez WAV 24-bit et uploadez ce même fichier.</li>
-</ol>
-
-<h2>Erreurs courantes</h2>
-<ul>
-<li>Vérifier le loudness sur un bounce intermédiaire (pas le master final).</li>
-<li>Regarder uniquement le sample peak et ignorer le true-peak.</li>
-<li>Over-limiter à -6 LUFS « pour gagner la loudness war » — Spotify vous ramène à -14.</li>
-</ul>
-
-<p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
-  <a class="btn-lime" href="../../index.html">Ouvrir l'Analyseur</a>
-  <a class="btn-ghost" href="what-is-lufs.html">Qu'est-ce que LUFS ?</a>
-  <a class="btn-ghost" href="true-peak.html">True Peak</a>
-</p>
+<div style="margin-top:32px;display:flex;gap:12px"><a class="btn-lime" href="../index.html">Open Analyzer — Free, No Upload</a><a href="../blog.html" style="border:1px solid #1E232E;padding:8px 14px;border-radius:999px;text-decoration:none;color:#9AA0A8">Back to Learn</a></div>
+<div class="card" style="margin-top:24px"><strong>Note confidentialité (Loi 25):</strong> Votre audio ne quitte jamais votre appareil. Web Audio + WASM runs locally, verifiable in DevTools Network tab. GA4 only after Accept, anonymized IP.</div>
 </main>
-<footer class="footer"><div>© 2026 jsm-loudness.com · Montreal, QC · Construit à Montréal</div><div><a href="../privacy.html">Confidentialité</a> · <a href="../terms.html">Conditions</a> · <a href="../cookies.html">Cookies</a> · <a href="../blog.html">Blog</a> · <a href="../pricing.html">Tarifs</a> · <a href="../about.html">À propos</a> · <a href="../contact.html">Contact</a></div></footer>
-<div id="consent-banner" class="consent"><div style="flex:1"><p style="margin:0 0 4px;font-weight:600;font-size:13px">Cookies et confidentialité</p><p style="margin:0;font-size:12px;color:#9AA0A8">L'audio ne quitte jamais votre appareil. Anonymous analytics only if Accept. <a href="../privacy.html" style="color:#D6FF57">Confidentialité</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button><button onclick="acceptConsent()" class="btn-lime">Accepter</button></div></div>
+<footer class="footer"><div>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal</div><div><a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../cookies.html">Cookies</a> · <a href="../blog.html">Blog</a> · <a href="../pricing.html">Pricing</a> · <a href="../about.html">About</a> · <a href="../contact.html">Contact</a></div></footer>
+<div id="consent-banner" class="consent"><div style="flex:1"><p style="margin:0 0 4px;font-weight:600;font-size:13px">Cookies & privacy</p><p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. Anonymous analytics only if Accept. <a href="../privacy.html" style="color:#D6FF57">Privacy</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Reject</button><button onclick="acceptConsent()" class="btn-lime">Accept</button></div></div>
 <script src="../../assets/js/main.js" defer></script>
 </body>
 </html>

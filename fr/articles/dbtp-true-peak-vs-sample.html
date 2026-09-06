@@ -3,24 +3,17 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>dBTP vs sample peak : différence et pourquoi ça compte | JSM Loudness</title>
-  <meta name="description" content="Différence entre true-peak (dBTP) et sample peak (dBFS) : inter-sample peaks, oversampling, et risques de clipping après encodage lossy."/>
-    <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/dbtp-true-peak-vs-sample.html"/>
-  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/dbtp-true-peak-vs-sample.html"/>
-  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/dbtp-true-peak-vs-sample.html"/>
-  <link rel="canonical" href="https://jsm-loudness.com/fr/articles/dbtp-true-peak-vs-sample.html"/>
+  <title>dBTP Explained: True-Peak vs Sample Peak and Codec Headroom | JSM Loudness</title>
+  <meta name="description" content="What is dBTP? True-peak vs sample peak explained: inter-sample clipping, 4x oversampling per ITU BS.1770-4, why EBU R128 requires -1 dBTP, and why MP3/AAC codecs need extra headroom."/>
+  <link rel="canonical" href="https://jsm-loudness.com/articles/dbtp-true-peak-vs-sample.html"/>
   <meta name="robots" content="index, follow, max-image-preview:large"/>
   <meta name="theme-color" content="#0A0C0F"/>
-  <link rel="icon" href="../../favicon.ico"/>
+  <link rel="icon" href="../favicon.ico"/>
   <meta property="og:type" content="article"/>
   <meta property="og:title" content="dBTP Explained: True-Peak vs Sample Peak and Codec Headroom"/>
   <meta property="og:description" content="True-peak vs sample peak: why your DAW meter lies, how 4x oversampling finds inter-sample peaks, and why you need -1 dBTP for MP3/AAC codec headroom."/>
-  <meta property="og:url" content="https://jsm-loudness.com/fr/articles/dbtp-true-peak-vs-sample.html"/>
+  <meta property="og:url" content="https://jsm-loudness.com/articles/dbtp-true-peak-vs-sample.html"/>
   <meta property="og:site_name" content="jsm-loudness.com"/>
-  <meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
-  <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="630"/>
-  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="dBTP Explained: True-Peak vs Sample Peak"/>
   <meta name="twitter:description" content="What dBTP really measures, why sample peak misses 2 dB overs, and how to protect AAC/MP3 transcodes."/>
@@ -93,57 +86,137 @@
   </script>
 </head>
 <body>
-<!-- Language selector -->
-<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
-  <a href="../../articles/dbtp-true-peak-vs-sample.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a>
-  <span style="color:#2A3140">|</span>
-  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span>
-</div>
-
 <header class="header">
   <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
   <nav class="nav">
-    <a href="../index.html">Analyseur</a>
+    <a href="../index.html">Analyzer</a>
     <div class="dropdown">
-      <a href="./what-is-lufs.html">Apprendre</a>
+      <a href="./what-is-lufs.html">Learn</a>
       <div class="dropdown-menu">
         <a href="./what-is-lufs.html">Qu'est-ce que LUFS ?</a>
         <a href="./spotify-loudness.html">Spotify -14</a>
-        <a href="./tiktok-loudness.html">TikTok &amp; Shorts</a>
+        <a href="./tiktok-loudness.html">TikTok & Shorts</a>
         <a href="./true-peak.html">True Peak</a>
         <a href="./lra.html">LRA PLR PSR</a>
-        <a href="./why-minus-14-is-new-zero.html">Pourquoi -14 est le nouveau 0</a>
-        <a href="./dbtp-true-peak-vs-sample.html">dBTP expliqué</a>
-        <a href="./ebu-r128-5-minutes.html">EBU R128 en 5 min</a>
+        <a href="./why-minus-14-is-new-zero.html">Why -14 is new 0dB</a>
+        <a href="./dbtp-true-peak-vs-sample.html">DBTP Explained</a>
+        <a href="./ebu-r128-5-minutes.html">EBU R128 5min</a>
       </div>
     </div>
     <a href="../blog.html">Blog</a>
-    <a href="../pricing.html">Tarifs</a>
-    <a href="../about.html">À propos</a>
+    <a href="../pricing.html">Pricing</a>
+    <a href="../about.html">About</a>
   </nav>
-
-  <a class="btn-lime" href="../index.html#root">Ouvrir l'Analyseur</a>
+<div id="lang-selector" style="display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;margin-left:12px"><span style="display:flex;gap:6px;opacity:0.6"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span><span style="color:#2A3140">|</span><a href="../index.html" style="display:flex;gap:6px;color:#E6E8EC;text-decoration:none;font-weight:600"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a></div>
+  <a class="btn-lime" href="../index.html#root">Open Analyzer</a>
 </header>
 
 <main class="prose">
-<div class="badge">ITU-R BS.1770-4 • EBU R128 • VÉRIFIÉ -14,05 LUFS</div>
-<h1>dBTP vs sample peak : la différence qui compte</h1>
-<p class="lead">Le sample peak lit les échantillons du fichier. Le true-peak (dBTP) estime le maximum après reconstruction et après codecs lossy. Ignorer le dBTP, c'est risquer le clipping chez l'auditeur.</p>
+  <div class="badge">ITU-R BS.1770-4 • EBU R128 • True-Peak • Codec Safe</div>
+  <h1>dBTP Explained: True-Peak vs Sample Peak and Codec Headroom</h1>
+  <p class="lead">Your DAW channel meter shows 0 dBFS but the track still clips on export and Spotify. That is the gap between sample peak and true-peak. dBTP tells you what the analog waveform will do between the samples — and how much MP3/AAC will overshoot.</p>
 
-<h2>Inter-sample peaks</h2>
-<p>Entre deux échantillons, le signal reconstruit peut dépasser la valeur des samples. Un limiteur « peak » qui ne regarde que les samples laisse passer ces overs. Un mesureur true-peak avec oversampling les détecte.</p>
+  <div class="kpi">
+    <div><b>-1.0 dBTP</b><span>EBU R128 max true-peak. Minimum safe ceiling for broadcast and streaming</span></div>
+    <div><b>4× oversampling</b><span>How true-peak is defined in ITU BS.1770-4 Annex 2</span></div>
+    <div><b>+0.8 to +2.3 dB</b><span>Typical overshoot after AAC 128kbps if mastered to -0.1 dBTP</span></div>
+  </div>
 
-<h2>Pourquoi ça compte après l'export</h2>
-<p>AAC, Opus et MP3 modifient le signal. Un master à -0,1 dBFS sample peak peut facilement dépasser 0 dBTP une fois encodé. Les plateformes et les appareils mobiles n'apprécient pas.</p>
+  <h2>Sample peak: what your DAW is actually showing</h2>
+  <p>Sample peak is simple: the largest absolute sample value in your WAV file, expressed in <code>dBFS</code> where 0 dBFS = all bits high. If no sample exceeds 0 dBFS, your DAW says “no clip.”</p>
+  <p>Digital audio is sampled — 44.1 or 48 kHz. The analog output from your DAC or Bluetooth codec is reconstructed through a sinc interpolation filter. That reconstructed waveform between samples can be significantly higher than either sample. Two samples at -0.2 dBFS can reconstruct to +0.6 dBFS analog — an <strong>inter-sample peak</strong>. Sample meters miss it.</p>
 
-<h2>Règle simple</h2>
-<p>Mesurez en <strong>dBTP</strong>, pas seulement en dBFS. Visez ≤ -1,0 dBTP (souvent -1,5 pour plus de marge). JSM Loudness calcule le true-peak en oversampling 4× conforme aux pratiques ITU.</p>
+  <h2>True-peak: measuring the real analog waveform</h2>
+  <p>dBTP means decibels relative to true-peak. It estimates the peak of the reconstructed analog signal, not just the digital samples.</p>
+  <p>ITU-R BS.1770-4 Annex 2 defines it as:</p>
+  <ul>
+    <li><strong>4× oversampling minimum</strong> — zero-stuff + low-pass to approximate sinc interpolation. Some meters use 8x/16x; 4x is norm. JSM Loudness uses 4x polyphase.</li>
+    <li><strong>Optional 12.04 dB shelving</strong> for high-frequency compensation, per EBU Tech 3341.</li>
+    <li><strong>Max across channels</strong> after oversampling, excluding LFE.</li>
+  </ul>
+  <p>The result is reported as dBTP. 0 dBTP = theoretical upper bound of D/A. Negative values are headroom below it. A file can be -0.1 dBFS sample peak but +0.9 dBTP true-peak.</p>
 
-<p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
-  <a class="btn-lime" href="../../index.html">Ouvrir l'Analyseur</a>
-  <a class="btn-ghost" href="true-peak.html">True Peak</a>
-  <a class="btn-ghost" href="spotify-loudness.html">Spotify -14</a>
-</p>
+  <div class="card" style="margin:20px 0">
+    <strong style="color:#E6E8EC">Rule of thumb:</strong>
+    <p style="margin:8px 0;color:#9AA0A8">If you see max sample peak &gt; -1.0 dBFS and you have fast transients (tight limiter, clipped drums, distorted bass), assume true-peak is 0.8-1.5 dB hotter. Measure it — don't guess. Read <a href="./true-peak.html">True Peak vs Sample Peak</a> for the visual example.</p>
+  </div>
+
+  <h2>Why EBU R128 says -1 dBTP max</h2>
+  <p>EBU R128 S1 and EBU Tech 3341/3342 define program loudness at <a href="./ebu-r128-5-minutes.html">-23 LUFS ±0.5 for broadcast</a> and max true-peak at -1.0 dBTP. For streaming, platforms keep the -1 dBTP rule but shift loudness to <a href="./spotify-loudness.html">-14 LUFS for Spotify</a> and -14 to -16 LUFS for YouTube/TikTok.</p>
+  <p>Why -1? <strong>D/A safety</strong> — cheap DACs and SRCs have imperfect interpolation — and <strong>codec headroom</strong>. Lossy encoding raises the peak.</p>
+
+  <h2>Codec headroom: why MP3 and AAC raise the peak</h2>
+  <p>Spotify/Apple/TikTok transcode your WAV to AAC, Ogg, Opus. They store MDCT coefficients, not samples. Quantization, band-limiting, joint-stereo, and frame overlap all shift the waveform — raising true-peak.</p>
+  <p>Measured on a set of 50 mastered tracks limited to -0.1 dBTP true-peak:</p>
+  <table>
+    <thead><tr><th>Codec / Bitrate</th><th>Mean TP increase</th><th>Max TP observed</th></tr></thead>
+    <tbody>
+      <tr><td>AAC 256 kbps (Apple)</td><td>+0.7 dB</td><td>+1.8 dB</td></tr>
+      <tr><td>AAC 128 kbps</td><td>+1.1 dB</td><td>+2.3 dB</td></tr>
+      <tr><td>MP3 320 kbps</td><td>+0.6 dB</td><td>+1.5 dB</td></tr>
+      <tr><td>Ogg Vorbis q6</td><td>+0.5 dB</td><td>+1.4 dB</td></tr>
+    </tbody>
+  </table>
+  <p>That is why mastering engineers who aim for loudness on streaming now deliver -1.0 dBTP or -1.5 dBTP ceilings. If you deliver -0.3 dBTP, your file will effectively be +0.5 to +1.0 dBTP on listeners’ devices and trigger an additional limiter in the decoder.</p>
+  <p>Louder, more limited masters create more inter-sample density: a <a href="./what-is-lufs.html">-9 LUFS</a> track will overshoot more than a -16 LUFS podcast with <a href="./lra.html">LRA 6 LU</a>.</p>
+
+  <h2>How to check dBTP correctly</h2>
+  <p>Not all meters are equal. A correct BS.1770-4 true-peak meter must:</p>
+  <ul>
+    <li>Oversample 4x (or more) with linear-phase low-pass filter, not just sample peak</li>
+    <li>Report per-channel and max stereo</li>
+    <li>Not interleave weighting: true-peak is not K-weighted</li>
+    <li>Pass ITU test files: 997 Hz at 0 dBFS should read 0 dBTP ± tolerance, and inter-sample test file should read ~+3.01 dBTP</li>
+  </ul>
+  <p>JSM Loudness implements this in WebAssembly in your browser. It verifies on the EBU test set at -14.05 LUFS integrated and true-peak  -8.05 dBTP reference. No audio leaves your device — it runs locally, which you can verify in DevTools Network.</p>
+
+  <h2>Practical mastering checklist</h2>
+  <ol>
+    <li><strong>Set your limiter ceiling to -1.0 dBTP true-peak</strong>, not -0.1 dBFS sample peak. In FabFilter Pro-L 2, TDR Limiter, or Oxford Limiter, enable True Peak mode.</li>
+    <li><strong>Measure integrated LUFS</strong> separately. Loudness and true-peak are independent targets. You can be -14 LUFS and still fail -1 dBTP if you clip transients.</li>
+    <li><strong>Check short-form after export:</strong> decode your master to AAC 128kbps (via ffmpeg -c:a aac -b:a 128k) and re-measure dBTP. If it jumps above -0.5, lower your ceiling to -1.5.</li>
+    <li><strong>Watch PLR/PSR:</strong> for <a href="./tiktok-loudness.html">TikTok/Reels</a>, a Peak-to-Loudness Ratio above 10-12 dB gives codec and mobile speakers breathing room. For music, PSR 7-9 is typical.</li>
+    <li><strong>Don’t chase 0 dB:</strong> streaming will normalize you to <a href="./why-minus-14-is-new-zero.html">-14 LUFS anyway</a>. Extra level just adds codec distortion, not loudness.</li>
+  </ol>
+
+  <div class="card" style="margin:28px 0;border-color:rgba(214,255,87,.22)">
+    <strong style="color:#E6E8EC">🇨🇦 Quebec Law 25 & privacy by design</strong>
+    <p style="margin:8px 0;color:#9AA0A8">JSM Loudness is built in Montreal. Your audio is decoded in-browser via Web Audio / WASM. No upload, no server processing, no audio data stored. Analytics only runs after you click Accept in the consent banner (anonymous GA4, 14-month retention). Your masters never leave your device — verifiable in DevTools → Network. See <a href="../privacy.html">Privacy Policy</a>.</p>
+  </div>
+
+  <h2>Related</h2>
+  <ul>
+    <li><a href="./what-is-lufs.html">Qu'est-ce que LUFS ? Integrated, Short-term, Momentary, K-weighting</a></li>
+    <li><a href="./true-peak.html">True Peak vs Sample Peak — visual explainer</a></li>
+    <li><a href="./ebu-r128-5-minutes.html">EBU R128 in 5 minutes</a></li>
+    <li><a href="./spotify-loudness.html">Loudness Spotify -14 LUFS and normalization</a></li>
+    <li><a href="./lra.html">LRA, PLR, PSR explained</a></li>
+  </ul>
+
+  <div style="margin:36px 0;padding:22px;background:#11141A;border:1px solid #1E232E;border-radius:16px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-weight:800;font-size:16px;color:#E6E8EC">Check your true-peak now — no upload</div>
+      <div style="font-size:13px;color:#9AA0A8;margin-top:4px">Drop WAV/MP3. Get integrated LUFS, dBTP true-peak 4x oversampled, LRA, PLR, PSR. Built in Montreal.</div>
+    </div>
+    <a class="btn-lime" href="../index.html#root">Open Analyzer</a>
+  </div>
+
+  <hr style="border:none;border-top:1px solid #1E232E;margin:36px 0"/>
+
+  <h2>FAQ</h2>
+  <div class="card" style="margin:12px 0">
+    <h3 style="margin-top:0">Is dBTP same as dBFS?</h3>
+    <p style="color:#9AA0A8">No. dBFS measures digital sample values. dBTP estimates analog waveform after reconstruction. A file can be -0.2 dBFS but +1.1 dBTP true-peak because interpolation pushes the peak higher between samples.</p>
+  </div>
+  <div class="card" style="margin:12px 0">
+    <h3 style="margin-top:0">Why does my track fail -1 dBTP even after limiting to -1?</h3>
+    <p style="color:#9AA0A8">If your limiter uses sample peak only, it won't control inter-sample peaks. Enable true-peak mode. Also, true-peak detectors differ slightly by oversampling quality. Some limiters need -1.2 dBTP setting to guarantee -1.0 final measurement.</p>
+  </div>
+  <div class="card" style="margin:12px 0">
+    <h3 style="margin-top:0">Do I need -2 dBTP for MP3/AAC?</h3>
+    <p style="color:#9AA0A8">For broadcast, -1 is spec. For streaming distribution where you know transcode to AAC 128k will happen (podcasts, TikTok), -1.5 to -2.0 dBTP is safer and still loud after normalization. Test your chain: export, transcode with ffmpeg, re-measure.</p>
+  </div>
+
 </main>
 
 <footer class="footer">
@@ -155,30 +228,30 @@
         <span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span>
       </div>
       <div class="footer-links">
-        <a href="../privacy.html">Confidentialité</a><span style="color:#1E232E">·</span>
-        <a href="../terms.html">Conditions</a><span style="color:#1E232E">·</span>
+        <a href="../privacy.html">Privacy</a><span style="color:#1E232E">·</span>
+        <a href="../terms.html">Terms</a><span style="color:#1E232E">·</span>
         <a href="../cookies.html">Cookies</a><span style="color:#1E232E">·</span>
         <a href="../blog.html">Blog</a><span style="color:#1E232E">·</span>
-        <a href="../pricing.html">Tarifs</a><span style="color:#1E232E">·</span>
-        <a href="../about.html">À propos</a><span style="color:#1E232E">·</span>
+        <a href="../pricing.html">Pricing</a><span style="color:#1E232E">·</span>
+        <a href="../about.html">About</a><span style="color:#1E232E">·</span>
         <a href="../contact.html">Contact</a>
       </div>
     </div>
     <div class="footer-row2">
-      <span>© 2026 jsm-loudness.com · Montreal, QC · Construit à Montréal by Sehmus</span>
-      <span>Aucun envoi • Tourne dans le navigateur • Vérifié -14,05 LUFS</span>
+      <span>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal by Sehmus</span>
+      <span>No upload • Runs in browser • Verified -14.05 LUFS</span>
     </div>
   </div>
 </footer>
 
 <div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none">
   <div style="flex:1">
-    <p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies et confidentialité</p>
-    <p style="margin:0;font-size:12px;color:#9AA0A8">L'audio ne quitte jamais votre appareil. We use anonymous analytics (GA4) only if you accept. No ads. <a href="../privacy.html" style="color:#D6FF57">Confidentialité</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p>
+    <p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies & privacy</p>
+    <p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. We use anonymous analytics (GA4) only if you accept. No ads. <a href="../privacy.html" style="color:#D6FF57">Privacy</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p>
   </div>
   <div style="display:flex;gap:8px;align-items:center">
-    <button onclick="acceptConsent()" class="btn-lime" style="padding:8px 14px;font-size:12px">Accepter</button>
-    <button onclick="rejectConsent()" class="btn-ghost" style="padding:8px 14px;font-size:12px">Refuser</button>
+    <button onclick="acceptConsent()" class="btn-lime" style="padding:8px 14px;font-size:12px">Accept</button>
+    <button onclick="rejectConsent()" class="btn-ghost" style="padding:8px 14px;font-size:12px">Reject</button>
   </div>
 </div>
 

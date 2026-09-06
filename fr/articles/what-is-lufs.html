@@ -3,22 +3,18 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Qu'est-ce que LUFS ? Integrated, Short-term, Momentary et K-weighting expliqués | JSM Loudness</title>
-<meta name="description" content="LUFS expliqué pour les producteurs : filtre K-weighting, ITU-R BS.1770-4, gating EBU R128 (-70 LUFS absolu, -10 relatif), integrated vs short-term vs momentary, pourquoi LUFS a remplacé le RMS, sécurité true-peak."/>
-  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/what-is-lufs.html"/>
-  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/what-is-lufs.html"/>
-  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/what-is-lufs.html"/>
-  <link rel="canonical" href="https://jsm-loudness.com/fr/articles/what-is-lufs.html"/>
+<title>Qu'est-ce que LUFS ? Integrated, Short-term, Momentary K-weighting Explained | JSM Loudness</title>
+<meta name="description" content="LUFS explained for producers: K-weighting filter, ITU-R BS.1770-4, EBU R128 gating (-70 LUFS absolute, -10 relative), integrated vs short-term vs momentary, why LUFS replaced RMS, true-peak safety."/>
+<link rel="canonical" href="https://jsm-loudness.com/articles/what-is-lufs.html"/>
 <meta name="robots" content="index, follow, max-image-preview:large"/>
 <meta name="theme-color" content="#0A0C0F"/>
-<link rel="icon" href="../../favicon.ico"/>
+<link rel="icon" href="../favicon.ico"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Qu'est-ce que LUFS ? Integrated, Short-term, Momentary K-weighting Explained"/>
-<meta property="og:description" content="Exact LUFS guide: K-weighting, EBU R128 gating -70/-10, integrated vs short-term vs momentary, why RMS is obsolete. Construit à Montréal, verified -14.05 LUFS."/>
-<meta property="og:url" content="https://jsm-loudness.com/fr/articles/what-is-lufs.html"/>
+<meta property="og:description" content="Exact LUFS guide: K-weighting, EBU R128 gating -70/-10, integrated vs short-term vs momentary, why RMS is obsolete. Built in Montreal, verified -14.05 LUFS."/>
+<meta property="og:url" content="https://jsm-loudness.com/articles/what-is-lufs.html"/>
 <meta property="og:site_name" content="jsm-loudness.com"/>
 <meta property="og:image" content="https://jsm-loudness.com/og-lufs.png"/>
-  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Qu'est-ce que LUFS ? Integrated, Short-term, Momentary"/>
 <meta name="twitter:description" content="K-weighting, gating -70/-10, integrated vs short-term vs momentary. Real EBU R128 guide."/>
@@ -98,131 +94,185 @@ tr:last-child td{border-bottom:none}
 
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Qu'est-ce que LUFS ? Integrated, Short-term, Momentary K-weighting Explained",
+  "description":"LUFS explained: K-weighting filter, ITU-R BS.1770-4 coefficients, EBU R128 gating -70/-10, integrated vs short-term vs momentary, why LUFS replaced RMS.",
+  "author":{"@type":"Person","name":"Sehmus","url":"https://jsm-loudness.com/about.html"},
+  "publisher":{"@type":"Organization","name":"JSM Loudness","url":"https://jsm-loudness.com/"},
+  "datePublished":"2026-01-15",
+  "dateModified":"2026-05-13",
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://jsm-loudness.com/articles/what-is-lufs.html"},
+  "keywords":"LUFS, Integrated LUFS, Short-term LUFS, Momentary LUFS, K-weighting, EBU R128, ITU-R BS.1770-4"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://jsm-loudness.com/"},
+    {"@type":"ListItem","position":2,"name":"Learn","item":"https://jsm-loudness.com/blog.html"},
+    {"@type":"ListItem","position":3,"name":"Qu'est-ce que LUFS ?","item":"https://jsm-loudness.com/articles/what-is-lufs.html"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
     {
-      "@type": "Question",
-      "name": "Quelle est la différence entre LUFS et dB ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Le dB mesure un niveau électrique. Le LUFS mesure le volume perçu avec K-weighting (high-shelf +4 dB vers 1,5 kHz), pondération des canaux et gating EBU R128. -14 LUFS n'est pas -14 dBFS peak ; c'est une moyenne perceptuelle."
-      }
+      "@type":"Question",
+      "name":"What is the difference between LUFS and dB?",
+      "acceptedAnswer":{"@type":"Answer","text":"dB measures electrical level. LUFS measures perceived loudness using K-weighting (high-shelf +4 dB at ~1.5 kHz) and channel weighting plus EBU R128 gating. -14 LUFS is not -14 dBFS peak; it's a perceptual average. That's why two masters at -0.1 dBFS peak can be -6 LUFS and -14 LUFS and sound completely different."}
     },
     {
-      "@type": "Question",
-      "name": "Qu'est-ce que le K-weighting en LUFS ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Le K-weighting est un filtre en deux étapes défini dans l'ITU-R BS.1770-4. Étape 1 : high-shelf +3,9998 dB à 1681,97 Hz (Q 0,7071). Étape 2 : passe-haut à 38,13 Hz (Q 0,5). Il met en avant la zone 2–4 kHz où l'oreille est la plus sensible."
-      }
+      "@type":"Question",
+      "name":"What is K-weighting in LUFS?",
+      "acceptedAnswer":{"@type":"Answer","text":"K-weighting is a two-stage filter defined in ITU-R BS.1770-4. Stage 1: high-shelf filter +3.9998 dB at 1681.97 Hz with Q 0.7071 to model head acoustics. Stage 2: high-pass filter at 38.13 Hz Q 0.5 as an RL second-order HPF. It emphasizes the 2-4 kHz region where hearing is most sensitive, then integrates per-channel with gains (1.0 front, 1.41 surround) and -0.691 dB LUFS-to-LKFS offset."}
     },
     {
-      "@type": "Question",
-      "name": "Quelle cible LUFS pour Spotify ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Spotify normalise vers environ -14 LUFS intégré. Visez -14,0 ±0,5 LU avec true-peak ≤ -1,0 dBTP pour un rendu prévisible sans atténuation ni boost excessif."
-      }
+      "@type":"Question",
+      "name":"Why does Integrated LUFS use gating at -70 and -10?",
+      "acceptedAnswer":{"@type":"Answer","text":"Integrated LUFS uses dual gating per EBU R128 S1. First, discard any 400 ms block (100 ms hop, 75% overlap) below -70 LUFS absolute to ignore silence. Compute absolute-gated average. Then discard blocks more than 10 LU below that average (relative gate). This prevents long quiet intros or breakdowns from dragging the score down. Short-term and momentary do not use relative gating."}
     }
   ]
 }
 </script>
 </head>
 <body>
-<!-- Language selector -->
-<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
-  <a href="../../articles/what-is-lufs.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a>
-  <span style="color:#2A3140">|</span>
-  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span>
-</div>
-
 <header class="header">
   <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
   <nav class="nav">
-    <a href="../index.html">Analyseur</a>
+    <a href="../index.html">Analyzer</a>
     <div class="dropdown">
       <a href="what-is-lufs.html" class="active">Learn ▾</a>
       <div class="dropdown-menu">
         <a href="what-is-lufs.html">Qu'est-ce que LUFS ?</a>
         <a href="spotify-loudness.html">Spotify -14</a>
-        <a href="tiktok-loudness.html">TikTok &amp; Shorts</a>
+        <a href="tiktok-loudness.html">TikTok & Shorts</a>
         <a href="true-peak.html">True Peak</a>
         <a href="lra.html">LRA PLR PSR</a>
-        <a href="why-minus-14-is-new-zero.html">Pourquoi -14 est le nouveau 0</a>
-        <a href="dbtp-true-peak-vs-sample.html">dBTP expliqué</a>
-        <a href="ebu-r128-5-minutes.html">EBU R128 en 5 min</a>
-        <div class="small">ITU-R BS.1770-4 exact • -14,05 vérifié</div>
+        <a href="why-minus-14-is-new-zero.html">Why -14 is new 0dB</a>
+        <a href="dbtp-true-peak-vs-sample.html">DBTP Explained</a>
+        <a href="ebu-r128-5-minutes.html">EBU R128 5min</a>
+        <div class="small">ITU-R BS.1770-4 exact • -14.05 verified</div>
       </div>
     </div>
     <a href="../blog.html">Blog</a>
-    <a href="../pricing.html">Tarifs</a>
-    <a href="../about.html">À propos</a>
+    <a href="../pricing.html">Pricing</a>
+    <a href="../about.html">About</a>
   </nav>
-
-  <a class="btn-lime" href="../index.html">Ouvrir l'Analyseur</a>
+<div id="lang-selector" style="display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;margin-left:12px"><span style="display:flex;gap:6px;opacity:0.6"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span><span style="color:#2A3140">|</span><a href="../index.html" style="display:flex;gap:6px;color:#E6E8EC;text-decoration:none;font-weight:600"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a></div>
+  <a class="btn-lime" href="../index.html">Open Analyzer</a>
 </header>
 
 <main class="prose">
-<div class="badge">ITU-R BS.1770-4 • EBU R128 • VÉRIFIÉ -14,05 LUFS</div>
+<div class="badge">ITU-R BS.1770-4 • EBU R128 • VERIFIED -14.05 LUFS</div>
 <h1>Qu'est-ce que LUFS ? Integrated, Short-term, Momentary</h1>
-<p class="lead">LUFS — Loudness Units relative to Full Scale — est la façon dont le streaming mesure réellement le volume perçu. Pas le peak. Pas le RMS. Le volume perçu avec K-weighting et un gating intelligent. Si vous masterisez pour Spotify, YouTube ou TikTok, c'est le chiffre qui compte.</p>
+<p class="lead">LUFS — Loudness Units relative to Full Scale — is how streaming actually measures loudness. Not peak. Not RMS. Perceived loudness with K-weighting and smart gating. If you master for Spotify, YouTube, or TikTok, this is the number that matters.</p>
 
-<p>Définition rapide : <strong>1 LU = 1 dB</strong>, mais le LUFS est absolu. 0 LUFS = 0 dBFS, simplement pondéré et filtré (gating) pour correspondre à l'audition humaine. C'est identique au LKFS ; l'ITU l'appelle LKFS, l'EBU l'appelle LUFS. Même calcul, même cible.</p>
+<p>The quick definition: <strong>1 LU = 1 dB</strong>, but LUFS is absolute. 0 LUFS = 0 dBFS, just weighted and gated to match human hearing. It's identical to LKFS; the ITU calls it LKFS, the EBU calls it LUFS. Same math, same target.</p>
 
-<h2>Pourquoi le RMS a cessé de fonctionner</h2>
-<p>Le RMS mesure la puissance électrique moyenne. Deux pistes peuvent être à -12 dB RMS et sembler 6 dB d'écart, car nos oreilles ne sont pas plates. Nous sommes plus sensibles autour de 2–5 kHz, moins aux sub-basses. Le RMS ne sait pas non plus que le silence ne doit pas compter dans le volume.</p>
-<p>Le LUFS corrige les deux : il applique un filtre K-weighting qui imite la résonance de la tête et de l'oreille, puis écarte les parties calmes via le gating avant de moyenner. Résultat : des chiffres qui correspondent à ce que vous entendez vraiment. C'est pourquoi la diffusion et le streaming ont abandonné le RMS après l'EBU R128 en 2010.</p>
+<h2>Why RMS stopped working</h2>
+<p>RMS measures average electrical power. Two tracks can both be -12 dB RMS and feel 6 dB apart, because our ears are not flat. We're most sensitive around 2–5 kHz, less sensitive to sub-bass. RMS also doesn't know that silence shouldn't count toward loudness.</p>
+<p>LUFS fixes both: it applies a <strong>K-weighting filter</strong> that mimics head and ear resonance, then it throws away quiet parts using <strong>gating</strong> before averaging. Result: numbers that match what you actually hear. This is why broadcast and streaming abandoned RMS after EBU R128 in 2010.</p>
 
-<h2>K-weighting : le boost de 4 dB qui compte</h2>
-<p>Le K-weighting n'est pas une suggestion d'EQ. Ce sont deux biquads en cascade définis exactement dans l'ITU-R BS.1770-4. Toute approximation dérive de 0,3 à 0,8 LUFS. JSM implémente les coefficients exacts :</p>
+<h2>K-weighting: the 4 dB bump that matters</h2>
+<p>K-weighting is not an EQ suggestion. It's two cascaded biquads defined <em>exactly</em> in ITU-R BS.1770-4. Any approximation drifts 0.3–0.8 LUFS. JSM implements the exact coefficients:</p>
+
 <div class="card">
-<strong>Filtres ITU-R BS.1770-4 (vérifiés)</strong><br/>
-Stage 1 : High-shelf f0 = 1681,974 Hz · G = +3,9998 dB · Q = 0,7072<br/>
-Stage 2 : High-pass RL f0 = 38,135 Hz · Q = 0,5003<br/>
-Offset total : -0,691 dB (LKFS → LUFS)
+<p style="margin:0 0 8px;font-size:13px;color:#E6E8EC;font-weight:600">ITU-R BS.1770-4 Filters (verified)</p>
+<pre style="margin:0;background:transparent;border:none;padding:0">Stage 1: High-shelf
+  f0 = 1681.9744509555319 Hz
+  G  = +3.99984385397 dB
+  Q  = 0.7071752369554193
+  b0 =  1.53512485958697  b1 = -2.69169618940638 b2 =  1.19839281085285
+  a1 = -1.69065929318241 a2 =  0.73248077421585
+
+Stage 2: High-pass RL
+  f0 = 38.13547087602444 Hz
+  Q  = 0.5003270373238773
+  b0 =  1  b1 = -2  b2 =  1
+  a1 = -1.99004745483398 a2 =  0.99007225036621
+
+Total offset: -0.691 dB (LKFS → LUFS)</pre>
 </div>
-<p>L'étape 1 modélise l'ombrage acoustique de la tête — un léger boost de +4 dB au-dessus de 1,5 kHz. L'étape 2 est un passe-haut du second ordre autour de 38 Hz pour atténuer l'énergie subsonique que l'humain ne perçoit pas comme forte. Après filtrage, les canaux sont pondérés : stéréo L/R = 1,0, Centre = 1,0, Surround L/R = 1,41 (+1,5 dB). Le LFE est ignoré. Si votre mesureur LUFS n'indique pas ces coefficients biquad exacts, il approxime.</p>
 
-<h2>Les trois échelles de temps : Momentary, Short-term, Integrated</h2>
-<ul>
-<li><strong>Momentary (400 ms)</strong> — réactif, utile pour repérer les pics qui sembleront forts dans le contexte.</li>
-<li><strong>Short-term (3 s)</strong> — fenêtre glissante sans gating, pour la dynamique par section (couplets, refrains, pubs).</li>
-<li><strong>Integrated (tout le fichier)</strong> — moyenne avec gating EBU R128. C'est le chiffre que Spotify, YouTube et les broadcasters utilisent pour normaliser.</li>
-</ul>
-<p>Le gate absolu à -70 LUFS écarte le silence pur. Le gate relatif à -10 LU sous le loudness non gated écarte les queues calmes et les pauses. Sans gating correct, un titre avec de longs fades se mesure plus calme qu'il ne sonne — et vous over-limitez pour viser -14.</p>
+<p>Purpose of Stage 1 is to model acoustic head shadowing — a gentle +4 dB lift above 1.5 kHz. Stage 2 is a second-order high-pass around 38 Hz to roll off subsonic energy humans don't perceive as loud. After filtering, channels are weighted: stereo L,R = 1.0, Center = 1.0, Surround L/R = 1.41 (+1.5 dB). LFE is ignored.</p>
+<p>If your LUFS meter doesn't state these exact biquad coefficients, it's approximating.</p>
 
-<h2>Cibles LUFS : -23 en broadcast, -14 en streaming</h2>
-<p>La radio et la TV européennes (EBU R128) visent <strong>-23 LUFS intégré</strong> avec une vraie marge true-peak. Le streaming s'est stabilisé autour de <strong>-14 LUFS intégré</strong> (Spotify, YouTube, Amazon, Tidal, Deezer). Apple Music est souvent plus près de -16. TikTok, Reels et Shorts sont plus forts et moins constants ; beaucoup de créateurs visent -12 à -9 LUFS short-term.</p>
-<p>Laissez toujours de la marge true-peak : <strong>-1,0 dBTP minimum</strong>, <strong>-1,5 dBTP</strong> plus sûr pour AAC/Opus.</p>
+<h2>The three time scales: Momentary, Short-term, Integrated</h2>
 
-<h2>Le True-Peak fait partie de la livraison LUFS</h2>
-<p>Le sample peak (dBFS) ignore les inter-sample peaks créés par le filtre de reconstruction et par les encodeurs lossy. Le true-peak (dBTP) utilise un oversampling (typiquement 4×) pour estimer le vrai maximum analogique. Un master à -0,1 dBFS sample peut dépasser 0 dBTP après encodage et clipper sur certains appareils.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Type</th><th>Window</th><th>Gating</th><th>Use for</th></tr></thead>
+<tbody>
+<tr><td><strong>Momentary (M)</strong></td><td>400 ms, no overlap, un-weighted overlap sliding</td><td>None</td><td>Live meter, peaks, catching jumps</td></tr>
+<tr><td><strong>Short-term (S)</strong></td><td>3 sec sliding, 100 ms hop</td><td>None, but 10 sec absolute history</td><td>Verse vs chorus loudness, TikTok hooks</td></tr>
+<tr><td><strong>Integrated (I)</strong></td><td>Whole program, 400 ms blocks, 75% overlap (100 ms hop)</td><td>-70 LUFS absolute + -10 LU relative (S1)</td><td>Official delivery spec, Spotify / YouTube normalization</td></tr>
+</tbody>
+</table>
+</div>
 
-<h2>Comment JSM Loudness le mesure avec précision</h2>
-<ul>
-<li>Coefficients ITU-R BS.1770-4 exacts (pas de biquad approximé)</li>
-<li>Gating EBU R128 S1 : -70 absolu, -10 relatif, blocs 400 ms, chevauchement 75 %</li>
-<li>True-peak 4× oversampled selon l'ITU</li>
-<li>LRA, PLR, PSR pour évaluer la dynamique</li>
-<li>100 % dans le navigateur — aucun envoi de fichier</li>
-</ul>
-<p>Référence vérifiée : <code>-14,05 LUFS</code> sur le signal de test EBU.</p>
+<h3>Momentary: 400 ms</h3>
+<p>400 ms rectangular with no gating. It reacts fast. If you see Momentary hitting -7 LUFS while Integrated is -14, you have a very loud transient section. Useful while riding a limiter, but never use it to judge a full track.</p>
 
-<h2>Checklist rapide avant release</h2>
+<h3>Short-term: 3 seconds</h3>
+<p>3-second sliding rectangular, updated at least every 100 ms. No relative gating. This is what humans feel as “that chorus is loud.” For short-form like <a href="tiktok-loudness.html">TikTok, Reels, Shorts</a>, short-term and <a href="lra.html">PSR (peak-to-short-term ratio)</a> predict if your hook will poke through on phone speakers.</p>
+
+<h3>Integrated: the official number</h3>
+<p>Integrated measures the entire program from start gate to end gate. Procedure per EBU R128 S1:</p>
 <ol>
-<li>Mesurer le LUFS <strong>intégré</strong> sur le master final (pas un bounce intermédiaire).</li>
-<li>Viser la cible plateforme (-14 streaming, -23 broadcast) ±0,5 LU.</li>
-<li>True-peak ≤ -1,0 dBTP (idéalement -1,5).</li>
-<li>Vérifier LRA : trop bas = over-compressé ; trop haut peut être voulu pour la dynamique.</li>
-<li>Exporter WAV 24-bit (ou plus) et uploader le même fichier que vous avez mesuré.</li>
+<li>Slice audio into 400 ms blocks with 75% overlap → a new block every 100 ms.</li>
+<li>Calculate loudness for each block after K-weighting.</li>
+<li><strong>Absolute gate:</strong> discard any block &lt; -70 LUFS. This removes silence, count-ins, long tails.</li>
+<li>Average remaining blocks = <code>L_abs</code>.</li>
+<li><strong>Relative gate:</strong> discard any block &lt; <code>L_abs - 10 LU</code>. This removes background, quiet intros, breakdowns.</li>
+<li>Average remaining = Integrated LUFS.</li>
 </ol>
+<p>If your track has a 30-second quiet intro at -40 LUFS and a loud drop at -8, gating ensures the intro doesn't artificially drag you to -18. Without it, you'd over-limit to compensate. That's why <a href="ebu-r128-5-minutes.html">EBU R128</a> needs both gates.</p>
 
-<p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
-  <a class="btn-lime" href="../../index.html">Ouvrir l'Analyseur</a>
-  <a class="btn-ghost" href="spotify-loudness.html">Spotify -14</a>
-  <a class="btn-ghost" href="true-peak.html">True Peak</a>
-</p>
+<h2>LUFS Targets: -23 for broadcast, -14 for streaming</h2>
+<p>EBU R128 mandates -23.0 LUFS ±0.5 LU for broadcast with true-peak -1 dBTP and LRA ≤20 LU for most content. Streaming normalized to -14 LUFS for Spotify Normal (default), YouTube ~ -14, Apple Sound Check -16, TikTok ~ -14 to -16 depending on device.</p>
+<p>This doesn't mean you must master to exactly -14. Master to where your music breathes — typically -9 to -12 for punchy electronic, -14 to -16 for dynamic indie/acoustic — and let the platform turn it down. What matters is you don't clip true-peak after they transcode. See <a href="spotify-loudness.html">Spotify -14 LUFS guide</a> and <a href="why-minus-14-is-new-zero.html">why -14 is the new 0 dB</a>.</p>
+
+<div class="card-lime">
+<p style="margin:0 0 6px;font-weight:600;color:#D6FF57;font-size:13px">Rule of thumb</p>
+<p style="margin:0;font-size:13px;color:#C5CAD2">Master integrated -14 to -10 for most streaming pop/electronic. If LRA &gt;8, you have dynamics headroom. If PLR &lt;6, you're likely over-compressed. Check both before exporting. More in <a href="lra.html">LRA / PLR / PSR explained</a>.</p>
+</div>
+
+<h2>True-Peak is part of LUFS delivery</h2>
+<p>LUFS alone doesn't catch inter-sample peaks. A file that peaks at 0 dBFS sample-peak can hit +3.2 dBTP after 4x oversampling + reconstruction filter — real DAC clipping, plus codec clipping after AAC 256k or MP3. That's why EBU R128 and all platforms ask for <a href="true-peak.html">True-Peak ≤ -1 dBTP</a> (or -2 dBTP for lossy pipelines). Read the deep dive: <a href="dbtp-true-peak-vs-sample.html">dBTP vs sample peak</a>.</p>
+
+<h2>How JSM Loudness measures it accurately</h2>
+<p>JSM Loudness runs <strong>100% in your browser</strong> — no upload, no server. All filtering uses Web Audio + exact ITU coefficients, not approximations, verified against EBU reference: <span class="kbd">-14.05 LUFS Integrated</span> <span class="kbd">-3.08 dBTP</span> <span class="kbd">Short -11.88</span> <span class="kbd">Mom -11.23</span> <span class="kbd">LRA 3.30</span>. Session persists in memory so you can A/B versions without re-uploading.</p>
+<p>Privacy: audio never leaves the device. This satisfies Quebec Law 25 minimal collection principle — we process locally, store nothing, and run GA4 only after explicit consent for 180 days via localStorage + cookie. See <a href="../privacy.html">Privacy</a>.</p>
+
+<h2>Quick checklist before release</h2>
+<ul>
+<li>Measure <strong>integrated</strong> over full track including silence as delivered.</li>
+<li>Watch <strong>short-term max</strong> — if &gt; -10 for 10 seconds straight, phone speakers may distort.</li>
+<li>Keep <strong>true-peak ≤ -1.0 dBTP</strong>, ideally -1.5 for distribution.</li>
+<li>Log LRA, PLR, PSR: LRA for podcasts/audiobooks (target 6–8), PSR for TikTok hooks (9–13 sweet spot).</li>
+<li>Export 24-bit WAV with dither, no normalization after measurement.</li>
+</ul>
+
+<div style="margin-top:36px;padding:20px;border-radius:16px;background:#11141A;border:1px solid #1E232E;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+<div>
+<p style="margin:0;font-size:14px;color:#E6E8EC;font-weight:600">Measure your track now — no upload, exact EBU R128</p>
+<p style="margin:4px 0 0;font-size:12px;color:#9AA0A8">Verified -14.05 LUFS • 4x true-peak • LRA PLR PSR • 100% offline</p>
+</div>
+<a class="btn-lime" href="../index.html" style="text-decoration:none">Open Analyzer</a>
+</div>
+
+<div style="margin-top:32px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="spotify-loudness.html" class="kbd" style="text-decoration:none">Next: Spotify -14 →</a>
+<a href="true-peak.html" class="kbd" style="text-decoration:none">True-Peak vs Sample</a>
+<a href="ebu-r128-5-minutes.html" class="kbd" style="text-decoration:none">EBU R128 in 5 min</a>
+</div>
+
 </main>
 
 <footer class="footer">
@@ -230,27 +280,27 @@ Offset total : -0,691 dB (LKFS → LUFS)
 <div class="footer-row1">
 <div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div>
 <div class="footer-links">
-<a href="../privacy.html">Confidentialité</a><span style="color:#1E232E">·</span>
-<a href="../terms.html">Conditions</a><span style="color:#1E232E">·</span>
+<a href="../privacy.html">Privacy</a><span style="color:#1E232E">·</span>
+<a href="../terms.html">Terms</a><span style="color:#1E232E">·</span>
 <a href="../cookies.html">Cookies</a><span style="color:#1E232E">·</span>
 <a href="../blog.html">Blog</a><span style="color:#1E232E">·</span>
-<a href="../pricing.html">Tarifs</a><span style="color:#1E232E">·</span>
-<a href="../about.html">À propos</a><span style="color:#1E232E">·</span>
+<a href="../pricing.html">Pricing</a><span style="color:#1E232E">·</span>
+<a href="../about.html">About</a><span style="color:#1E232E">·</span>
 <a href="../contact.html">Contact</a>
 </div>
 </div>
-<div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Construit à Montréal by Sehmus</span><span>Aucun envoi • Tourne dans le navigateur • Vérifié -14,05 LUFS</span></div>
+<div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal by Sehmus</span><span>No upload • Runs in browser • Verified -14.05 LUFS</span></div>
 </div>
 </footer>
 
 <div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none">
 <div style="flex:1">
-<p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies et confidentialité</p>
-<p style="margin:0;font-size:12px;color:#9AA0A8">L'audio ne quitte jamais votre appareil. We use anonymous analytics (GA4) only if you accept. No ads. <a href="../privacy.html" style="color:#D6FF57">Confidentialité</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p>
+<p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies & privacy</p>
+<p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. We use anonymous analytics (GA4) only if you accept. No ads. <a href="../privacy.html" style="color:#D6FF57">Privacy</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p>
 </div>
 <div style="display:flex;gap:8px;align-items:center">
-<button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button>
-<button onclick="acceptConsent()" class="btn-lime">Accepter</button>
+<button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Reject</button>
+<button onclick="acceptConsent()" class="btn-lime">Accept</button>
 </div>
 </div>
 <script src="../../assets/js/main.js" defer></script>
