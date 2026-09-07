@@ -37,3 +37,13 @@ Keep `vercel.json`, `_headers`, `_redirects`, `robots.txt`, `sitemap.xml`.
 - Open Graph + Twitter image tags on all pages
 - Complete sitemap with FR URLs
 - Consent: remember only Accept
+
+
+## Cleanup / polish (2026-09-06)
+
+- Restored a consistent analyzer footer on English and French home pages.
+- Removed obsolete duplicate `index_.html` entry files.
+- Added a lightweight SVG favicon.
+- Corrected French home-page metadata and Open Graph URL.
+- Added a French UI layer for the browser analyzer and French URL routing.
+- Added responsive visual polish and focus states.

@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Free LUFS Loudness Meter Online - EBU R128 Accurate | Spotify, YouTube, TikTok | JSM Loudness</title>
-  <meta name="description" content="Free, accurate LUFS loudness meter - ITU-R BS.1770-4 & EBU R128 exact. Verified -14.05 LUFS. 100% browser, no upload. Measure integrated LUFS, true-peak dBTP, LRA, PLR, PSR for Spotify -14, YouTube, TikTok."/>
+  <title>Analyseur LUFS gratuit en ligne — EBU R128 précis | Spotify, YouTube, TikTok | JSM Loudness</title>
+  <meta name="description" content="Analyseur LUFS gratuit et précis, conforme ITU-R BS.1770-4 et EBU R128. Mesurez LUFS intégré, true-peak dBTP, LRA, PLR et PSR directement dans votre navigateur, sans envoyer vos fichiers audio."/>
   <link rel="canonical" href="https://jsm-loudness.com/fr/"/>
   <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/"/>
   <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/"/>
   <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/"/>
   <meta name="robots" content="index, follow, max-image-preview:large"/>
   <meta name="theme-color" content="#0A0C0F"/>
-  <link rel="icon" href="favicon.ico"/>
+  <link rel="icon" href="/favicon.svg"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Free LUFS Loudness Meter Online - EBU R128 Accurate"/>
-  <meta property="og:description" content="Accurate LUFS analyzer, 100% browser, no upload. Verified -14.05 LUFS, true-peak, LRA for Spotify, YouTube, TikTok."/>
-  <meta property="og:url" content="https://jsm-loudness.com/"/>
+  <meta property="og:title" content="Analyseur LUFS gratuit en ligne — EBU R128 précis"/>
+  <meta property="og:description" content="Analyseur LUFS précis, 100% navigateur, sans envoi. LUFS intégré, true-peak, LRA, PLR et PSR pour Spotify, YouTube et TikTok."/>
+  <meta property="og:url" content="https://jsm-loudness.com/fr/"/>
   <meta property="og:site_name" content="jsm-loudness.com"/>
   <meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
   <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Free LUFS Loudness Meter - EBU R128"/>
-  <meta name="twitter:description" content="100% browser loudness meter, no upload, verified -14.05 LUFS."/>
+  <meta name="twitter:title" content="Analyseur LUFS gratuit — EBU R128"/>
+  <meta name="twitter:description" content="Analyseur LUFS 100% navigateur, sans envoi, vérifié à -14,05 LUFS."/>
   <link rel="stylesheet" href="assets/css/style.css"/>
   <script>
   window.dataLayer = window.dataLayer || [];
@@ -93,9 +93,7 @@
 #jsm-lang-right .jsm-lang-option:hover,#jsm-lang-right .jsm-lang-option[aria-current="true"]{opacity:1;color:#E6E8EC!important}
 #jsm-lang-right .jsm-lang-flag{width:14px;height:10px;flex:none;display:block;border-radius:2px}
 </style>
-<style id="jsm-theme-styles">
-/* Dark-only: light theme retired */
-</style>
+<style id="jsm-theme-styles">/* Theme foundation: analyzer remains optimized for the dark studio UI. */</style>
 </head>
 <body>
 <!-- Language selector - CSP safe, no inline JS -->
@@ -119,17 +117,7 @@
 <style>#jsm-lang-selector .lang-link{color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px;transition:opacity .2s,color .2s}#jsm-lang-selector .lang-link:hover{opacity:1;color:#E6E8EC}</style>
 
 
-<script>
-/* JSM Loudness — dark-only theme, clean version without JS translation */
-(function(){
-  function initTheme(){
-    document.body.classList.remove('jsm-light');
-    try{localStorage.setItem('jsm-theme','dark');}catch(e){}
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initTheme);
-  else initTheme();
-})();
-</script>
+
 
 
 <main>
@@ -215,23 +203,119 @@
     <p>Analyzer requires JavaScript. Your audio never leaves your device. Learn about 
     <a href="/articles/what-is-lufs.html">What is LUFS</a>.</p></div></noscript>
 </main>
-<!--
-<footer class="footer"><div class="footer-grid">
-  <div class="footer-row1">
-  <div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span>
-    <span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span>
-    <span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div>
-    <div class="footer-links"><a href="privacy.html">Privacy</a><span style="color:#1E232E">·</span>
-      <a href="terms.html">Terms</a>
-      <span style="color:#1E232E">·</span><a href="cookies.html">Cookies</a><span style="color:#1E232E">·</span>
-      <a href="blog.html">Blog</a>
-      <span style="color:#1E232E">·</span><a href="pricing.html">Pricing</a><span style="color:#1E232E">·</span>
-      <a href="about.html">About</a><span style="color:#1E232E">·</span>
-  <a href="contact.html">Contact</a></div></div>
-  <div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal</span>
-    <span>No upload • Runs in browser • Verified -14.05 LUFS</span></div></div>
+<script>
+(function(){
+  function cleanFooter(){
+    document.querySelectorAll('footer').forEach(function(f){
+      if(f.id !== 'jsm-site-footer') f.remove();
+    });
+    var own=document.getElementById('jsm-site-footer');
+    if(own) own.style.display='block';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', function(){setTimeout(cleanFooter,250);});
+  else setTimeout(cleanFooter,250);
+  setTimeout(cleanFooter,1200);
+})();
+</script>
+
+<footer id="jsm-site-footer" class="footer">
+  <div class="footer-grid">
+    <div class="footer-row1">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span class="logo-mark">JSM</span>
+        <span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span>
+        <span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 • 100% Browser — No Upload</span>
+      </div>
+      <div class="footer-links">
+        <a href="/fr/privacy.html">Confidentialité</a><span>·</span>
+        <a href="/fr/terms.html">Conditions</a><span>·</span>
+        <a href="/fr/cookies.html">Cookies</a><span>·</span>
+        <a href="/fr/blog.html">Blog</a><span>·</span>
+        <a href="/fr/pricing.html">Tarifs</a><span>·</span>
+        <a href="/fr/about.html">À propos</a><span>·</span>
+        <a href="/fr/contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-row2">
+      <span>© 2026 jsm-loudness.com · Montréal, QC · Built in Montreal</span>
+      <span>No upload • Runs in browser • ITU-R BS.1770-4</span>
+    </div>
+  </div>
 </footer>
--->
+
+<script>
+/* JSM Loudness — French UI layer.
+   Keeps the analyzer engine identical while presenting the complete interface in French. */
+(function(){
+  var FR = {
+    "Home":"Accueil","Reference verification":"Vérification de référence",
+    "Brief":"Résumé","LUFS = perceived loudness.":"LUFS = niveau sonore perçu.",
+    "Target":"Cible","Spotify behavior":"Comportement de Spotify","Result":"Résultat",
+    "Loud master loses punch":"Un master trop fort perd en punch",
+    "Reference file — HAYDI DÖN.WAV":"Fichier de référence — HAYDI DÖN.WAV",
+    "Integrated":"Intégré","True Peak":"True Peak","Short max":"Max court terme",
+    "Mom max":"Max momentané","Relative thr":"Seuil relatif","Cross-checked:":"Vérifié avec :",
+    "RMS fails because it ignores K-weighting and gating. 3.4dB error.":"Le RMS est moins fiable ici car il ignore la pondération K et le gating. Écart : 3,4 dB.",
+    "Advanced — ITU-R BS.1770-4 exact":"Avancé — ITU-R BS.1770-4 exact",
+    "Stage1 High-shelf":"Étape 1 — filtre high-shelf","Stage2 RLB high-pass":"Étape 2 — filtre passe-haut RLB",
+    "Advanced":"Avancé","Blog":"Blog","Pricing":"Tarifs","About":"À propos",
+    "Runs in browser. No upload. Free forever.":"Fonctionne dans le navigateur. Aucun envoi. Gratuit pour toujours.",
+    "Free":"Gratuit","Pro — coming soon":"Pro — bientôt disponible",
+    "Privacy Policy":"Politique de confidentialité","Last updated: May 2026":"Dernière mise à jour : mai 2026",
+    "We do not upload your audio. All analysis runs in your browser. Files never leave device.":"Nous n'envoyons pas votre audio. Toute l'analyse se fait dans votre navigateur. Vos fichiers ne quittent jamais votre appareil.",
+    "Terms":"Conditions d'utilisation","Cookies":"Cookies","Cookies & Analytics":"Cookies et analyses",
+    "Loudness SafeCheck":"Loudness SafeCheck","Analyzer":"Analyseur",
+    "Choose file":"Choisir un fichier","Normalize to -14 LUFS":"Normaliser à -14 LUFS",
+    "Download Fixed WAV":"Télécharger le WAV corrigé","Learn more":"En savoir plus",
+    "← Back to Analyzer":"← Retour à l'analyseur","Blog real articles →":"Articles du blog →",
+    "No upload.":"Aucun envoi.","Accept":"Accepter","Deny":"Refuser",
+    "Batch Analysis — Multi-file":"Analyse par lots — plusieurs fichiers",
+    "Export CSV":"Exporter CSV","Copy Summary":"Copier le résumé","Clear":"Effacer",
+    "File":"Fichier","Gain to -14":"Gain vers -14","Original layout preserved. Batch adds CSV export without changing analyzer design. Files analyzed 100% locally.":"Mise en page conservée. Analyse par lots avec export CSV. Les fichiers sont analysés 100 % localement.",
+    "Accurate EBU R128 • ITU-R BS.1770-4 exact • Runs in browser • No upload • session persists":"EBU R128 précis • ITU-R BS.1770-4 exact • Fonctionne dans le navigateur • Aucun envoi • session persistante",
+    "Drop WAV, MP3, FLAC, OGG ":"Déposez un WAV, MP3, FLAC ou OGG ",
+    "Choose file":"Choisir un fichier","Target":"Cible","LUFS":"LUFS",
+    "Waveform 200px • lime • grid • red clips >-1.0 • click to seek":"Forme d'onde 200 px • grille • écrêtages rouges > -1,0 • cliquez pour naviguer",
+    "Analyzing ITU exact 19200 block 4800 hop…":"Analyse ITU exacte — blocs 19 200 / pas 4 800…"
+  };
+  function translate(root){
+    var walker=document.createTreeWalker(root||document.body,NodeFilter.SHOW_TEXT);
+    var n;
+    while(n=walker.nextNode()){
+      var t=n.nodeValue.trim();
+      if(FR[t]) n.nodeValue=n.nodeValue.replace(t,FR[t]);
+    }
+    document.querySelectorAll('a[href]').forEach(function(a){
+      var h=a.getAttribute('href');
+      if(!h || h.charAt(0)==='#' || h.indexOf('javascript:')===0) return;
+      if(h.charAt(0)==='/'){
+        if(h.indexOf('/fr/')!==0) a.setAttribute('href','/fr'+(h==='/'?'/':h));
+      }
+    });
+  }
+  function install(){
+    translate(document.body);
+    var mo=new MutationObserver(function(m){ m.forEach(function(x){
+      x.addedNodes.forEach(function(node){ if(node.nodeType===1) translate(node); });
+    });});
+    mo.observe(document.getElementById('root')||document.body,{childList:true,subtree:true});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){setTimeout(install,80);});
+  else setTimeout(install,80);
+})();
+</script>
+
+<script>
+(function(){
+  var original=history.pushState;
+  history.pushState=function(state,title,url){
+    if(typeof url==='string' && url.charAt(0)==='/' && url.indexOf('/fr/')!==0){
+      url='/fr'+(url==='/'?'/':url);
+    }
+    return original.call(this,state,title,url);
+  };
+})();
+</script>
 <script type="module">var Bf=Object.create;var{getPrototypeOf:Xf,defineProperty:ho,getOwnPropertyNames:Zf}=Object;
 var Jf=Object.prototype.hasOwnProperty;
 var An=(e,n,t)=>{t=e!=null?Bf(Xf(e)):{};
