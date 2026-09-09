@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Free LUFS Loudness Meter Online — EBU R128 Accurate | Spotify, YouTube, TikTok | JSM Loudness</title>
-  <meta name="description" content="Free, accurate LUFS loudness meter using ITU-R BS.1770-4 and EBU R128. Measure integrated LUFS, true-peak dBTP, LRA, PLR and PSR directly in your browser. No audio upload."/>
+  <title>Free LUFS Loudness Meter Online - EBU R128 Accurate | Spotify, YouTube, TikTok | JSM Loudness</title>
+  <meta name="description" content="Free, accurate LUFS loudness meter - ITU-R BS.1770-4 & EBU R128 exact. Verified -14.05 LUFS. 100% browser, no upload. Measure integrated LUFS, true-peak dBTP, LRA, PLR, PSR for Spotify -14, YouTube, TikTok."/>
   <link rel="canonical" href="https://jsm-loudness.com/"/>
   <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/"/>
   <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/"/>
   <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/"/>
   <meta name="robots" content="index, follow, max-image-preview:large"/>
   <meta name="theme-color" content="#0A0C0F"/>
-  <link rel="icon" href="/favicon.svg"/>
+  <link rel="icon" href="favicon.ico"/>
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Free LUFS Loudness Meter Online - EBU R128 Accurate"/>
   <meta property="og:description" content="Accurate LUFS analyzer, 100% browser, no upload. Verified -14.05 LUFS, true-peak, LRA for Spotify, YouTube, TikTok."/>
@@ -93,7 +93,9 @@
 #jsm-lang-right .jsm-lang-option:hover,#jsm-lang-right .jsm-lang-option[aria-current="true"]{opacity:1;color:#E6E8EC!important}
 #jsm-lang-right .jsm-lang-flag{width:14px;height:10px;flex:none;display:block;border-radius:2px}
 </style>
-<style id="jsm-theme-styles">/* Theme foundation: analyzer remains optimized for the dark studio UI. */</style>
+<style id="jsm-theme-styles">
+/* Dark-only: light theme retired */
+</style>
 </head>
 <body>
 <!-- Language selector - CSP safe, no inline JS -->
@@ -117,7 +119,17 @@
 <style>#jsm-lang-selector .lang-link{color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px;transition:opacity .2s,color .2s}#jsm-lang-selector .lang-link:hover{opacity:1;color:#E6E8EC}</style>
 
 
-
+<script>
+/* JSM Loudness — dark-only theme, clean version without JS translation */
+(function(){
+  function initTheme(){
+    document.body.classList.remove('jsm-light');
+    try{localStorage.setItem('jsm-theme','dark');}catch(e){}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initTheme);
+  else initTheme();
+})();
+</script>
 
 
 <main>
@@ -202,46 +214,168 @@
   <noscript><div style="max-width:720px;margin:20px auto;padding:20px;border:1px solid #1E232E;background:#11141A;border-radius:12px">
     <p>Analyzer requires JavaScript. Your audio never leaves your device. Learn about 
     <a href="/articles/what-is-lufs.html">What is LUFS</a>.</p></div></noscript>
-</main>
+
+
+<!-- Streaming Platforms Panel: injected before React footer, theme-matched -->
 <script>
 (function(){
-  function cleanFooter(){
-    document.querySelectorAll('footer').forEach(function(f){
-      if(f.id !== 'jsm-site-footer') f.remove();
-    });
-    var own=document.getElementById('jsm-site-footer');
-    if(own) own.style.display='block';
+  var PLATFORMS=[
+    {name:"Spotify",target:-14,note:"Plays at its natural level on Spotify."},
+    {name:"Apple Music",target:-16,note:"Apple Music turns this down on playback."},
+    {name:"YouTube",target:-14,note:"Plays at its natural level on YouTube."},
+    {name:"TIDAL",target:-14,note:"Plays at its natural level on TIDAL."},
+    {name:"Deezer",target:-14,note:"Plays at its natural level on Deezer."},
+    {name:"Amazon Music",target:-14,note:"Plays at its natural level on Amazon Music."},
+    {name:"Pandora",target:-14,note:"Plays at its natural level on Pandora."},
+    {name:"SoundCloud",target:-14,note:"SoundCloud has limited normalization.",fixedNote:true},
+    {name:"YouTube Music",target:-14,note:"Plays at its natural level on YouTube Music."},
+    {name:"Bandcamp",target:-14,note:"Bandcamp does not normalize loudness.",noNorm:true}
+  ];
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+  function buildPanel(){
+    var wrap=document.createElement("div");
+    wrap.id="jsm-platforms-panel";
+    wrap.setAttribute("style","max-width:1120px;margin:32px auto 0;padding:0 16px;box-sizing:border-box;width:100%");
+    wrap.innerHTML=[
+      '<div style="background:rgba(19,22,29,0.82);border:1px solid #1E232E;border-radius:20px;padding:20px 24px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-sizing:border-box">',
+        '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px">',
+          '<div>',
+            '<h2 style="margin:0;font-size:18px;font-weight:600;color:#E6E8EC;letter-spacing:-0.02em;font-family:Inter,system-ui,sans-serif">How streaming platforms will handle this</h2>',
+            '<p style="margin:6px 0 0;font-size:12px;color:#9AA0A8;font-family:Inter,system-ui,sans-serif">Based on Integrated LUFS vs platform target \u2022 Updates live when you drop a file</p>',
+          '</div>',
+          '<div id="jsm-plat-badge" style="flex-shrink:0;border:1px solid rgba(214,255,87,0.3);background:#1A1E12;color:#D6FF57;padding:6px 12px;border-radius:999px;font-size:11px;font-family:ui-monospace,Menlo,monospace">-14.05 LUFS \u2022 HAYDI D\u00d6N.WAV</div>',
+        '</div>',
+        '<div id="jsm-plat-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px"></div>',
+        '<div style="margin-top:16px;border:1px solid #1E232E;background:#0A0C0E;border-radius:14px;padding:14px 16px">',
+          '<div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#D6FF57;font-weight:600;margin-bottom:8px;font-family:Inter,system-ui,sans-serif">SUMMARY</div>',
+          '<p id="jsm-plat-summary-text" style="margin:0;font-size:13px;color:#C5CAD2;line-height:1.6;font-family:Inter,system-ui,sans-serif"></p>',
+        '</div>',
+        '<div style="margin-top:12px;font-size:11px;color:#6B7280;line-height:1.5;font-family:Inter,system-ui,sans-serif">Targets: Spotify -14 \u2022 Apple Music -16 \u2022 YouTube -14 \u2022 TIDAL -14 \u2022 Deezer -14 \u2022 Amazon -14 \u2022 Pandora -14 \u2022 SoundCloud -14 \u2022 YouTube Music -14</div>',
+      '</div>'
+    ].join("");
+    return wrap;
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', function(){setTimeout(cleanFooter,250);});
-  else setTimeout(cleanFooter,250);
-  setTimeout(cleanFooter,1200);
+  function render(integ, fileName){
+    if(!isFinite(integ)) integ=-14.05;
+    var badge=document.getElementById("jsm-plat-badge");
+    var grid=document.getElementById("jsm-plat-grid");
+    var sumEl=document.getElementById("jsm-plat-summary-text");
+    if(!grid) return;
+    if(badge) badge.textContent=integ.toFixed(2)+" LUFS \u2022 "+(fileName||"reference").slice(0,28);
+    var html="";
+    PLATFORMS.forEach(function(p){
+      var gain=p.target-integ;
+      var abs=Math.abs(gain);
+      var gainStr=(gain>=0?"+":"")+gain.toFixed(1)+" dB";
+      var status="NEAR TARGET";
+      var badgeStyle="border:1px solid rgba(214,255,87,0.3);background:#1A1E12;color:#D6FF57";
+      if(!p.noNorm){
+        if(abs<=0.5){status="NEAR TARGET";}
+        else if(gain<-0.5&&gain>=-3){status="SLIGHT TURN-DOWN";badgeStyle="border:1px solid rgba(232,184,74,0.4);background:#2A2410;color:#E8B84A";}
+        else if(gain<-3){status="TURN DOWN";badgeStyle="border:1px solid rgba(255,107,107,0.3);background:#2A1515;color:#FF6B6B";}
+        else if(gain>0.5&&gain<=3){status="SLIGHT BOOST";badgeStyle="border:1px solid rgba(232,184,74,0.4);background:#2A2410;color:#E8B84A";}
+        else{status="BOOST";badgeStyle="border:1px solid rgba(255,107,107,0.3);background:#2A1515;color:#FF6B6B";}
+      }
+      var desc=p.note;
+      if(!p.noNorm&&!p.fixedNote&&abs>0.5){
+        desc=gain<0?(p.name+" turns this down "+abs.toFixed(1)+" dB on playback."):(p.name+" boosts this "+gain.toFixed(1)+" dB on playback.");
+      }
+      html+='<div style="border:1px solid #1E232E;background:#0F1115;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:120px;box-sizing:border-box">';
+      html+='<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">';
+      html+='<div style="font-size:13px;font-weight:600;color:#E6E8EC;line-height:1.25;font-family:Inter,system-ui,sans-serif">'+esc(p.name)+'</div>';
+      html+='<span style="flex-shrink:0;font-size:9px;letter-spacing:0.04em;text-transform:uppercase;border-radius:999px;padding:2px 8px;font-family:ui-monospace,Menlo,monospace;'+badgeStyle+'">'+status+'</span>';
+      html+='</div>';
+      html+='<div style="font-size:22px;font-weight:700;font-family:ui-monospace,Menlo,monospace;color:#E6E8EC;line-height:1">'+gainStr+'</div>';
+      html+='<div style="font-size:11px;color:#9AA0A8;line-height:1.4;margin-top:auto;font-family:Inter,system-ui,sans-serif">'+esc(desc)+'</div>';
+      html+='</div>';
+    });
+    grid.innerHTML=html;
+    var dApple=Math.abs(integ-(-16));
+    var summary;
+    if(Math.abs(integ-(-14))<=0.6){
+      summary="You\u2019re at "+integ.toFixed(2)+" LUFS, right around Spotify & YouTube target (-14) and "+dApple.toFixed(1)+" dB above Apple Music\u2019s -16. Spotify plays this at its natural level and Apple Music turns it down "+dApple.toFixed(1)+" dB. Nothing to change on loudness \u2014 translates cleanly to every major platform.";
+    }else if(integ>-13){
+      summary="You\u2019re at "+integ.toFixed(2)+" LUFS \u2014 louder than Spotify/YouTube (-14). Platforms will turn this down about "+(integ-(-14)).toFixed(1)+" dB. Consider normalizing to -14 for consistent playback.";
+    }else if(integ<-15.5){
+      summary="You\u2019re at "+integ.toFixed(2)+" LUFS \u2014 quieter than Spotify/YouTube (-14). Some platforms may boost this. Normalize to -14 for predictable loudness across services.";
+    }else{
+      summary="You\u2019re at "+integ.toFixed(2)+" LUFS. Close to streaming targets. Check Apple Music (-16) which may adjust differently.";
+    }
+    if(sumEl) sumEl.textContent=summary;
+  }
+  function readSession(){
+    try{
+      var raw=sessionStorage.getItem("jsm-session-v2");
+      if(!raw) return null;
+      return JSON.parse(raw);
+    }catch(e){return null;}
+  }
+  function tick(){
+    var s=readSession();
+    if(s&&s.analysis&&isFinite(s.analysis.integrated)){
+      render(s.analysis.integrated, s.fileName||"");
+    }else{
+      render(-14.05, "HAYDI D\u00d6N.WAV");
+    }
+  }
+  function placePanel(){
+    if(document.getElementById("jsm-platforms-panel")) return true;
+    // Prefer: immediately before React footer (inside #root tree)
+    var footer=document.querySelector("#root footer") || document.querySelector("footer");
+    var panel=buildPanel();
+    if(footer && footer.parentNode){
+      footer.parentNode.insertBefore(panel, footer);
+      return true;
+    }
+    // Fallback: end of #root
+    var root=document.getElementById("root");
+    if(root){
+      root.appendChild(panel);
+      return true;
+    }
+    return false;
+  }
+  function boot(){
+    var tries=0;
+    function attempt(){
+      tries++;
+      if(placePanel()){
+        tick();
+        setInterval(tick, 800);
+        document.addEventListener("drop", function(){
+          setTimeout(tick, 400);
+          setTimeout(tick, 1200);
+          setTimeout(tick, 2500);
+        }, true);
+        return;
+      }
+      if(tries<40) setTimeout(attempt, 150);
+    }
+    attempt();
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
 })();
 </script>
 
-<footer id="jsm-site-footer" class="footer">
-  <div class="footer-grid">
-    <div class="footer-row1">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-        <span class="logo-mark">JSM</span>
-        <span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span>
-        <span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 • 100% Browser — No Upload</span>
-      </div>
-      <div class="footer-links">
-        <a href="/privacy.html">Privacy</a><span>·</span>
-        <a href="/terms.html">Terms</a><span>·</span>
-        <a href="/cookies.html">Cookies</a><span>·</span>
-        <a href="/blog.html">Blog</a><span>·</span>
-        <a href="/pricing.html">Pricing</a><span>·</span>
-        <a href="/about.html">About</a><span>·</span>
-        <a href="/contact.html">Contact</a>
-      </div>
-    </div>
-    <div class="footer-row2">
-      <span>© 2026 jsm-loudness.com · Montréal, QC · Built in Montreal</span>
-      <span>No upload • Runs in browser • ITU-R BS.1770-4</span>
-    </div>
-  </div>
+</main>
+<!--
+<footer class="footer"><div class="footer-grid">
+  <div class="footer-row1">
+  <div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span>
+    <span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span>
+    <span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div>
+    <div class="footer-links"><a href="privacy.html">Privacy</a><span style="color:#1E232E">·</span>
+      <a href="terms.html">Terms</a>
+      <span style="color:#1E232E">·</span><a href="cookies.html">Cookies</a><span style="color:#1E232E">·</span>
+      <a href="blog.html">Blog</a>
+      <span style="color:#1E232E">·</span><a href="pricing.html">Pricing</a><span style="color:#1E232E">·</span>
+      <a href="about.html">About</a><span style="color:#1E232E">·</span>
+  <a href="contact.html">Contact</a></div></div>
+  <div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal</span>
+    <span>No upload • Runs in browser • Verified -14.05 LUFS</span></div></div>
 </footer>
+-->
 <script type="module">var Bf=Object.create;var{getPrototypeOf:Xf,defineProperty:ho,getOwnPropertyNames:Zf}=Object;
 var Jf=Object.prototype.hasOwnProperty;
 var An=(e,n,t)=>{t=e!=null?Bf(Xf(e)):{};
