@@ -1,0 +1,192 @@
+<!doctype html><html lang="fr"><head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="robots" content="index, follow, max-image-preview:large"/>
+  <link rel="icon" href="/favicon.svg"/>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <!-- Consent Mode v2 defaults - MUST be before gtag.js -->
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{
+    ad_storage:'denied',
+    ad_user_data:'denied',
+    ad_personalization:'denied',
+    analytics_storage:'denied',
+    functionality_storage:'granted',
+    security_storage:'granted',
+    wait_for_update: 500
+  });
+  gtag('js', new Date());
+  // Do not send page_view until consent granted - we trigger it in main.js after consent
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+  <title>Bip Audio en Ligne Gratuit — Censurer et Couper des Passages | JSM Loudness</title>
+  <meta name="description" content="Outil gratuit de bip audio dans le navigateur : sélectionnez un passage sur la forme d'onde et bipez-le ou coupez-le. Podcasts, vidéos, notes vocales. Aucun envoi, aucune inscription, téléchargement WAV."/>
+  <link rel="canonical" href="https://jsm-loudness.com/fr/bleep-audio.html"/>
+  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/bleep-audio.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/bleep-audio.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/bleep-audio.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Bip Audio en Ligne Gratuit — Censurer et Couper des Passages | JSM Loudness"/>
+  <meta property="og:description" content="Sélectionnez un passage de votre audio sur la forme d'onde et bipez-le ou coupez-le. 100 % dans votre navigateur — aucun envoi, aucune inscription."/>
+  <meta property="og:url" content="https://jsm-loudness.com/fr/bleep-audio.html"/>
+  <meta property="og:site_name" content="jsm-loudness.com"/>
+  <meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Bip Audio en Ligne Gratuit — Censurer &amp; Couper | JSM Loudness"/>
+  <meta name="twitter:description" content="Bipez ou coupez n'importe quel passage de votre audio dans le navigateur. Gratuit, privé, aucun envoi."/>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"JSM Loudness Bip Audio",
+    "applicationCategory":"MultimediaApplication",
+    "operatingSystem":"Web Browser",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"CAD"},
+    "description":"Outil gratuit de bip audio en ligne : sélectionnez un passage d'un fichier audio sur la forme d'onde et bipez-le ou coupez-le. 100 % navigateur, aucun envoi.",
+    "author":{"@type":"Person","name":"Sehmus"},
+    "featureList":"Sélection de passages sur la forme d'onde, Bip sonore, Coupure de passages, Export WAV, Aucun envoi"
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Mon audio est-il envoyé sur un serveur ?","acceptedAnswer":{"@type":"Answer","text":"Non. L'outil de bip fonctionne à 100 % dans votre navigateur grâce à la Web Audio API. Votre fichier est décodé, modifié et ré-encodé localement — il ne quitte jamais votre appareil."}},
+    {"@type":"Question","name":"Quels formats audio puis-je biper ?","acceptedAnswer":{"@type":"Answer","text":"Tout ce que votre navigateur peut décoder : MP3, WAV, M4A/AAC, OGG et FLAC dans la plupart des navigateurs. Le téléchargement est toujours un fichier WAV 16 bits."}},
+    {"@type":"Question","name":"À quoi ressemble le bip ?","acceptedAnswer":{"@type":"Answer","text":"Le bip de censure classique de la télé : un son à 1000 Hz qui remplace le passage sélectionné, avec de courts fondus pour éviter les clics. Choisissez Muet si vous préférez le silence."}},
+    {"@type":"Question","name":"Bip ou muet — que choisir ?","acceptedAnswer":{"@type":"Answer","text":"Le bip garde le rythme de la parole évident (idéal pour l'humour et la censure façon YouTube). Le muet est plus discret — mieux pour caviarder des informations sensibles."}},
+    {"@type":"Question","name":"Puis-je biper des paroles dans une chanson ?","acceptedAnswer":{"@type":"Answer","text":"Vous pouvez biper n'importe quel passage de n'importe quel audio, mais l'outil ne trouve pas les mots à votre place — vous sélectionnez chaque passage sur la forme d'onde. C'est instantané et privé, sans transcription IA."}},
+    {"@type":"Question","name":"Y a-t-il une limite de durée ?","acceptedAnswer":{"@type":"Answer","text":"Pas de limite stricte. Le fichier entier est décodé en mémoire, donc les très longs enregistrements (une heure ou plus) demandent un navigateur de bureau avec de la RAM libre. Podcasts et extraits courants fonctionnent partout."}}
+  ]}
+  </script>
+  <style>
+  .bleep-drop{border:2px dashed #2A3140;border-radius:16px;padding:40px 20px;text-align:center;cursor:pointer;color:#9AA0A8;transition:border-color .15s,color .15s}
+  .bleep-drop:hover{border-color:#D6FF57;color:#E6E8EC}
+  .bleep-drop b{display:block;font-size:16px;color:#E6E8EC;margin-bottom:6px}
+  .bleep-drop span{font-size:13px}
+  #bleepWaveWrap{position:relative;height:160px;background:#0F1115;border:1px solid #1E232E;border-radius:12px;overflow:hidden;touch-action:none;cursor:crosshair;margin-top:12px}
+  #bleepWave{position:absolute;inset:0}
+  #bleepRegions{position:absolute;inset:0;pointer-events:none}
+  .bleep-region{position:absolute;top:0;bottom:0;pointer-events:auto;cursor:grab;border-radius:4px;border:1px solid}
+  .bleep-region.bleep-bleep{background:rgba(214,255,87,.16);border-color:#D6FF57;color:#D6FF57}
+  .bleep-region.bleep-mute{background:rgba(255,107,107,.16);border-color:#FF6B6B;color:#FF6B6B}
+  .bleep-region.sel{box-shadow:0 0 0 2px #E6E8EC}
+  .bleep-region.drawing{pointer-events:none}
+  .bhandle{position:absolute;top:0;bottom:0;width:12px;cursor:ew-resize}
+  .bhandle.hl{left:-6px}.bhandle.hr{right:-6px}
+  .bhandle::after{content:'';position:absolute;top:10px;bottom:10px;left:5px;width:2px;background:currentColor;opacity:.8;border-radius:2px}
+  .blabel{position:absolute;top:4px;left:8px;right:26px;font-size:10px;color:#E6E8EC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+  .bx{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:12px;line-height:1;cursor:pointer;padding:0}
+  #bleepPlayhead{position:absolute;top:0;bottom:0;width:2px;background:#fff;display:none;pointer-events:none;box-shadow:0 0 6px rgba(255,255,255,.8)}
+  .bleep-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+  .seg{display:inline-flex;background:#11141A;border:1px solid #1E232E;border-radius:999px;padding:3px;gap:2px;align-items:center}
+  .seg button{border:0;background:transparent;color:#9AA0A8;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer}
+  .seg button.on{background:#D6FF57;color:#000}
+  .seg-label{font-size:12px;color:#9AA0A8;padding:0 4px 0 8px}
+  .btn-lime:disabled{opacity:.4;cursor:default}
+  .bleep-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid #1E232E;border-radius:10px;margin-top:8px;background:#11141A}
+  .bleep-row.sel{border-color:#D6FF57}
+  .bnum{background:none;border:0;color:#D6FF57;font-weight:700;cursor:pointer;font-size:13px;padding:0}
+  .btime{font-size:13px;color:#E6E8EC;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .bleep-row .seg{margin-left:auto}
+  .bx2{background:none;border:0;color:#9AA0A8;font-size:18px;cursor:pointer;line-height:1;padding:0 2px}
+  .bx2:hover{color:#FF6B6B}
+  .bleep-empty{color:#6B7280;font-size:13px;padding:12px 4px}
+  .bleep-hint{font-size:13px;color:#9AA0A8;margin:10px 0 0;min-height:20px}
+  #bleepFileInfo{font-size:12px;color:#9AA0A8;margin:0 0 4px;overflow-wrap:anywhere}
+  </style>
+</head><body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
+  <a href="../bleep-audio.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a>
+  <span style="color:#2A3140">|</span>
+  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span>
+</div>
+
+<header class="header"><a class="logo" href="index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a><nav class="nav"><a href="index.html">Analyseur</a><a href="bleep-audio.html">Bip audio</a><div class="dropdown"><a href="../articles/what-is-lufs.html">Apprendre</a><div class="dropdown-menu"><a href="../articles/what-is-lufs.html">Qu'est-ce que le LUFS ?</a><a href="../articles/spotify-loudness.html">Spotify -14</a><a href="../articles/tiktok-loudness.html">TikTok & Shorts</a><a href="../articles/true-peak.html">True Peak</a><a href="../articles/lra.html">LRA PLR PSR</a><a href="../articles/why-minus-14-is-new-zero.html">Pourquoi -14 est le nouveau 0 dB</a><a href="../articles/dbtp-true-peak-vs-sample.html">DBTP Expliqué</a><a href="../articles/ebu-r128-5-minutes.html">EBU R128 en 5 min</a></div></div><a href="blog.html">Blog</a><a href="pricing.html">Tarifs</a><a href="about.html">À propos</a></nav>
+<a class="btn-lime" href="index.html">Ouvrir l'Analyseur</a></header>
+
+<main class="prose">
+<h1>Bip Audio en Ligne — Censurez et Coupez Gratuitement</h1>
+<p class="lead">Un gros mot, un nom ou une adresse dans votre enregistrement ? Glissez sur la forme d'onde pour marquer le passage, bipez-le ou coupez-le, prévisualisez le résultat, puis téléchargez. 100 % dans votre navigateur — votre audio ne quitte jamais votre appareil.</p>
+
+<div class="card" id="bleepToolCard">
+  <div class="bleep-drop" id="bleepDrop"><b>🎙️ Déposez un fichier audio ici</b><span>ou cliquez pour choisir — MP3, WAV, M4A, OGG, FLAC. Le collage fonctionne aussi.</span><input type="file" id="bleepFile" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.flac,.webm" hidden></div>
+  <div id="bleepStage" style="display:none">
+    <p id="bleepFileInfo" class="mono"></p>
+    <div id="bleepWaveWrap">
+      <canvas id="bleepWave"></canvas>
+      <div id="bleepRegions"></div>
+      <div id="bleepPlayhead"></div>
+    </div>
+    <p class="bleep-hint" id="bleepHint"></p>
+    <div class="bleep-controls">
+      <span class="seg"><span class="seg-label">Nouvelles sections :</span><button type="button" id="bleepModeBleep" class="on">🔊 Bip</button><button type="button" id="bleepModeMute">🔇 Muet</button></span>
+      <button type="button" id="bleepPlay" class="btn-lime">▶ Écouter</button>
+      <button type="button" id="bleepStop" class="btn-ghost">⏹ Stop</button>
+      <button type="button" id="bleepDownload" class="btn-lime" disabled>⬇ Télécharger WAV</button>
+      <button type="button" id="bleepReplace" class="btn-ghost">🔄 Changer d'audio</button>
+    </div>
+    <h3 style="margin-top:20px">Sections marquées</h3>
+    <div id="bleepRegionList"></div>
+  </div>
+</div>
+
+<h2>Comment biper un passage d'un fichier audio</h2>
+<ol>
+<li><strong>Déposez votre audio</strong> — MP3, WAV, M4A, OGG ou FLAC. Il est décodé localement ; rien n'est envoyé.</li>
+<li><strong>Glissez sur la forme d'onde</strong> pour marquer chaque passage à censurer. Glissez une section pour la déplacer, ses bords pour la redimensionner. Choisissez <strong>Bip</strong> pour le bip TV classique ou <strong>Muet</strong> pour le silence — par section.</li>
+<li><strong>Prévisualisez, puis téléchargez</strong> — écoutez le mix censuré pour vérifier vos marques, puis téléchargez un WAV 16 bits.</li>
+</ol>
+
+<h2>Quand l'utiliser</h2>
+<ul>
+<li><strong>Podcasteurs &amp; YouTubeurs</strong> — bipez les gros mots pour rester « annonceur-friendly » et éviter la démonétisation.</li>
+<li><strong>Enseignants &amp; parents</strong> — des versions propres de chansons ou d'extraits pour la classe et les enfants.</li>
+<li><strong>Caviardage</strong> — coupez noms, adresses ou détails confidentiels dans les interviews et notes vocales.</li>
+<li><strong>Pour le fun</strong> — le bip classique ne se démode jamais.</li>
+</ul>
+<p>Contrairement aux outils de censure IA, rien ici n'est transcrit ni envoyé : vous marquez les passages vous-même, donc ça marche dans toutes les langues, sur n'importe quel son — un mot, un nom, une quinte de toux — instantanément.</p>
+
+<h2>Questions fréquentes</h2>
+<h3>Mon audio est-il envoyé sur un serveur ?</h3>
+<p>Non. Tout — décodage, forme d'onde, rendu du bip, export WAV — se passe dans votre navigateur avec la Web Audio API.</p>
+<h3>À quoi ressemble le bip ?</h3>
+<p>Le bip de censure classique de la télé : un son à 1000 Hz qui remplace le passage marqué, avec de courts fondus aux bords pour éviter les clics.</p>
+<h3>Bip ou muet — que choisir ?</h3>
+<p>Le bip garde le rythme de la parole évident (idéal pour l'humour et la censure façon YouTube). Le muet est plus discret — mieux pour caviarder des informations sensibles.</p>
+<h3>Qu'est-ce que je télécharge ?</h3>
+<p>Un fichier WAV 16 bits avec vos modifications incluses, nommé <code>votrefichier-bleeped.wav</code>. Le WAV est sans perte et s'ouvre partout.</p>
+<h3>Peut-il trouver les gros mots automatiquement ?</h3>
+<p>Non — et c'est voulu. Vous marquez chaque passage à la main sur la forme d'onde : pas de transcription, pas d'attente, pas d'erreur, et aucun audio ne quitte votre appareil.</p>
+<p>Vous masterisez de la musique ? <a href="index.html">Mesurez votre loudness</a> avec l'analyseur LUFS gratuit.</p>
+</main>
+
+<footer class="footer"><div class="footer-grid"><div class="footer-row1"><div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Précis • 100% Navigateur - Aucun Envoi</span></div><div class="footer-links"><a href="privacy.html">Confidentialité</a><span style="color:#1E232E">·</span><a href="terms.html">Conditions</a><span style="color:#1E232E">·</span><a href="cookies.html">Cookies</a><span style="color:#1E232E">·</span><a href="blog.html">Blog</a><span style="color:#1E232E">·</span><a href="pricing.html">Tarifs</a><span style="color:#1E232E">·</span><a href="about.html">À propos</a><span style="color:#1E232E">·</span><a href="contact.html">Contact</a></div></div><div class="footer-row2"><span>© 2026 jsm-loudness.com · Montréal, QC · Conçu à Montréal</span><span>Aucun envoi • Fonctionne dans le navigateur • Vérifié -14,05 LUFS</span></div><div class="footer-row3" style="margin-top:10px;font-size:11px;color:#9AA0A8">Autres outils gratuits : <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> · <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> · <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> · <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div></div></footer>
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none"><div style="flex:1"><p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies & confidentialité</p><p style="margin:0;font-size:12px;color:#9AA0A8">Votre audio ne quitte jamais votre appareil. Nous utilisons une analytique anonyme (GA4) uniquement si vous acceptez. Pas de pub. <a href="privacy.html" style="color:#D6FF57">Confidentialité</a> · <a href="cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button><button onclick="acceptConsent()" class="btn-lime">Accepter</button></div></div>
+<script src="../assets/js/bleep-audio.js"></script>
+<script>
+window.BLEEP_STRINGS = {
+  notAudio: 'Veuillez choisir un fichier audio.',
+  decoding: 'Décodage de l\u2019audio\u2026',
+  decodeFail: 'Impossible de d\u00e9coder ce fichier audio. Essayez MP3 ou WAV.',
+  chStereo: ' st\u00e9r\u00e9o',
+  chMono: ' mono',
+  hintDraw: 'Glissez sur la forme d\u2019onde pour marquer un passage \u00e0 biper ou \u00e0 couper.',
+  hintEdit: 'Glissez une section pour la d\u00e9placer, ses bords pour la redimensionner. Suppr enl\u00e8ve la section s\u00e9lectionn\u00e9e.',
+  noRegions: 'Aucune section \u2014 glissez sur la forme d\u2019onde pour en ajouter une.',
+  play: '\u00c9couter',
+  playing: 'Lecture\u2026',
+  rendering: 'Rendu\u2026',
+  renderFail: 'Impossible de g\u00e9n\u00e9rer l\u2019audio. Essayez un fichier plus court.',
+  modeBleep: 'Bip',
+  modeMute: 'Muet',
+  delete: 'Supprimer la section'
+};
+</script>
+<script src="../assets/js/bleep-ui.js"></script>
+<script src="../assets/js/main.js" defer></script></body></html>
