@@ -129,6 +129,8 @@
     for (var x = 0; x < w; x++) {
       var bi = i0 + Math.floor(x / w * (i1 - i0));
       var pk = peaks[clamp(bi, 0, n - 1)];
+      if (!isFinite(pk) || pk < 0) pk = 0;
+      if (pk > 1) pk = 1;
       var ph = Math.max(1, pk * (h / 2 - 6));
       g.fillRect(x, h / 2 - ph, 1, ph * 2);
     }
