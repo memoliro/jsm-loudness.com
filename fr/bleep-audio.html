@@ -98,6 +98,9 @@
   .bleep-empty{color:#6B7280;font-size:13px;padding:12px 4px}
   .bleep-hint{font-size:13px;color:#9AA0A8;margin:10px 0 0;min-height:20px}
   #bleepFileInfo{font-size:12px;color:#9AA0A8;margin:0 0 4px;overflow-wrap:anywhere}
+  .bleep-wide{max-width:1120px;margin:0 auto;padding:0 20px}
+  .bleep-subline{font-size:12px;color:#6B7280;margin-top:8px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .seg.transport button{font-size:14px;padding:7px 11px}
   </style>
 </head><body>
 <!-- Language selector -->
@@ -110,10 +113,12 @@
 <header class="header"><a class="logo" href="index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a><nav class="nav"><a href="index.html">Analyseur</a><a href="bleep-audio.html">Bip audio</a><div class="dropdown"><a href="../articles/what-is-lufs.html">Apprendre</a><div class="dropdown-menu"><a href="../articles/what-is-lufs.html">Qu'est-ce que le LUFS ?</a><a href="../articles/spotify-loudness.html">Spotify -14</a><a href="../articles/tiktok-loudness.html">TikTok & Shorts</a><a href="../articles/true-peak.html">True Peak</a><a href="../articles/lra.html">LRA PLR PSR</a><a href="../articles/why-minus-14-is-new-zero.html">Pourquoi -14 est le nouveau 0 dB</a><a href="../articles/dbtp-true-peak-vs-sample.html">DBTP Expliqué</a><a href="../articles/ebu-r128-5-minutes.html">EBU R128 en 5 min</a></div></div><a href="blog.html">Blog</a><a href="pricing.html">Tarifs</a><a href="about.html">À propos</a></nav>
 <a class="btn-lime" href="index.html">Ouvrir l'Analyseur</a></header>
 
-<main class="prose">
+<main>
+<div class="prose">
 <h1>Bip Audio en Ligne — Censurez et Coupez Gratuitement</h1>
 <p class="lead">Un gros mot, un nom ou une adresse dans votre enregistrement ? Glissez sur la forme d'onde pour marquer le passage, bipez-le ou coupez-le, prévisualisez le résultat, puis téléchargez. 100 % dans votre navigateur — votre audio ne quitte jamais votre appareil.</p>
 
+<section class="bleep-wide">
 <div class="card" id="bleepToolCard">
   <div class="bleep-drop" id="bleepDrop"><b>🎙️ Déposez un fichier audio ici</b><span>ou cliquez pour choisir — MP3, WAV, M4A, OGG, FLAC. Le collage fonctionne aussi.</span><input type="file" id="bleepFile" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.flac,.webm" hidden></div>
   <div id="bleepStage" style="display:none">
@@ -126,16 +131,26 @@
     <p class="bleep-hint" id="bleepHint"></p>
     <div class="bleep-controls">
       <span class="seg"><span class="seg-label">Nouvelles sections :</span><button type="button" id="bleepModeBleep" class="on">🔊 Bip</button><button type="button" id="bleepModeMute">🔇 Muet</button></span>
-      <button type="button" id="bleepPlay" class="btn-lime">▶ Écouter</button>
-      <button type="button" id="bleepStop" class="btn-ghost">⏹ Stop</button>
+      <span class="seg transport">
+        <button type="button" id="bleepBack" title="Reculer de 5 secondes" aria-label="Reculer de 5 secondes">⏮ 5s</button>
+        <button type="button" id="bleepPlay" title="Lecture / pause" aria-label="Écouter">▶</button>
+        <button type="button" id="bleepStop" title="Stop" aria-label="Stop">⏹</button>
+        <button type="button" id="bleepFwd" title="Avancer de 5 secondes" aria-label="Avancer de 5 secondes">5s ⏭</button>
+      </span>
+      <span class="seg">
+        <button type="button" id="bleepZoomOut" title="Zoom arrière" aria-label="Zoom arrière">−</button>
+        <button type="button" id="bleepZoomIn" title="Zoom avant" aria-label="Zoom avant">+</button>
+      </span>
       <button type="button" id="bleepDownload" class="btn-lime" disabled>⬇ Télécharger WAV</button>
       <button type="button" id="bleepReplace" class="btn-ghost">🔄 Changer d'audio</button>
     </div>
+    <div class="bleep-subline"><span id="bleepViewRange"></span></div>
     <h3 style="margin-top:20px">Sections marquées</h3>
     <div id="bleepRegionList"></div>
   </div>
 </div>
-
+</section>
+<div class="prose">
 <h2>Comment biper un passage d'un fichier audio</h2>
 <ol>
 <li><strong>Déposez votre audio</strong> — MP3, WAV, M4A, OGG ou FLAC. Il est décodé localement ; rien n'est envoyé.</li>
@@ -164,6 +179,7 @@
 <h3>Peut-il trouver les gros mots automatiquement ?</h3>
 <p>Non — et c'est voulu. Vous marquez chaque passage à la main sur la forme d'onde : pas de transcription, pas d'attente, pas d'erreur, et aucun audio ne quitte votre appareil.</p>
 <p>Vous masterisez de la musique ? <a href="index.html">Mesurez votre loudness</a> avec l'analyseur LUFS gratuit.</p>
+</div>
 </main>
 
 <footer class="footer"><div class="footer-grid"><div class="footer-row1"><div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Précis • 100% Navigateur - Aucun Envoi</span></div><div class="footer-links"><a href="privacy.html">Confidentialité</a><span style="color:#1E232E">·</span><a href="terms.html">Conditions</a><span style="color:#1E232E">·</span><a href="cookies.html">Cookies</a><span style="color:#1E232E">·</span><a href="blog.html">Blog</a><span style="color:#1E232E">·</span><a href="pricing.html">Tarifs</a><span style="color:#1E232E">·</span><a href="about.html">À propos</a><span style="color:#1E232E">·</span><a href="contact.html">Contact</a></div></div><div class="footer-row2"><span>© 2026 jsm-loudness.com · Montréal, QC · Conçu à Montréal</span><span>Aucun envoi • Fonctionne dans le navigateur • Vérifié -14,05 LUFS</span></div><div class="footer-row3" style="margin-top:10px;font-size:11px;color:#9AA0A8">Autres outils gratuits : <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> · <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> · <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> · <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div></div></footer>
@@ -180,6 +196,7 @@ window.BLEEP_STRINGS = {
   hintEdit: 'Glissez une section pour la d\u00e9placer, ses bords pour la redimensionner. Suppr enl\u00e8ve la section s\u00e9lectionn\u00e9e.',
   noRegions: 'Aucune section \u2014 glissez sur la forme d\u2019onde pour en ajouter une.',
   play: '\u00c9couter',
+  pause: 'Pause',
   playing: 'Lecture\u2026',
   rendering: 'Rendu\u2026',
   renderFail: 'Impossible de g\u00e9n\u00e9rer l\u2019audio. Essayez un fichier plus court.',
