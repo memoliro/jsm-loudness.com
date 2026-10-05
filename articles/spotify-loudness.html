@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="Spotify normalizes to -14 LUFS integrated, -1 dBTP. Learn Normal/Loud/Quiet modes, when to master louder than -14, and how to avoid loudness penalty."/>
 <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
 <link rel="icon" href="/favicon.svg"/>
-<link rel="stylesheet" href="../assets/css/style.css"/>
+<link rel="stylesheet" href="../assets/css/style.css?v=20261005c"/>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
@@ -92,14 +92,29 @@ body{margin:0;background:#0A0C0F;color:#E6E8EC;font-family:Inter,ui-sans-serif,s
 </div>
 
 <header class="header">
-<a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
-<nav class="nav">
-<a href="../index.html">Analyzer</a>
-<div style="position:relative"><a href="what-is-lufs.html">Learn ▾</a></div>
-<a href="../blog.html">Blog</a><a href="../pricing.html">Pricing</a><a href="../about.html">About</a>
-</nav>
+  <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
+  <nav class="nav">
+    <a href="../index.html">Analyzer</a>
+    <a href="../bleep-audio.html">Bleep</a>
+    <div class="dropdown">
+      <a href="./what-is-lufs.html">Learn</a>
+      <div class="dropdown-menu">
+        <a href="./what-is-lufs.html">What is LUFS?</a>
+        <a href="./spotify-loudness.html">Spotify -14</a>
+        <a href="./tiktok-loudness.html">TikTok & Shorts</a>
+        <a href="./true-peak.html">True Peak</a>
+        <a href="./lra.html">LRA PLR PSR</a>
+        <a href="./why-minus-14-is-new-zero.html">Why -14 is new 0dB</a>
+        <a href="./dbtp-true-peak-vs-sample.html">DBTP Explained</a>
+        <a href="./ebu-r128-5-minutes.html">EBU R128 5min</a>
+      </div>
+    </div>
+    <a href="../blog.html">Blog</a>
+    <a href="../pricing.html">Pricing</a>
+    <a href="../about.html">About</a>
+  </nav>
 
-<a class="btn-lime" href="../index.html">Open Analyzer</a>
+  <a class="btn-lime" href="../index.html#analyzer">Open Analyzer</a>
 </header>
 <main class="prose">
 <div class="badge">ITU-R BS.1770-4 • EBU R128 • VERIFIED -14.05 LUFS • NO UPLOAD</div>

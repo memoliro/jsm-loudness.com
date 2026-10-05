@@ -24,7 +24,7 @@
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Free LUFS Loudness Meter - EBU R128"/>
   <meta name="twitter:description" content="100% browser loudness meter, no upload, verified -14.05 LUFS."/>
-  <link rel="stylesheet" href="assets/css/style.css"/>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261005c"/>
   <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -102,9 +102,6 @@
 <style id="jsm-theme-styles">
 /* Dark-only: light theme retired */
 </style>
-<style>/* static footer is used; hide React-rendered footer */
-#root footer{display:none!important}
-</style>
 </head>
 <body>
 <!-- Language selector dropdown - CSP safe -->
@@ -177,8 +174,77 @@
 </script>
 
 
+<header class="header"><a class="logo" href="index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a><nav class="nav"><a href="index.html" class="active">Analyseur</a><a href="bleep-audio.html">Bip audio</a><div class="dropdown"><a href="articles/what-is-lufs.html">Apprendre</a><div class="dropdown-menu"><a href="articles/what-is-lufs.html">Qu'est-ce que le LUFS ?</a><a href="articles/spotify-loudness.html">Spotify -14</a><a href="articles/tiktok-loudness.html">TikTok &amp; Shorts</a><a href="articles/true-peak.html">True Peak</a><a href="articles/lra.html">LRA PLR PSR</a><a href="articles/why-minus-14-is-new-zero.html">Pourquoi -14 est le nouveau 0 dB</a><a href="articles/dbtp-true-peak-vs-sample.html">DBTP Expliqu&eacute;</a><a href="articles/ebu-r128-5-minutes.html">EBU R128 en 5 min</a></div></div><a href="blog.html">Blog</a><a href="pricing.html">Tarifs</a><a href="about.html">&Agrave; propos</a></nav>
+<a class="btn-lime" href="#analyzer">Ouvrir l'Analyseur</a></header>
+
 <main>
+<section class="hero-landing">
+  <span class="hero-badge">&#10003; -14,05 LUFS v&eacute;rifi&eacute; &nbsp;&middot;&nbsp; 100% dans le navigateur &nbsp;&middot;&nbsp; Aucun envoi</span>
+  <h1>Mesureur de loudness LUFS gratuit &mdash; <span class="lime">masterisez pour chaque plateforme</span></h1>
+  <p class="hero-lead">D&eacute;posez votre mix et obtenez en quelques secondes le LUFS int&eacute;gr&eacute;, le true peak dBTP, le LRA et la dynamique short-term avec une pr&eacute;cision laboratoire &mdash; l'algorithme exact ITU-R&nbsp;BS.1770-4 / EBU&nbsp;R128, v&eacute;rifi&eacute; face aux mesureurs professionnels. Votre audio ne quitte jamais votre appareil.</p>
+  <div class="hero-visuals">
+    <div class="hv-card">
+      <span class="hv-tag">Mesureur en direct</span>
+      <svg viewBox="0 0 200 116" width="100%" height="92" aria-hidden="true" style="margin-top:8px">
+        <path d="M20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#1E232E" stroke-width="14" stroke-linecap="round"/>
+        <path d="M20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#D6FF57" stroke-width="14" stroke-linecap="round" stroke-dasharray="252" stroke-dashoffset="100"/>
+        <line x1="100" y1="100" x2="142" y2="52" stroke="#E6E8EC" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="100" cy="100" r="7" fill="#E6E8EC"/>
+        <text x="20" y="114" fill="#6B7280" font-size="9" font-family="monospace">-30</text>
+        <text x="174" y="114" fill="#6B7280" font-size="9" font-family="monospace">-6</text>
+        <text x="76" y="66" fill="#D6FF57" font-size="16" font-weight="700" font-family="monospace">-14,05</text>
+      </svg>
+      <h3>Mesures pr&eacute;cises laboratoire</h3>
+      <p>LUFS int&eacute;gr&eacute;, short-term et momentary, true peak, LRA, PLR et PSR &mdash; les m&ecirc;mes chiffres que les mesureurs de mastering pro.</p>
+    </div>
+    <div class="hv-card">
+      <span class="hv-tag">Cibles plateformes</span>
+      <div style="margin-top:10px">
+        <div class="hv-plat"><span>Spotify</span><b>-14 LUFS</b></div>
+        <div class="hv-plat"><span>YouTube</span><b>-14 LUFS</b></div>
+        <div class="hv-plat"><span>Apple Music</span><b>-16 LUFS</b></div>
+        <div class="hv-plat"><span>TikTok / Shorts</span><b>-14 &ndash; -9</b></div>
+      </div>
+      <h3>Sachez avant d'envoyer</h3>
+      <p>Voyez instantan&eacute;ment si Spotify va baisser votre titre &mdash; et de combien de dB.</p>
+    </div>
+    <div class="hv-card">
+      <span class="hv-tag">Priv&eacute; par conception</span>
+      <svg viewBox="0 0 200 64" width="100%" height="64" aria-hidden="true" style="margin-top:10px">
+        <g fill="#D6FF57" opacity="0.85">
+          <rect x="8" y="26" width="6" height="12" rx="3"/><rect x="20" y="18" width="6" height="28" rx="3"/>
+          <rect x="32" y="28" width="6" height="8" rx="3"/><rect x="44" y="12" width="6" height="40" rx="3"/>
+          <rect x="56" y="22" width="6" height="20" rx="3"/><rect x="68" y="8" width="6" height="48" rx="3"/>
+          <rect x="80" y="24" width="6" height="16" rx="3"/><rect x="92" y="16" width="6" height="32" rx="3"/>
+          <rect x="104" y="28" width="6" height="8" rx="3"/><rect x="116" y="10" width="6" height="44" rx="3"/>
+          <rect x="128" y="22" width="6" height="20" rx="3"/><rect x="140" y="26" width="6" height="12" rx="3"/>
+          <rect x="152" y="14" width="6" height="36" rx="3"/><rect x="164" y="24" width="6" height="16" rx="3"/>
+          <rect x="176" y="20" width="6" height="24" rx="3"/>
+        </g>
+      </svg>
+      <h3>Votre audio reste &agrave; vous</h3>
+      <p>L'analyse tourne enti&egrave;rement dans votre navigateur. Aucun envoi, aucun compte, aucun serveur n'entendra jamais votre mix.</p>
+    </div>
+  </div>
+</section>
+
+<section id="analyzer" aria-label="Analyseur de loudness">
+  <div class="analyzer-kicker">D&eacute;posez un fichier &agrave; analyser</div>
+  <div class="drop-window" id="dropWindow" role="button" tabindex="0" aria-label="D&eacute;posez un fichier audio ou parcourez vos fichiers"
+    data-str-analyzing="Analyse de " data-str-more=" (+{n} autres)"
+    data-str-loading="L'analyseur charge encore &mdash; r&eacute;essayez dans un instant."
+    data-str-nofile="Ceci ne ressemble pas &agrave; un fichier audio &mdash; essayez WAV, MP3, FLAC, OGG ou M4A."
+    data-str-fallback="Impossible de transmettre le fichier &agrave; l'analyseur &mdash; utilisez son bouton de choix de fichier ci-dessous.">
+    <span class="dw-icon">&#127925;</span>
+    <b>D&eacute;posez votre fichier audio ici</b>
+    <p>Glissez-d&eacute;posez, collez (Ctrl/&#8984;+V), ou parcourez vos fichiers</p>
+    <span class="btn-lime">Parcourir les fichiers audio</span>
+    <div class="dw-formats">WAV &middot; MP3 &middot; FLAC &middot; OGG &middot; M4A &middot; batch support&eacute;</div>
+    <div class="dw-formats" id="dropStatus" aria-live="polite"></div>
+    <input type="file" id="dropFile" accept="audio/*" multiple hidden>
+  </div>
   <div id="root"></div>
+</section>
 
 <!-- Batch + CSV Panel - Added without changing original design -->
 <div id="jsm-batch-panel" style="max-width:1120px;margin:24px auto;padding:0 20px;display:none">
@@ -594,15 +660,42 @@
 </script>
 
 </main>
-<section style="max-width:1120px;margin:36px auto 0;padding:0 20px">
-<h2 style="font-size:22px;color:#E6E8EC;margin:0 0 10px">Analyseur de loudness LUFS gratuit — comment ça marche</h2>
-<p style="color:#9AA0A8;font-size:14px;line-height:1.75;max-width:780px;margin:0">Déposez n'importe quel fichier audio et obtenez des mesures de loudness précises en quelques secondes. JSM Loudness implémente l'algorithme exact ITU-R BS.1770-4 / EBU R128 dans votre navigateur — LUFS intégré, true peak, plage dynamique et vérifications par plateforme — sans aucun envoi et gratuitement.</p>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:22px 0 30px"><div style="background:rgba(19,22,29,.82);border:1px solid #1E232E;border-radius:14px;padding:16px"><h3 style="margin:0 0 6px;font-size:15px;color:#E6E8EC">1. Déposez votre audio</h3><p style="margin:0;font-size:13px;color:#9AA0A8;line-height:1.6">Glissez-déposez n'importe quel fichier WAV, MP3, FLAC ou M4A. Le mode batch analyse des dossiers entiers et exporte un rapport CSV.</p></div><div style="background:rgba(19,22,29,.82);border:1px solid #1E232E;border-radius:14px;padding:16px"><h3 style="margin:0 0 6px;font-size:15px;color:#E6E8EC">2. Obtenez des mesures LUFS exactes</h3><p style="margin:0;font-size:13px;color:#9AA0A8;line-height:1.6">LUFS intégré, short-term et momentary, true peak dBTP, LRA, PLR et PSR — l'algorithme exact ITU-R BS.1770-4, vérifié à -14,05 LUFS.</p></div><div style="background:rgba(19,22,29,.82);border:1px solid #1E232E;border-radius:14px;padding:16px"><h3 style="margin:0 0 6px;font-size:15px;color:#E6E8EC">3. Atteignez -14 LUFS</h3><p style="margin:0;font-size:13px;color:#9AA0A8;line-height:1.6">Voyez le gain exact pour atteindre votre cible, pré-écoutez le résultat normalisé et comparez avant/après dans le navigateur.</p></div></div>
-<h2 style="font-size:22px;color:#E6E8EC;margin:0 0 10px">Un analyseur, toutes les cibles plateformes</h2>
-<p style="color:#9AA0A8;font-size:14px;line-height:1.75;max-width:780px;margin:0 0 30px">Spotify, YouTube et TIDAL normalisent à <strong style="color:#E6E8EC">-14 LUFS</strong> ; TikTok, Reels et Shorts se situent autour de <strong style="color:#E6E8EC">-14 à -16 LUFS</strong> ; la diffusion broadcast vise <strong style="color:#E6E8EC">-23 LUFS</strong> (EBU R128). Masterisez selon la cible au lieu de lutter contre la normalisation — les masters trop forts sont simplement baissés.</p>
-<h2 style="font-size:22px;color:#E6E8EC;margin:0 0 14px">FAQ Loudness</h2>
-<div style="max-width:780px;margin:0 0 26px"><div style="margin:0 0 14px"><h3 style="margin:0 0 4px;font-size:15px;color:#E6E8EC">Qu'est-ce que le LUFS ?</h3><p style="margin:0;font-size:13px;color:#9AA0A8;line-height:1.7">Le LUFS (Loudness Units relative to Full Scale) est l'unité standard de la loudness perçue, définie par l'ITU-R BS.1770 et l'EBU R128. Contrairement aux crête-mètres, le LUFS utilise des filtres K-weighting qui modélisent l'audition humaine : deux titres au même niveau LUFS sonnent aussi fort l'un que l'autre. Les plateformes de streaming utilisent le LUFS intégré pour normaliser le volume.</p></div><div style="margin:0 0 14px"><h3 style="margin:0 0 4px;font-size:15px;color:#E6E8EC">À quel niveau LUFS masteriser pour Spotify ?</h3><p style="margin:0;font-size:13px;color:#9AA0A8;line-height:1.7">Masterisez à -14 LUFS intégré avec un plafond true-peak de -1 dBTP. Spotify, YouTube et TIDAL normalisent autour de -14 LUFS : si votre titre est plus fort, la plateforme le baisse simplement, et vous perdez du punch pour rien. Notre analyseur indique exactement le gain à appliquer pour atteindre -14.</p></div><div style="margin:0 0 14px"><h3 style="margin:0 0 4px;font-size:15px;color:#E6E8EC">Mon audio est-il envoyé sur un serveur ?</h3><p style="margin:0;font-size:13px;color:#9AA0A8;line-height:1.7">Non. JSM Loudness fonctionne à 100 % dans votre navigateur grâce à la Web Audio API. Votre fichier ne quitte jamais votre appareil : aucun envoi, aucun compte, aucune attente. L'analyse est donc gratuite et illimitée.</p></div><div style="margin:0 0 14px"><h3 style="margin:0 0 4px;font-size:15px;color:#E6E8EC">Qu'est-ce que le true peak (dBTP) et pourquoi c'est important ?</h3><p style="margin:0;font-size:13px;color:#9AA0A8;line-height:1.7">Le true peak estime le pic réel du signal analogique après conversion numérique-analogique, y compris les pics inter-échantillons que les crête-mètres classiques ne voient pas. Les codecs comme l'AAC et le MP3 peuvent pousser les pics au-dessus de 0 dBFS et provoquer de l'écrêtage. Gardez le true peak à -1 dBTP maximum pour des masters sûrs en streaming.</p></div></div>
-<p style="font-size:13px;color:#9AA0A8;max-width:780px"><span style="font-weight:600;color:#E6E8EC">Guides loudness :</span><br><a href="/fr/articles/what-is-lufs.html" style="color:#D6FF57">Qu'est-ce que le LUFS ?</a> · <a href="/fr/articles/spotify-loudness.html" style="color:#D6FF57">Guide Spotify -14 LUFS</a> · <a href="/fr/articles/true-peak.html" style="color:#D6FF57">True peak expliqué</a> · <a href="/fr/articles/ebu-r128-5-minutes.html" style="color:#D6FF57">EBU R128 en 5 minutes</a> · <a href="/fr/blog.html" style="color:#D6FF57">Tous les guides loudness</a></p>
+<section class="info-section">
+<h2>Analyseur de loudness LUFS gratuit — comment ça marche</h2>
+<p class="info-sub">Déposez n'importe quel fichier audio et obtenez des mesures de loudness précises en quelques secondes. L'algorithme exact ITU-R BS.1770-4 / EBU R128 tourne dans votre navigateur — aucun envoi, aucun coût.</p>
+<div class="steps-grid">
+  <div class="step-card"><div class="step-num">1</div><h3>Déposez votre audio</h3><p>Glissez-déposez n'importe quel fichier WAV, MP3, FLAC ou M4A — ou collez-le depuis votre presse-papiers. Le mode batch analyse des dossiers entiers et exporte un rapport CSV.</p></div>
+  <div class="step-card"><div class="step-num">2</div><h3>Obtenez des mesures LUFS exactes</h3><p>LUFS intégré, short-term et momentary, true peak dBTP, LRA, PLR et PSR — l'algorithme exact ITU-R BS.1770-4, vérifié à -14,05 LUFS.</p></div>
+  <div class="step-card"><div class="step-num">3</div><h3>Atteignez -14 LUFS</h3><p>Voyez le gain exact pour atteindre votre cible, pré-écoutez le résultat normalisé et comparez avant/après dans le navigateur.</p></div>
+</div>
+</section>
+
+<section class="info-section">
+<h2>Vérifié face aux mesureurs professionnels</h2>
+<p class="info-sub">L'analyseur est vérifié face aux outils de référence sur un fichier test certifié (HAYDI DÖN.WAV, 2 canaux 48 kHz 16 bits).</p>
+<div class="verify-grid">
+  <div class="verify-card"><span>lufs.org</span><b>-14,05 / -3,08 ✓</b></div>
+  <div class="verify-card"><span>wtools.io</span><b>-14,0 / -3,1 PASS</b></div>
+  <div class="verify-card"><span>Youlean</span><b>-14,05 / -3,08 ✓</b></div>
+  <div class="verify-card"><span>ITU-R BS.1770-4</span><b>coeffs exacts</b></div>
+</div>
+</section>
+
+<section class="info-section">
+<h2>Un analyseur, toutes les cibles plateformes</h2>
+<p class="info-sub">Spotify, YouTube et TIDAL normalisent à <strong style="color:#E6E8EC">-14 LUFS</strong> ; TikTok, Reels et Shorts se situent autour de <strong style="color:#E6E8EC">-14 à -16 LUFS</strong> ; la diffusion broadcast vise <strong style="color:#E6E8EC">-23 LUFS</strong> (EBU R128). Masterisez selon la cible au lieu de lutter contre la normalisation — les masters trop forts sont simplement baissés.</p>
+</section>
+
+<section class="info-section">
+<h2>FAQ Loudness</h2>
+<p class="info-sub">Réponses rapides — les guides complets sont liés ci-dessous.</p>
+<div class="faq-list">
+<details><summary>Qu'est-ce que le LUFS ?</summary><p>Le LUFS (Loudness Units relative to Full Scale) est l'unité standard de la loudness perçue, définie par l'ITU-R BS.1770 et l'EBU R128. Contrairement aux crête-mètres, le LUFS utilise des filtres K-weighting qui modélisent l'audition humaine : deux titres au même niveau LUFS sonnent aussi fort l'un que l'autre. Les plateformes de streaming utilisent le LUFS intégré pour normaliser le volume.</p></details>
+<details><summary>À quel niveau LUFS masteriser pour Spotify ?</summary><p>Masterisez à -14 LUFS intégré avec un plafond true-peak de -1 dBTP. Spotify, YouTube et TIDAL normalisent autour de -14 LUFS : si votre titre est plus fort, la plateforme le baisse simplement, et vous perdez du punch pour rien. Notre analyseur indique exactement le gain à appliquer pour atteindre -14.</p></details>
+<details><summary>Mon audio est-il envoyé sur un serveur ?</summary><p>Non. JSM Loudness fonctionne à 100 % dans votre navigateur grâce à la Web Audio API. Votre fichier ne quitte jamais votre appareil : aucun envoi, aucun compte, aucune attente. L'analyse est donc gratuite et illimitée.</p></details>
+<details><summary>Qu'est-ce que le true peak (dBTP) et pourquoi c'est important ?</summary><p>Le true peak estime le pic réel du signal analogique après conversion numérique-analogique, y compris les pics inter-échantillons que les crête-mètres classiques ne voient pas. Les codecs comme l'AAC et le MP3 peuvent pousser les pics au-dessus de 0 dBFS et provoquer de l'écrêtage. Gardez le true peak à -1 dBTP maximum pour des masters sûrs en streaming.</p></details>
+</div>
+<p style="font-size:13px;color:#9AA0A8;max-width:780px;margin:26px auto 0;text-align:center"><span style="font-weight:600;color:#E6E8EC">Guides loudness :</span><br><a href="/fr/articles/what-is-lufs.html">Qu'est-ce que le LUFS ?</a> · <a href="/fr/articles/spotify-loudness.html">Guide Spotify -14 LUFS</a> · <a href="/fr/articles/true-peak.html">True peak expliqué</a> · <a href="/fr/articles/ebu-r128-5-minutes.html">EBU R128 en 5 minutes</a> · <a href="/fr/blog.html">Tous les guides loudness</a></p>
 </section>
 
 <section aria-label="Support the site" style="max-width:1120px;margin:36px auto 0;padding:0 20px">
@@ -625,7 +718,7 @@
       <a href="/about.html">About</a><span style="color:#1E232E">·</span>
   <a href="/contact.html">Contact</a></div></div>
   <div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal</span>
-    <span>No upload • Runs in browser • Verified -14.05 LUFS</span></div></div><div class="footer-row3" style="margin-top:10px;font-size:11px;color:#9AA0A8">Autres outils gratuits : <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> &middot; <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> &middot; <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> &middot; <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div></div></footer>
+    <span>No upload • Runs in browser • Verified -14.05 LUFS</span></div></div><div class="footer-row3" style="margin-top:10px;font-size:11px;color:#9AA0A8">Autres outils gratuits : <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> &middot; <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> &middot; <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> &middot; <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div></footer>
 
 <script type="module">var Bf=Object.create;var{getPrototypeOf:Xf,defineProperty:ho,getOwnPropertyNames:Zf}=Object;
 var Jf=Object.prototype.hasOwnProperty;
@@ -756,5 +849,6 @@ case"about":return h("div",{className:"max-w-[680px] mx-auto",children:[s("h1",{
   }, true);
 })();
 </script>
+<script src="../assets/js/landing.js?v=20261005c"></script>
 </body>
 </html>

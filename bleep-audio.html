@@ -3,7 +3,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="robots" content="index, follow, max-image-preview:large"/>
   <link rel="icon" href="/favicon.svg"/>
-  <link rel="stylesheet" href="assets/css/style.css"/>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261005c"/>
   <!-- Consent Mode v2 defaults - MUST be before gtag.js -->
   <script>
   window.dataLayer = window.dataLayer || [];
@@ -63,45 +63,6 @@
     {"@type":"Question","name":"Is there a limit on file length?","acceptedAnswer":{"@type":"Answer","text":"No hard limit. The whole file is decoded into memory, so very long recordings (an hour or more) need a desktop browser with free RAM. Podcasts and typical clips work everywhere."}}
   ]}
   </script>
-  <style>
-  .bleep-drop{border:2px dashed #2A3140;border-radius:16px;padding:40px 20px;text-align:center;cursor:pointer;color:#9AA0A8;transition:border-color .15s,color .15s}
-  .bleep-drop:hover{border-color:#D6FF57;color:#E6E8EC}
-  .bleep-drop b{display:block;font-size:16px;color:#E6E8EC;margin-bottom:6px}
-  .bleep-drop span{font-size:13px}
-  #bleepWaveWrap{position:relative;height:160px;background:#0F1115;border:1px solid #1E232E;border-radius:12px;overflow:hidden;touch-action:none;cursor:crosshair;margin-top:12px}
-  #bleepWave{position:absolute;inset:0}
-  #bleepRegions{position:absolute;inset:0;pointer-events:none}
-  .bleep-region{position:absolute;top:0;bottom:0;pointer-events:auto;cursor:grab;border-radius:4px;border:1px solid}
-  .bleep-region.bleep-bleep{background:rgba(214,255,87,.16);border-color:#D6FF57;color:#D6FF57}
-  .bleep-region.bleep-mute{background:rgba(255,107,107,.16);border-color:#FF6B6B;color:#FF6B6B}
-  .bleep-region.sel{box-shadow:0 0 0 2px #E6E8EC}
-  .bleep-region.drawing{pointer-events:none}
-  .bhandle{position:absolute;top:0;bottom:0;width:12px;cursor:ew-resize}
-  .bhandle.hl{left:-6px}.bhandle.hr{right:-6px}
-  .bhandle::after{content:'';position:absolute;top:10px;bottom:10px;left:5px;width:2px;background:currentColor;opacity:.8;border-radius:2px}
-  .blabel{position:absolute;top:4px;left:8px;right:26px;font-size:10px;color:#E6E8EC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
-  .bx{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:12px;line-height:1;cursor:pointer;padding:0}
-  #bleepPlayhead{position:absolute;top:0;bottom:0;width:2px;background:#fff;display:none;pointer-events:none;box-shadow:0 0 6px rgba(255,255,255,.8)}
-  .bleep-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
-  .seg{display:inline-flex;background:#11141A;border:1px solid #1E232E;border-radius:999px;padding:3px;gap:2px;align-items:center}
-  .seg button{border:0;background:transparent;color:#9AA0A8;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer}
-  .seg button.on{background:#D6FF57;color:#000}
-  .seg-label{font-size:12px;color:#9AA0A8;padding:0 4px 0 8px}
-  .btn-lime:disabled{opacity:.4;cursor:default}
-  .bleep-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid #1E232E;border-radius:10px;margin-top:8px;background:#11141A}
-  .bleep-row.sel{border-color:#D6FF57}
-  .bnum{background:none;border:0;color:#D6FF57;font-weight:700;cursor:pointer;font-size:13px;padding:0}
-  .btime{font-size:13px;color:#E6E8EC;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-  .bleep-row .seg{margin-left:auto}
-  .bx2{background:none;border:0;color:#9AA0A8;font-size:18px;cursor:pointer;line-height:1;padding:0 2px}
-  .bx2:hover{color:#FF6B6B}
-  .bleep-empty{color:#6B7280;font-size:13px;padding:12px 4px}
-  .bleep-hint{font-size:13px;color:#9AA0A8;margin:10px 0 0;min-height:20px}
-  #bleepFileInfo{font-size:12px;color:#9AA0A8;margin:0 0 4px;overflow-wrap:anywhere}
-  .bleep-wide{max-width:1120px;margin:0 auto;padding:0 20px}
-  .bleep-subline{font-size:12px;color:#6B7280;margin-top:8px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-  .seg.transport button{font-size:14px;padding:7px 11px}
-  </style>
 </head><body>
 <!-- Language selector -->
 <div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
