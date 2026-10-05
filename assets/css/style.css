@@ -4,10 +4,10 @@
 body{margin:0;background:#0A0C0F;color:#E6E8EC;font-family:Inter,ui-sans-serif,system-ui,-apple-system;line-height:1.5;-webkit-font-smoothing:antialiased}
 a{color:#D6FF57;text-decoration:none}
 a:hover{opacity:0.9}
-.header{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid #1E232E;backdrop-filter:blur(12px);position:sticky;top:0;z-index:20;background:rgba(10,12,15,0.88)}
+.header{display:flex;align-items:center;justify-content:flex-start;gap:32px;padding:14px 24px;border-bottom:1px solid #1E232E;backdrop-filter:blur(12px);position:sticky;top:0;z-index:20;background:rgba(10,12,15,0.88)}
 .logo{display:flex;gap:10px;align-items:center;text-decoration:none;color:#E6E8EC;font-weight:700;letter-spacing:-0.02em}
 .logo-mark{width:28px;height:28px;border-radius:8px;background:#D6FF57;color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
-.nav{display:flex;gap:20px;align-items:center;font-size:13px}
+.nav{display:flex;gap:20px;align-items:center;font-size:13px;margin:0 auto}
 .nav a{color:#9AA0A8;text-decoration:none;transition:color .15s}
 .nav a:hover{color:#E6E8EC}
 .nav a.active{color:#E6E8EC;font-weight:600}
