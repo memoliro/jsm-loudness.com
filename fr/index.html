@@ -118,7 +118,7 @@
     <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="opacity:.7"><path d="M1 1l4 4 4-4" stroke="#9AA0A8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
   <div id="jsm-lang-menu" role="listbox" hidden style="display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:160px;background:rgba(15,17,21,0.98);border:1px solid #1E232E;border-radius:12px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,0.5);backdrop-filter:blur(12px)">
-    <a href="/index.html" role="option" aria-current="true" class="jsm-lang-option" data-lang="en" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:#E6E8EC;font-weight:600">
+    <a href="/index.html" role="option" class="jsm-lang-option" data-lang="en" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:#9AA0A8;font-weight:500">
       <svg width="18" height="12" viewBox="0 0 60 30" style="border-radius:2px;flex-shrink:0">
         <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
         <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
@@ -128,7 +128,7 @@
       </svg>
       English
     </a>
-    <a href="/fr/index.html" role="option" class="jsm-lang-option" data-lang="fr" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:#9AA0A8;font-weight:500">
+    <a href="/fr/index.html" role="option" aria-current="true" class="jsm-lang-option" data-lang="fr" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:#E6E8EC;font-weight:600">
       <svg width="18" height="12" viewBox="0 0 3 2" style="border-radius:2px;flex-shrink:0">
         <rect width="1" height="2" x="0" fill="#002395"/>
         <rect width="1" height="2" x="1" fill="#fff"/>
@@ -481,6 +481,17 @@
     if(badge){
       var tag = state.mode==="after" ? (state.normalized?"after -14":"target -14") : "original";
       badge.textContent=integ.toFixed(2)+" LUFS \u2022 "+String(fileName).slice(0,22)+" \u2022 "+tag;
+      if(!badge.dataset.centered){
+        badge.dataset.centered="1";
+        var head=badge.parentNode;
+        if(head){
+          head.style.flexWrap="wrap";
+          var wrap=document.createElement("div");
+          wrap.style.cssText="width:100%;display:flex;justify-content:center;margin-top:10px";
+          head.appendChild(wrap);
+          wrap.appendChild(badge);
+        }
+      }
     }
     if(grid){
       var cards=grid.children;

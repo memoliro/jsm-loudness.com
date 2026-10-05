@@ -477,6 +477,17 @@
     if(badge){
       var tag = state.mode==="after" ? (state.normalized?"after -14":"target -14") : "original";
       badge.textContent=integ.toFixed(2)+" LUFS \u2022 "+String(fileName).slice(0,22)+" \u2022 "+tag;
+      if(!badge.dataset.centered){
+        badge.dataset.centered="1";
+        var head=badge.parentNode;
+        if(head){
+          head.style.flexWrap="wrap";
+          var wrap=document.createElement("div");
+          wrap.style.cssText="width:100%;display:flex;justify-content:center;margin-top:10px";
+          head.appendChild(wrap);
+          wrap.appendChild(badge);
+        }
+      }
     }
     if(grid){
       var cards=grid.children;

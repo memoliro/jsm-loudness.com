@@ -65,13 +65,41 @@
   </script>
 </head><body>
 <!-- Language selector -->
-<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
-  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</span>
-  <span style="color:#2A3140">|</span>
-  <a href="fr/bleep-audio.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</a>
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;font-size:12px">
+  <button type="button" id="jsm-lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Language" style="display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:6px 12px;border-radius:999px;color:#E6E8EC;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.4);font-family:Inter,system-ui,sans-serif">
+    <svg width="18" height="12" viewBox="0 0 60 30" style="border-radius:2px;flex-shrink:0"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg>
+    <span>EN</span>
+    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="opacity:.7"><path d="M1 1l4 4 4-4" stroke="#9AA0A8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div id="jsm-lang-menu" role="listbox" hidden style="display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:160px;background:rgba(15,17,21,0.98);border:1px solid #1E232E;border-radius:12px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,0.5);backdrop-filter:blur(12px)">
+    <a href="/bleep-audio.html" role="option" aria-current="true" class="jsm-lang-option" data-lang="en" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:#E6E8EC;font-weight:600">
+      <svg width="18" height="12" viewBox="0 0 60 30" style="border-radius:2px;flex-shrink:0"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg>
+      English
+    </a>
+    <a href="/fr/bleep-audio.html" role="option" class="jsm-lang-option" data-lang="fr" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:#9AA0A8;font-weight:500">
+      <svg width="18" height="12" viewBox="0 0 3 2" style="border-radius:2px;flex-shrink:0"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg>
+      Français
+    </a>
+  </div>
 </div>
-
-<header class="header"><a class="logo" href="index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a><nav class="nav"><a href="index.html">Analyzer</a><a href="bleep-audio.html">Bleep</a><div class="dropdown"><a href="articles/what-is-lufs.html">Learn</a><div class="dropdown-menu"><a href="articles/what-is-lufs.html">What is LUFS?</a><a href="articles/spotify-loudness.html">Spotify -14</a><a href="articles/tiktok-loudness.html">TikTok & Shorts</a><a href="articles/true-peak.html">True Peak</a><a href="articles/lra.html">LRA PLR PSR</a><a href="articles/why-minus-14-is-new-zero.html">Why -14 is new 0dB</a><a href="articles/dbtp-true-peak-vs-sample.html">DBTP Explained</a><a href="articles/ebu-r128-5-minutes.html">EBU R128 5min</a></div></div><a href="blog.html">Blog</a><a href="pricing.html">Pricing</a><a href="about.html">About</a></nav></header>
+<style>
+#jsm-lang-selector .jsm-lang-option:hover{background:#151821;color:#E6E8EC!important}
+#jsm-lang-selector .jsm-lang-option[aria-current="true"]{background:rgba(214,255,87,0.08);color:#D6FF57!important}
+</style>
+<script>
+(function(){
+  var btn=document.getElementById("jsm-lang-btn");
+  var menu=document.getElementById("jsm-lang-menu");
+  if(!btn||!menu) return;
+  function close(){menu.style.display="none";menu.hidden=true;btn.setAttribute("aria-expanded","false");}
+  function open(){menu.style.display="block";menu.hidden=false;btn.setAttribute("aria-expanded","true");}
+  btn.addEventListener("click",function(e){e.stopPropagation();if(menu.hidden) open(); else close();});
+  document.addEventListener("click",function(){close();});
+  menu.addEventListener("click",function(e){e.stopPropagation();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape") close();});
+})();
+</script>
+<header class="header"><a class="logo" href="index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a><nav class="nav"><a href="index.html">Analyzer</a><a href="bleep-audio.html" class="active">Bleep</a><div class="dropdown"><a href="articles/what-is-lufs.html">Learn</a><div class="dropdown-menu"><a href="articles/what-is-lufs.html">What is LUFS?</a><a href="articles/spotify-loudness.html">Spotify -14</a><a href="articles/tiktok-loudness.html">TikTok & Shorts</a><a href="articles/true-peak.html">True Peak</a><a href="articles/lra.html">LRA PLR PSR</a><a href="articles/why-minus-14-is-new-zero.html">Why -14 is new 0dB</a><a href="articles/dbtp-true-peak-vs-sample.html">DBTP Explained</a><a href="articles/ebu-r128-5-minutes.html">EBU R128 5min</a></div></div><a href="blog.html">Blog</a><a href="pricing.html">Pricing</a><a href="about.html">About</a></nav></header>
 
 <main>
 <div class="prose">
@@ -142,7 +170,27 @@
 </div>
 </main>
 
-<footer class="footer"><div class="footer-grid"><div class="footer-row1"><div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div><div class="footer-links"><a href="privacy.html">Privacy</a><span style="color:#1E232E">·</span><a href="terms.html">Terms</a><span style="color:#1E232E">·</span><a href="cookies.html">Cookies</a><span style="color:#1E232E">·</span><a href="blog.html">Blog</a><span style="color:#1E232E">·</span><a href="pricing.html">Pricing</a><span style="color:#1E232E">·</span><a href="about.html">About</a><span style="color:#1E232E">·</span><a href="contact.html">Contact</a></div></div><div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal</span><span>No upload • Runs in browser • Verified -14.05 LUFS</span></div><div class="footer-row3" style="margin-top:10px;font-size:11px;color:#9AA0A8">More free tools: <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> · <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> · <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> · <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div></div></footer>
+<footer style="position:relative;z-index:10;margin-top:64px;border-top:1px solid #1E232E;background:linear-gradient(180deg,rgba(15,17,21,0.8),rgba(8,10,12,0.9));overflow:hidden">
+  <div style="pointer-events:none;position:absolute;left:0;right:0;bottom:0;height:180px;background:radial-gradient(80% 120% at 50% 100%,rgba(214,255,87,0.04),transparent 70%)"></div>
+  <div style="max-width:1200px;margin:0 auto;padding:48px 24px;position:relative">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:24px">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div style="width:28px;height:28px;border-radius:8px;background:#D6FF57;color:#000;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">JSM</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#E6E8EC">jsm-loudness.com</div>
+          <div style="font-size:12px;color:#9AA0A8;margin-top:4px;line-height:1.4">Accurate EBU R128 • -14.05 LUFS verified • 280px monitor</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:8px;max-width:360px;line-height:1.5">Exact ITU-R BS.1770-4 coefficients. No upload. Runs in browser. Built for mastering accuracy. Session persists.</div>
+        </div>
+      </div>
+      <nav style="display:flex;flex-wrap:wrap;align-items:center;font-size:13px" aria-label="Footer"><a href="privacy.html" style="color:#9AA0A8;text-decoration:none;padding:0 4px" onmouseover="this.style.color='#E6E8EC'" onmouseout="this.style.color='#9AA0A8'">Privacy</a><span style="color:#2A3140;margin:0 4px">·</span><a href="terms.html" style="color:#9AA0A8;text-decoration:none;padding:0 4px" onmouseover="this.style.color='#E6E8EC'" onmouseout="this.style.color='#9AA0A8'">Terms</a><span style="color:#2A3140;margin:0 4px">·</span><a href="cookies.html" style="color:#9AA0A8;text-decoration:none;padding:0 4px" onmouseover="this.style.color='#E6E8EC'" onmouseout="this.style.color='#9AA0A8'">Cookies</a><span style="color:#2A3140;margin:0 4px">·</span><a href="blog.html" style="color:#9AA0A8;text-decoration:none;padding:0 4px" onmouseover="this.style.color='#E6E8EC'" onmouseout="this.style.color='#9AA0A8'">Blog</a><span style="color:#2A3140;margin:0 4px">·</span><a href="pricing.html" style="color:#9AA0A8;text-decoration:none;padding:0 4px" onmouseover="this.style.color='#E6E8EC'" onmouseout="this.style.color='#9AA0A8'">Pricing</a><span style="color:#2A3140;margin:0 4px">·</span><a href="about.html" style="color:#9AA0A8;text-decoration:none;padding:0 4px" onmouseover="this.style.color='#E6E8EC'" onmouseout="this.style.color='#9AA0A8'">About</a><span style="color:#2A3140;margin:0 4px">·</span><a href="articles/what-is-lufs.html" style="color:#9AA0A8;text-decoration:none;padding:0 4px" onmouseover="this.style.color='#E6E8EC'" onmouseout="this.style.color='#9AA0A8'">Learn</a></nav>
+    </div>
+    <div style="margin-top:32px;padding-top:16px;border-top:1px solid #1E232E;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:11px;color:#6B7280">
+      <div>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal • 280px ring • 200px waveform</div>
+      <div>No upload • Runs in browser • ITU coeffs exact -14.05 -3.08</div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:#9AA0A8">More free tools: <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> · <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> · <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> · <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div>
+  </div>
+</footer>
 <div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none"><div style="flex:1"><p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies & privacy</p><p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. We use anonymous analytics (GA4) only if you accept. No ads. <a href="privacy.html" style="color:#D6FF57">Privacy</a> · <a href="cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Reject</button><button onclick="acceptConsent()" class="btn-lime">Accept</button></div></div>
 <script src="assets/js/bleep-audio.js?v=20261005b"></script>
 <script>
