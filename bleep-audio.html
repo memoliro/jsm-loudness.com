@@ -166,7 +166,53 @@
 <p>A 16-bit WAV file with your edits baked in, named <code>yourfile-bleeped.wav</code>. WAV is lossless and opens everywhere.</p>
 <h3>Can it find swear words automatically?</h3>
 <p>No — and that's the point. You mark each section by hand on the waveform, so there is no transcription, no waiting, no wrong guesses, and no audio ever leaving your device.</p>
+
+<h2>Bleep vs mute vs replace: choosing the right censorship</h2>
+<p>Three ways to remove audio, three different effects on the listener:</p>
+<ul>
+<li><strong>Bleep (1000 Hz tone)</strong> — the classic TV censor. It <em>announces</em> that something was removed, which is the point for comedy, YouTube, and broadcast: the audience knows a word was there and fills in the blank. Keeps speech rhythm intact.</li>
+<li><strong>Mute (silence)</strong> — subtler. Good for redacting names, addresses, or confidential details where you don't want to draw attention to the edit. On video, pair it with a cutaway so the silence doesn't feel like a glitch.</li>
+<li><strong>Replace (custom sound)</strong> — upload your own beep, quack, or airhorn. Creators use this for branding: a signature sound instead of the generic beep.</li>
+</ul>
+<p>Rule of thumb: bleep when the <em>fact</em> of censorship is part of the joke or the format; mute when the goal is clean redaction nobody notices.</p>
+
+<h2>Getting clean marks: waveform reading basics</h2>
+<p>The hardest part of manual censoring isn't the tool — it's finding the exact word boundaries. Zoom in until you can see individual syllables: vowels show as dense, continuous waveforms; consonants (especially plosives like p, b, t) show as sharp spikes; sibilants (s, sh) look like fuzzy high-frequency noise.</p>
+<p>Mark slightly <em>wider</em> than you think — about 30–50 ms of padding on each side. Too tight and you'll hear the ghost of the word's attack or tail; the tiny fades we apply at region edges prevent clicks but can't hide a half-bleeped syllable. Preview at full volume with headphones before downloading.</p>
+
+<h2>Why manual beats AI auto-detect</h2>
+<p>AI bleep tools transcribe your audio, guess which words are profanity, and bleep those timestamps. That pipeline has four failure modes manual marking doesn't:</p>
+<ol>
+<li><strong>Language lock-in.</strong> Most auto-detect models cover English profanity lists. Marking by hand works in any language — Turkish, French, Arabic, invented Klingon insults.</li>
+<li><strong>Context blindness.</strong> AI can't tell a slur from a reclaimed word in a lyric, or a medical term from a dirty joke. You can.</li>
+<li><strong>Non-word sounds.</strong> Coughs, mic bumps, a name you promised to redact, a license plate read aloud — none are "profanity," all are bleepable by hand.</li>
+<li><strong>Privacy.</strong> Transcription means your audio goes to a server (or a huge model downloads to your device). Here, nothing is transcribed because nothing leaves the browser.</li>
+</ol>
+<p>The tradeoff is speed: AI scans an hour in seconds; manual marking takes as long as listening. For anything under ~10 minutes, manual is faster <em>including</em> correction time — AI timestamps always need human review anyway.</p>
+
+<h2>Podcast and YouTube workflow</h2>
+<p><strong>Podcasters:</strong> record as usual, then do a dedicated censorship pass before mixing. Mark regions on the raw voice track, download the censored WAV, and continue your normal edit. Doing it pre-mix (rather than on the final stereo file) keeps music beds and ambience untouched.</p>
+<p><strong>YouTubers:</strong> YouTube's advertiser-friendly guidelines flag strong profanity in the first 30 seconds especially hard. Bleep early, bleep consistently — one unbleeped f-bomb in the intro can demonetize the whole video. Export the censored WAV and use it as your edit's audio master.</p>
+<p><strong>Teachers:</strong> make clean versions of songs for classroom use. Bleeped tracks keep the energy without the parent emails. Save the region list mentally — same song, same marks next semester.</p>
+
+<h2>Audio quality notes</h2>
+<p>Download is 16-bit WAV — lossless, universal, and the right choice as an intermediate. If your final destination is MP3/AAC (podcast hosts, YouTube upload), encode <em>from</em> this WAV rather than re-processing an already-compressed file; every lossy generation degrades quality.</p>
+<p>The 1000 Hz bleep is a pure sine with short fades at the edges. It won't clip, it won't alias, and it sits in the frequency range where human hearing is most sensitive — which is exactly why it works as a censor. If you need a different tone for branding, the replace-audio option takes any sound you upload.</p>
+
+<h2>Frequently asked questions</h2>
+<h3>How precise can the marks be?</h3>
+<p>Sample-accurate internally; practically, zoom lets you mark down to ~10 ms. The edge fades are a few milliseconds, so there's no click at boundaries. For word-level censoring, 30–50 ms of padding around the word is the sweet spot.</p>
+<h3>Can I bleep a live stream or a video file?</h3>
+<p>This tool processes audio files, not live streams. For video: extract the audio (or upload the video file — browsers can decode most video containers' audio tracks), censor it here, then mux the censored WAV back in your editor.</p>
+<h3>Is there a limit on file length or size?</h3>
+<p>Bounded by your device's memory, since everything runs locally. Hour-long podcasts work fine on desktop; very long files on low-RAM phones may struggle. If the waveform won't render, try a shorter segment.</p>
+<h3>Does it work offline?</h3>
+<p>After the first load, yes — the page is a static app and the Web Audio API needs no network. Your audio never touches a server at any point.</p>
+<h3>Why WAV and not MP3 download?</h3>
+<p>WAV is lossless and every editor opens it. Encoding to MP3 in-browser is possible but adds a quality generation for no benefit — encode to your delivery format once, from this WAV, in your normal toolchain.</p>
+
 <p>Mastering music instead? <a href="index.html">Measure your loudness</a> with the free LUFS analyzer.</p>
+</div>
 </div>
 </main>
 

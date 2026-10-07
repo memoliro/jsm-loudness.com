@@ -230,6 +230,55 @@
 <li>Mesurez sur le fichier final avec un outil conforme EBU R128.</li>
 </ul>
 
+
+<h2>1. La guerre du volume était un problème de mesure</h2>
+<p>Le RMS n'entend pas comme les humains. Une sinusoïde à 100 Hz et une à 3 kHz au même RMS ne sont pas également fortes. Nos oreilles suivent quelque chose de proche de la pondération K — définie dans l'ITU-R BS.1770-4 : un high-shelf à ~1,68 kHz +4 dB, Q 0,707, et un passe-haut à 38,135 Hz. Cette pondération prédit la loudness sur tout le spectre bien mieux que le RMS ou la puissance à pondération plate.</p>
+<p>Pire : le RMS n'a pas de gating. Les silences d'intro, les breaks et les fondus tirent le chiffre vers le bas, alors les ingénieurs poussaient tout vers le haut. Résultat : refrains hyper-compressés, couplets morts, aucun LRA. Le chiffre clé : le PLR — Peak-to-Loudness Ratio, la différence entre le true-peak max et le LUFS intégré.</p>
+
+<h2>2. L'EBU R128 a réglé le broadcast, puis le streaming a copié</h2>
+<p>L'EBU R128 (2011) a fait trois choses qui ont tué la guerre :</p>
+<ol>
+<li><strong>Cible :</strong> -23,0 LUFS ±0,5 LU intégrés pour le programme broadcast, pas la crête.</li>
+<li><strong>Gating en deux temps :</strong> gate absolu à -70 LUFS qui exclut le silence, gate relatif à -10 LU sous la loudness gatée-absolue qui exclut les fonds calmes faussant la mesure.</li>
+<li><strong>Plafond true-peak :</strong> -1,0 dBTP mesuré avec au moins 4x de suréchantillonnage pour attraper les dépassements inter-échantillons.</li>
+</ol>
+<p>Le broadcast a adopté le -23 rapidement. Puis le streaming a fait simple : même philosophie, cible différente. Spotify -14, YouTube ~-14, Apple -16. La guerre du volume n'avait plus de champ de bataille — toute plateforme normalise.</p>
+
+<h2>3. Ce que -14 LUFS mesure vraiment</h2>
+<p>L'intégré est le chiffre de tout le programme avec les deux gates appliqués. Algorithme selon l'ITU : pondération K sur chaque canal, poids de canaux (L/R 1,0, C 1,0, Ls/Rs 1,41 en 5.1), découpage en blocs de 400 ms avec 75 % de recouvrement, exclusion des blocs sous -70 LUFS absolus, calcul de la loudness intégrée des blocs restants, puis exclusion des blocs sous intégré -10 LU (gate relatif), ré-intégration des survivants → votre LUFS intégré.</p>
+<p>C'est ce que JSM Loudness implémente exactement, vérifié contre le fichier de référence EBU : -14,05 LUFS intégrés, TP -3,08 dBTP, short-term -11,88, momentary -11,23, LRA 3,30.</p>
+
+<h2>4. Normalisation : pourquoi plus fort = plus petit maintenant</h2>
+<p>Disons que vous masterisez à -8 LUFS intégrés, true-peak -0,1 dBFS sample. Spotify Normal applique -6 dB de gain. YouTube pareil. Résultat : la loudness perçue devient identique à un titre à -14 LUFS. Mais votre PLR est de 7,9 dB contre 13 dB pour un master dynamique à -14 LUFS avec TP à -1,0.</p>
+<p>Après normalisation, le titre dynamique tape plus fort parce que ses transitoires ont survécu. Les auditeurs décrivent le master écrasé-baissé comme « petit » et « fatigant » à côté. Vous avez payé le prix de la limitation (distorsion, pompage, fatigue) sans toucher le bénéfice (être plus fort). C'est l'arnaque de la guerre du volume à l'ère de la normalisation.</p>
+
+<h2>5. True-peak et marge des codecs</h2>
+<p>0 dBFS sample-peak ≠ 0 dBTP. Le filtre de reconstruction ajoute jusqu'à +0,6 dB sur de vrais DAC. Les encodeurs MP3/AAC demandent encore plus — un MP3 320k peut dépasser de +1,2 dB. Voilà pourquoi -1,0 dBTP est le nouveau 0 dB.</p>
+<p>Si vous masterisez à -0,3 dBTP et que la plateforme transcode en AAC 256k, vous créez un écrêtage audible sur les téléphones. La correction : plafond du limiteur à -1,0 dBTP true-peak, 4x minimum, 8x ou 16x encore mieux pour le contrôle final. Votre mètre ISP doit suréchantillonner.</p>
+
+<h2>6. Travailler à -14 aujourd'hui</h2>
+<p><strong>Musique — Spotify / YouTube.</strong> Cible : -14 LUFS ±1 LU intégrés, TP max -1,0 dBTP, PLR 8–12 dB, maximum short-term vers -11 à -9, momentary pas constamment au-dessus de -8. LRA 4–8 LU pour la pop moderne, plus large pour l'acoustique.</p>
+<p><strong>Podcast / voix.</strong> Cible : -16 LUFS stéréo (-19 mono), TP -2,0 dBTP, LRA &lt; 6 LU. Utilisez une compression douce, pas de la limitation, pour la constance. PLR 10–14.</p>
+<p><strong>Flux de travail :</strong> déposez le WAV dans l'analyseur, vérifiez l'intégré. S'il est à -11,2, il faut -2,8 dB de gain ou moins de limitation. Regardez le graphe short-term : si le refrain est à -9 constant, la dynamique est morte avant même la normalisation.</p>
+
+<h2>7. Quand casser le -14 délibérément</h2>
+<p>Trois cas :</p>
+<ul>
+<li><strong>Club / DJ :</strong> vous livrez toujours -9 à -7 LUFS intégrés pour les fichiers bruts utilisés sur CDJ sans normalisation, mais gardez une version streaming à -14.</li>
+<li><strong>Format court :</strong> TikTok juge beaucoup sur le short-term de 3 secondes ; certains créateurs masterisent les hooks verticaux à -11/-9 short-term pendant que l'intégré reste à -14.</li>
+<li><strong>Esthétique écrasée intentionnelle :</strong> lo-fi, hyperpop. Faites-le en sachant que ce sera baissé.</li>
+</ul>
+<p>Dans tous les cas, ne dépassez jamais -1,0 dBTP true-peak. Cette règle n'a pas d'exception.</p>
+<p>En somme : -14 LUFS n'est pas un preset de limiteur. C'est une référence d'écoute, comme 83 dB SPL au cinéma. Quand tout le monde vise là, les morceaux gagnent en clarté ce qu'ils perdent en course au volume.</p>
+
+<h2>Questions fréquentes</h2>
+<h3>Dois-je vraiment masteriser à -14,0 pile ?</h3>
+<p>Non. ±1 LU est inaudible. -13,2 ou -14,8 conviennent. La cible est une zone, pas un chiffre magique. Ce qui compte, c'est la dynamique et le true-peak autour.</p>
+<h3>La guerre du volume est-elle vraiment finie ?</h3>
+<p>Sur les plateformes normalisées, oui : être plus fort ne rend plus plus fort à la lecture. Elle survit là où il n'y a pas de normalisation — CD, vinyle, club, SoundCloud non normalisé. D'où les deux versions (club + streaming) pour les DJ.</p>
+<h3>Pourquoi -14 et pas -23 comme le broadcast ?</h3>
+<p>Le -23 broadcast est calibré pour le salon (écoute calme, grande dynamique). Le -14 streaming est un compromis pour l'écoute mobile et au casque dans le bruit — assez fort pour les environnements bruyants, assez dynamique pour ne pas fatiguer. Chaque médium a sa référence d'écoute.</p>
+
 <p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
   <a class="btn-lime" href="../../index.html">Ouvrir l'Analyseur</a>
   <a class="btn-ghost" href="spotify-loudness.html">Spotify -14</a>

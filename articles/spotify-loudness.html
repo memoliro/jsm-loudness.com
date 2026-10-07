@@ -58,7 +58,10 @@ gtag('js', new Date());
 "mainEntity":[
  {"@type":"Question","name":"What LUFS does Spotify use?","acceptedAnswer":{"@type":"Answer","text":"Normal -14 LUFS, Loud -11, Quiet -19. All EBU R128 based."}},
  {"@type":"Question","name":"Should I master exactly -14 LUFS?","acceptedAnswer":{"@type":"Answer","text":"Aim -14 ±1 LU for most tracks. Louder is okay if artistic, but will be turned down."}},
- {"@type":"Question","name":"What true-peak for Spotify?","acceptedAnswer":{"@type":"Answer","text":"-1 dBTP recommended, -2 for loud masters to avoid Ogg clipping."}}
+ {"@type":"Question","name":"What true-peak for Spotify?","acceptedAnswer":{"@type":"Answer","text":"-1 dBTP recommended, -2 for loud masters to avoid Ogg clipping."}},
+ {"@type":"Question","name":"Does Spotify turn down loud songs?","acceptedAnswer":{"@type":"Answer","text":"Yes. In Normal mode (the default, -14 LUFS), any track louder than -14 LUFS integrated is turned down by the difference. A -8 LUFS master plays 6 dB quieter than exported, sounding as loud as a -14 master but with less dynamic punch."}},
+ {"@type":"Question","name":"What LUFS should podcasts target on Spotify?","acceptedAnswer":{"@type":"Answer","text":"Around -16 LUFS integrated with LRA under 6 LU and true peak at -1.5 dBTP. Spoken word needs tighter dynamics than music for intelligibility on earbuds and in cars."}},
+ {"@type":"Question","name":"Why does Spotify recommend -1 dBTP true peak?","acceptedAnswer":{"@type":"Answer","text":"Spotify streams Ogg Vorbis, and lossy encoding creates new peaks (+0.5 to +1.5 dB) not present in the WAV. A master at 0 dBFS can clip after transcoding. -1 dBTP (or -2 for loud masters) guarantees clean playback."}}
 ]
 }
 </script>
@@ -128,6 +131,49 @@ body{margin:0;background:#0A0C0F;color:#E6E8EC;font-family:Inter,ui-sans-serif,s
 <p>Spotify recommends -1 dBTP, prefers -2 dBTP for lossy transcodes to Ogg Vorbis 96/160/320kbps. Inter-sample peaks +0.8 dB after transcoding cause distortion if you master at 0 dBFS.</p>
 <h2>Workflow</h2>
 <ul><li>Measure integrated with JSM Loudness (verified -14.05)</li><li>Check short-term max < -9 LUFS for dynamic verses</li><li>Keep dBTP < -1</li><li>Export WAV, test Ogg preview</li></ul>
+
+
+<h2>How Spotify's normalization actually works</h2>
+<p>Spotify measures your track's <strong>integrated LUFS</strong> once, when it's ingested, then stores a single gain value per track. At playback time it simply turns the volume up or down — there is no multiband compression, no "smart" mastering, no extra limiting on loud tracks. If your track measures -8 LUFS integrated, Spotify applies -6 dB of gain so it plays at -14. Your transients stay exactly as you left them; they're just quieter.</p>
+<p>Quiet tracks get the opposite treatment, but with a safety net: if boosting a -20 LUFS track to -14 would push peaks over 0 dBFS, Spotify's limiter catches the overshoot. That limiter is transparent on most material, but it's still a limiter you didn't choose — another reason to deliver at a sensible level yourself.</p>
+<p>One more detail people miss: normalization is <strong>per-track by default</strong>, not per-album. A quiet interlude followed by a loud single will each be normalized independently, which can wreck intentional album dynamics. Spotify Premium users can enable "Normalize volume" per-album in settings, but you can't count on it.</p>
+
+<h2>The three modes in detail</h2>
+<p><strong>Normal (-14 LUFS)</strong> is the default on mobile, desktop, and web. This is the mode 90%+ of your listeners use, so it's the one to optimize for.</p>
+<p><strong>Loud (-11 LUFS)</strong> is designed for noisy environments — gym, car, street. Only 3 dB louder than Normal, but on a phone speaker in a loud room that 3 dB matters. If your track is already at -9 LUFS, Loud mode barely touches it, which is why club tracks and TikTok edits sometimes feel louder here.</p>
+<p><strong>Quiet (-19 LUFS)</strong> is for late-night listening and background music. Almost nobody masters for this mode, but it's worth knowing it exists: a -8 LUFS master gets turned down 11 dB here, and any pumping or distortion in your limiter becomes very audible at low playback levels.</p>
+<div class="card"><strong>What this means in practice:</strong> master for Normal mode (-14). Check your track in Loud mode mentally by asking "does it still hit at -11?" — if your integrated is -14 with healthy transients, the answer is usually yes.</div>
+
+<h2>Why -14 is a target, not a rule</h2>
+<p>The loudness war is over, but genre expectations aren't. A -14 LUFS master with PLR 12 sounds open and dynamic; a -9 LUFS master with PLR 7 sounds dense and aggressive. Both get normalized to the same perceived loudness on Spotify — but they don't sound the same, because normalization only matches <em>average</em> loudness, not punch, density, or transient impact.</p>
+<p>So when is louder than -14 the right call? <strong>Electronic/club music</strong> (-9 to -11): the density is the aesthetic, and DJs need consistent energy. <strong>Hip-hop/trap</strong> (-10 to -12): 808s need weight that -14 can thin out. <strong>Pop</strong> (-11 to -13): competitive with references. <strong>Indie/acoustic/jazz</strong> (-13 to -16): dynamics are the point; let them breathe.</p>
+<p>The mistake is mastering loud <em>by accident</em> — slamming a limiter because "louder sounds better" in the studio, then having Spotify turn it down 5 dB so it ends up quieter <em>and</em> more crushed than the dynamic version. If you master loud, do it deliberately, with intention, and check what it sounds like turned down.</p>
+
+<h2>True peak and the Ogg Vorbis problem</h2>
+<p>Spotify streams Ogg Vorbis at 96, 160, or 320 kbps depending on the user's quality setting. Lossy encoding <strong>creates new peaks</strong> that weren't in your WAV — typically +0.5 to +1.5 dB, occasionally more on transient-heavy material. A master peaking at exactly 0 dBFS can easily hit +1.2 dBTP after Ogg encoding, which means real clipping distortion on the listener's device.</p>
+<p>Spotify's official recommendation is <strong>-1 dBTP</strong>, and -2 dBTP is the safer choice for loud masters or anything with sharp transients (drums, plucks, 808 slides). This costs you nothing audible — 1 dB of headroom is inaudible as a loudness difference — and it guarantees clean playback across all quality tiers.</p>
+<p>Test it yourself: encode your master to Ogg Vorbis 160 kbps, decode it back, and measure true peak. If you see anything above -1 dBTP, your ceiling is too hot.</p>
+
+<h2>Podcasts on Spotify</h2>
+<p>Spoken word has different needs. Spotify doesn't publish a separate podcast loudness spec, but the industry convention is <strong>-16 LUFS integrated</strong> with LRA under 6 LU — slightly quieter than music, with tighter dynamics so speech stays intelligible in cars and on earbuds. True peak -1.5 dBTP is plenty; podcasts rarely have the transient content that causes Ogg overshoot.</p>
+<p>If you publish both music and podcast content, don't use the same master chain. A podcast mastered like a pop song (-10 LUFS, crushed) sounds fatiguing over 40 minutes. A song mastered like a podcast (-16 LUFS, gentle) sounds weak next to references. Match the medium.</p>
+
+<h2>Common mistakes to avoid</h2>
+<ul>
+<li><strong>Mastering to -14.0 exactly and stopping there.</strong> ±1 LU is inaudible. -13.2 or -14.8 both fine. Don't chase the number; chase the sound.</li>
+<li><strong>Forgetting true peak.</strong> The #1 technical rejection cause. -1 dBTP minimum, -2 for safety.</li>
+<li><strong>Checking loudness on the MP3.</strong> Always measure the WAV you're delivering. Codecs lie.</li>
+<li><strong>Normalizing in your DAW after measuring.</strong> Any gain change after measurement invalidates it. Measure last.</li>
+<li><strong>Ignoring short-term.</strong> Integrated -14 with short-term constantly pinned at -8 means your verses are crushed even if the average looks right.</li>
+</ul>
+
+<h2>Frequently asked questions</h2>
+<h3>Does Spotify really turn down loud songs?</h3>
+<p>Yes — any track louder than -14 LUFS integrated gets turned down by the difference, in Normal mode (the default). A -8 LUFS master plays 6 dB quieter than you exported it. It will sound exactly as loud as a -14 LUFS master, just with less dynamic punch.</p>
+<h3>Will my song sound worse if Spotify turns it down?</h3>
+<p>It won't gain distortion from the turn-down itself (it's just gain), but a heavily limited -8 LUFS master that's turned down to -14 retains all its squashed transients and pumping — it sounds smaller than a natively dynamic -14 master at the same playback loudness.</p>
+<h3>What about Spotify HiFi / lossless?</h3>
+<p>Lossless tiers don't change the loudness target (-14 LUFS still applies), but they remove the Ogg transcoding peak problem. True peak headroom still matters for the lossy tiers most listeners use, so keep -1 dBTP regardless.</p>
 
 <div style="margin-top:32px;display:flex;gap:12px"><a class="btn-lime" href="../index.html">Open Analyzer — Free, No Upload</a><a href="../blog.html" style="border:1px solid #1E232E;padding:8px 14px;border-radius:999px;text-decoration:none;color:#9AA0A8">Back to Learn</a></div>
 <div class="card" style="margin-top:24px"><strong>Privacy note (Law 25):</strong> Your audio never leaves your device. Web Audio + WASM runs locally, verifiable in DevTools Network tab. GA4 only after Accept, anonymized IP.</div>

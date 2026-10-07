@@ -158,6 +158,55 @@ gtag('js', new Date());
 <h2>Comment JSM le mesure</h2>
 <p>Oversampling 4× conforme aux recommandations ITU pour estimer le true-peak. Affichage en dBTP aux côtés du LUFS intégré et du LRA.</p>
 
+
+<h2>Ce que le sample peak mesure vraiment</h2>
+<p>Le sample peak — dBFS — est simple : on cherche l'échantillon de plus grande valeur absolue. <code>sample_peak = max(|échantillon[i]|)</code> pour tout i, puis <code>dBFS = 20 × log10(sample_peak)</code>. C'est bon marché, rapide, et c'est ce que tous les mètres de STAN affichent par défaut.</p>
+<p>Le problème : ça suppose que la forme d'onde culmine aux points d'échantillonnage. En réalité, un DAC (convertisseur numérique-analogique) ne sort pas des marches d'escalier. Il reconstruit par interpolation sinc, ce qui régénère une forme d'onde continue. Quand deux échantillons de fort niveau sont proches — disons 0,99, 0,99 à 44,1 kHz — la courbe reconstruite dépasse 0,99. Ce dépassement peut atteindre 1,02, 1,10 ou plus. C'est un dépassement inter-échantillons. En dBFS, il n'a jamais existé. Dans vos oreilles, si.</p>
+
+<h2>Le fossé dangereux : l'écrêtage inter-échantillons</h2>
+<p>Imaginez : une sinusoïde à 0 dBFS à 10 kHz, échantillonnée à 44,1 kHz. Seulement 4,4 échantillons par cycle. Si le vrai pic de la sinusoïde tombe exactement entre deux échantillons, les deux échantillons affichent -0,2 dBFS. Votre mètre est content. Votre sortie analogique est à +0,6 dBFS et écrête l'ampli-op de sortie.</p>
+<p>Les DAC grand public bon marché, les adaptateurs de téléphone et les codecs Bluetooth n'ont pas de headroom au-dessus de 0 dBFS. Ils écrêtent brutalement. On l'entend comme une distorsion dure et crépitante sur les transitoires les plus fortes — souvent prise à tort pour un mauvais limiteur.</p>
+<p>Règle empirique : les masters forts et brillants à -6 LUFS peuvent montrer 1,5 à 3 dB de dépassement inter-échantillons même si le sample peak est exactement à -0,1 dBFS. À -14 LUFS intégrés, les dépassements sont typiquement de 0,2 à 0,8 dB. C'est une raison de plus pour laquelle la cible -14 de Spotify protège votre son.</p>
+
+<h2>Comment le true peak se mesure : suréchantillonnage 4x selon ITU-R BS.1770-4</h2>
+<p>L'EBU R128 n'invente pas le true-peak. Elle renvoie à l'ITU-R BS.1770-4, Annexe 2. L'algorithme est précis :</p>
+<ol>
+<li><strong>Suréchantillonnez 4x</strong> avec un interpolateur passe-bas. 44,1 kHz → 176,4 kHz, 48 kHz → 192 kHz. Plus d'échantillons = les pics entre les échantillons d'origine deviennent des échantillons.</li>
+<li><strong>Trouvez le maximum absolu</strong> dans le flux suréchantillonné, exprimé en dBTP : 20×log10(max_suréchantillonné).</li>
+</ol>
+<p>L'implémentation de référence du BS.1770 spécifie un filtre d'interpolation à 48 prises environ avec des coefficients exacts, pour que tous les mètres s'accordent à 0,1 dB près. JSM Loudness implémente ces coefficients exacts — pas une approximation.</p>
+
+<h2>Pourquoi -1 dBTP, et pas 0 dBTP ?</h2>
+<p>Trois raisons d'ingénierie s'additionnent :</p>
+<ol>
+<li><strong>Marge de reconstruction D/A.</strong> Même un fichier parfait à 0 dBTP écrêtera sur certains DAC quand ils ajoutent leurs propres ondulations de reconstruction. -1 dBTP donne 1 dB de garde analogique.</li>
+<li><strong>Marge des codecs avec pertes.</strong> L'AAC 256k (Apple Music, YouTube), le MP3 320k, l'Opus ne sont pas transparents aux crêtes. L'encodage/décodage peut relever les pics de 0,8 à 1,5 dB. Apple Digital Masters exige -1 dBTP pour cette raison et recommande -2 dBTP pour l'AAC haut débit.</li>
+<li><strong>Conformité aux standards.</strong> EBU R128 : « -1,0 dBTP maximum ». ATSC A/85 : « -2,0 dBTP ». AES TD1004.1 : « -1,0 dBTP recommandé ». Les distributeurs exigent ≤ -1,0 dBTP.</li>
+</ol>
+
+<h2>Exemple réel : 0 dBFS peut être +0,7 dBTP</h2>
+<p>Prenez un master 44,1 kHz écrasé à -0,1 dBFS sample. Importez-le dans n'importe quel mètre EBU R128 (y compris JSM) :</p>
+<div class="card"><p style="margin:0;font-size:13px" class="mono">Intégré : -8,2 LUFS<br/>Sample Peak : -0,1 dBFS<br/>True Peak : +0,6 dBTP ← dépassement inter-échantillons<br/>PLR : 8,1 dB</p></div>
+<p>Ce +0,6 dBTP signifie que votre titre écrêtera de façon audible quand Spotify transcodera en Ogg Vorbis ou AAC, et sur les adaptateurs iPhone. Baissez le niveau ou réglez le plafond true-peak de votre limiteur à -1,0 dBTP avant export.</p>
+<p>Pour un master streaming à -14 LUFS intégrés, on voit typiquement : intégré -14,0 LUFS, true peak -1,1 dBTP ← sûr, pas de distorsion de normalisation. Ça s'aligne avec la logique du gating LUFS et garde LRA et PLR sains pour la lecture mobile.</p>
+
+<h2>Comment corriger les dépassements true-peak</h2>
+<ul>
+<li><strong>Utilisez un limiteur true-peak</strong>, pas seulement sample. FabFilter Pro-L2, Voxengo Elephant, Newfangled Elevate en mode True Peak.</li>
+<li><strong>Plafond à -1,0 ou -1,1 dBTP</strong> pour laisser une marge d'arrondi.</li>
+<li><strong>Mesurez après dither/export.</strong> Le dither ajoute ~0,1 dB de crête. Mesurez toujours le WAV/FLAC final, pas le 32-bit float pré-export.</li>
+<li><strong>Gardez de la marge si c'est fort.</strong> Si l'intégré est à -7 LUFS ou plus fort, envisagez un plafond à -1,5 dBTP. Plus fort = plus de dépassements inter-échantillons.</li>
+<li><strong>Vérifiez l'aperçu codec.</strong> Exportez en AAC 256 et écoutez. Si vous avez le temps, encodez/décodez et remesurez le true-peak.</li>
+</ul>
+
+<h2>Questions fréquentes</h2>
+<h3>Quelle est la différence entre dBTP et dBFS ?</h3>
+<p>Le dBFS est la crête des échantillons numériques. Le dBTP est la crête analogique estimée après reconstruction. Le dBTP est toujours ≥ au dBFS. Un fichier à -0,3 dBFS peut être à +0,5 dBTP.</p>
+<h3>Pourquoi mon limiteur affiche 0 dBFS mais le true peak +1,2 dBTP ?</h3>
+<p>Votre limiteur mesure probablement les sample peaks uniquement. Les transitoires fortes et rapides se reconstruisent plus haut entre les échantillons. Passez le limiteur en mode ISP / True-Peak et réglez le plafond à -1,0 dBTP.</p>
+<h3>Le -1 dBTP est-il exigé pour Spotify et YouTube ?</h3>
+<p>Oui. L'EBU R128, Apple Digital Masters et tous les grands distributeurs exigent ≤ -1,0 dBTP. Ça évite l'écrêtage pendant le transcodage AAC/MP3 et sur les DAC grand public. C'est une assurance bon marché.</p>
+
 <p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
   <a class="btn-lime" href="../../index.html">Ouvrir l'Analyseur</a>
   <a class="btn-ghost" href="dbtp-true-peak-vs-sample.html">dBTP vs sample peak</a>

@@ -56,9 +56,12 @@ gtag('js', new Date());
 "@context":"https://schema.org",
 "@type":"FAQPage",
 "mainEntity":[
- {"@type":"Question","name":"What LUFS does Spotify use?","acceptedAnswer":{"@type":"Answer","text":"Normal -14 LUFS, Loud -11, Quiet -19. All EBU R128 based."}},
- {"@type":"Question","name":"Should I master exactly -14 LUFS?","acceptedAnswer":{"@type":"Answer","text":"Aim -14 ±1 LU for most tracks. Louder is okay if artistic, but will be turned down."}},
- {"@type":"Question","name":"What true-peak for Spotify?","acceptedAnswer":{"@type":"Answer","text":"-1 dBTP recommended, -2 for loud masters to avoid Ogg clipping."}}
+ {"@type":"Question","name":"Quels LUFS Spotify utilise-t-il ?","acceptedAnswer":{"@type":"Answer","text":"Normal -14 LUFS, Fort -11, Discret -19. Tous basés sur EBU R128."}},
+ {"@type":"Question","name":"Faut-il masteriser exactement à -14 LUFS ?","acceptedAnswer":{"@type":"Answer","text":"Visez -14 ±1 LU pour la plupart des titres. Plus fort, c'est OK si c'est artistique, mais ce sera baissé."}},
+ {"@type":"Question","name":"Quel true-peak pour Spotify ?","acceptedAnswer":{"@type":"Answer","text":"-1 dBTP recommandé, -2 pour les masters forts afin d'éviter l'écrêtage Ogg."}},
+ {"@type":"Question","name":"Spotify baisse-t-il les morceaux forts ?","acceptedAnswer":{"@type":"Answer","text":"Oui. En mode Normal (-14 LUFS), tout titre au-dessus de -14 LUFS intégrés est baissé de la différence. Un master à -8 LUFS joue 6 dB moins fort qu'exporté."}},
+ {"@type":"Question","name":"Quels LUFS pour les podcasts sur Spotify ?","acceptedAnswer":{"@type":"Answer","text":"Environ -16 LUFS intégrés avec un LRA sous 6 LU et un true-peak à -1,5 dBTP. La parole a besoin d'une dynamique plus resserrée que la musique."}},
+ {"@type":"Question","name":"Pourquoi Spotify recommande -1 dBTP ?","acceptedAnswer":{"@type":"Answer","text":"Spotify diffuse en Ogg Vorbis, et l'encodage avec pertes crée de nouvelles crêtes (+0,5 à +1,5 dB). Un master à 0 dBFS peut écrêter après transcodage. -1 dBTP garantit une lecture propre."}}
 ]
 }
 </script>
@@ -144,6 +147,49 @@ body{margin:0;background:#0A0C0F;color:#E6E8EC;font-family:Inter,ui-sans-serif,s
 <li>Regarder uniquement le sample peak et ignorer le true-peak.</li>
 <li>Over-limiter à -6 LUFS « pour gagner la loudness war » — Spotify vous ramène à -14.</li>
 </ul>
+
+
+<h2>Comment la normalisation Spotify fonctionne vraiment</h2>
+<p>Spotify mesure le <strong>LUFS intégré</strong> de votre morceau une seule fois, à l'ingestion, puis stocke une valeur de gain par piste. À la lecture, il monte ou baisse simplement le volume — pas de compression multibande, pas de mastering « intelligent », pas de limiteur supplémentaire sur les masters forts. Si votre titre mesure -8 LUFS intégrés, Spotify applique -6 dB de gain pour arriver à -14. Vos transitoires restent exactement comme vous les avez laissées ; elles sont juste plus basses.</p>
+<p>Les morceaux calmes reçoivent le traitement inverse, avec un filet de sécurité : si monter un titre à -20 LUFS vers -14 poussait les crêtes au-delà de 0 dBFS, le limiteur de Spotify rattrape le dépassement. Ce limiteur est transparent sur la plupart des contenus, mais c'est quand même un limiteur que vous n'avez pas choisi — une raison de plus pour livrer vous-même un niveau sensé.</p>
+<p>Un détail que beaucoup ratent : la normalisation est <strong>par piste par défaut</strong>, pas par album. Un interlude calme suivi d'un single énergique seront normalisés indépendamment, ce qui peut détruire la dynamique voulue d'un album. Les abonnés Premium peuvent activer la normalisation par album dans les réglages, mais vous ne pouvez pas compter dessus.</p>
+
+<h2>Les trois modes en détail</h2>
+<p><strong>Normal (-14 LUFS)</strong> est le défaut sur mobile, bureau et web. C'est le mode qu'utilisent plus de 90 % de vos auditeurs : c'est pour lui qu'il faut optimiser.</p>
+<p><strong>Fort (-11 LUFS)</strong> est conçu pour les environnements bruyants — salle de sport, voiture, rue. Seulement 3 dB de plus que Normal, mais sur un haut-parleur de téléphone dans le bruit, ces 3 dB comptent. Si votre titre est déjà à -9 LUFS, le mode Fort le touche à peine, ce qui explique pourquoi les morceaux club et les edits TikTok semblent parfois plus forts ici.</p>
+<p><strong>Discret (-19 LUFS)</strong> est pour l'écoute tard le soir et la musique de fond. Presque personne ne masterise pour ce mode, mais sachez qu'il existe : un master à -8 LUFS y est baissé de 11 dB, et tout pompage ou distorsion de votre limiteur devient très audible à faible niveau d'écoute.</p>
+<div class="card"><strong>En pratique :</strong> masterisez pour le mode Normal (-14). Vérifiez mentalement le mode Fort en vous demandant « est-ce que ça tape encore à -11 ? » — si votre intégré est à -14 avec des transitoires saines, la réponse est généralement oui.</p></div>
+
+<h2>Pourquoi -14 est une cible, pas une règle</h2>
+<p>La guerre du volume est finie, mais les attentes par genre demeurent. Un master à -14 LUFS avec un PLR de 12 sonne ouvert et dynamique ; un master à -9 LUFS avec un PLR de 7 sonne dense et agressif. Les deux sont normalisés à la même loudness perçue sur Spotify — mais ils ne sonnent pas pareil, car la normalisation n'égalise que la loudness <em>moyenne</em>, pas le punch, la densité ni l'impact des transitoires.</p>
+<p>Quand un master plus fort que -14 se justifie-t-il ? <strong>Électro/club</strong> (-9 à -11) : la densité est l'esthétique, et les DJ ont besoin d'une énergie constante. <strong>Hip-hop/trap</strong> (-10 à -12) : les 808 ont besoin de poids qu'un -14 peut amincir. <strong>Pop</strong> (-11 à -13) : pour rester compétitif face aux références. <strong>Indie/acoustique/jazz</strong> (-13 à -16) : la dynamique est le propos ; laissez-la respirer.</p>
+<p>L'erreur, c'est de masteriser fort <em>par accident</em> — écraser un limiteur parce que « plus fort ça sonne mieux » en studio, puis voir Spotify baisser de 5 dB un titre qui finit plus faible <em>et</em> plus écrasé que sa version dynamique. Si vous masterisez fort, faites-le délibérément, avec intention, et vérifiez ce que ça donne une fois baissé.</p>
+
+<h2>True peak et le problème Ogg Vorbis</h2>
+<p>Spotify diffuse en Ogg Vorbis à 96, 160 ou 320 kbps selon le réglage qualité de l'utilisateur. L'encodage avec pertes <strong>crée de nouvelles crêtes</strong> absentes de votre WAV — typiquement +0,5 à +1,5 dB, parfois plus sur les contenus très transientiels. Un master qui crête à exactement 0 dBFS peut facilement atteindre +1,2 dBTP après encodage Ogg, c'est-à-dire une vraie distorsion d'écrêtage chez l'auditeur.</p>
+<p>La recommandation officielle de Spotify est <strong>-1 dBTP</strong>, et -2 dBTP est le choix plus sûr pour les masters forts ou tout contenu aux transitoires marquées (batterie, plucks, slides de 808). Ça ne coûte rien d'audible — 1 dB de headroom est inaudible en différence de loudness — et ça garantit une lecture propre sur tous les paliers de qualité.</p>
+<p>Testez vous-même : encodez votre master en Ogg Vorbis 160 kbps, décodez-le, et mesurez le true peak. Si vous voyez quoi que ce soit au-dessus de -1 dBTP, votre plafond est trop chaud.</p>
+
+<h2>Les podcasts sur Spotify</h2>
+<p>La voix parlée a d'autres besoins. Spotify ne publie pas de spec loudness distincte pour les podcasts, mais la convention du secteur est <strong>-16 LUFS intégrés</strong> avec un LRA sous 6 LU — légèrement plus calme que la musique, avec une dynamique resserrée pour que la parole reste intelligible en voiture et sur écouteurs. Un true peak à -1,5 dBTP suffit amplement ; les podcasts ont rarement le contenu transientiel qui cause les dépassements Ogg.</p>
+<p>Si vous publiez à la fois musique et podcasts, n'utilisez pas la même chaîne de master. Un podcast masterisé comme un titre pop (-10 LUFS, écrasé) sonne fatigant sur 40 minutes. Un morceau masterisé comme un podcast (-16 LUFS, doux) sonne faible à côté des références. Adaptez au médium.</p>
+
+<h2>Erreurs courantes à éviter</h2>
+<ul>
+<li><strong>Viser -14,0 pile et s'arrêter là.</strong> ±1 LU est inaudible. -13,2 ou -14,8 conviennent très bien. Ne chassez pas le chiffre ; chassez le son.</li>
+<li><strong>Oublier le true peak.</strong> La cause n°1 de rejet technique. -1 dBTP minimum, -2 par sécurité.</li>
+<li><strong>Mesurer sur le MP3.</strong> Mesurez toujours le WAV que vous livrez. Les codecs mentent.</li>
+<li><strong>Normaliser dans la STAN après la mesure.</strong> Tout changement de gain après la mesure l'invalide. Mesurez en dernier.</li>
+<li><strong>Ignorer le court terme.</strong> Un intégré à -14 avec un short-term constamment bloqué à -8 signifie que vos couplets sont écrasés même si la moyenne semble bonne.</li>
+</ul>
+
+<h2>Questions fréquentes</h2>
+<h3>Spotify baisse-t-il vraiment les morceaux forts ?</h3>
+<p>Oui — en mode Normal (le défaut, -14 LUFS), tout titre au-dessus de -14 LUFS intégrés est baissé de la différence. Un master à -8 LUFS joue 6 dB moins fort que vous ne l'avez exporté. Il sonnera exactement aussi fort qu'un master à -14 LUFS, mais avec moins de punch dynamique.</p>
+<h3>Mon morceau sonnera-t-il moins bien si Spotify le baisse ?</h3>
+<p>La baisse elle-même n'ajoute pas de distorsion (c'est juste du gain), mais un master à -8 LUFS très limité, une fois baissé à -14, conserve toutes ses transitoires écrasées et son pompage — il sonne plus petit qu'un master nativement dynamique à -14 à la même loudness de lecture.</p>
+<h3>Et Spotify HiFi / le lossless ?</h3>
+<p>Les offres lossless ne changent pas la cible (-14 LUFS s'applique toujours), mais elles suppriment le problème des crêtes de transcodage Ogg. La marge de true peak reste utile pour les paliers avec pertes qu'utilisent la plupart des auditeurs : gardez -1 dBTP dans tous les cas.</p>
 
 <p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
   <a class="btn-lime" href="../../index.html">Ouvrir l'Analyseur</a>

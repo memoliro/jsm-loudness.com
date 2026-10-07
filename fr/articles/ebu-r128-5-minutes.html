@@ -214,6 +214,61 @@
 <h2>Vérifier votre mesureur</h2>
 <p>Un bon mesureur publie les coefficients biquad, applique le gating EBU, et rapporte le true-peak oversamplé. JSM Loudness est vérifié à <strong>-14,05 LUFS</strong> sur le signal de référence EBU, en 100 % navigateur.</p>
 
+
+<h2>Ce qu'est vraiment l'EBU R128</h2>
+<p>L'EBU R128 a été publiée en 2010 par l'Union européenne de radio-télévision pour corriger les sauts de loudness entre programmes. Avant R128, le broadcast utilisait des crêtes-mètres QPPM et tolérait d'énormes différences de loudness. R128 définit la <em>mesure de loudness</em>, pas seulement la crête.</p>
+<p>Elle s'appuie sur trois standards ITU :</p>
+<ul>
+<li><strong>ITU-R BS.1770-4</strong> — l'algorithme central : pondération K + moyenne quadratique + gating de loudness. C'est ce qu'on implémente.</li>
+<li><strong>ITU-R BS.1771</strong> — les exigences pour les mesureurs de loudness.</li>
+<li><strong>EBU Tech 3341/3342/3343/3344</strong> — comment appliquer R128 : mesureurs, production, distribution.</li>
+</ul>
+<p>Pourquoi vous, producteur, devriez vous en soucier : chaque plateforme de streaming utilise aujourd'hui une variante de cet algorithme. Comprendre R128, c'est comprendre Spotify, YouTube et TikTok d'un coup.</p>
+
+<h2>Les chiffres : livraison EBU R128 S1</h2>
+<div class="card"><p style="margin:0;font-size:13px"><strong>Loudness intégrée :</strong> -23,0 LUFS ±0,5 LU — programme complet, gaté -70/-10<br/><strong>True-peak maximum :</strong> -1,0 dBTP — suréchantillonné 4x, selon ITU<br/><strong>Short-term maximum :</strong> -18,0 LUFS (recommandation EBU Tech 3343) — fenêtre 3 s, évite les moments trop forts<br/><strong>Loudness Range (LRA) :</strong> rapporté, pas de max strict — broadcast typique : 5–20 LU</p></div>
+<p>Adaptations streaming : Spotify / YouTube Music : -14 LUFS intégrés, -1 dBTP. YouTube (vidéo) : -14 LUFS. Apple Music : -16 LUFS. TikTok/Reels : -14 à -16 LUFS. Même mètre, cibles différentes.</p>
+
+<h2>Comment la mesure LUFS fonctionne sous R128</h2>
+<ol>
+<li><strong>Pondération K.</strong> L'ITU 1770 applique deux filtres par canal avant de mesurer la puissance : un pré-filtre high-shelf (≈ +4 dB au-dessus de 1,5 kHz, qui tient compte de l'acoustique de la tête) et un passe-haut à 38 Hz (courbe RLB). L'ITU fournit des coefficients biquad exacts — pas une EQ approximative. Voilà pourquoi les mètres bon marché peuvent dévier de 0,5 dB.</li>
+<li><strong>Blocs de moyenne quadratique :</strong> blocs de 400 ms avec 75 % de recouvrement. R128 découpe l'audio en blocs de gating de 400 ms.</li>
+<li><strong>Gate absolu :</strong> on écarte les blocs sous -70 LUFS — le silence ne compte pas.</li>
+<li><strong>Gate relatif :</strong> on écarte les blocs à plus de 10 LU sous la moyenne gatée-absolue — les fonds calmes ne faussent pas la mesure.</li>
+<li><strong>Ré-intégration</strong> des blocs survivants → votre LUFS intégré.</li>
+</ol>
+
+<h2>Les trois échelles de temps</h2>
+<p>Les trois utilisent la même pondération K, seule la fenêtre change :</p>
+<p><strong>Momentary (M) — 400 ms.</strong> Pas de gating, fenêtre rectangulaire 400 ms. Pour la ballistique des mètres live. L'EBU recommande aux opérateurs live de garder le momentary sous -15 LUFS en crête pendant le divertissement pour éviter les sauts.</p>
+<p><strong>Short-term (S) — 3 secondes.</strong> Pas de gating selon l'EBU Tech 3341, fenêtre glissante 3 s avec 75 % de recouvrement. C'est ce qu'on surveille pour la constance. Si le S tape -12 LUFS pendant que l'intégré est à -23, cette section semblera forte.</p>
+<p><strong>Intégré (I) — tout le programme.</strong> Avec les deux gates. C'est le chiffre officiel de livraison.</p>
+
+<h2>True-peak : pourquoi -1 dBTP est obligatoire</h2>
+<p>Le sample peak (dBFS) lit le plus haut échantillon numérique. Le true-peak (dBTP) lit la vraie forme d'onde analogique après reconstruction D/A. Entre deux échantillons à -0,2 dBFS, l'onde reconstruite peut dépasser à +0,6 dBTP. C'est l'écrêtage inter-échantillons — on l'entend comme des micro-écrêtages sur les DAC bon marché et les encodeurs AAC.</p>
+<p>L'EBU R128 exige le true-peak ITU-R BS.1770 avec suréchantillonnage 4x : suréchantillonner 4x avec filtre d'interpolation passe-bas précis selon l'ITU, mesurer la crête absolue du signal interpolé, rapporter en dBTP. Max -1,0 dBTP.</p>
+
+<h2>Broadcast -23 vs streaming -14 : même mètre, cible différente</h2>
+<p>Le -23 LUFS broadcast a été choisi pour laisser 9 LU de headroom au-dessus des dialogues pour les explosions, tout en gardant les dialogues intelligibles à la maison sans toucher au volume. Il s'aligne à peu près avec la référence de mix cinéma (79 dBC). Les pubs fortes sont automatiquement ramenées au niveau du programme.</p>
+<p>Le streaming a choisi -14 LUFS parce que la musique est déjà forte — les masters pop tournaient à -9 à -7 LUFS pendant la guerre du volume. Normaliser à -23 rendrait toute la musique calme sur les téléphones. Le -14 est un compromis entre plage dynamique et écoute mobile/bruyante.</p>
+
+<h2>Flux de travail pratique pour des masters conformes R128</h2>
+<ul>
+<li><strong>Mixez</strong> vers -23 à -18 LUFS en short-term approximatif. Gardez la voix en avant ; la pondération K booste déjà la zone d'intelligibilité.</li>
+<li><strong>Mesurez l'intégré.</strong> Livraison broadcast : visez -23,0. Spotify/YouTube/TikTok : visez -14,0 ±0,5.</li>
+<li><strong>Vérifiez le true-peak après limitation.</strong> Si votre limiteur affiche -0,3 dBTP, le codec peut encore dépasser. Utilisez du TP suréchantillonné 4x. Visez -1,0 dBTP.</li>
+<li><strong>Vérifiez LRA et PLR.</strong> LRA &gt; 12 LU = très dynamique (jazz, classique) — normal. PLR &lt; 6 = probablement sur-limité.</li>
+<li><strong>Mesurez le fichier final</strong>, jamais le bounce intermédiaire.</li>
+</ul>
+
+<h2>Questions fréquentes</h2>
+<h3>Quelle est la cible de loudness EBU R128 ?</h3>
+<p>-23,0 LUFS intégrés ±0,5 LU de tolérance, true-peak max -1,0 dBTP. Défini dans l'EBU R128 S1, mesuré selon l'ITU-R BS.1770-4 avec pondération K et gating -70/-10. Le LRA et le short-term sont rapportés mais pas limités en dur, sauf pour les pubs courtes.</p>
+<h3>Quelle différence entre le -23 LUFS broadcast et le -14 LUFS streaming ?</h3>
+<p>Même mètre, compromis différent. Le -23 laisse du headroom pour une dynamique façon cinéma et la constance entre chaînes. Le -14 est plus fort pour l'écoute mobile et au casque dans le bruit — assez fort pour les environnements bruyants, assez dynamique pour ne pas fatiguer.</p>
+<h3>Pourquoi exiger -1 dBTP plutôt que 0 dBFS sample peak ?</h3>
+<p>Parce que le sample peak ne voit pas les dépassements inter-échantillons : la forme d'onde analogique reconstruite peut dépasser de 0,5 à 3 dB. Le -1 dBTP avec suréchantillonnage 4x attrape ces vrais pics et laisse une marge pour les DAC imparfaits et le transcodage avec pertes.</p>
+
 <p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
   <a class="btn-lime" href="/fr/index.html">Ouvrir l'Analyseur</a>
   <a class="btn-ghost" href="/fr/articles/what-is-lufs.html">Qu'est-ce que LUFS ?</a>

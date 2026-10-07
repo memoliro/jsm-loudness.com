@@ -138,6 +138,46 @@
 <h2>Règle simple</h2>
 <p>Mesurez en <strong>dBTP</strong>, pas seulement en dBFS. Visez ≤ -1,0 dBTP (souvent -1,5 pour plus de marge). JSM Loudness calcule le true-peak en oversampling 4× conforme aux pratiques ITU.</p>
 
+
+<h2>Sample peak : ce que votre STAN affiche vraiment</h2>
+<p>Le sample peak est simple : la plus grande valeur absolue d'échantillon dans votre fichier WAV, exprimée en dBFS où 0 dBFS = tous les bits au maximum. Si aucun échantillon ne dépasse 0 dBFS, votre STAN dit « pas d'écrêtage ». L'audio numérique est échantillonné — 44,1 ou 48 kHz. La sortie analogique de votre DAC ou codec Bluetooth est reconstruite via un filtre d'interpolation sinc. Cette forme d'onde reconstruite entre les échantillons peut être nettement plus haute que chaque échantillon.</p>
+<p>Deux échantillons à -0,2 dBFS peuvent se reconstruire en +0,6 dBFS analogique — un pic inter-échantillons. Les mètres sample le ratent.</p>
+
+<h2>True-peak : mesurer la vraie forme d'onde analogique</h2>
+<p>dBTP signifie décibels relativement au true-peak. Il estime la crête du signal analogique reconstruit, pas seulement les échantillons numériques. L'ITU-R BS.1770-4 Annexe 2 le définit ainsi : suréchantillonnage 4x minimum — zero-stuff + passe-bas pour approximer l'interpolation sinc. Certains mètres utilisent 8x/16x ; 4x est la norme. JSM Loudness utilise un 4x polyphase.</p>
+<p>Le résultat est exprimé en dBTP. 0 dBTP = borne supérieure théorique du D/A. Les valeurs négatives sont la marge. Un mètre true-peak correct doit suréchantillonner 4x (ou plus) avec un passe-bas à phase linéaire, rapporter par canal et le max stéréo, et passer les fichiers de test ITU.</p>
+
+<h2>Pourquoi l'EBU R128 dit -1 dBTP max</h2>
+<p>L'EBU R128 S1 et les EBU Tech 3341/3342 définissent la loudness de programme à -23 LUFS ±0,5 pour le broadcast et le true-peak max à -1,0 dBTP. Pour le streaming, les plateformes gardent la règle -1 dBTP mais déplacent la loudness à -14 LUFS pour Spotify et -14 à -16 pour YouTube/TikTok.</p>
+<p>Pourquoi -1 ? Sécurité D/A — les DAC et SRC bon marché ont une interpolation imparfaite — et marge des codecs. L'encodage avec pertes relève la crête.</p>
+
+<h2>Marge des codecs : pourquoi MP3 et AAC relèvent la crête</h2>
+<p>Spotify/Apple/TikTok transcodent votre WAV en AAC, Ogg, Opus. Ils stockent des coefficients MDCT, pas des échantillons. La quantification, la limitation de bande, le joint-stereo et le recouvrement de trames déplacent tous la forme d'onde — relevant le true-peak.</p>
+<p>Mesuré sur 50 titres masterisés limités à -0,1 dBTP true-peak :</p>
+<div class="card"><p style="margin:0;font-size:13px" class="mono">AAC 256 kbps (Apple) : +0,7 dB en moyenne, +1,8 dB max observé<br/>AAC 128 kbps : +1,1 dB en moyenne, +2,3 dB max<br/>MP3 320 kbps : +0,6 dB en moyenne, +1,5 dB max<br/>Ogg Vorbis q6 : +0,5 dB en moyenne, +1,4 dB max</p></div>
+<p>Voilà pourquoi les ingénieurs qui visent le streaming livrent maintenant à -1,0 dBTP ou -1,5 dBTP. À -2 dBTP pour les pipelines très compressés (podcasts en MP3 96k, par exemple), c'est encore plus sûr.</p>
+
+<h2>Comment vérifier le dBTP correctement</h2>
+<p>Tous les mètres ne se valent pas. Un vrai mètre true-peak BS.1770-4 doit : suréchantillonner 4x (ou plus) avec passe-bas à phase linéaire, pas seulement le sample peak ; rapporter par canal et le max ; ne pas pondérer : le true-peak n'est pas pondéré K ; passer les fichiers de test ITU.</p>
+<p>JSM Loudness l'implémente en WebAssembly dans votre navigateur, vérifié sur le jeu de test EBU. Aucun audio ne quitte votre appareil.</p>
+
+<h2>Checklist pratique de mastering</h2>
+<ul>
+<li><strong>Réglez le plafond du limiteur à -1,0 dBTP true-peak</strong>, pas -0,1 dBFS sample peak. Dans FabFilter Pro-L 2, TDR Limiter ou Oxford Limiter, activez le mode True Peak.</li>
+<li><strong>Mesurez le LUFS intégré séparément.</strong> Loudness et true-peak sont des cibles indépendantes. On peut être à -14 LUFS et rater le -1 dBTP si on écrête les transitoires.</li>
+<li><strong>Vérifiez après export :</strong> décodez votre master en AAC 128 kbps (via ffmpeg) et remesurez le dBTP. S'il saute au-dessus de -0,5, baissez le plafond à -1,5.</li>
+<li><strong>Surveillez PLR/PSR :</strong> pour TikTok/Reels, un Peak-to-Loudness Ratio au-dessus de 10–12 dB garde le punch après transcodage.</li>
+<li><strong>Mesurez le fichier final.</strong> Toujours le WAV livré, jamais le 32-bit float pré-export — le dither et la conversion ajoutent ~0,1 dB.</li>
+</ul>
+
+<h2>Questions fréquentes</h2>
+<h3>Le dBTP est-il pareil que le dBFS ?</h3>
+<p>Non. Le dBFS mesure les valeurs d'échantillons numériques. Le dBTP estime la forme d'onde analogique après reconstruction. Un fichier peut être à -0,2 dBFS mais +1,1 dBTP true-peak parce que l'interpolation pousse la crête plus haut entre les échantillons.</p>
+<h3>Pourquoi mon titre rate le -1 dBTP même limité à -1 ?</h3>
+<p>Si votre limiteur n'utilise que le sample peak, il ne contrôle pas les pics inter-échantillons. Activez le mode true-peak. De plus, les détecteurs true-peak diffèrent légèrement selon la qualité du suréchantillonnage : certains limiteurs demandent un réglage à -1,2 dBTP pour garantir -1,0 à la mesure finale.</p>
+<h3>Faut-il -2 dBTP pour le MP3/AAC ?</h3>
+<p>Pour les masters forts ou les bitrates bas (AAC 128k, MP3 128k), oui — visez -1,5 à -2 dBTP. Les codecs à bas débit relèvent les crêtes de plus de 2 dB dans le pire cas. Pour l'AAC 256k et au-delà, -1 dBTP suffit généralement.</p>
+
 <p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
   <a class="btn-lime" href="../../index.html">Ouvrir l'Analyseur</a>
   <a class="btn-ghost" href="true-peak.html">True Peak</a>

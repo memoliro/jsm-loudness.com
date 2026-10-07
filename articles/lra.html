@@ -58,7 +58,10 @@ gtag('js', new Date());
 "mainEntity":[
  {"@type":"Question","name":"What is good LRA?","acceptedAnswer":{"@type":"Answer","text":"Music 4-9 LU, Podcast 4-7, Film 15-20."}},
  {"@type":"Question","name":"What is PLR?","acceptedAnswer":{"@type":"Answer","text":"dBTP minus integrated LUFS. Headroom indicator."}},
- {"@type":"Question","name":"What is PSR?","acceptedAnswer":{"@type":"Answer","text":"Short-term max minus integrated. Punch indicator."}}
+ {"@type":"Question","name":"What is PSR?","acceptedAnswer":{"@type":"Answer","text":"Short-term max minus integrated. Punch indicator."}},
+ {"@type":"Question","name":"How is LRA calculated?","acceptedAnswer":{"@type":"Answer","text":"Per EBU R128: take short-term (3s) loudness across the program, discard blocks below -70 LUFS, then LRA is the difference between the 95th and 10th percentiles. It describes where loudness actually lives, ignoring single peaks and silences."}},
+ {"@type":"Question","name":"What is a good PLR value?","acceptedAnswer":{"@type":"Answer","text":"PLR (true peak minus integrated LUFS) of 6-9 is typical for mastered pop, 12-16 for dynamic jazz/acoustic. Below 5 usually means the limiter is doing structural damage."}},
+ {"@type":"Question","name":"Do streaming platforms normalize using LRA?","acceptedAnswer":{"@type":"Answer","text":"No — platforms normalize on integrated LUFS. LRA is a quality and translation metric: it predicts how consistent your track feels across playback systems, not a delivery requirement."}}
 ]
 }
 </script>
@@ -126,6 +129,53 @@ body{margin:0;background:#0A0C0F;color:#E6E8EC;font-family:Inter,ui-sans-serif,s
 <h2>PSR — Peak to Short-term Ratio</h2>
 <p>PSR = Short-term Max - Integrated. Shows punch of loudest 3s vs whole track. EDM drop PSR 6-9, Podcast PSR 4-6.</p>
 <div class="card"><strong>JSM Loudness</strong> calculates LRA per EBU, PLR and PSR instantly, 100% local.</div>
+
+
+<h2>LRA in depth: how it's actually calculated</h2>
+<p>LRA isn't "max minus min." EBU R128 defines it precisely: take the <strong>short-term loudness</strong> (3-second sliding window) across the whole program, discard anything below -70 LUFS absolute, then find the level exceeded by 95% of the remaining distribution (the 10th percentile, LRA low) and the level exceeded by 5% (the 95th percentile, LRA high). <strong>LRA = high − low</strong>, in LU.</p>
+<p>Why percentiles instead of min/max? Because a single gunshot or a single silent gap would otherwise define your entire dynamic range. The 10/95 spread describes the <em>body</em> of your program — where the loudness actually lives. Two tracks can have identical integrated LUFS and wildly different LRA, and they'll feel completely different.</p>
+<div class="card"><strong>Intuition:</strong> LRA answers "how much does the loudness <em>move</em>?" A whisper-to-explosion film score moves 20 LU. A crushed EDM track moves 3 LU. Neither is wrong — but you should know which one you made.</div>
+
+<h2>LRA targets by content type</h2>
+<p><strong>Music — 4 to 9 LU typical.</strong> Modern pop/EDM/hip-hop: 4–6 LU (dense, consistent). Rock/indie: 6–9 LU. Jazz/classical/acoustic: 9–15 LU. If your pop master shows LRA 12, it's probably under-compressed for the genre — or it's beautifully dynamic and you should leave it alone. Context decides.</p>
+<p><strong>Podcasts &amp; spoken word — 4 to 7 LU.</strong> Speech needs consistency: listeners in cars can't ride the volume. If LRA exceeds 8, quiet guests get lost and loud laughs startle. Gentle compression and manual gain riding beat heavy limiting here.</p>
+<p><strong>Broadcast &amp; film — up to 20 LU.</strong> EBU R128 allows LRA up to 20 LU for most broadcast content (5 LU for short-form commercials, which must stay consistent). Film uses the full range deliberately — dialogue at -27, explosions at -7.</p>
+<p><strong>Audiobooks — 4 to 6 LU.</strong> ACX/Audible-adjacent work wants tight, consistent narration. Wild dynamics annoy listeners falling asleep.</p>
+
+<h2>PLR: reading your headroom</h2>
+<p><strong>PLR = true peak (dBTP) − integrated LUFS.</strong> It tells you how much peak headroom exists above your average loudness — essentially, how hard you hit the ceiling to achieve your level.</p>
+<p>Typical values: heavily limited pop master at -8 LUFS with -1 dBTP ceiling → PLR 7. Dynamic acoustic track at -14 LUFS, -1 dBTP → PLR 13. Orchestral → PLR 16+.</p>
+<p>PLR is most useful <em>comparatively</em>: if your reference tracks sit at PLR 9 and yours is at 5, you're pushing 4 dB harder into the limiter than the genre norm. Maybe that's the sound you want. But now it's a decision, not an accident.</p>
+<p><strong>Warning sign:</strong> PLR below 5 on anything but intentional lo-fi means the limiter is doing structural damage — pumping, flattened transients, inter-sample distortion risk even with true-peak limiting.</p>
+
+<h2>PSR: the punch meter</h2>
+<p><strong>PSR = short-term maximum − integrated LUFS.</strong> While PLR measures peak headroom, PSR measures how much harder your loudest 3 seconds hit compared to the whole-track average. It's the "drop factor."</p>
+<p>EDM drop: PSR 6–9. Pop chorus: PSR 4–7. Podcast: PSR 3–5 (a laugh or emphatic moment). If PSR is under 3 on a dance track, the drop isn't dropping — the whole track is one flat plateau and listeners feel no arrival.</p>
+<p>PSR pairs with short-term metering: watch the short-term readout during your loudest section, subtract integrated, and you have it. JSM Loudness computes it automatically.</p>
+
+<h2>How the three work together: reading a full picture</h2>
+<p>Integrated LUFS tells you <em>how loud</em>. LRA tells you <em>how much it moves</em>. PLR tells you <em>how hard you pushed</em>. PSR tells you <em>how hard the peaks hit</em>. Together they describe a master more completely than any single number:</p>
+<ul>
+<li><strong>-8 LUFS, LRA 4, PLR 6, PSR 4</strong> → modern loud pop/EDM. Dense, competitive, intentional.</li>
+<li><strong>-14 LUFS, LRA 8, PLR 12, PSR 7</strong> → dynamic indie/acoustic. Breathing room, transients intact.</li>
+<li><strong>-14 LUFS, LRA 3, PLR 6, PSR 2</strong> → problem: quiet <em>and</em> crushed. Turned-down loud master — the worst of both worlds.</li>
+<li><strong>-23 LUFS, LRA 18, PLR 18, PSR 12</strong> → broadcast/film mix. Huge range, totally appropriate.</li>
+</ul>
+<p>Learn to read these four as a set and you'll diagnose masters in seconds.</p>
+
+<h2>Fixing dynamics problems</h2>
+<p><strong>LRA too high for the format</strong> (podcast at 11 LU): use serial gentle compression (2–3 dB GR per stage) rather than one hard limiter. Automate dialogue levels first — fader rides beat compression for natural speech.</p>
+<p><strong>LRA too low</strong> (lifeless acoustic at 3 LU): back off the mix bus compressor, raise the limiter ceiling, or accept that the arrangement wants density. Don't "fix" intentional aesthetics.</p>
+<p><strong>PLR too low</strong> (everything at PLR 5): you're limiter-bound. Either embrace it (it's a valid sound) or rebuild gain staging so peaks have somewhere to go — often the mix needs 2–3 dB more crest factor before mastering.</p>
+<p><strong>PSR too low</strong> (drop at PSR 2): the issue is usually arrangement/mix, not mastering. Automate the build 2–4 dB hotter into the drop, or sidechain the drop's low end so the transient punches through.</p>
+
+<h2>Frequently asked questions</h2>
+<h3>What's the difference between LRA and dynamic range?</h3>
+<p>Classic "dynamic range" (peak minus noise floor, or crest factor) is an electrical measurement. LRA is <em>perceptual</em> — it's the range of K-weighted, gated loudness the listener actually experiences. A track can have 20 dB of electrical dynamic range but only 5 LU of LRA if the loud parts dominate.</p>
+<h3>Can LRA be too low?</h3>
+<p>Artistically, no — some genres live at LRA 3–4. Technically, very low LRA (under 3) with high integrated loudness means heavy limiting; check for pumping, distortion, and listener fatigue. If it's intentional and sounds good, it's fine.</p>
+<h3>Do streaming platforms use LRA?</h3>
+<p>Not for normalization — they use integrated LUFS. But LRA predicts <em>translation</em>: high-LRA content varies more between quiet and loud playback systems, and very low-LRA content can sound flat after platform transcoding. It's a quality metric, not a delivery spec.</p>
 
 <div style="margin-top:32px;display:flex;gap:12px"><a class="btn-lime" href="../index.html">Open Analyzer — Free, No Upload</a><a href="../blog.html" style="border:1px solid #1E232E;padding:8px 14px;border-radius:999px;text-decoration:none;color:#9AA0A8">Back to Learn</a></div>
 <div class="card" style="margin-top:24px"><strong>Privacy note (Law 25):</strong> Your audio never leaves your device. Web Audio + WASM runs locally, verifiable in DevTools Network tab. GA4 only after Accept, anonymized IP.</div>

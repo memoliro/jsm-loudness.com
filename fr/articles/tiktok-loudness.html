@@ -56,9 +56,12 @@ gtag('js', new Date());
 "@context":"https://schema.org",
 "@type":"FAQPage",
 "mainEntity":[
- {"@type":"Question","name":"What LUFS for TikTok?","acceptedAnswer":{"@type":"Answer","text":"-14 to -16 LUFS integrated, -1 dBTP, PLR 8-13."}},
- {"@type":"Question","name":"What is PLR?","acceptedAnswer":{"@type":"Answer","text":"Peak to Loudness Ratio. dBTP minus integrated. Indicates dynamic headroom."}},
- {"@type":"Question","name":"Why my TikTok sounds quiet?","acceptedAnswer":{"@type":"Answer","text":"Probably -20 LUFS or LRA >9 LU. Raise integrated, lower LRA."}}
+ {"@type":"Question","name":"Quels LUFS pour TikTok ?","acceptedAnswer":{"@type":"Answer","text":"-14 à -16 LUFS intégrés, -1 dBTP, PLR 8-13."}},
+ {"@type":"Question","name":"Qu'est-ce que le PLR ?","acceptedAnswer":{"@type":"Answer","text":"Peak to Loudness Ratio : dBTP moins LUFS intégrés. Indique la marge dynamique."}},
+ {"@type":"Question","name":"Pourquoi mon TikTok sonne trop bas ?","acceptedAnswer":{"@type":"Answer","text":"Probablement -20 LUFS ou LRA >9 LU. Montez l'intégré, resserrez le LRA."}},
+ {"@type":"Question","name":"TikTok normalise-t-il comme Spotify ?","acceptedAnswer":{"@type":"Answer","text":"Pas de façon transparente. TikTok applique une gestion de loudness et un transcodage AAC sans publier de cibles. La zone -14 à -16 LUFS est déduite de ce qui survit au pipeline."}},
+ {"@type":"Question","name":"Quels PLR et PSR pour TikTok ?","acceptedAnswer":{"@type":"Answer","text":"PLR (true peak moins intégré) 8-13 et PSR (max short-term moins intégré) 5-8 dB. Ils mesurent le punch et la marge, plus importants que le volume brut sur haut-parleurs de téléphone."}},
+ {"@type":"Question","name":"Pourquoi mon master fort sonne petit sur téléphone ?","acceptedAnswer":{"@type":"Answer","text":"Les haut-parleurs de téléphone appliquent leur propre DSP très compressif. Un master écrasé à -7 LUFS avec un PLR faible ne donne rien à exploiter au téléphone — ça distord juste. Un master dynamique à -14 LUFS sonne plus gros."}}
 ]
 }
 </script>
@@ -137,6 +140,58 @@ body{margin:0;background:#0A0C0F;color:#E6E8EC;font-family:Inter,ui-sans-serif,s
 <li>Gardez -1 dBTP (ou mieux) même si le short-term est à -10 LUFS.</li>
 <li>Testez sur téléphone, pas seulement sur moniteurs de studio.</li>
 </ol>
+
+
+<h2>Ce que TikTok fait vraiment à votre audio</h2>
+<p>TikTok ne publie pas de spec de loudness comme Spotify, mais les tests approfondis des ingénieurs de mastering convergent vers <strong>-14 à -16 LUFS intégrés</strong> comme zone de normalisation effective. Contrairement à Spotify, le traitement de TikTok est moins transparent : les uploads passent par un transcodage AAC, et l'app applique sa propre gestion de loudness qui varie selon l'appareil et la version de l'app.</p>
+<p>Conséquence pratique : on ne masterise pas <em>pour</em> TikTok comme on masterise pour le -14 de Spotify. On masterise <em>en pensant à</em> TikTok — c'est-à-dire qu'on optimise pour le pire environnement de lecture (un haut-parleur de téléphone dans une pièce bruyante) tout en restant dans la zone où la plateforme ne vous pénalisera pas.</p>
+
+<h2>Les haut-parleurs de téléphone sont la vraie cible de mastering</h2>
+<p>Un haut-parleur de téléphone est un minuscule transducteur avec un DSP intégré massif : compression multibande, accentuation des basses, limitation, le tout réglé par le fabricant. Il ne reproduit pas les sous-basses, il distord sur les bas-médiums soutenus, et il récompense la <strong>clarté des médiums et le punch des transitoires</strong> plutôt que le niveau brut.</p>
+<p>Ça inverse la logique de la guerre du volume. Un master écrasé à -7 LUFS avec un PLR de 6 sonne <em>plus petit</em> sur un téléphone qu'un master dynamique à -14 LUFS avec un PLR de 12, parce que le limiteur du téléphone fait déjà l'écrasement — lui donner de l'audio pré-écrasé ne fait qu'ajouter de la distorsion. La dynamique que vous préservez dans le master devient de la loudness que le téléphone peut réellement reproduire.</p>
+<div class="card"><strong>La règle du haut-parleur de téléphone :</strong> si ça sonne fort et clair sur des enceintes d'ordinateur portable à faible volume, ça passera sur les téléphones. Si ça ne sonne fort que sur des moniteurs de studio poussés, ça ne passera pas.</div>
+
+<h2>PLR et PSR : les chiffres qui comptent pour le format court</h2>
+<p>Pour les morceaux complets, le LUFS intégré est roi. Pour des clips de 15 à 60 secondes, le <strong>comportement court terme compte davantage</strong> — personne n'entend votre « intégré » sur un hook de 20 secondes ; on entend si le drop tape.</p>
+<p><strong>PLR (Peak to Loudness Ratio)</strong> = true peak moins LUFS intégrés. C'est votre reçu de headroom. Un PLR de 8 à 13 est le sweet spot pour le format court : assez de dynamique pour percer le DSP du téléphone, pas trop pour que les parties calmes disparaissent. Sous 7, vous êtes probablement sur-compressé pour le format.</p>
+<p><strong>PSR (Peak to Short-term Ratio)</strong> = maximum short-term moins intégré. Ça indique à quel point vos 3 secondes les plus fortes tapent par rapport à la moyenne. Pour un hook TikTok, un PSR de 5 à 8 dB garde le refrain punchy sans faire disparaître le couplet.</p>
+
+<h2>Cibles par plateforme</h2>
+<p><strong>TikTok :</strong> -14 à -16 LUFS intégrés, -1 dBTP. L'environnement phone-DSP le plus agressif. Priorité à la clarté des médiums.</p>
+<p><strong>Instagram Reels :</strong> la même zone en pratique (-14 à -16), mais l'encodage AAC de Reels à bas débit est plus dur sur les hautes fréquences — surveillez les sifflantes et les charleys, qui peuvent devenir rêches après transcodage.</p>
+<p><strong>YouTube Shorts :</strong> YouTube normalise vers environ -14 LUFS comme le format long. Les Shorts reçoivent le même traitement, donc -14 intégrés avec -1 dBTP est la cible sûre. Les transcodages Opus/AAC de YouTube sont plus propres que ceux de TikTok, vous pouvez être légèrement plus agressif sur les aigus.</p>
+<p>Si vous déclinez un clip pour les trois, <strong>-14 LUFS intégrés, -1 dBTP, PLR 9–12</strong> est la zone sûre universelle.</p>
+
+<h2>Le problème du hook de 3 secondes</h2>
+<p>TikTok décide en ~3 secondes si on swipe. Votre stratégie de loudness a donc un problème de démarrage à froid : le LUFS intégré se mesure sur tout le clip, mais l'auditeur juge les 3 premières secondes. Un morceau qui monte pendant 10 secondes avant le drop mesurera plus calme qu'il ne semble au hook — et l'algorithme se moque de votre montée.</p>
+<p>Solution pratique : <strong>chargez l'énergie dès le départ</strong>. Démarrez au niveau short-term du hook ou proche, ou utilisez un riser de 1–2 secondes vers le drop. Mesurez le maximum short-term sur les 5 premières secondes séparément — s'il est plus de 4 LU sous votre cible intégrée, votre intro vous coûte des swipes.</p>
+
+<h2>Flux de travail pour les masters court format</h2>
+<ul>
+<li><strong>Coupez d'abord, masterisez ensuite.</strong> Masterisez le clip de 15–60 s, pas le morceau complet — les chiffres intégrés diffèrent.</li>
+<li><strong>Visez -14 à -16 LUFS intégrés</strong> sur le clip tel que publié.</li>
+<li><strong>Vérifiez le maximum short-term :</strong> visez -11 à -9 LUFS sur la section du hook.</li>
+<li><strong>Vérifiez PLR 8–13 et PSR 5–8.</strong> Ajustez la compression, pas seulement le gain, si c'est à côté.</li>
+<li><strong>True peak -1 dBTP</strong> — les DAC de téléphone et les codecs Bluetooth écrêtent facilement.</li>
+<li><strong>Testez sur un vrai téléphone</strong> à 50 % du volume dans une pièce normale. C'est le vrai test ; les mètres sont la répétition.</li>
+<li><strong>Vérifiez en mono.</strong> Beaucoup de téléphones somment en mono à faible volume ou via un seul haut-parleur. Si votre master stéréo large s'effondre, le hook meurt.</li>
+</ul>
+
+<h2>Erreurs courantes</h2>
+<ul>
+<li><strong>Uploader le master streaming tel quel.</strong> Un master Spotify à -14 LUFS est un bon point de départ, mais vérifiez le comportement short-term du clip — la dynamique d'un morceau complet ne survit pas toujours à une découpe de 20 secondes.</li>
+<li><strong>Trop de sous-basses.</strong> Les téléphones ne les reproduisent pas ; elles mangent juste du headroom et déclenchent le limiteur du téléphone. Passe-haut vers 40–50 Hz pour le format court.</li>
+<li><strong>Ignorer le transcodage.</strong> L'encodage AAC de TikTok est rude. Gardez -1 dBTP et évitez les masters ultra-brillants qui deviennent agressifs après encodage.</li>
+<li><strong>Du volume sans punch.</strong> -10 LUFS intégrés avec un PSR de 3 sonne fort sur des moniteurs et mort sur des téléphones. La dynamique, c'est de la loudness qu'on entend.</li>
+</ul>
+
+<h2>Questions fréquentes</h2>
+<h3>Pourquoi mon TikTok sonne plus bas que les autres vidéos ?</h3>
+<p>Généralement l'une de ces trois causes : votre intégré est sous -18 LUFS (trop calme, il se perd), votre LRA dépasse 9 LU (irrégulier — les parties calmes tirent la perception vers le bas), ou votre PLR est sous 7 (sur-compressé, le DSP du téléphone n'a rien à exploiter). Mesurez les trois ; la correction dépend de celui qui est en cause.</p>
+<h3>Faut-il masteriser plus fort pour TikTok que pour Spotify ?</h3>
+<p>Pas nécessairement plus fort en LUFS intégrés — la zone -14 à -16 est la même. Ce qui change, c'est la <em>densité d'impact</em> : les clips courts gagnent à une énergie short-term plus élevée et un LRA resserré. Pensez « plus punchy », pas « plus fort ».</p>
+<h3>TikTok normalise-t-il comme Spotify ?</h3>
+<p>Pas de façon transparente. TikTok applique une gestion de loudness et un transcodage AAC, mais ne publie ni cibles ni modes. C'est pourquoi la zone -14 à -16 LUFS testée par la communauté existe — elle est déduite de ce qui survit au pipeline, pas d'une fiche technique.</p>
 
 <p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
   <a class="btn-lime" href="../../index.html">Ouvrir l'Analyseur</a>

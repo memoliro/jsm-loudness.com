@@ -77,30 +77,11 @@ gtag('js', new Date());
   "@context":"https://schema.org",
   "@type":"FAQPage",
   "mainEntity":[
-    {
-      "@type":"Question",
-      "name":"What's the difference between dBTP and dBFS?",
-      "acceptedAnswer":{
-        "@type":"Answer",
-        "text":"dBFS measures the highest sample value in your digital file. dBTP (decibels True Peak) estimates the real analog peak after D/A reconstruction using 4x oversampling per ITU-R BS.1770-4. Because a DAC reconstructs the waveform between samples with a sinc interpolator, the true peak can be 0.5 to 3 dB higher than the sample peak. Two consecutive samples at -0.2 dBFS can reconstruct to +0.8 dBTP, which clips the analog stage."
-      }
-    },
-    {
-      "@type":"Question",
-      "name":"Why does my limiter show 0 dBFS but true peak shows +1.2 dBTP?",
-      "acceptedAnswer":{
-        "@type":"Answer",
-        "text":"Your limiter is likely using sample-peak detection. Sample peak only looks at discrete values. True peak adds 4x oversampling and low-pass filtering to find inter-sample overs. Loud masters with fast transients, clipped sine waves near 0 dBFS, or heavy limiting at 44.1kHz commonly overshoot. Solution: set your limiter's true-peak ceiling to -1 dBTP, or use a true-peak limiter with ISP detection, and re-measure with EBU R128 compliant metering."
-      }
-    },
-    {
-      "@type":"Question",
-      "name":"Is -1 dBTP required for Spotify and YouTube?",
-      "acceptedAnswer":{
-        "@type":"Answer",
-        "text":"Yes, effectively. EBU R128-2020 specifies -1.0 dBTP maximum. Spotify, YouTube, Apple Music (Sound Check and Apple Digital Masters), TikTok and Tidal all normalize to -14 LUFS and reject or distort tracks that exceed -1 dBTP. Even if not rejected, lossy codecs like AAC 256k and MP3 320k add up to 1.5 dB of peak gain during encoding. Keeping -1 dBTP gives you headroom for codec conversion and D/A clipping on cheap phones and Bluetooth speakers."
-      }
-    }
+    {"@type":"Question","name":"Comment le LRA est-il calculé ?","acceptedAnswer":{"@type":"Answer","text":"Selon l'EBU R128 : on prend la loudness short-term (3 s) sur tout le programme, on écarte les blocs sous -70 LUFS, puis le LRA est la différence entre les 95e et 10e percentiles. Il décrit où la loudness vit vraiment, en ignorant pics isolés et silences."}},
+    {"@type":"Question","name":"Qu'est-ce qu'un bon PLR ?","acceptedAnswer":{"@type":"Answer","text":"Un PLR (true peak moins LUFS intégrés) de 6-9 est typique pour la pop masterisée, 12-16 pour le jazz/acoustique dynamique. Sous 5, le limiteur fait généralement des dégâts structurels."}},
+    {"@type":"Question","name":"Les plateformes utilisent-elles le LRA pour normaliser ?","acceptedAnswer":{"@type":"Answer","text":"Non — elles normalisent sur le LUFS intégré. Le LRA est un indicateur de qualité et de translation : il prédit la constance perçue selon les systèmes de lecture."}},
+    {"@type":"Question","name":"Quelle différence entre LRA et plage dynamique ?","acceptedAnswer":{"@type":"Answer","text":"La plage dynamique classique est électrique ; le LRA est perceptuel — la plage de loudness pondérée K et gatée ressentie par l'auditeur."}},
+    {"@type":"Question","name":"Un LRA peut-il être trop bas ?","acceptedAnswer":{"@type":"Answer","text":"Artistiquement non. Techniquement, sous 3 LU avec une loudness élevée, vérifiez pompage et distorsion. Si c'est voulu et que ça sonne bien, c'est bien."}}
   ]
 }
 </script>
@@ -158,6 +139,50 @@ gtag('js', new Date());
 <li><strong>Classique / jazz dynamique :</strong> LRA plus élevé possible</li>
 <li><strong>TikTok / Shorts :</strong> LRA souvent bas, short-term élevé, true-peak contrôlé</li>
 </ul>
+
+
+<h2>LRA en détail : comment c'est vraiment calculé</h2>
+<p>Le LRA n'est pas « max moins min ». L'EBU R128 le définit précisément : on prend la <strong>loudness short-term</strong> (fenêtre glissante de 3 secondes) sur tout le programme, on écarte tout ce qui est sous -70 LUFS absolus, puis on trouve le niveau dépassé par 95 % de la distribution restante (le 10e percentile, LRA bas) et celui dépassé par 5 % (le 95e percentile, LRA haut). <strong>LRA = haut − bas</strong>, en LU.</p>
+<p>Pourquoi des percentiles plutôt que min/max ? Parce qu'un seul coup de feu ou un seul silence définirait sinon toute votre dynamique. L'écart 10/95 décrit le <em>corps</em> de votre programme — là où la loudness vit vraiment. Deux morceaux peuvent avoir le même LUFS intégré et des LRA totalement différents, et ils sembleront sans rapport.</p>
+<div class="card"><strong>Intuition :</strong> le LRA répond à « à quel point la loudness <em>bouge</em> ? » Une musique de film du murmure à l'explosion bouge de 20 LU. Un titre EDM écrasé bouge de 3 LU. Ni l'un ni l'autre n'a tort — mais vous devriez savoir lequel vous avez fait.</div>
+
+<h2>Cibles de LRA par type de contenu</h2>
+<p><strong>Musique — 4 à 9 LU typiques.</strong> Pop/EDM/hip-hop modernes : 4–6 LU (dense, constant). Rock/indie : 6–9 LU. Jazz/classique/acoustique : 9–15 LU. Si votre master pop affiche un LRA de 12, il est probablement sous-compressé pour le genre — ou magnifiquement dynamique et il faut le laisser tel quel. Le contexte décide.</p>
+<p><strong>Podcasts et voix parlée — 4 à 7 LU.</strong> La parole a besoin de constance : les auditeurs en voiture ne peuvent pas jouer du bouton de volume. Si le LRA dépasse 8, les invités calmes se perdent et les éclats de rire surprennent. Une compression douce en série et un gain manuel valent mieux qu'une limitation brutale ici.</p>
+<p><strong>Broadcast et cinéma — jusqu'à 20 LU.</strong> L'EBU R128 autorise un LRA jusqu'à 20 LU pour la plupart des contenus broadcast (5 LU pour les publicités courtes, qui doivent rester constantes). Le cinéma exploite toute la plage délibérément — dialogues à -27, explosions à -7.</p>
+<p><strong>Livres audio — 4 à 6 LU.</strong> La narration serrée et constante est la norme. Une dynamique sauvage agace les auditeurs qui s'endorment.</p>
+
+<h2>PLR : lire votre headroom</h2>
+<p><strong>PLR = true peak (dBTP) − LUFS intégrés.</strong> Il indique la marge de crête au-dessus de votre loudness moyenne — en somme, à quel point vous avez tapé le plafond pour atteindre votre niveau.</p>
+<p>Valeurs typiques : pop masterisée à -8 LUFS avec plafond à -1 dBTP → PLR 7. Acoustique dynamique à -14 LUFS, -1 dBTP → PLR 13. Orchestral → PLR 16+.</p>
+<p>Le PLR est surtout utile en <em>comparaison</em> : si vos références sont à PLR 9 et vous à 5, vous poussez 4 dB plus fort dans le limiteur que la norme du genre. C'est peut-être le son voulu. Mais maintenant c'est une décision, pas un accident.</p>
+<p><strong>Signal d'alerte :</strong> un PLR sous 5 sur autre chose que du lo-fi intentionnel signifie que le limiteur fait des dégâts structurels — pompage, transitoires aplaties, risque de distorsion inter-échantillons même avec limitation true-peak.</p>
+
+<h2>PSR : le compteur de punch</h2>
+<p><strong>PSR = maximum short-term − LUFS intégrés.</strong> Là où le PLR mesure la marge de crête, le PSR mesure à quel point vos 3 secondes les plus fortes tapent par rapport à la moyenne du morceau. C'est le « facteur drop ».</p>
+<p>Drop EDM : PSR 6–9. Refrain pop : PSR 4–7. Podcast : PSR 3–5 (un rire ou un moment emphatique). Si le PSR est sous 3 sur un titre dance, le drop ne droppe pas — tout le morceau est un plateau uniforme et l'auditeur ne ressent aucune arrivée.</p>
+
+<h2>Lire les trois ensemble</h2>
+<p>Le LUFS intégré dit <em>à quel point c'est fort</em>. Le LRA dit <em>à quel point ça bouge</em>. Le PLR dit <em>à quel point vous avez poussé</em>. Le PSR dit <em>à quel point les pics tapent</em>. Ensemble, ils décrivent un master plus complètement qu'aucun chiffre seul :</p>
+<ul>
+<li><strong>-8 LUFS, LRA 4, PLR 6, PSR 4</strong> → pop/EDM moderne et fort. Dense, compétitif, intentionnel.</li>
+<li><strong>-14 LUFS, LRA 8, PLR 12, PSR 7</strong> → indie/acoustique dynamique. De l'air, des transitoires intactes.</li>
+<li><strong>-14 LUFS, LRA 3, PLR 6, PSR 2</strong> → problème : calme <em>et</em> écrasé. Un master fort baissé — le pire des deux mondes.</li>
+<li><strong>-23 LUFS, LRA 18, PLR 18, PSR 12</strong> → mix broadcast/cinéma. Plage énorme, tout à fait appropriée.</li>
+</ul>
+
+<h2>Corriger les problèmes de dynamique</h2>
+<p><strong>LRA trop élevé pour le format</strong> (podcast à 11 LU) : utilisez une compression douce en série (2–3 dB de réduction par étage) plutôt qu'un limiteur brutal. Automatisez les niveaux de dialogue d'abord — les rides de fader battent la compression pour une parole naturelle.</p>
+<p><strong>LRA trop bas</strong> (acoustique sans vie à 3 LU) : relâchez le compresseur du bus de mix, remontez le plafond du limiteur, ou acceptez que l'arrangement veut de la densité. Ne « réparez » pas une esthétique intentionnelle.</p>
+<p><strong>PLR trop bas</strong> (tout à PLR 5) : vous êtes rivé au limiteur. Soit vous l'assumez (c'est un son valable), soit vous reconstruisez le gain staging pour que les crêtes aient où aller — souvent le mix a besoin de 2–3 dB de facteur de crête en plus avant mastering.</p>
+
+<h2>Questions fréquentes</h2>
+<h3>Quelle est la différence entre LRA et plage dynamique ?</h3>
+<p>La « plage dynamique » classique (crête moins plancher de bruit, ou facteur de crête) est une mesure électrique. Le LRA est <em>perceptuel</em> — c'est la plage de loudness pondérée K et gatée que l'auditeur ressent vraiment. Un morceau peut avoir 20 dB de dynamique électrique mais seulement 5 LU de LRA si les parties fortes dominent.</p>
+<h3>Un LRA peut-il être trop bas ?</h3>
+<p>Artistiquement, non — certains genres vivent à LRA 3–4. Techniquement, un LRA très bas (sous 3) avec une loudness intégrée élevée signifie une limitation lourde ; vérifiez le pompage, la distorsion et la fatigue d'écoute. Si c'est intentionnel et que ça sonne bien, c'est bien.</p>
+<h3>Les plateformes de streaming utilisent-elles le LRA ?</h3>
+<p>Non pour la normalisation — elles utilisent le LUFS intégré. Mais le LRA prédit la <em>translation</em> : un contenu à fort LRA varie davantage entre systèmes de lecture calmes et forts, et un contenu à très faible LRA peut sembler plat après le transcodage des plateformes. C'est un indicateur qualité, pas une spec de livraison.</p>
 
 <p style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
   <a class="btn-lime" href="../../index.html">Ouvrir l'Analyseur</a>

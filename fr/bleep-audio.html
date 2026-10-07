@@ -166,7 +166,53 @@
 <p>Un fichier WAV 16 bits avec vos modifications incluses, nommé <code>votrefichier-bleeped.wav</code>. Le WAV est sans perte et s'ouvre partout.</p>
 <h3>Peut-il trouver les gros mots automatiquement ?</h3>
 <p>Non — et c'est voulu. Vous marquez chaque passage à la main sur la forme d'onde : pas de transcription, pas d'attente, pas d'erreur, et aucun audio ne quitte votre appareil.</p>
+
+<h2>Bip, muet ou remplacement : choisir la bonne censure</h2>
+<p>Trois façons de retirer de l'audio, trois effets différents sur l'auditeur :</p>
+<ul>
+<li><strong>Bip (tonalité 1000 Hz)</strong> — le censeur TV classique. Il <em>annonce</em> que quelque chose a été retiré, et c'est le but pour la comédie, YouTube et le broadcast : le public sait qu'un mot était là et complète mentalement. Garde le rythme de la parole intact.</li>
+<li><strong>Muet (silence)</strong> — plus subtil. Idéal pour caviarder noms, adresses ou détails confidentiels sans attirer l'attention sur le montage. En vidéo, accompagnez-le d'un cutaway pour que le silence ne ressemble pas à un bug.</li>
+<li><strong>Remplacement (son personnalisé)</strong> — téléversez votre propre bip, coin-coin ou klaxon. Les créateurs s'en servent pour leur identité : un son signature au lieu du bip générique.</li>
+</ul>
+<p>Règle empirique : bipez quand le <em>fait</em> de la censure fait partie de la blague ou du format ; rendez muet quand l'objectif est un caviardage propre que personne ne remarque.</p>
+
+<h2>Des marques propres : lire une forme d'onde</h2>
+<p>Le plus dur dans la censure manuelle n'est pas l'outil — c'est de trouver les frontières exactes des mots. Zoomez jusqu'à distinguer les syllabes : les voyelles apparaissent comme des formes d'onde denses et continues ; les consonnes (surtout les plosives p, b, t) comme des pics nets ; les sifflantes (s, ch) comme un bruit flou haute fréquence.</p>
+<p>Marquez légèrement <em>plus large</em> que nécessaire — environ 30 à 50 ms de marge de chaque côté. Trop serré et on entendra le fantôme de l'attaque ou de la queue du mot ; les petits fondus appliqués aux bords des régions évitent les clics mais ne cachent pas une syllabe à moitié bipée. Prévisualisez au casque à plein volume avant de télécharger.</p>
+
+<h2>Pourquoi le manuel bat la détection IA</h2>
+<p>Les outils de bip IA transcrivent votre audio, devinent quels mots sont des gros mots, et bipent ces timestamps. Ce pipeline a quatre modes d'échec que le marquage manuel n'a pas :</p>
+<ol>
+<li><strong>Enfermement linguistique.</strong> La plupart des modèles auto-détectent les listes de gros mots anglais. Marquer à la main fonctionne dans toutes les langues — turc, français, arabe, insultes klingonnes inventées.</li>
+<li><strong>Cécité au contexte.</strong> L'IA ne distingue pas une insulte d'un mot réapproprié dans un texte, ni un terme médical d'une blague salace. Vous, oui.</li>
+<li><strong>Sons non lexicaux.</strong> Toux, chocs de micro, un nom promis au caviardage, une plaque lue à voix haute — rien de tout ça n'est un « gros mot », tout est bipable à la main.</li>
+<li><strong>Confidentialité.</strong> La transcription implique que votre audio parte sur un serveur (ou qu'un énorme modèle se télécharge). Ici, rien n'est transcrit parce que rien ne quitte le navigateur.</li>
+</ol>
+<p>Le compromis, c'est la vitesse : l'IA balaie une heure en quelques secondes ; le marquage manuel prend le temps de l'écoute. Pour tout ce qui fait moins de ~10 minutes, le manuel est plus rapide <em>en incluant</em> le temps de correction — les timestamps IA demandent toujours une relecture humaine.</p>
+
+<h2>Flux de travail podcast et YouTube</h2>
+<p><strong>Podcasteurs :</strong> enregistrez normalement, puis faites une passe de censure dédiée avant le mixage. Marquez les régions sur la piste voix brute, téléchargez le WAV censuré, et poursuivez votre montage normal. Le faire avant le mix (plutôt que sur le fichier stéréo final) préserve musiques et ambiances.</p>
+<p><strong>YouTubeurs :</strong> les règles d'adaptation aux annonceurs de YouTube sanctionnent durement les gros mots dans les 30 premières secondes. Bipez tôt, bipez systématiquement — un seul mot non bipé dans l'intro peut démonétiser toute la vidéo. Exportez le WAV censuré et utilisez-le comme master audio de votre montage.</p>
+<p><strong>Enseignants :</strong> faites des versions propres de chansons pour la classe. Les titres bipés gardent l'énergie sans les courriels de parents. Retenez mentalement la liste des régions — même chanson, mêmes marques le semestre prochain.</p>
+
+<h2>Notes sur la qualité audio</h2>
+<p>Le téléchargement est en WAV 16-bit — sans pertes, universel, et le bon choix comme intermédiaire. Si votre destination finale est MP3/AAC (hébergeurs de podcasts, upload YouTube), encodez <em>depuis</em> ce WAV plutôt que de retraiter un fichier déjà compressé ; chaque génération avec pertes dégrade la qualité.</p>
+<p>Le bip 1000 Hz est une sinusoïde pure avec de courts fondus aux bords. Il n'écrête pas, ne replie pas, et se situe dans la zone de fréquences où l'oreille humaine est la plus sensible — c'est exactement pour ça qu'il fonctionne comme censeur.</p>
+
+<h2>Questions fréquentes</h2>
+<h3>Quelle précision pour les marques ?</h3>
+<p>Précision échantillon en interne ; en pratique, le zoom permet de marquer à ~10 ms près. Les fondus de bords font quelques millisecondes, donc pas de clic aux frontières. Pour la censure au mot près, 30 à 50 ms de marge autour du mot est le sweet spot.</p>
+<h3>Peut-on biper un direct ou un fichier vidéo ?</h3>
+<p>Cet outil traite des fichiers audio, pas des directs. Pour la vidéo : extrayez l'audio (ou téléversez le fichier vidéo — les navigateurs décodent la piste audio de la plupart des conteneurs), censurez ici, puis remuxez le WAV censuré dans votre monteur.</p>
+<h3>Y a-t-il une limite de durée ou de taille ?</h3>
+<p>Limitée par la mémoire de votre appareil, puisque tout tourne en local. Les podcasts d'une heure passent sans problème sur ordinateur ; les très longs fichiers sur téléphones à faible RAM peuvent peiner. Si la forme d'onde ne s'affiche pas, essayez un segment plus court.</p>
+<h3>Ça fonctionne hors ligne ?</h3>
+<p>Après le premier chargement, oui — la page est une app statique et la Web Audio API n'a besoin d'aucun réseau. Votre audio ne touche aucun serveur, à aucun moment.</p>
+<h3>Pourquoi du WAV et pas du MP3 en téléchargement ?</h3>
+<p>Le WAV est sans pertes et tous les monteurs l'ouvrent. Encoder en MP3 dans le navigateur est possible mais ajoute une génération de qualité pour aucun bénéfice — encodez vers votre format de diffusion une fois, depuis ce WAV, dans votre chaîne habituelle.</p>
+
 <p>Vous masterisez de la musique ? <a href="index.html">Mesurez votre loudness</a> avec l'analyseur LUFS gratuit.</p>
+</div>
 </div>
 </main>
 
