@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Normaliser Audio à -14 LUFS — Guide Gratuit | JSM Loudness</title>
+<meta name="description" content="Normalisez votre audio à -14 LUFS pour Spotify et YouTube. Guide de normalisation sonore gratuit."/>
+  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-normalize-audio.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-normalize-audio.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/how-to-normalize-audio.html"/>
+  <link rel="canonical" href="https://jsm-loudness.com/fr/articles/how-to-normalize-audio.html"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="theme-color" content="#0A0C0F"/>
+<link rel="icon" href="../../favicon.ico"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Normaliser Audio à -14 LUFS — Guide Gratuit"/>
+<meta property="og:description" content="Normalisez votre audio à -14 LUFS pour Spotify et YouTube. Guide de normalisation sonore gratuit."/>
+<meta property="og:url" content="https://jsm-loudness.com/fr/articles/how-to-normalize-audio.html"/>
+<meta property="og:site_name" content="jsm-loudness.com"/>
+<meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Normaliser Audio à -14 LUFS — Guide Gratuit"/>
+<meta name="twitter:description" content="Normalisez votre audio à -14 LUFS pour Spotify et YouTube. Guide de normalisation sonore gratuit."/>
+<link rel="stylesheet" href="../../assets/css/style.css?v=20261005d"/>
+<!-- Consent Mode v2 defaults - MUST be before gtag.js -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  analytics_storage:'denied',
+  functionality_storage:'granted',
+  security_storage:'granted',
+  wait_for_update: 500
+});
+gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,sans-serif}
+html,body{margin:0;background:#0A0C0F;color:#E6E8EC;overflow-x:clip;max-width:100vw}
+.mono{font-family:'JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+.header{position:sticky;top:0;z-index:40;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,12,15,0.75);border-bottom:1px solid rgba(30,35,46,0.8);display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px;padding:0 24px;max-width:1200px;margin:0 auto;width:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.02em;font-size:14px;color:#E6E8EC}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#D6FF57;color:#000;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.05em}
+.nav{display:flex;align-items:center;gap:20px;font-size:13px;color:#9AA0A8}
+.nav a{color:#9AA0A8;transition:color .2s,border-color .2s;border-bottom:2px solid transparent;padding-bottom:2px}
+.nav a:hover{color:#fff}
+.nav a.active{color:#fff;border-bottom-color:#D6FF57}
+.dropdown{position:relative}
+.dropdown>a{display:flex;align-items:center;gap:4px}
+.dropdown-menu{opacity:0;visibility:hidden;transform:translateY(8px);transition:all .18s ease;position:absolute;top:100%;left:0;min-width:260px;z-index:1000;background:rgba(15,17,21,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04) inset;padding:8px;display:flex;flex-direction:column;gap:2px}
+.dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown-menu a{padding:10px 12px;border-radius:8px;font-size:13px;color:#E6E8EC;border:1px solid transparent}
+.dropdown-menu a:hover{background:#151821;color:#D6FF57;border-color:rgba(214,255,87,0.15)}
+.dropdown-menu .small{font-size:10px;color:#6B7280;margin-top:6px;padding:8px 12px 4px;border-top:1px solid #1E232E;font-family:'JetBrains Mono',monospace}
+.btn-lime{display:inline-flex;align-items:center;justify-content:center;background:#D6FF57;color:#000;font-weight:700;font-size:12px;letter-spacing:0.02em;padding:9px 16px;border-radius:999px;border:none;cursor:pointer;transition:transform .15s,filter .15s}
+.btn-lime:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer}
+.prose{max-width:760px;margin:0 auto;padding:40px 24px 80px;line-height:1.7}
+.prose .badge{display:inline-flex;background:rgba(16,18,22,0.9);border:1px solid #1E232E;color:#9AA0A8;padding:6px 10px;border-radius:999px;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:0.02em}
+.prose h1{font-size:36px;line-height:1.1;letter-spacing:-0.02em;color:#E6E8EC;margin:18px 0 12px;font-weight:700}
+.prose h2{font-size:20px;line-height:1.3;color:#E6E8EC;margin:40px 0 14px;font-weight:600;letter-spacing:-0.01em}
+.prose h3{font-size:15px;color:#E6E8EC;margin:28px 0 10px;font-weight:600}
+.prose .lead{font-size:17px;line-height:1.6;color:#C5CAD2;margin:0 0 28px}
+.prose p{font-size:14.5px;color:#C5CAD2;margin:0 0 16px}
+.prose ul,.prose ol{padding-left:20px;color:#C5CAD2;font-size:14.5px;margin:0 0 20px}
+.prose li+li{margin-top:8px}
+.prose strong{color:#E6E8EC;font-weight:600}
+.prose code{font-family:'JetBrains Mono',monospace;background:#11141A;border:1px solid #1E232E;padding:2px 6px;border-radius:6px;font-size:12.5px;color:#D6FF57}
+.prose pre{background:#11141A;border:1px solid #1E232E;padding:16px;border-radius:12px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9AA0A8;line-height:1.6;margin:16px 0 24px}
+.prose a{color:#D6FF57;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s}
+.prose a:hover{color:#fff}
+.card{background:#11141A;border:1px solid #1E232E;border-radius:12px;padding:16px 18px;margin:20px 0}
+.card-lime{background:#151A11;border:1px solid rgba(214,255,87,0.25);border-radius:12px;padding:16px 18px;margin:20px 0}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9AA0A8;background:#0F1216;border:1px solid #1E232E;padding:3px 7px;border-radius:6px}
+.table-wrap{overflow:auto;border:1px solid #1E232E;border-radius:12px;margin:20px 0;background:#11141A}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{ text-align:left;padding:12px 14px;background:#0F1216;color:#9AA0A8;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid #1E232E}
+td{padding:12px 14px;border-bottom:1px solid rgba(30,35,46,0.6);color:#C5CAD2}
+tr:last-child td{border-bottom:none}
+.footer{border-top:1px solid #1E232E;background:#080A0C;padding:32px 24px;margin-top:40px}
+.footer-grid{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.footer-row1{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:#9AA0A8}
+.footer-links a{color:#9AA0A8}
+.footer-links a:hover{color:#E6E8EC}
+.footer-row2{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#6B7280;font-family:'JetBrains Mono',monospace;flex-wrap:wrap}
+.consent{position:fixed;bottom:16px;left:16px;right:16px;max-width:680px;margin:0 auto;background:rgba(17,20,26,0.96);backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.6);padding:14px 16px;display:flex;gap:16px;align-items:center;justify-content:space-between;z-index:60}
+@media(max-width:768px){.header{padding:0 16px}.nav{gap:12px;font-size:12px}.prose{padding:24px 16px 60px}.prose h1{font-size:28px}.dropdown-menu{position:fixed;top:56px;left:12px;right:12px;min-width:0}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Normaliser audio à -14 LUFS : guide de normalisation sonore",
+  "description": "Normalisez votre audio correctement : la normalisation sonore à -14 LUFS pour Spotify et YouTube. Normalisation par pic vs par volume perçu, tableau des cibles par plateforme, sécurité true-peak, et un outil gratuit dans le navigateur.",
+  "author": {
+    "@type": "Person",
+    "name": "Sehmus",
+    "url": "https://jsm-loudness.com/fr/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "JSM Loudness",
+    "url": "https://jsm-loudness.com/"
+  },
+  "datePublished": "2026-10-09",
+  "dateModified": "2026-10-09",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jsm-loudness.com/fr/articles/how-to-normalize-audio.html"
+  },
+  "keywords": "normaliser audio, normalisation audio, normalisation sonore, normaliser audio -14 lufs, normaliser volume mp3, même volume audio, normalisation du volume"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://jsm-loudness.com/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Apprendre",
+      "item": "https://jsm-loudness.com/fr/blog.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Normaliser à -14 LUFS",
+      "item": "https://jsm-loudness.com/fr/articles/how-to-normalize-audio.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Faut-il normaliser à -14 LUFS ou à 0 dB en pic ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Normalisez à -14 LUFS intégré si votre cible est Spotify ou YouTube — cela correspond à leur normalisation de lecture, donc votre morceau ne sera pas baissé par surprise. Normaliser les pics à 0 dB ne règle que l'échantillon le plus fort au maximum ; cela ne dit rien du volume perçu, et deux morceaux à 0 dB en pic peuvent sembler différer de 6 dB. Utilisez la normalisation par pic pour la marge de montage, la normalisation sonore pour la diffusion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Spotify va-t-il baisser mon morceau s'il dépasse -14 LUFS ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Le réglage Normal de Spotify (par défaut) applique un gain pour ramener les morceaux à -14 LUFS intégré. Un master à -8 LUFS est baissé de 6 dB — vous ne perdez rien sauf l'avantage illusoire de la course au volume. Un master à -18 LUFS est monté de 4 dB, mais Spotify limite le gain positif pour éviter l'écrêtage, donc les masters calmes peuvent rester plus bas que prévu. Masteriser près de -14 LUFS intégré avec un true-peak sous -1 dBTP est la voie prévisible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Normaliser un audio réduit-il la qualité ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La normalisation sonore est un simple changement de gain — mathématiquement transparent quand c'est fait en 32-bit float ou plus. Elle ne compresse pas, n'égalise pas, ne modifie pas le son ; elle monte ou baisse juste le volume. La perte de qualité n'apparaît que si vous normalisez un fichier destructif puis le réencodez (transcodage), ou si vous poussez le true-peak au-dessus de 0 dBFS et écrêtez. Normalisez depuis WAV/FLAC et surveillez le true-peak."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment mettre plusieurs fichiers audio au même volume ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mesurez le LUFS intégré de chaque fichier, puis appliquez un gain par fichier pour qu'ils atteignent tous la même cible (ex. -14 LUFS pour une playlist, -16 LUFS pour des épisodes de podcast). Ne vous contentez pas de normaliser les pics — des fichiers aux pics identiques peuvent différer énormément en volume perçu. Pour un album, normalisez selon le gain du morceau le plus fort ou utilisez le gain d'album pour préserver la dynamique entre les pistes."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
+  <a href="../../articles/how-to-normalize-audio.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a>
+  <span style="color:#2A3140">|</span>
+  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span>
+</div>
+
+<header class="header">
+  <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
+  <nav class="nav">
+    <a href="../index.html">Analyseur</a>
+    <a href="../bleep-audio.html">Bip audio</a>
+    <div class="dropdown">
+      <a href="./what-is-lufs.html">Apprendre</a>
+      <div class="dropdown-menu">
+        <a href="./what-is-lufs.html">Qu'est-ce que le LUFS ?</a>
+        <a href="./spotify-loudness.html">Spotify -14</a>
+        <a href="./tiktok-loudness.html">TikTok &amp; Shorts</a>
+        <a href="./true-peak.html">True Peak</a>
+        <a href="./lra.html">LRA PLR PSR</a>
+        <a href="./why-minus-14-is-new-zero.html">Pourquoi -14 est le nouveau 0 dB</a>
+        <a href="./dbtp-true-peak-vs-sample.html">DBTP Expliqué</a>
+        <a href="./ebu-r128-5-minutes.html">EBU R128 en 5 min</a>
+        <a href="./how-to-convert-audio.html">Convertir les formats audio</a>
+        <a href="./how-to-normalize-audio.html">Normaliser à -14 LUFS</a>
+        <a href="./how-to-measure-loudness.html">Mesurer le volume audio</a>
+      </div>
+    </div>
+    <a href="../blog.html">Blog</a>
+    <a href="../pricing.html">Tarifs</a>
+    <a href="../about.html">À propos</a>
+  </nav>
+</header>
+
+<main class="prose">
+<div class="badge">NORMALISATION SONORE • -14 LUFS • EBU R128</div>
+<h1>Normaliser un audio à -14 LUFS</h1>
+<p class="lead">La normalisation audio, c'est la façon d'obtenir le même volume perçu sur tous vos morceaux — et d'empêcher Spotify et YouTube de baisser vos masters. Ce guide explique la normalisation à -14 LUFS étape par étape : ce que c'est, pourquoi la normalisation par pic ne suffit pas, les cibles par plateforme, et comment le faire gratuitement dans votre navigateur.</p>
+
+<p>Si vous avez déjà fait une playlist où un morceau hurle et le suivant chuchote, vous avez ressenti le problème que la normalisation résout. Et si vous masterisez pour le streaming, la normalisation n'est plus optionnelle — Spotify, YouTube et TikTok normalisent tous la lecture autour de -14 LUFS, que ça vous plaise ou non. Savoir normaliser un audio correctement, c'est la différence entre un master qui passe partout et un master discrètement baissé.</p>
+
+<h2>Qu'est-ce que la normalisation audio ?</h2>
+<p>Normaliser un audio, c'est ajuster le gain d'un fichier pour atteindre une cible de volume définie. Le mot clé est <strong>volume perçu</strong> — la normalisation moderne vise le volume perçu (LUFS), pas le niveau électrique. Le processus est simple : mesurer le volume intégré, calculer l'écart avec la cible, appliquer ce gain à tout le fichier.</p>
+<p>Exemple : votre mix mesure <span class="kbd">-18,5 LUFS intégré</span>. La cible est <span class="kbd">-14 LUFS</span>. La normalisation applique +4,5 dB de gain. Terminé — transparent, sans compression, sans EQ, juste un changement de volume calculé depuis une mesure perceptuelle. (Le LUFS est nouveau pour vous ? Commencez par <a href="./what-is-lufs.html">Qu'est-ce que le LUFS ?</a>.)</p>
+<p>C'est fondamentalement différent du vieux bouton « normaliser » des éditeurs audio, ce qui nous amène à la distinction la plus importante de ce guide.</p>
+
+<h2>Normalisation par pic vs normalisation sonore</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th></th><th>Normalisation par pic</th><th>Normalisation sonore</th></tr></thead>
+<tbody>
+<tr><td><strong>Mesure</strong></td><td>Pic d'échantillon le plus haut (dBFS)</td><td>Volume perçu (LUFS, K-weighting + gating)</td></tr>
+<tr><td><strong>Cible</strong></td><td>Généralement 0 dBFS / -1 dBFS</td><td>ex. -14 LUFS intégré</td></tr>
+<tr><td><strong>Résultat</strong></td><td>Le pic le plus fort touche le maximum</td><td>Tout le programme atteint le volume cible en moyenne</td></tr>
+<tr><td><strong>Deux morceaux correspondent ?</strong></td><td>Non — peuvent sembler différer de 6+ dB</td><td>Oui — c'est tout l'intérêt</td></tr>
+<tr><td><strong>À utiliser pour</strong></td><td>Marge de montage, préparation d'échantillons</td><td>Diffusion streaming, playlists, podcasts, broadcast</td></tr>
+</tbody>
+</table>
+</div>
+<p>La normalisation par pic est presque inutile pour la diffusion. Un drop EDM ultra-limité et un trio de jazz dynamique peuvent tous deux crêter à exactement 0 dBFS et différer de 8 LU en volume perçu. Le pic parle de marge ; le LUFS parle de <em>volume</em>. Quand quelqu'un dit « normalise le volume de mon MP3 » ou « mets ces fichiers audio au même volume », il parle de normalisation sonore — même sans connaître le terme.</p>
+
+<h2>Pourquoi -14 LUFS ? Les cibles de volume par plateforme</h2>
+<p>-14 LUFS intégré est la cible de fait du streaming parce que Spotify (mode Normal, le défaut) et YouTube normalisent tous deux vers environ -14. Si vous livrez à -14, les plateformes ne touchent pas à votre gain — pas de baisse surprise, pas d'artefacts de gain positif.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Plateforme / Usage</th><th>Cible intégrée</th><th>Plafond true-peak</th></tr></thead>
+<tbody>
+<tr><td><strong>Spotify</strong> (Normal)</td><td>-14 LUFS</td><td>-1 dBTP</td></tr>
+<tr><td><strong>YouTube</strong></td><td>≈ -14 LUFS</td><td>-1 dBTP</td></tr>
+<tr><td><strong>TikTok / Reels / Shorts</strong></td><td>≈ -14 LUFS</td><td>-1 dBTP</td></tr>
+<tr><td><strong>Apple Music</strong> (Sound Check)</td><td>-16 LUFS</td><td>-1 dBTP</td></tr>
+<tr><td><strong>Podcasts</strong></td><td>-16 LUFS stéréo / -19 LUFS mono</td><td>-1,5 dBTP</td></tr>
+<tr><td><strong>Broadcast</strong> (EBU R128)</td><td>-23 LUFS</td><td>-1 dBTP</td></tr>
+</tbody>
+</table>
+</div>
+<p>Pas besoin de viser -14 pile — Spotify tolère une plage, et beaucoup d'ingénieurs masterisent à -12 voire -10 pour le punch, en acceptant la baisse. Ce qu'il ne faut <em>pas</em> faire, c'est masteriser à -7 LUFS en pensant « plus fort gagne ». Non ; la plateforme baisse juste de 7 dB, et vous avez écrasé votre dynamique pour rien. Lisez <a href="./spotify-loudness.html">le guide Spotify -14</a> et <a href="./why-minus-14-is-new-zero.html">pourquoi -14 est le nouveau 0 dB</a> pour toute l'histoire.</p>
+
+<h2>Comment marche la normalisation sonore (4 étapes)</h2>
+<ol>
+<li><strong>Mesurer.</strong> Calculez le LUFS intégré sur tout le programme avec K-weighting et gating EBU R128 (-70 absolu, -10 relatif). C'est le seul chiffre honnête — un extrait de 10 secondes ne suffit pas.</li>
+<li><strong>Calculer le gain.</strong> <code>gain_dB = cible - mesuré</code>. Mesuré -18,5, cible -14 → +4,5 dB.</li>
+<li><strong>Appliquer le gain</strong> en 32-bit float (ou plus). C'est transparent au bit près à part le décalage de niveau — aucun traitement de dynamique.</li>
+<li><strong>Vérifier le true-peak.</strong> Monter le gain monte aussi les pics. Si le true-peak dépasse maintenant -1 dBTP, il faut un limiteur true-peak ou une cible plus basse. Ne livrez jamais un fichier normalisé qui écrête entre les échantillons — voir <a href="./true-peak.html">True Peak</a>.</li>
+</ol>
+<div class="card">
+<p style="margin:0 0 8px;font-size:13px;color:#E6E8EC;font-weight:600">Exemple chiffré</p>
+<pre style="margin:0;background:transparent;border:none;padding:0">Mesuré intégré :  -19,2 LUFS
+Cible :           -14,0 LUFS
+Gain à appliquer : +5,2 dB
+True-peak avant :  -6,3 dBTP
+True-peak après :  -1,1 dBTP  → sûr (sous -1,0)
+Résultat : le fichier fait maintenant -14 LUFS en moyenne, pics sûrs. Terminé.</pre>
+</div>
+
+<h2>Normaliser un audio : pas à pas</h2>
+<p>Vous pouvez normaliser un audio gratuitement dans votre navigateur avec JSM Loudness — sans envoi, sans installation :</p>
+<ol>
+<li>Ouvrez l'<a href="../index.html">Analyseur</a> et déposez votre fichier audio.</li>
+<li>Lisez la valeur <strong>LUFS intégré</strong> (et notez le true-peak).</li>
+<li>Utilisez le contrôle de gain pour appliquer <code>cible − mesuré</code> dB. Pour Spotify/YouTube, cible -14.</li>
+<li>Revérifiez : confirmez que l'intégré affiche ≈ -14 LUFS et que le true-peak reste sous -1 dBTP.</li>
+<li>Exportez. Si vous avez aussi besoin d'un autre format, passez par le <a href="./how-to-convert-audio.html">convertisseur audio</a> <em>après</em> la normalisation — normalisez toujours la source de meilleure qualité d'abord.</li>
+</ol>
+<p>Pour mieux comprendre ce que vous mesurez, lisez <a href="./how-to-measure-loudness.html">comment mesurer le volume d'un audio</a> — intégré vs short-term vs momentary, et comment bien lire un mesureur LUFS.</p>
+
+<h2>Normaliser selon la destination</h2>
+<p><strong>Musique pour le streaming :</strong> -14 LUFS intégré, true-peak ≤ -1 dBTP. Masterisez en gardant la dynamique ; laissez la plateforme gérer le niveau de lecture.</p>
+<p><strong>Podcasts :</strong> -16 LUFS stéréo (-19 mono) est le standard podcast — la voix est plus dense que la musique, donc il faut une cible plus basse pour éviter la fatigue d'écoute. Gardez un LRA modeste ; une voix trop dynamique force l'auditeur à jouer avec le volume.</p>
+<p><strong>Playlists / compilations :</strong> normalisez chaque morceau à la <em>même</em> cible. Pour un album, envisagez le gain d'album : calculez un seul gain depuis le volume de tout l'album pour préserver la dynamique entre les morceaux (la ballade calme après le single fort).</p>
+<p><strong>Vidéo / broadcast :</strong> -23 LUFS selon EBU R128 (ou -24 pour ATSC A/85 aux États-Unis). Un autre monde, une autre norme — voir <a href="./ebu-r128-5-minutes.html">EBU R128 en 5 minutes</a>.</p>
+
+<h2>Erreurs fréquentes de normalisation</h2>
+<ul>
+<li><strong>Normaliser à 0 dB en pic en croyant que c'est « normalisé ».</strong> Vos morceaux ne correspondront toujours pas en volume. Pic ≠ volume perçu.</li>
+<li><strong>Normaliser chaque piste d'un album séparément.</strong> Détruit la dynamique voulue entre les morceaux. Utilisez le gain d'album.</li>
+<li><strong>Ignorer le true-peak.</strong> +4 dB de gain de normalisation sur un master déjà chaud = écrêtage inter-échantillons. Vérifiez toujours le dBTP après.</li>
+<li><strong>Normaliser un fichier destructif puis le réencoder.</strong> Le transcodage accumule les artefacts. Normalisez le WAV/FLAC, puis encodez une fois.</li>
+<li><strong>Vouloir -14,0 pile.</strong> ±1 LU est inaudible et dans la tolérance partout. Ne tuez pas la dynamique pour un chiffre.</li>
+</ul>
+
+<div class="card-lime">
+<p style="margin:0 0 6px;font-weight:600;color:#D6FF57;font-size:13px">La version en une phrase</p>
+<p style="margin:0;font-size:13px;color:#C5CAD2">Mesurez le LUFS intégré, appliquez <code>cible − mesuré</code> dB de gain, vérifiez que le true-peak reste sous -1 dBTP. C'est ça, la normalisation sonore — tout le reste est du détail.</p>
+</div>
+
+<h2>Questions fréquentes</h2>
+<h3>Faut-il normaliser à -14 LUFS ou à 0 dB en pic ?</h3>
+<p>Normalisez à -14 LUFS intégré si votre cible est Spotify ou YouTube — cela correspond à leur normalisation de lecture, donc votre morceau ne sera pas baissé par surprise. Normaliser les pics à 0 dB ne règle que l'échantillon le plus fort au maximum ; cela ne dit rien du volume perçu, et deux morceaux à 0 dB en pic peuvent sembler différer de 6 dB. Utilisez la normalisation par pic pour la marge de montage, la normalisation sonore pour la diffusion.</p>
+<h3>Spotify va-t-il baisser mon morceau s'il dépasse -14 LUFS ?</h3>
+<p>Oui. Le réglage Normal de Spotify (par défaut) applique un gain pour ramener les morceaux à -14 LUFS intégré. Un master à -8 LUFS est baissé de 6 dB — vous ne perdez rien sauf l'avantage illusoire de la course au volume. Un master à -18 LUFS est monté de 4 dB, mais Spotify limite le gain positif pour éviter l'écrêtage, donc les masters calmes peuvent rester plus bas que prévu. Masteriser près de -14 LUFS intégré avec un true-peak sous -1 dBTP est la voie prévisible.</p>
+<h3>Normaliser un audio réduit-il la qualité ?</h3>
+<p>La normalisation sonore est un simple changement de gain — mathématiquement transparent quand c'est fait en 32-bit float ou plus. Elle ne compresse pas, n'égalise pas, ne modifie pas le son ; elle monte ou baisse juste le volume. La perte de qualité n'apparaît que si vous normalisez un fichier destructif puis le réencodez (transcodage), ou si vous poussez le true-peak au-dessus de 0 dBFS et écrêtez. Normalisez depuis WAV/FLAC et surveillez le true-peak.</p>
+<h3>Comment mettre plusieurs fichiers audio au même volume ?</h3>
+<p>Mesurez le LUFS intégré de chaque fichier, puis appliquez un gain par fichier pour qu'ils atteignent tous la même cible (ex. -14 LUFS pour une playlist, -16 LUFS pour des épisodes de podcast). Ne vous contentez pas de normaliser les pics — des fichiers aux pics identiques peuvent différer énormément en volume perçu. Pour un album, normalisez selon le gain du morceau le plus fort ou utilisez le gain d'album pour préserver la dynamique entre les pistes.</p>
+
+<div style="margin-top:36px;padding:20px;border-radius:16px;background:#11141A;border:1px solid #1E232E;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+<div>
+<p style="margin:0;font-size:14px;color:#E6E8EC;font-weight:600">Normalisez votre audio maintenant — gratuit, EBU R128 exact, sans envoi</p>
+<p style="margin:4px 0 0;font-size:12px;color:#9AA0A8">Mesurez le LUFS intégré • Appliquez un gain précis • Vérifiez le true-peak</p>
+</div>
+<a class="btn-lime" href="../index.html" style="text-decoration:none">Ouvrir l'analyseur</a>
+</div>
+
+<div style="margin-top:32px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="./how-to-measure-loudness.html" class="kbd" style="text-decoration:none">Suivant : Mesurer le volume →</a>
+<a href="./spotify-loudness.html" class="kbd" style="text-decoration:none">Guide Spotify -14</a>
+<a href="./what-is-lufs.html" class="kbd" style="text-decoration:none">Qu'est-ce que le LUFS ?</a>
+</div>
+
+</main>
+
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-row1">
+<div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div>
+<div class="footer-links">
+<a href="../privacy.html">Confidentialité</a><span style="color:#1E232E">·</span>
+<a href="../terms.html">Conditions</a><span style="color:#1E232E">·</span>
+<a href="../cookies.html">Cookies</a><span style="color:#1E232E">·</span>
+<a href="../blog.html">Blog</a><span style="color:#1E232E">·</span>
+<a href="../pricing.html">Tarifs</a><span style="color:#1E232E">·</span>
+<a href="../about.html">À propos</a><span style="color:#1E232E">·</span>
+<a href="../contact.html">Contact</a>
+</div>
+</div>
+<div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Construit à Montréal by Sehmus</span>
+  <span>Aucun envoi • Tourne dans le navigateur • Vérifié -14,05 LUFS</span></div><div class="footer-row3" style="margin-top:10px;font-size:11px;color:#9AA0A8">Autres outils gratuits : <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> · <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> · <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> · <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div></div></footer>
+
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none">
+<div style="flex:1">
+<p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies et confidentialité</p>
+<p style="margin:0;font-size:12px;color:#9AA0A8">L'audio ne quitte jamais votre appareil. Nous utilisons des statistiques anonymes (GA4) uniquement si vous acceptez. Pas de publicité. <a href="../privacy.html" style="color:#D6FF57">Confidentialité</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button>
+<button onclick="acceptConsent()" class="btn-lime">Accepter</button>
+</div>
+</div>
+<script src="../../assets/js/main.js" defer></script>
+</body>
+</html>

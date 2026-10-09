@@ -247,4 +247,88 @@
     <lastmod>2026-10-05</lastmod>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://jsm-loudness.com/articles/how-to-trim-audio.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-trim-audio.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-trim-audio.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/fr/articles/how-to-trim-audio.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-trim-audio.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-trim-audio.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/articles/how-to-split-audio.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-split-audio.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-split-audio.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/fr/articles/how-to-split-audio.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-split-audio.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-split-audio.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/articles/how-to-join-audio.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-join-audio.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-join-audio.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/fr/articles/how-to-join-audio.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-join-audio.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-join-audio.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/articles/how-to-convert-audio.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-convert-audio.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-convert-audio.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/fr/articles/how-to-convert-audio.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-convert-audio.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-convert-audio.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/articles/how-to-normalize-audio.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-normalize-audio.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-normalize-audio.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/fr/articles/how-to-normalize-audio.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-normalize-audio.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-normalize-audio.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/articles/how-to-measure-loudness.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-measure-loudness.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-measure-loudness.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/fr/articles/how-to-measure-loudness.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-measure-loudness.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-measure-loudness.html"/>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+  </url>
 </urlset>

@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Fusionner Audio en Ligne — Outil Gratuit | JSM Loudness</title>
+<meta name="description" content="Fusionnez vos fichiers MP3 et WAV en ligne gratuitement. Assemblez plusieurs audios en un seul."/>
+  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-join-audio.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-join-audio.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/how-to-join-audio.html"/>
+  <link rel="canonical" href="https://jsm-loudness.com/fr/articles/how-to-join-audio.html"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="theme-color" content="#0A0C0F"/>
+<link rel="icon" href="../../favicon.ico"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Fusionner Audio en Ligne — Outil Gratuit"/>
+<meta property="og:description" content="Fusionnez vos fichiers MP3 et WAV en ligne gratuitement. Assemblez plusieurs audios en un seul."/>
+<meta property="og:url" content="https://jsm-loudness.com/fr/articles/how-to-join-audio.html"/>
+<meta property="og:site_name" content="jsm-loudness.com"/>
+<meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Fusionner des Fichiers Audio en Ligne — Gratuit"/>
+<meta name="twitter:description" content="Fusionnez vos fichiers MP3 et WAV en ligne gratuitement. Assemblez plusieurs audios en un seul."/>
+<link rel="stylesheet" href="../../assets/css/style.css?v=20261005d"/>
+<!-- Consent Mode v2 defaults - MUST be before gtag.js -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  analytics_storage:'denied',
+  functionality_storage:'granted',
+  security_storage:'granted',
+  wait_for_update: 500
+});
+gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,sans-serif}
+html,body{margin:0;background:#0A0C0F;color:#E6E8EC;overflow-x:clip;max-width:100vw}
+.mono{font-family:'JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+.header{position:sticky;top:0;z-index:40;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,12,15,0.75);border-bottom:1px solid rgba(30,35,46,0.8);display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px;padding:0 24px;max-width:1200px;margin:0 auto;width:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.02em;font-size:14px;color:#E6E8EC}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#D6FF57;color:#000;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.05em}
+.nav{display:flex;align-items:center;gap:20px;font-size:13px;color:#9AA0A8}
+.nav a{color:#9AA0A8;transition:color .2s,border-color .2s;border-bottom:2px solid transparent;padding-bottom:2px}
+.nav a:hover{color:#fff}
+.nav a.active{color:#fff;border-bottom-color:#D6FF57}
+.dropdown{position:relative}
+.dropdown>a{display:flex;align-items:center;gap:4px}
+.dropdown-menu{opacity:0;visibility:hidden;transform:translateY(8px);transition:all .18s ease;position:absolute;top:100%;left:0;min-width:260px;z-index:1000;background:rgba(15,17,21,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04) inset;padding:8px;display:flex;flex-direction:column;gap:2px}
+.dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown-menu a{padding:10px 12px;border-radius:8px;font-size:13px;color:#E6E8EC;border:1px solid transparent}
+.dropdown-menu a:hover{background:#151821;color:#D6FF57;border-color:rgba(214,255,87,0.15)}
+.dropdown-menu .small{font-size:10px;color:#6B7280;margin-top:6px;padding:8px 12px 4px;border-top:1px solid #1E232E;font-family:'JetBrains Mono',monospace}
+.btn-lime{display:inline-flex;align-items:center;justify-content:center;background:#D6FF57;color:#000;font-weight:700;font-size:12px;letter-spacing:0.02em;padding:9px 16px;border-radius:999px;border:none;cursor:pointer;transition:transform .15s,filter .15s}
+.btn-lime:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer}
+.prose{max-width:760px;margin:0 auto;padding:40px 24px 80px;line-height:1.7}
+.prose .badge{display:inline-flex;background:rgba(16,18,22,0.9);border:1px solid #1E232E;color:#9AA0A8;padding:6px 10px;border-radius:999px;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:0.02em}
+.prose h1{font-size:36px;line-height:1.1;letter-spacing:-0.02em;color:#E6E8EC;margin:18px 0 12px;font-weight:700}
+.prose h2{font-size:20px;line-height:1.3;color:#E6E8EC;margin:40px 0 14px;font-weight:600;letter-spacing:-0.01em}
+.prose h3{font-size:15px;color:#E6E8EC;margin:28px 0 10px;font-weight:600}
+.prose .lead{font-size:17px;line-height:1.6;color:#C5CAD2;margin:0 0 28px}
+.prose p{font-size:14.5px;color:#C5CAD2;margin:0 0 16px}
+.prose ul,.prose ol{padding-left:20px;color:#C5CAD2;font-size:14.5px;margin:0 0 20px}
+.prose li+li{margin-top:8px}
+.prose strong{color:#E6E8EC;font-weight:600}
+.prose code{font-family:'JetBrains Mono',monospace;background:#11141A;border:1px solid #1E232E;padding:2px 6px;border-radius:6px;font-size:12.5px;color:#D6FF57}
+.prose pre{background:#11141A;border:1px solid #1E232E;padding:16px;border-radius:12px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9AA0A8;line-height:1.6;margin:16px 0 24px}
+.prose a{color:#D6FF57;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s}
+.prose a:hover{color:#fff}
+.card{background:#11141A;border:1px solid #1E232E;border-radius:12px;padding:16px 18px;margin:20px 0}
+.card-lime{background:#151A11;border:1px solid rgba(214,255,87,0.25);border-radius:12px;padding:16px 18px;margin:20px 0}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9AA0A8;background:#0F1216;border:1px solid #1E232E;padding:3px 7px;border-radius:6px}
+.table-wrap{overflow:auto;border:1px solid #1E232E;border-radius:12px;margin:20px 0;background:#11141A}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{ text-align:left;padding:12px 14px;background:#0F1216;color:#9AA0A8;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid #1E232E}
+td{padding:12px 14px;border-bottom:1px solid rgba(30,35,46,0.6);color:#C5CAD2}
+tr:last-child td{border-bottom:none}
+.footer{border-top:1px solid #1E232E;background:#080A0C;padding:32px 24px;margin-top:40px}
+.footer-grid{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.footer-row1{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:#9AA0A8}
+.footer-links a{color:#9AA0A8}
+.footer-links a:hover{color:#E6E8EC}
+.footer-row2{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#6B7280;font-family:'JetBrains Mono',monospace;flex-wrap:wrap}
+.consent{position:fixed;bottom:16px;left:16px;right:16px;max-width:680px;margin:0 auto;background:rgba(17,20,26,0.96);backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.6);padding:14px 16px;display:flex;gap:16px;align-items:center;justify-content:space-between;z-index:60}
+@media(max-width:768px){.header{padding:0 16px}.nav{gap:12px;font-size:12px}.prose{padding:24px 16px 60px}.prose h1{font-size:28px}.dropdown-menu{position:fixed;top:56px;left:12px;right:12px;min-width:0}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Comment fusionner des fichiers audio en ligne — Outil gratuit",
+  "description": "Fusionnez des fichiers audio en ligne gratuitement : assemblez vos MP3, combinez des WAV, concaténez des pistes dans l'ordre. Aucun envoi, aucune inscription — fusionnez dans votre navigateur.",
+  "author": {
+    "@type": "Person",
+    "name": "Sehmus",
+    "url": "https://jsm-loudness.com/fr/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "JSM Loudness",
+    "url": "https://jsm-loudness.com/"
+  },
+  "datePublished": "2026-10-09",
+  "dateModified": "2026-10-09",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jsm-loudness.com/fr/articles/how-to-join-audio.html"
+  },
+  "keywords": "fusionner audio, assembler fichiers audio, combiner MP3, fusionner MP3 en ligne, concaténer audio, assembler WAV, joindre fichiers audio"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://jsm-loudness.com/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Apprendre",
+      "item": "https://jsm-loudness.com/fr/blog.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Comment fusionner des fichiers audio",
+      "item": "https://jsm-loudness.com/fr/articles/how-to-join-audio.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Comment combiner plusieurs fichiers MP3 en un seul ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chargez les MP3 dans un outil de fusion audio du navigateur, dans l'ordre voulu, puis exportez un seul fichier. L'outil décode chaque MP3, concatène l'audio brut et encode un fichier de sortie unique. Gardez la même fréquence d'échantillonnage partout (44,1 kHz ou 48 kHz) pour le résultat le plus propre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Y aura-t-il des blancs entre les MP3 fusionnés ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'encodage MP3 ajoute un minuscule silence (~50 ms) au début de chaque fichier à cause du délai d'encodeur. En fusionnant des MP3, rognez ce silence ou partez de sources WAV pour une lecture vraiment continue. Si vous entendez un petit blanc ou un clic à une jointure, un fondu enchaîné de 10 ms le corrige."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on fusionner des fichiers WAV et MP3 ensemble ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Un outil de fusion dans le navigateur décode chaque entrée en audio brut d'abord, donc formats, fréquences et nombres de canaux mixtes se combinent sans problème — tout est rééchantillonné à une fréquence commune (généralement 44,1 ou 48 kHz) avant fusion. Pour la meilleure qualité, exportez le résultat en WAV si vous prévoyez d'autres montages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Fusionner des fichiers audio réduit-il la qualité ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fusionner décode chaque entrée et ré-encode la sortie combinée : une génération d'encodage supplémentaire pour les entrées MP3. À 192 kbps et au-delà, c'est inaudible. Fusionner des fichiers WAV est mathématiquement sans perte : les échantillons sont concaténés bit à bit, sans aucun changement de qualité."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
+  <a href="../../articles/how-to-join-audio.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a>
+  <span style="color:#2A3140">|</span>
+  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span>
+</div>
+
+<header class="header">
+  <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
+  <nav class="nav">
+    <a href="../index.html">Analyseur</a>
+    <a href="../bleep-audio.html">Bip audio</a><a href="../trim-audio.html">Modifier</a>
+    <div class="dropdown">
+      <a href="./what-is-lufs.html">Apprendre</a>
+      <div class="dropdown-menu">
+        <a href="./what-is-lufs.html">Qu'est-ce que le LUFS ?</a>
+        <a href="./spotify-loudness.html">Spotify -14</a>
+        <a href="./tiktok-loudness.html">TikTok &amp; Shorts</a>
+        <a href="./true-peak.html">True Peak</a>
+        <a href="./lra.html">LRA PLR PSR</a>
+        <a href="./why-minus-14-is-new-zero.html">Pourquoi -14 est le nouveau 0 dB</a>
+        <a href="./dbtp-true-peak-vs-sample.html">DBTP Expliqué</a>
+        <a href="./ebu-r128-5-minutes.html">EBU R128 en 5 min</a>
+        <div class="small">GUIDES DE MONTAGE</div>
+        <a href="./how-to-trim-audio.html">Rogner l'audio</a>
+        <a href="./how-to-split-audio.html">Diviser l'audio</a>
+        <a href="./how-to-join-audio.html">Fusionner l'audio</a>
+      </div>
+    </div>
+    <a href="../blog.html">Blog</a>
+    <a href="../pricing.html">Tarifs</a>
+    <a href="../about.html">À propos</a>
+  </nav>
+</header>
+
+<main class="prose">
+<div class="badge">MONTAGE AUDIO • FUSIONNER • OUTIL GRATUIT DANS LE NAVIGATEUR</div>
+<h1>Comment fusionner des fichiers audio</h1>
+<p class="lead">Intro, épisode, outro. Couplet, refrain, pont. Dix mémos vocaux d'une promenade. Fusionner — assembler plusieurs fichiers audio en un seul — est l'inverse de <a href="how-to-split-audio.html">diviser</a>, avec ses propres pièges : micro-blancs, clics aux jointures et formats disparates. Voici comment fusionner des fichiers audio en ligne proprement, et le problème du blanc MP3 dont personne ne vous prévient.</p>
+
+<h2>Quand fusionner des fichiers audio ?</h2>
+<ul>
+<li><strong>Assemblage de podcast :</strong> musique d'intro + corps d'épisode + outro + lectures pubs, enregistrés ou sourcés séparément, deviennent un MP3 publiable.</li>
+<li><strong>Livres audio :</strong> fusionner les WAV par chapitre en un seul fichier par section après relecture.</li>
+<li><strong>Mémos vocaux :</strong> dix mémos de 2 minutes d'une promenade deviennent une note de 20 minutes.</li>
+<li><strong>Musique :</strong> enchaîner des sections de morceaux, combiner des bounces de stems, ou construire un mix continu façon DJ à partir de pistes séparées.</li>
+<li><strong>Apprentissage des langues :</strong> joindre des enregistrements phrase par phrase en une seule piste d'exercice avec des blancs réguliers.</li>
+<li><strong>Réparer une division :</strong> vous avez <a href="how-to-split-audio.html">divisé un fichier</a> puis changé d'avis sur une limite de chapitre — refusionnez les parties.</li>
+</ul>
+
+<h2>Avant de fusionner : harmonisez fréquence d'échantillonnage et canaux</h2>
+<p>Un outil de fusion dans le navigateur décode tout en audio brut d'abord, donc des entrées mixtes <em>fonctionnent</em> — mais les harmoniser en amont évite les surprises :</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Propriété</th><th>Que faire</th><th>Pourquoi</th></tr></thead>
+<tbody>
+<tr><td><strong>Fréquence d'échantillonnage</strong></td><td>Tout en 44,1 kHz ou tout en 48 kHz</td><td>Mélanger les fréquences force un rééchantillonnage ; un mauvais rééchantillonnage peut émousser les transitoires</td></tr>
+<tr><td><strong>Canaux</strong></td><td>Tout stéréo ou tout mono</td><td>Les fusions mono + stéréo dupliquent généralement le mono sur les deux canaux — c'est bien, mais sachez-le</td></tr>
+<tr><td><strong>Format</strong></td><td>WAV de préférence pour les intermédiaires</td><td>Fusionner des MP3 ré-encode ; fusionner des WAV est parfait au bit près</td></tr>
+<tr><td><strong>Loudness</strong></td><td>Égalisez grossièrement les niveaux par fichier d'abord</td><td>Une intro calme suivie d'un épisode fort sonne cassé ; contrôlez chacun avec un <a href="../index.html">mesureur LUFS</a></td></tr>
+</tbody>
+</table>
+</div>
+<p>Le loudness est le plus négligé et le plus audible. Si votre musique d'intro a été masterisée à -8 LUFS et que votre épisode est à -16, la transition va surprendre les auditeurs. Normalisez les parties à des <a href="what-is-lufs.html">LUFS intégrés</a> proches avant de fusionner — ou au moins contrôlez-les.</p>
+
+<h2>Comment fusionner des fichiers audio dans votre navigateur (pas à pas)</h2>
+<p>Avec l'<a href="../trim-audio.html">outil gratuit pour fusionner l'audio</a> de ce site (l'onglet Fusionner de l'éditeur) — traitement local, aucun envoi :</p>
+<ol>
+<li><strong>Ajoutez les fichiers dans l'ordre.</strong> Déposez-les tous d'un coup ou un par un ; glissez-déposez pour réordonner. La liste affiche la durée de chaque fichier pour contrôler le total.</li>
+<li><strong>Rognez les bords d'abord.</strong> Coupez le silence de début et de fin de chaque partie <em>avant</em> de fusionner — sinon vous figez des blancs gênants au milieu du fichier assemblé. (Voir <a href="how-to-trim-audio.html">comment rogner un audio</a>.)</li>
+<li><strong>Réglez le comportement aux jointures.</strong> Au choix : collage à blanc (aucun espace), silence fixe (p. ex. 0,5 s entre les parties — bien pour les exercices et les chapitres), ou fondu enchaîné (10–50 ms — bien pour la musique).</li>
+<li><strong>Pré-écoutez chaque jointure.</strong> Écoutez les 3 secondes à cheval sur chaque limite. C'est là que se cachent les clics.</li>
+<li><strong>Exportez une fois.</strong> WAV si vous allez encore masteriser, MP3 192–320 kbps si c'est la livraison finale.</li>
+</ol>
+
+<h2>Blancs, fondus enchaînés et jointures propres</h2>
+<p>Trois façons de traiter la limite entre la partie A et la partie B :</p>
+<ul>
+<li><strong>Collage à blanc (zéro espace) :</strong> A se termine, B commence aussitôt. Fonctionne quand les deux côtés sont au silence numérique — p. ex. assembler deux segments de voix rognés. Toute discontinuité de forme d'onde clique, alors zoomez et coupez aux passages par zéro.</li>
+<li><strong>Silence fixe :</strong> insérez 0,3 à 1,0 s de silence entre les parties. Le choix professionnel pour les livres audio, les exercices et les compilations de prises. Cela se lit comme un rythme voulu, pas comme un bug.</li>
+<li><strong>Fondu enchaîné (10–100 ms) :</strong> chevauchez la fin de A avec le début de B en fondant A vers le silence pendant que B monte. Masque les discontinuités dans la musique et les ambiances continues. Restez court — les longs fondus sur la voix sonnent comme une transition de DJ là où on n'en voulait pas.</li>
+</ul>
+<div class="card-lime">
+<p style="margin:0 0 6px;font-weight:600;color:#D6FF57;font-size:13px">Tueur de clics</p>
+<p style="margin:0;font-size:13px;color:#C5CAD2">Si une jointure clique et que vous ne trouvez pas de passage par zéro, appliquez un fondu de sortie de 10 ms à la fin de la partie A et un fondu d'entrée de 10 ms au début de la partie B avant de fusionner. Les fondus forcent les deux côtés au silence à la limite — aucune discontinuité, aucun clic, inaudible comme effet.</p>
+</div>
+
+<h2>Le problème du blanc MP3 (à lire avant de fusionner des MP3)</h2>
+<p>Voici ce dont personne ne vous prévient : <strong>les fichiers MP3 ne peuvent pas commencer ni finir exactement où vous pensez.</strong> Le format MP3 encode par trames (~26 ms chacune), et les encodeurs ajoutent un <strong>délai d'encodeur</strong> — typiquement environ 50 ms de silence de remplissage au début de chaque fichier, plus du remplissage pour compléter la dernière trame. C'est inhérent au format, pas un bug de votre outil.</p>
+<p>Conséquences pour la fusion :</p>
+<ul>
+<li>Fusionner des MP3 bout à bout insère ~50 ms de quasi-silence à chaque limite. Pour la voix avec des pauses naturelles, invisible. Pour la musique sans blanc (albums live, mix DJ), audible comme un micro-hoquet.</li>
+<li><strong>La solution :</strong> fusionnez depuis des sources WAV quand le continu compte, et n'encodez en MP3 qu'une seule fois à la fin. Un encodage = une seule zone de remplissage, au tout début et à la toute fin du fichier final, où personne ne l'entend.</li>
+<li>Si vous n'avez que des MP3, rognez ~50 ms au début de chaque partie (sauf la première) avant de fusionner. C'est approximatif — le délai d'encodeur varie légèrement — mais on s'en approche.</li>
+<li>Les lecteurs avec <strong>lecture sans blanc</strong> (la plupart des applis modernes) lisent l'info de remplissage de l'en-tête LAME et la sautent — mais seulement à l'intérieur d'un seul fichier. Entre des parties MP3 fusionnées séparément, le silence de remplissage est un vrai silence audio dans le fichier.</li>
+</ul>
+<p>C'est aussi pourquoi <a href="how-to-split-audio.html">diviser</a> un MP3 puis refusionner les parties ne reconstruit jamais parfaitement l'original — chaque division fige un nouveau remplissage. WAV en entrée, WAV en sortie, un seul encodage : voilà l'aller-retour sans perte.</p>
+
+<h2>Assemblage de podcast : l'ordre standard</h2>
+<p>Si vous construisez un épisode de podcast à partir de parties, voici l'ordre qu'utilisent la plupart des producteurs — avec les blancs qui vont avec :</p>
+<ol>
+<li><strong>Accroche / teaser</strong> (0:15–0:45) — l'hameçon, extrait de plus loin dans l'épisode.</li>
+<li><strong>Générique musical</strong> (0:10–0:20) — <span class="kbd">0,3 s</span> de silence après le teaser, puis la musique.</li>
+<li><strong>Intro / accueil de l'animateur</strong> — enchaîné directement sur la fin du générique.</li>
+<li><strong>Contenu principal</strong> — <span class="kbd">0,5 s</span> de silence avant le début ; cela donne une respiration à l'auditeur.</li>
+<li><strong>Lectures publicitaires</strong> — <span class="kbd">0,5–1,0 s</span> de silence de chaque côté pour qu'elles semblent des segments distincts, pas des interruptions.</li>
+<li><strong>Outro + appels à l'action</strong> — enchaîné depuis le contenu.</li>
+<li><strong>Musique de fin</strong> — démarrez-la sous les 3–5 dernières secondes de l'outro (mini fondu enchaîné), puis laissez-la se dérouler en fondu.</li>
+</ol>
+<p>Assemblez dans cet ordre, pré-écoutez chaque limite, puis exportez une fois. Si vous réenregistrez la pub la semaine prochaine, vous ne remplacez que la partie 5 et ré-exportez — pas besoin de reconstruire l'épisode.</p>
+
+<h2>Fusionner des formats différents ensemble</h2>
+<p>MP3 + WAV + M4A dans une seule fusion ? Aucun problème — l'outil décode chacun en PCM brut, rééchantillonne à une fréquence commune (généralement celle du premier fichier, ou 44,1 kHz), et concatène. Notes pratiques :</p>
+<ul>
+<li><strong>La qualité suit le maillon faible.</strong> Un MP3 96 kbps fusionné avec des WAV sonne toujours comme un MP3 96 kbps sur sa section. Le suréchantillonnage ne restaure pas les données perdues.</li>
+<li><strong>Surveillez les fréquences.</strong> 44,1 kHz + 48 kHz force le rééchantillonnage d'un côté. Les bons rééchantillonneurs sont transparents ; évitez juste de le faire deux fois.</li>
+<li><strong>Format d'export :</strong> si une entrée était sans perte et que cela compte, exportez en WAV. Si tout était déjà du MP3, exportez en MP3 au débit le plus élevé des entrées (ou plus) — ne convertissez pas vers le bas.</li>
+</ul>
+
+<h2>Après la fusion : loudness et true peak</h2>
+<p>Passez le fichier assemblé dans l'<a href="../index.html">analyseur de loudness</a> avant publication. Deux choses à vérifier : le <strong>LUFS intégré</strong> sur l'ensemble de la fusion (les écarts par partie se moyennent, mais vérifiez qu'on reste près de votre cible — <a href="spotify-loudness.html">-14 pour Spotify</a>), et le <strong><a href="true-peak.html">true peak sous -1 dBTP</a></strong>, car ré-encoder le fichier concaténé peut créer de nouveaux pics inter-échantillons aux jointures même si les sources étaient propres.</p>
+
+<h2>Questions fréquentes</h2>
+<h3>Comment combiner plusieurs fichiers MP3 en un seul ?</h3>
+<p>Chargez les MP3 dans un outil de fusion audio du navigateur, dans l'ordre voulu, puis exportez un seul fichier. L'outil décode chaque MP3, concatène l'audio brut et encode un fichier de sortie unique. Gardez la même fréquence d'échantillonnage partout (44,1 kHz ou 48 kHz) pour le résultat le plus propre.</p>
+<h3>Y aura-t-il des blancs entre les MP3 fusionnés ?</h3>
+<p>L'encodage MP3 ajoute un minuscule silence (~50 ms) au début de chaque fichier à cause du délai d'encodeur. En fusionnant des MP3, rognez ce silence ou partez de sources WAV pour une lecture vraiment continue. Si vous entendez un petit blanc ou un clic à une jointure, un fondu enchaîné de 10 ms le corrige.</p>
+<h3>Peut-on fusionner des fichiers WAV et MP3 ensemble ?</h3>
+<p>Oui. Un outil de fusion dans le navigateur décode chaque entrée en audio brut d'abord, donc formats, fréquences et nombres de canaux mixtes se combinent sans problème — tout est rééchantillonné à une fréquence commune (généralement 44,1 ou 48 kHz) avant fusion. Pour la meilleure qualité, exportez le résultat en WAV si vous prévoyez d'autres montages.</p>
+<h3>Fusionner des fichiers audio réduit-il la qualité ?</h3>
+<p>Fusionner décode chaque entrée et ré-encode la sortie combinée : une génération d'encodage supplémentaire pour les entrées MP3. À 192 kbps et au-delà, c'est inaudible. Fusionner des fichiers WAV est mathématiquement sans perte : les échantillons sont concaténés bit à bit, sans aucun changement de qualité.</p>
+
+<div style="margin-top:36px;padding:20px;border-radius:16px;background:#11141A;border:1px solid #1E232E;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+<div>
+<p style="margin:0;font-size:14px;color:#E6E8EC;font-weight:600">Fusionnez votre audio maintenant — gratuit, aucun envoi, aucune inscription</p>
+<p style="margin:4px 0 0;font-size:12px;color:#9AA0A8">Liste de lecture réordonnable • Silences et fondus enchaînés • MP3 / WAV / M4A / OGG</p>
+</div>
+<a class="btn-lime" href="../trim-audio.html" style="text-decoration:none">Ouvrir l'onglet Fusionner</a>
+</div>
+
+<div style="margin-top:32px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="how-to-split-audio.html" class="kbd" style="text-decoration:none">← Guide : diviser l'audio</a>
+<a href="how-to-trim-audio.html" class="kbd" style="text-decoration:none">Guide : rogner l'audio</a>
+<a href="what-is-lufs.html" class="kbd" style="text-decoration:none">Vérifier le loudness après fusion</a>
+</div>
+
+</main>
+
+
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-row1">
+<div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div>
+<div class="footer-links">
+<a href="../privacy.html">Confidentialité</a><span style="color:#1E232E">·</span>
+<a href="../terms.html">Conditions</a><span style="color:#1E232E">·</span>
+<a href="../cookies.html">Cookies</a><span style="color:#1E232E">·</span>
+<a href="../blog.html">Blog</a><span style="color:#1E232E">·</span>
+<a href="../pricing.html">Tarifs</a><span style="color:#1E232E">·</span>
+<a href="../about.html">À propos</a><span style="color:#1E232E">·</span>
+<a href="../contact.html">Contact</a>
+</div>
+</div>
+<div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Construit à Montréal by Sehmus</span><span>Aucun envoi • Tourne dans le navigateur • Vérifié -14,05 LUFS</span></div><div class="footer-row3" style="margin-top:10px;font-size:11px;color:#9AA0A8">Autres outils gratuits : <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> · <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> · <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> · <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div></div></footer>
+
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none">
+<div style="flex:1">
+<p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies et confidentialité</p>
+<p style="margin:0;font-size:12px;color:#9AA0A8">L'audio ne quitte jamais votre appareil. Nous utilisons des analyses anonymes (GA4) uniquement si vous acceptez. Aucune publicité. <a href="/fr/privacy.html" style="color:#D6FF57">Confidentialité</a> · <a href="/fr/cookies.html" style="color:#D6FF57">Cookies</a></p>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button>
+<button onclick="acceptConsent()" class="btn-lime">Accepter</button>
+</div>
+</div>
+<script src="../../assets/js/main.js" defer></script>
+</body>
+</html>

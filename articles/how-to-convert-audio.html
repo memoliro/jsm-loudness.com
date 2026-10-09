@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>How to Convert Audio Formats: MP3, WAV, M4A, FLAC</title>
+<meta name="description" content="Free online audio converter: MP3 to WAV, WAV to MP3, M4A to MP3, FLAC to MP3. Format comparison table, bitrate guide, honest quality notes. No upload."/>
+  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-convert-audio.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-convert-audio.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/how-to-convert-audio.html"/>
+  <link rel="canonical" href="https://jsm-loudness.com/articles/how-to-convert-audio.html"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="theme-color" content="#0A0C0F"/>
+<link rel="icon" href="/favicon.svg"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="How to Convert Audio Formats: MP3, WAV, M4A, FLAC"/>
+<meta property="og:description" content="Convert audio free online: MP3 to WAV, WAV to MP3, M4A to MP3, FLAC to MP3. Format comparison, bitrate guide, and honest notes on quality. No upload."/>
+<meta property="og:url" content="https://jsm-loudness.com/articles/how-to-convert-audio.html"/>
+<meta property="og:site_name" content="jsm-loudness.com"/>
+<meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="How to Convert Audio Formats: MP3, WAV, M4A, FLAC"/>
+<meta name="twitter:description" content="Free audio format converter: MP3 to WAV, WAV to MP3, M4A to MP3, FLAC to MP3. Comparison table + bitrate guide. Runs in browser."/>
+<link rel="stylesheet" href="../assets/css/style.css?v=20261005d"/>
+<!-- Consent Mode v2 defaults - MUST be before gtag.js -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  analytics_storage:'denied',
+  functionality_storage:'granted',
+  security_storage:'granted',
+  wait_for_update: 500
+});
+gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,sans-serif}
+html,body{margin:0;background:#0A0C0F;color:#E6E8EC;overflow-x:clip;max-width:100vw}
+.mono{font-family:'JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+.header{position:sticky;top:0;z-index:40;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,12,15,0.75);border-bottom:1px solid rgba(30,35,46,0.8);display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px;padding:0 24px;max-width:1200px;margin:0 auto;width:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.02em;font-size:14px;color:#E6E8EC}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#D6FF57;color:#000;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.05em}
+.nav{display:flex;align-items:center;gap:20px;font-size:13px;color:#9AA0A8}
+.nav a{color:#9AA0A8;transition:color .2s,border-color .2s;border-bottom:2px solid transparent;padding-bottom:2px}
+.nav a:hover{color:#fff}
+.nav a.active{color:#fff;border-bottom-color:#D6FF57}
+.dropdown{position:relative}
+.dropdown>a{display:flex;align-items:center;gap:4px}
+.dropdown-menu{opacity:0;visibility:hidden;transform:translateY(8px);transition:all .18s ease;position:absolute;top:100%;left:0;min-width:260px;z-index:1000;background:rgba(15,17,21,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04) inset;padding:8px;display:flex;flex-direction:column;gap:2px}
+.dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown-menu a{padding:10px 12px;border-radius:8px;font-size:13px;color:#E6E8EC;border:1px solid transparent}
+.dropdown-menu a:hover{background:#151821;color:#D6FF57;border-color:rgba(214,255,87,0.15)}
+.dropdown-menu .small{font-size:10px;color:#6B7280;margin-top:6px;padding:8px 12px 4px;border-top:1px solid #1E232E;font-family:'JetBrains Mono',monospace}
+.btn-lime{display:inline-flex;align-items:center;justify-content:center;background:#D6FF57;color:#000;font-weight:700;font-size:12px;letter-spacing:0.02em;padding:9px 16px;border-radius:999px;border:none;cursor:pointer;transition:transform .15s,filter .15s}
+.btn-lime:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer}
+.prose{max-width:760px;margin:0 auto;padding:40px 24px 80px;line-height:1.7}
+.prose .badge{display:inline-flex;background:rgba(16,18,22,0.9);border:1px solid #1E232E;color:#9AA0A8;padding:6px 10px;border-radius:999px;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:0.02em}
+.prose h1{font-size:36px;line-height:1.1;letter-spacing:-0.02em;color:#E6E8EC;margin:18px 0 12px;font-weight:700}
+.prose h2{font-size:20px;line-height:1.3;color:#E6E8EC;margin:40px 0 14px;font-weight:600;letter-spacing:-0.01em}
+.prose h3{font-size:15px;color:#E6E8EC;margin:28px 0 10px;font-weight:600}
+.prose .lead{font-size:17px;line-height:1.6;color:#C5CAD2;margin:0 0 28px}
+.prose p{font-size:14.5px;color:#C5CAD2;margin:0 0 16px}
+.prose ul,.prose ol{padding-left:20px;color:#C5CAD2;font-size:14.5px;margin:0 0 20px}
+.prose li+li{margin-top:8px}
+.prose strong{color:#E6E8EC;font-weight:600}
+.prose code{font-family:'JetBrains Mono',monospace;background:#11141A;border:1px solid #1E232E;padding:2px 6px;border-radius:6px;font-size:12.5px;color:#D6FF57}
+.prose pre{background:#11141A;border:1px solid #1E232E;padding:16px;border-radius:12px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9AA0A8;line-height:1.6;margin:16px 0 24px}
+.prose a{color:#D6FF57;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s}
+.prose a:hover{color:#fff}
+.card{background:#11141A;border:1px solid #1E232E;border-radius:12px;padding:16px 18px;margin:20px 0}
+.card-lime{background:#151A11;border:1px solid rgba(214,255,87,0.25);border-radius:12px;padding:16px 18px;margin:20px 0}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9AA0A8;background:#0F1216;border:1px solid #1E232E;padding:3px 7px;border-radius:6px}
+.table-wrap{overflow:auto;border:1px solid #1E232E;border-radius:12px;margin:20px 0;background:#11141A}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{ text-align:left;padding:12px 14px;background:#0F1216;color:#9AA0A8;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid #1E232E}
+td{padding:12px 14px;border-bottom:1px solid rgba(30,35,46,0.6);color:#C5CAD2}
+tr:last-child td{border-bottom:none}
+.footer{border-top:1px solid #1E232E;background:#080A0C;padding:32px 24px;margin-top:40px}
+.footer-grid{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.footer-row1{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:#9AA0A8}
+.footer-links a{color:#9AA0A8}
+.footer-links a:hover{color:#E6E8EC}
+.footer-row2{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#6B7280;font-family:'JetBrains Mono',monospace;flex-wrap:wrap}
+.consent{position:fixed;bottom:16px;left:16px;right:16px;max-width:680px;margin:0 auto;background:rgba(17,20,26,0.96);backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.6);padding:14px 16px;display:flex;gap:16px;align-items:center;justify-content:space-between;z-index:60}
+@media(max-width:768px){.header{padding:0 16px}.nav{gap:12px;font-size:12px}.prose{padding:24px 16px 60px}.prose h1{font-size:28px}.dropdown-menu{position:fixed;top:56px;left:12px;right:12px;min-width:0}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"How to Convert Audio Formats: MP3, WAV, M4A, FLAC",
+  "description":"Free online audio converter guide: MP3 to WAV, WAV to MP3, M4A to MP3, FLAC to MP3. Format comparison table, bitrate guide, and honest notes on conversion quality. No upload.",
+  "author":{"@type":"Person","name":"Sehmus","url":"https://jsm-loudness.com/about.html"},
+  "publisher":{"@type":"Organization","name":"JSM Loudness","url":"https://jsm-loudness.com/"},
+  "datePublished":"2026-10-09",
+  "dateModified":"2026-10-09",
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://jsm-loudness.com/articles/how-to-convert-audio.html"},
+  "keywords":"convert audio, audio converter, audio format converter, mp3 to wav, wav to mp3, convert m4a to mp3, flac to mp3, audio converter online free"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://jsm-loudness.com/"},
+    {"@type":"ListItem","position":2,"name":"Learn","item":"https://jsm-loudness.com/blog.html"},
+    {"@type":"ListItem","position":3,"name":"How to Convert Audio Formats","item":"https://jsm-loudness.com/articles/how-to-convert-audio.html"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"Does converting MP3 to WAV improve quality?",
+      "acceptedAnswer":{"@type":"Answer","text":"No. Converting MP3 to WAV never improves quality. The MP3 encoder already discarded data permanently during compression — wrapping the same audio in a WAV container just makes the file ~10x larger with identical sound. Convert MP3 to WAV only when software requires a WAV file (some DAWs, samplers, video editors), never for quality."}
+    },
+    {
+      "@type":"Question",
+      "name":"What bitrate should I use when converting WAV to MP3?",
+      "acceptedAnswer":{"@type":"Answer","text":"Use 320 kbps CBR for music you care about, or V0 VBR (~245 kbps average) which is transparent for most listeners at smaller size. 192 kbps is acceptable for voice, podcasts, and casual listening. Avoid 128 kbps for music — cymbal smearing and stereo collapse are audible. If the MP3 is for further editing, don't convert at all; keep the WAV."}
+    },
+    {
+      "@type":"Question",
+      "name":"Is it safe to convert M4A to MP3?",
+      "acceptedAnswer":{"@type":"Answer","text":"Converting M4A (AAC) to MP3 is safe but involves transcoding: AAC is already lossy, and re-encoding to MP3 discards more data. At 256-320 kbps the loss is inaudible to most listeners, but avoid repeated conversions (AAC → MP3 → AAC). If you have the choice, convert from a lossless original (WAV/FLAC) instead of from M4A."}
+    },
+    {
+      "@type":"Question",
+      "name":"Can I convert audio formats online without uploading my files?",
+      "acceptedAnswer":{"@type":"Answer","text":"Yes. JSM Loudness runs its audio tools 100% in your browser using the Web Audio API — your files are decoded and re-encoded locally on your device and never uploaded to any server. This is faster than upload-based converters and keeps private recordings private."}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
+  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</span>
+  <span style="color:#2A3140">|</span>
+  <a href="fr/articles/how-to-convert-audio.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</a>
+</div>
+
+<header class="header">
+  <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
+  <nav class="nav">
+    <a href="../index.html">Analyzer</a>
+    <a href="../bleep-audio.html">Bleep</a><a href="../trim-audio.html">Edit</a>
+    <div class="dropdown">
+      <a href="./what-is-lufs.html">Learn</a>
+      <div class="dropdown-menu">
+        <a href="./what-is-lufs.html">What is LUFS?</a>
+        <a href="./spotify-loudness.html">Spotify -14</a>
+        <a href="./tiktok-loudness.html">TikTok & Shorts</a>
+        <a href="./true-peak.html">True Peak</a>
+        <a href="./lra.html">LRA PLR PSR</a>
+        <a href="./why-minus-14-is-new-zero.html">Why -14 is new 0dB</a>
+        <a href="./dbtp-true-peak-vs-sample.html">DBTP Explained</a>
+        <a href="./ebu-r128-5-minutes.html">EBU R128 5min</a>
+        <a href="./how-to-convert-audio.html">Convert Audio Formats</a>
+        <a href="./how-to-normalize-audio.html">Normalize to -14 LUFS</a>
+        <a href="./how-to-measure-loudness.html">Measure Loudness</a>
+      </div>
+    </div>
+    <a href="../blog.html">Blog</a>
+    <a href="../pricing.html">Pricing</a>
+    <a href="../about.html">About</a>
+  </nav>
+</header>
+
+<main class="prose">
+<div class="badge">AUDIO CONVERSION • 100% IN BROWSER • FREE</div>
+<h1>How to Convert Audio Formats: MP3, WAV, M4A, FLAC</h1>
+<p class="lead">Need to convert audio from one format to another — MP3 to WAV, WAV to MP3, M4A to MP3, or FLAC to MP3? This guide covers which audio format converter settings to use, when conversion helps, when it silently destroys quality, and how to convert audio online free without uploading your files anywhere.</p>
+
+<p>Audio format conversion is one of the most-searched audio tasks, and also one of the most misunderstood. Most online converters happily let you turn a 128 kbps MP3 into a "lossless" WAV — which does nothing except inflate the file tenfold. Before you convert anything, it pays to understand what each format actually is.</p>
+
+<h2>Why convert audio formats?</h2>
+<p>There are four legitimate reasons to run an audio file through a format converter:</p>
+<ul>
+<li><strong>Compatibility.</strong> Your car stereo plays MP3 but not FLAC. Your video editor wants WAV. An old sampler only reads AIFF. Conversion solves the "won't open" problem.</li>
+<li><strong>File size.</strong> A 5-minute WAV is ~50 MB; the same song as 320 kbps MP3 is ~12 MB; as Opus it's ~7 MB. For sharing, streaming, or phone storage, smaller wins.</li>
+<li><strong>Editing workflow.</strong> Lossy formats like MP3 are bad intermediates — every save re-encodes and degrades. Convert to WAV or FLAC before serious editing, then export the final master once.</li>
+<li><strong>Archiving.</strong> Keep masters as WAV or FLAC (bit-perfect), distribute as MP3/AAC/Opus. Never archive in MP3 if you can avoid it.</li>
+</ul>
+<p>What conversion does <em>not</em> do: improve quality. Keep that in mind for the MP3-to-WAV section below — it's the single most common misconception in audio.</p>
+
+<h2>Audio formats compared: MP3 vs WAV vs M4A vs FLAC</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Format</th><th>Codec</th><th>Lossy / Lossless</th><th>Typical size (5 min)</th><th>Best for</th></tr></thead>
+<tbody>
+<tr><td><strong>MP3</strong> <span class="kbd">.mp3</span></td><td>MPEG-1 Layer III</td><td>Lossy</td><td>~12 MB @ 320k</td><td>Universal playback, sharing, DJ USBs</td></tr>
+<tr><td><strong>WAV</strong> <span class="kbd">.wav</span></td><td>PCM uncompressed</td><td>Lossless</td><td>~50 MB</td><td>Masters, DAW editing, video production</td></tr>
+<tr><td><strong>M4A</strong> <span class="kbd">.m4a</span></td><td>AAC (usually)</td><td>Lossy</td><td>~10 MB @ 256k</td><td>Apple ecosystem, iTunes, iPhone</td></tr>
+<tr><td><strong>FLAC</strong> <span class="kbd">.flac</span></td><td>FLAC</td><td>Lossless</td><td>~30 MB</td><td>Archiving, audiophile libraries</td></tr>
+<tr><td><strong>OGG</strong> <span class="kbd">.ogg</span></td><td>Vorbis / Opus</td><td>Lossy</td><td>~7 MB (Opus)</td><td>Streaming, voice, web audio</td></tr>
+<tr><td><strong>AIFF</strong> <span class="kbd">.aiff</span></td><td>PCM uncompressed</td><td>Lossless</td><td>~50 MB</td><td>Mac-based production (WAV equivalent)</td></tr>
+</tbody>
+</table>
+</div>
+<p>The practical rule: <strong>MP3 for compatibility, WAV for production, FLAC for archiving, AAC/M4A for Apple devices, Opus for voice and streaming.</strong> Everything else is a special case.</p>
+
+<h2>MP3 to WAV: what actually happens</h2>
+<p>Converting MP3 to WAV is the most requested conversion — and the most pointless for quality. Here's why: MP3 encoding permanently discards audio data (masked frequencies, fine detail above ~16 kHz at lower bitrates). That data is gone. Decoding to WAV reconstructs a waveform from what's left, but it cannot invent the discarded information. The WAV will be bit-identical in sound to the MP3, just ~10x larger.</p>
+<div class="card">
+<p style="margin:0 0 8px;font-size:13px;color:#E6E8EC;font-weight:600">When MP3 → WAV makes sense</p>
+<ul style="margin:0">
+<li>Your DAW, sampler, or video editor refuses MP3 and demands WAV.</li>
+<li>You're about to edit/process the audio — WAV avoids a second lossy encode.</li>
+<li>A distribution platform requires WAV uploads (many do, e.g. DistroKid).</li>
+</ul>
+</div>
+<p>When it doesn't: "to make it sound better," "to make it lossless," or before uploading to a streaming service that will just re-encode it anyway. If anyone sells you an "MP3 to HD WAV enhancer," walk away.</p>
+
+<h2>WAV to MP3: choosing the right bitrate</h2>
+<p>This is the conversion that matters most, because bitrate choice is audible. MP3 at 320 kbps CBR is transparent (indistinguishable from WAV) for the vast majority of listeners on most material. The differences live at the low end:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Bitrate</th><th>Quality</th><th>Use when</th></tr></thead>
+<tbody>
+<tr><td><strong>320 kbps</strong></td><td>Transparent</td><td>Music distribution, DJ sets, anything you care about</td></tr>
+<tr><td><strong>256 kbps</strong></td><td>Near-transparent</td><td>Good balance for large libraries</td></tr>
+<tr><td><strong>192 kbps</strong></td><td>Good</td><td>Podcasts, voice, casual listening</td></tr>
+<tr><td><strong>128 kbps</strong></td><td>Audible artifacts</td><td>Only for voice memos or extreme size constraints</td></tr>
+<tr><td><strong>V0 VBR</strong></td><td>Transparent (~245k avg)</td><td>Best size/quality trade — recommended default</td></tr>
+</tbody>
+</table>
+</div>
+<p>One more honest note: converting WAV to MP3 is a one-way street. Keep the WAV. If you later need AAC, Opus, or a different MP3 bitrate, encode from the WAV — never from the MP3. Each lossy generation stacks artifacts.</p>
+
+<h2>Convert M4A to MP3 and FLAC to MP3</h2>
+<p><strong>M4A to MP3</strong> is a compatibility move: M4A files (usually AAC) from Apple Music, iTunes, or iPhone recordings need to play on devices that only speak MP3. Technically this is transcoding — AAC already threw away data, and MP3 encoding throws away a little more. At 256–320 kbps the added loss is inaudible to nearly everyone, but avoid chains like AAC → MP3 → AAC. If you have the original CD or WAV, convert from that instead.</p>
+<p><strong>FLAC to MP3</strong> is the clean case: FLAC is lossless, so you're encoding from a perfect source — exactly like WAV to MP3. This is how most people build their portable/phone libraries from an archival FLAC collection. Same bitrate guidance applies: 320k or V0 for music.</p>
+<p>Going the other direction — <strong>MP3 to FLAC</strong> — is as pointless as MP3 to WAV. FLAC will faithfully preserve every MP3 artifact in a bigger file. Don't.</p>
+
+<h2>Does converting audio lose quality?</h2>
+<p>It depends entirely on the direction:</p>
+<ul>
+<li><strong>Lossless → lossy</strong> (WAV→MP3, FLAC→AAC): loses data by design, but at high bitrates it's inaudible. This is normal and fine.</li>
+<li><strong>Lossy → lossless</strong> (MP3→WAV, M4A→FLAC): loses nothing further, gains nothing. File gets bigger, sound stays identical.</li>
+<li><strong>Lossy → lossy</strong> (M4A→MP3, MP3→OGG): loses quality twice. Minimize this — always convert from the best source you have.</li>
+<li><strong>Lossless → lossless</strong> (WAV→FLAC, FLAC→WAV): bit-perfect. Zero loss, fully reversible.</li>
+</ul>
+<div class="card-lime">
+<p style="margin:0 0 6px;font-weight:600;color:#D6FF57;font-size:13px">The golden rule</p>
+<p style="margin:0;font-size:13px;color:#C5CAD2">Always convert <strong>from the highest-quality source you own</strong>, and convert <strong>once</strong>. A WAV → MP3 at 320k beats an M4A → MP3 at 320k every time, because the second one was already lossy.</p>
+</div>
+
+<h2>How to convert audio online free (no upload)</h2>
+<p>Most free audio converter sites make you upload your file, wait in a queue, then download the result — with your audio sitting on someone else's server in between. JSM Loudness does it differently: the Convert tab runs <strong>100% in your browser</strong> using the Web Audio API. Your file is decoded and re-encoded locally on your device. Nothing is uploaded, nothing is stored, and it works offline once loaded.</p>
+<ol>
+<li>Open the <a href="../trim-audio.html">Edit page</a> and switch to the <strong>Convert</strong> tab.</li>
+<li>Drop your audio file (MP3, WAV, M4A, FLAC, OGG — whatever you have).</li>
+<li>Choose the target format and quality settings.</li>
+<li>Hit convert and download the result. Done — no account, no queue, no watermark.</li>
+</ol>
+<p>Because conversion happens locally, there's no file-size limit imposed by a server and no waiting for uploads on slow connections. A 200 MB WAV converts as fast as your device can encode it.</p>
+<p>After converting, it's worth checking the result: run it through the <a href="../index.html">Analyzer</a> to <a href="./how-to-measure-loudness.html">measure its loudness</a> and confirm nothing clipped during the transcode — lossy encoders can push true-peak above 0 dBFS (see <a href="./true-peak.html">True Peak explained</a>).</p>
+
+<h2>Batch conversion tips</h2>
+<ul>
+<li><strong>Convert once, from the best source.</strong> Gather all originals (WAV/FLAC) first; don't chain conversions.</li>
+<li><strong>Keep a consistent target.</strong> Pick one delivery format per purpose (e.g. 320k MP3 for the DJ USB, Opus for the podcast feed) rather than converting ad hoc each time.</li>
+<li><strong>Check loudness after converting.</strong> Format changes don't change loudness, but if you're converting <em>and</em> normalizing for Spotify or YouTube, <a href="./how-to-normalize-audio.html">normalize to -14 LUFS</a> as a separate deliberate step.</li>
+<li><strong>Name outputs clearly:</strong> <code>track-320mp3.mp3</code> beats <code>track(1).mp3</code> when you're managing a library.</li>
+</ul>
+
+<h2>Frequently asked questions</h2>
+<h3>Does converting MP3 to WAV improve quality?</h3>
+<p>No. Converting MP3 to WAV never improves quality. The MP3 encoder already discarded data permanently during compression — wrapping the same audio in a WAV container just makes the file ~10x larger with identical sound. Convert MP3 to WAV only when software requires a WAV file (some DAWs, samplers, video editors), never for quality.</p>
+<h3>What bitrate should I use when converting WAV to MP3?</h3>
+<p>Use 320 kbps CBR for music you care about, or V0 VBR (~245 kbps average) which is transparent for most listeners at a smaller size. 192 kbps is acceptable for voice, podcasts, and casual listening. Avoid 128 kbps for music — cymbal smearing and stereo collapse are audible. If the MP3 is for further editing, don't convert at all; keep the WAV.</p>
+<h3>Is it safe to convert M4A to MP3?</h3>
+<p>Converting M4A (AAC) to MP3 is safe but involves transcoding: AAC is already lossy, and re-encoding to MP3 discards more data. At 256–320 kbps the loss is inaudible to most listeners, but avoid repeated conversions (AAC → MP3 → AAC). If you have the choice, convert from a lossless original (WAV/FLAC) instead of from M4A.</p>
+<h3>Can I convert audio formats online without uploading my files?</h3>
+<p>Yes. JSM Loudness runs its audio tools 100% in your browser using the Web Audio API — your files are decoded and re-encoded locally on your device and never uploaded to any server. This is faster than upload-based converters and keeps private recordings private.</p>
+
+<div style="margin-top:36px;padding:20px;border-radius:16px;background:#11141A;border:1px solid #1E232E;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+<div>
+<p style="margin:0;font-size:14px;color:#E6E8EC;font-weight:600">Convert your audio now — free, no upload, in your browser</p>
+<p style="margin:4px 0 0;font-size:12px;color:#9AA0A8">MP3 · WAV · M4A · FLAC · OGG — Convert tab on the Edit page</p>
+</div>
+<a class="btn-lime" href="../trim-audio.html" style="text-decoration:none">Open Converter</a>
+</div>
+
+<div style="margin-top:32px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="./how-to-normalize-audio.html" class="kbd" style="text-decoration:none">Next: Normalize to -14 LUFS →</a>
+<a href="./how-to-measure-loudness.html" class="kbd" style="text-decoration:none">Measure Loudness</a>
+<a href="./true-peak.html" class="kbd" style="text-decoration:none">True Peak Guide</a>
+</div>
+
+</main>
+
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-row1">
+<div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div>
+<div class="footer-links">
+<a href="../privacy.html">Privacy</a><span style="color:#1E232E">·</span>
+<a href="../terms.html">Terms</a><span style="color:#1E232E">·</span>
+<a href="../cookies.html">Cookies</a><span style="color:#1E232E">·</span>
+<a href="../blog.html">Blog</a><span style="color:#1E232E">·</span>
+<a href="../pricing.html">Pricing</a><span style="color:#1E232E">·</span>
+<a href="../about.html">About</a><span style="color:#1E232E">·</span>
+<a href="../contact.html">Contact</a>
+</div>
+</div>
+<div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Built in Montreal by Sehmus</span><span>No upload • Runs in browser • Verified -14.05 LUFS</span></div><div class="footer-row3" style="margin-top:10px;font-size:11px;color:#9AA0A8">More free tools: <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> · <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> · <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> · <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div></div></footer>
+
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none">
+<div style="flex:1">
+<p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies & privacy</p>
+<p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. We use anonymous analytics (GA4) only if you accept. No ads. <a href="../privacy.html" style="color:#D6FF57">Privacy</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Reject</button>
+<button onclick="acceptConsent()" class="btn-lime">Accept</button>
+</div>
+</div>
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>

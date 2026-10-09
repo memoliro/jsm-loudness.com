@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Couper un Audio en Ligne — Rogner MP3 Gratuit | JSM Loudness</title>
+<meta name="description" content="Rognez vos fichiers MP3 en ligne gratuitement. Coupez, supprimez les silences, précis à la seconde."/>
+  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-trim-audio.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-trim-audio.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/how-to-trim-audio.html"/>
+  <link rel="canonical" href="https://jsm-loudness.com/fr/articles/how-to-trim-audio.html"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="theme-color" content="#0A0C0F"/>
+<link rel="icon" href="../../favicon.ico"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Couper un Audio en Ligne — Rogner MP3 Gratuit"/>
+<meta property="og:description" content="Rognez vos fichiers MP3 en ligne gratuitement. Coupez, supprimez les silences, précis à la seconde."/>
+<meta property="og:url" content="https://jsm-loudness.com/fr/articles/how-to-trim-audio.html"/>
+<meta property="og:site_name" content="jsm-loudness.com"/>
+<meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Couper un Audio en Ligne — Rogner MP3 Gratuit"/>
+<meta name="twitter:description" content="Rognez vos fichiers MP3 en ligne gratuitement. Coupez, supprimez les silences, précis à la seconde."/>
+<link rel="stylesheet" href="../../assets/css/style.css?v=20261005d"/>
+<!-- Consent Mode v2 defaults - MUST be before gtag.js -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  analytics_storage:'denied',
+  functionality_storage:'granted',
+  security_storage:'granted',
+  wait_for_update: 500
+});
+gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,sans-serif}
+html,body{margin:0;background:#0A0C0F;color:#E6E8EC;overflow-x:clip;max-width:100vw}
+.mono{font-family:'JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+.header{position:sticky;top:0;z-index:40;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,12,15,0.75);border-bottom:1px solid rgba(30,35,46,0.8);display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px;padding:0 24px;max-width:1200px;margin:0 auto;width:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.02em;font-size:14px;color:#E6E8EC}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#D6FF57;color:#000;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.05em}
+.nav{display:flex;align-items:center;gap:20px;font-size:13px;color:#9AA0A8}
+.nav a{color:#9AA0A8;transition:color .2s,border-color .2s;border-bottom:2px solid transparent;padding-bottom:2px}
+.nav a:hover{color:#fff}
+.nav a.active{color:#fff;border-bottom-color:#D6FF57}
+.dropdown{position:relative}
+.dropdown>a{display:flex;align-items:center;gap:4px}
+.dropdown-menu{opacity:0;visibility:hidden;transform:translateY(8px);transition:all .18s ease;position:absolute;top:100%;left:0;min-width:260px;z-index:1000;background:rgba(15,17,21,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04) inset;padding:8px;display:flex;flex-direction:column;gap:2px}
+.dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown-menu a{padding:10px 12px;border-radius:8px;font-size:13px;color:#E6E8EC;border:1px solid transparent}
+.dropdown-menu a:hover{background:#151821;color:#D6FF57;border-color:rgba(214,255,87,0.15)}
+.dropdown-menu .small{font-size:10px;color:#6B7280;margin-top:6px;padding:8px 12px 4px;border-top:1px solid #1E232E;font-family:'JetBrains Mono',monospace}
+.btn-lime{display:inline-flex;align-items:center;justify-content:center;background:#D6FF57;color:#000;font-weight:700;font-size:12px;letter-spacing:0.02em;padding:9px 16px;border-radius:999px;border:none;cursor:pointer;transition:transform .15s,filter .15s}
+.btn-lime:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer}
+.prose{max-width:760px;margin:0 auto;padding:40px 24px 80px;line-height:1.7}
+.prose .badge{display:inline-flex;background:rgba(16,18,22,0.9);border:1px solid #1E232E;color:#9AA0A8;padding:6px 10px;border-radius:999px;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:0.02em}
+.prose h1{font-size:36px;line-height:1.1;letter-spacing:-0.02em;color:#E6E8EC;margin:18px 0 12px;font-weight:700}
+.prose h2{font-size:20px;line-height:1.3;color:#E6E8EC;margin:40px 0 14px;font-weight:600;letter-spacing:-0.01em}
+.prose h3{font-size:15px;color:#E6E8EC;margin:28px 0 10px;font-weight:600}
+.prose .lead{font-size:17px;line-height:1.6;color:#C5CAD2;margin:0 0 28px}
+.prose p{font-size:14.5px;color:#C5CAD2;margin:0 0 16px}
+.prose ul,.prose ol{padding-left:20px;color:#C5CAD2;font-size:14.5px;margin:0 0 20px}
+.prose li+li{margin-top:8px}
+.prose strong{color:#E6E8EC;font-weight:600}
+.prose code{font-family:'JetBrains Mono',monospace;background:#11141A;border:1px solid #1E232E;padding:2px 6px;border-radius:6px;font-size:12.5px;color:#D6FF57}
+.prose pre{background:#11141A;border:1px solid #1E232E;padding:16px;border-radius:12px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9AA0A8;line-height:1.6;margin:16px 0 24px}
+.prose a{color:#D6FF57;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s}
+.prose a:hover{color:#fff}
+.card{background:#11141A;border:1px solid #1E232E;border-radius:12px;padding:16px 18px;margin:20px 0}
+.card-lime{background:#151A11;border:1px solid rgba(214,255,87,0.25);border-radius:12px;padding:16px 18px;margin:20px 0}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9AA0A8;background:#0F1216;border:1px solid #1E232E;padding:3px 7px;border-radius:6px}
+.table-wrap{overflow:auto;border:1px solid #1E232E;border-radius:12px;margin:20px 0;background:#11141A}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{ text-align:left;padding:12px 14px;background:#0F1216;color:#9AA0A8;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid #1E232E}
+td{padding:12px 14px;border-bottom:1px solid rgba(30,35,46,0.6);color:#C5CAD2}
+tr:last-child td{border-bottom:none}
+.footer{border-top:1px solid #1E232E;background:#080A0C;padding:32px 24px;margin-top:40px}
+.footer-grid{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.footer-row1{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:#9AA0A8}
+.footer-links a{color:#9AA0A8}
+.footer-links a:hover{color:#E6E8EC}
+.footer-row2{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#6B7280;font-family:'JetBrains Mono',monospace;flex-wrap:wrap}
+.consent{position:fixed;bottom:16px;left:16px;right:16px;max-width:680px;margin:0 auto;background:rgba(17,20,26,0.96);backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.6);padding:14px 16px;display:flex;gap:16px;align-items:center;justify-content:space-between;z-index:60}
+@media(max-width:768px){.header{padding:0 16px}.nav{gap:12px;font-size:12px}.prose{padding:24px 16px 60px}.prose h1{font-size:28px}.dropdown-menu{position:fixed;top:56px;left:12px;right:12px;min-width:0}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Comment couper un audio en ligne — Rogner MP3 gratuit",
+  "description": "Coupez un audio en ligne gratuitement : rognez vos MP3, supprimez les silences et recadrez avec précision. Aucun envoi, aucune inscription — 100 % dans votre navigateur.",
+  "author": {
+    "@type": "Person",
+    "name": "Sehmus",
+    "url": "https://jsm-loudness.com/fr/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "JSM Loudness",
+    "url": "https://jsm-loudness.com/"
+  },
+  "datePublished": "2026-10-09",
+  "dateModified": "2026-10-09",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jsm-loudness.com/fr/articles/how-to-trim-audio.html"
+  },
+  "keywords": "couper audio en ligne, rogner audio, rogner MP3, couper MP3 gratuit, supprimer silence audio, éditeur audio en ligne, raccourcir audio"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://jsm-loudness.com/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Apprendre",
+      "item": "https://jsm-loudness.com/fr/blog.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Comment couper un audio en ligne",
+      "item": "https://jsm-loudness.com/fr/articles/how-to-trim-audio.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Existe-t-il un moyen gratuit de rogner un MP3 en ligne sans inscription ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Les outils de rognage audio dans le navigateur permettent de couper des fichiers MP3 sans rien téléverser ni créer de compte. Déposez le fichier sur la page, sélectionnez une zone sur la forme d'onde, puis exportez. L'audio est traité localement via la Web Audio API : cela fonctionne même hors ligne une fois la page chargée, et votre fichier ne quitte jamais votre appareil."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Rogner un MP3 réduit-il la qualité audio ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rogner dans un outil de navigateur décode le MP3 puis ré-encode le résultat : une génération d'encodage supplémentaire. À 192 kbps et au-delà, la différence est inaudible pour la voix comme pour la musique. Si la qualité est critique, rognez l'original WAV ou FLAC et n'encodez en MP3 qu'une seule fois à la fin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment supprimer le silence au début et à la fin d'un fichier audio ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zoomez sur la forme d'onde, repérez où la ligne plate du silence devient une activité visible, et placez le début de la coupe juste avant le premier son. Faites de même à la fin. Laisser 50 à 100 ms de tonalité de pièce sonne plus naturel qu'une coupe nette au premier échantillon, et un fondu de 10 ms élimine tout clic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence entre rogner et couper un audio ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rogner raccourcit un extrait par son début ou sa fin : on garde le milieu et on écarte les bords. Couper supprime une section n'importe où, y compris au milieu, et referme l'espace. La plupart des outils font les deux : sélectionnez une zone à garder (rogner) ou une zone à supprimer (couper)."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
+  <a href="../../articles/how-to-trim-audio.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a>
+  <span style="color:#2A3140">|</span>
+  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span>
+</div>
+
+<header class="header">
+  <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
+  <nav class="nav">
+    <a href="../index.html">Analyseur</a>
+    <a href="../bleep-audio.html">Bip audio</a><a href="../trim-audio.html">Modifier</a>
+    <div class="dropdown">
+      <a href="./what-is-lufs.html">Apprendre</a>
+      <div class="dropdown-menu">
+        <a href="./what-is-lufs.html">Qu'est-ce que le LUFS ?</a>
+        <a href="./spotify-loudness.html">Spotify -14</a>
+        <a href="./tiktok-loudness.html">TikTok &amp; Shorts</a>
+        <a href="./true-peak.html">True Peak</a>
+        <a href="./lra.html">LRA PLR PSR</a>
+        <a href="./why-minus-14-is-new-zero.html">Pourquoi -14 est le nouveau 0 dB</a>
+        <a href="./dbtp-true-peak-vs-sample.html">DBTP Expliqué</a>
+        <a href="./ebu-r128-5-minutes.html">EBU R128 en 5 min</a>
+        <div class="small">GUIDES DE MONTAGE</div>
+        <a href="./how-to-trim-audio.html">Rogner l'audio</a>
+        <a href="./how-to-split-audio.html">Diviser l'audio</a>
+        <a href="./how-to-join-audio.html">Fusionner l'audio</a>
+      </div>
+    </div>
+    <a href="../blog.html">Blog</a>
+    <a href="../pricing.html">Tarifs</a>
+    <a href="../about.html">À propos</a>
+  </nav>
+</header>
+
+<main class="prose">
+<div class="badge">MONTAGE AUDIO • ROGNER • OUTIL GRATUIT DANS LE NAVIGATEUR</div>
+<h1>Comment couper un audio en ligne</h1>
+<p class="lead">Couper un audio est le montage le plus courant qui soit : supprimer le blanc du début, enlever le silence de fin, ou ne garder que les 30 meilleures secondes. Voici comment couper un audio en ligne en quelques secondes — gratuitement, sans envoi ni inscription — et ce qu'il faut savoir sur la précision, les formats et la qualité.</p>
+
+<p>« Rogner » et « couper » sont souvent utilisés indifféremment, mais ce sont des opérations légèrement différentes. <strong>Rogner</strong> raccourcit un extrait par son début ou sa fin : on garde le milieu et on écarte les bords. <strong>Couper</strong> supprime une section n'importe où, y compris au milieu, et referme l'espace. Un bon outil de rognage audio fait les deux : sélectionnez une zone à garder, ou une zone à supprimer.</p>
+
+<h2>Pourquoi rogner un audio ?</h2>
+<p>Presque chaque enregistrement en a besoin :</p>
+<ul>
+<li><strong>Podcasts et mémos vocaux :</strong> supprimer le « euh, ça enregistre ? » du début et le silence après l'arrêt.</li>
+<li><strong>Sonneries et alertes :</strong> réduire une chanson à ses 20–30 secondes de refrain.</li>
+<li><strong>Samples et boucles :</strong> isoler une mesure propre d'une longue prise.</li>
+<li><strong>Extraits sociaux :</strong> extraire la citation la plus percutante d'une longue interview pour TikTok ou Reels.</li>
+<li><strong>Nettoyage des prises :</strong> supprimer les faux départs, la toux et les longues pauses entre les phrases.</li>
+</ul>
+
+<h2>Trois façons de rogner un audio : navigateur, logiciel, ligne de commande</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Méthode</th><th>Vitesse</th><th>Précision</th><th>Coût</th><th>Idéal pour</th></tr></thead>
+<tbody>
+<tr><td><strong>Outil dans le navigateur</strong></td><td>Quelques secondes</td><td>Au niveau de l'échantillon avec zoom</td><td>Gratuit</td><td>Rognages rapides, sans installation, sur tout appareil</td></tr>
+<tr><td><strong>Audacity (logiciel)</strong></td><td>Quelques minutes (installation + prise en main)</td><td>Au niveau de l'échantillon</td><td>Gratuit</td><td>Montages multipistes complexes</td></tr>
+<tr><td><strong>ffmpeg (ligne de commande)</strong></td><td>Rapide une fois scripté</td><td>Milliseconde</td><td>Gratuit</td><td>Traitements par lots, automatisation</td></tr>
+</tbody>
+</table>
+</div>
+<p>Pour un rognage ponctuel, le navigateur gagne sur la simplicité : aucune installation, aucun compte, aucune attente. Les logiciels de MAO gagnent quand vous superposez des pistes, égalisez et mixez. ffmpeg gagne quand vous devez rogner 200 fichiers à l'identique. Ce guide se concentre sur le navigateur, avec des notes honnêtes sur la place des autres outils.</p>
+
+<h2>Comment rogner un audio dans votre navigateur (pas à pas)</h2>
+<p>Avec l'<a href="../trim-audio.html">outil gratuit pour rogner l'audio</a> de ce site — il tourne à 100 % localement, donc votre fichier n'est envoyé nulle part :</p>
+<ol>
+<li><strong>Déposez votre fichier</strong> sur la page de montage (MP3, WAV, M4A, OGG, FLAC acceptés). La forme d'onde s'affiche en une ou deux secondes.</li>
+<li><strong>Sélectionnez la zone à garder</strong> en glissant sur la forme d'onde. L'affichage indique les temps exacts de début et de fin.</li>
+<li><strong>Zoomez sur les bords.</strong> Au zoom maximal, vous pouvez placer les coupes entre les cycles individuels de la forme d'onde — c'est ainsi qu'on évite les clics.</li>
+<li><strong>Pré-écoutez la sélection</strong> avant de valider. Écoutez la première et la dernière demi-seconde ; si vous entendez un clic, déplacez la limite vers un passage par zéro (là où la forme d'onde croise la ligne centrale).</li>
+<li><strong>Exportez.</strong> Choisissez WAV pour un master sans perte ou MP3 pour le partage. Terminé — le fichier rogné se télécharge aussitôt.</li>
+</ol>
+
+<div class="card-lime">
+<p style="margin:0 0 6px;font-weight:600;color:#D6FF57;font-size:13px">L'astuce du fondu de 10 ms</p>
+<p style="margin:0;font-size:13px;color:#C5CAD2">Si une coupe clique quel que soit son emplacement, ajoutez un fondu d'entrée de 10 ms au début et un fondu de sortie à la fin. Inaudible comme effet, mais cela supprime la discontinuité qui cause le clic. La plupart des rognages en bénéficient.</p>
+</div>
+
+<h3>Des coupes précises : zoom et passages par zéro</h3>
+<p>La précision, c'est l'affaire des <strong>passages par zéro</strong> — les points où la forme d'onde traverse le silence (la ligne centrale). Couper là signifie que le haut-parleur est au repos des deux côtés du montage : aucun pop. Au zoom normal, on devine ; en zoomant, on les voit. Règle d'or : si la forme d'onde ressemble à un bloc plein à votre zoom actuel, zoomez 4× avant de placer la coupe.</p>
+<p>Pour la voix, vous avez plus de marge — coupez dans une pause naturelle et personne ne s'en rendra compte. Pour la musique, surtout chargée en basses, les passages par zéro comptent davantage car les basses fréquences rendent les discontinuités très audibles.</p>
+
+<h2>Supprimer le silence d'un audio : les trois cas</h2>
+<p>« Supprimer le silence » recouvre généralement trois besoins, qui demandent des approches différentes :</p>
+<ul>
+<li><strong>Silence de début et de fin</strong> — le blanc avant le premier son et après le dernier. C'est du pur rognage : zoomez sur la limite, sélectionnez de 0:00 jusqu'au premier son, supprimez. Laissez 50 à 100 ms de tonalité de pièce plutôt que de couper au premier échantillon littéral ; un silence numérique absolu au tout début peut sembler artificiellement abrupt sur certains lecteurs.</li>
+<li><strong>Longues pauses entre les phrases</strong> — fréquent dans les mémos vocaux et les cours. Sélectionnez chaque pause sur la forme d'onde et supprimez, ou resserrez-les à environ 0,4 s. C'est un travail manuel, mais dix minutes de resserrage transforment un mémo décousu de 25 minutes en une écoute dense de 18 minutes.</li>
+<li><strong>Souffle de fond dans les parties « silencieuses »</strong> — ce n'est pas vraiment du silence. Rogner ne corrige pas le bruit ; il faut un noise gate ou un nettoyage spectral. Ne confondez pas les deux tâches.</li>
+</ul>
+<p>Les suppresseurs automatiques de silence utilisent un seuil (par ex. « supprimer tout ce qui est sous -45 dB pendant plus de 0,5 s »). Ils sont rapides mais bêtes — ils mangent les respirations discrètes, les consonnes douces et les queues de réverbération. Pour tout ce qui compte, le rognage manuel sur une forme d'onde zoomée donne de meilleurs résultats en à peine plus de temps.</p>
+
+<h2>Rogner un MP3 : perte de qualité ?</h2>
+<p>Réponse honnête : un outil de rognage dans le navigateur <strong>décode le MP3 en audio brut, applique votre montage, puis ré-encode</strong>. C'est une génération d'encodage supplémentaire. En pratique :</p>
+<ul>
+<li>À <strong>192 kbps et au-delà</strong>, une génération de plus est inaudible pour la voix et presque toute la musique. Ne vous en souciez pas.</li>
+<li>À <strong>128 kbps ou moins</strong>, les artefacts peuvent s'accumuler — les cymbales deviennent sifflantes, l'image stéréo se resserre légèrement.</li>
+<li>Si la qualité est critique, <strong>rognez l'original WAV ou FLAC</strong> et n'encodez en MP3 qu'une seule fois à la toute fin.</li>
+</ul>
+<p>La coupe MP3 sans perte à la trame près existe (des outils comme mp3DirectCut coupent sur les limites de trames MP3 sans ré-encoder) mais vous limite à une granularité d'environ 26 ms, sans fondu ni traitement. Pour 99 % des rognages, décoder-rogner-ré-encoder à haut débit est le bon compromis.</p>
+
+<h2>MP3 ou WAV pour rogner ?</h2>
+<p>Rognez depuis le format que vous avez ; exportez selon la suite :</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Exporter en</th><th>Quand</th></tr></thead>
+<tbody>
+<tr><td><strong>WAV</strong></td><td>Vous allez encore monter, masteriser ou archiver. Sans perte, fichiers plus lourds.</td></tr>
+<tr><td><strong>MP3 192–320 kbps</strong></td><td>Partage, mise en ligne, sonneries, écoute quotidienne. Transparent à ces débits.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Un dernier point : si vous comptez vérifier le loudness après rognage (judicieux — un rognage modifie légèrement le LUFS intégré), passez le résultat dans l'<a href="../index.html">analyseur de loudness</a>. Supprimer une intro calme peut déplacer votre mesure de <a href="what-is-lufs.html">LUFS intégré</a> d'une unité entière ou plus. Voir aussi <a href="spotify-loudness.html">la cible -14 LUFS de Spotify</a> si le fichier rogné est destiné au streaming.</p>
+
+<h2>Cinq erreurs de rognage à éviter</h2>
+<ol>
+<li><strong>Couper les respirations trop serré.</strong> Tout supprimer rend la voix robotique et bizarrement pressée. Resserrez, ne stérilisez pas.</li>
+<li><strong>Pas de fondus sur les coupes musicales.</strong> Même 5 ms évitent les clics. Toujours.</li>
+<li><strong>Rogner la seule copie.</strong> Gardez l'original. Le stockage est bon marché ; réenregistrer ne l'est pas.</li>
+<li><strong>Couper les queues de réverbération.</strong> Ce « silence » à la fin d'une phrase musicale, c'est la pièce qui résonne encore. Coupez dedans et la fin semble tronquée. Laissez la queue, faites un fondu.</li>
+<li><strong>Oublier le true peak après export.</strong> Le ré-encodage peut faire passer les pics inter-échantillons au-dessus de 0 dBFS. Si le fichier part en distribution, vérifiez que le <a href="true-peak.html">true peak reste sous -1 dBTP</a>.</li>
+</ol>
+
+<h2>Rogner selon l'usage</h2>
+<p>Chaque destination veut son rognage :</p>
+<ul>
+<li><strong>Épisodes de podcast :</strong> rognez la tonalité de pièce aux deux bouts, resserrez les pauses à moins d'une seconde, et laissez 0,5 s de respiration avant le premier mot pour que les lecteurs qui rognent le début ne mangent pas votre intro. Exportez en MP3 128–192 kbps mono pour la voix — deux fois moins lourd, intelligibilité identique.</li>
+<li><strong>Sonneries :</strong> restez sous 30 secondes (iOS) ou 45 secondes (Android). Commencez la sélection sur un temps fort, pas au milieu d'une phrase, et ajoutez un fondu de sortie de 300 ms pour ne pas finir en pleine note quand l'appel est décroché.</li>
+<li><strong>Banques de samples :</strong> rognez aux limites exactes des mesures et exportez en WAV. Les producteurs qui transposent votre sample ont besoin de l'original sans perte — un sample MP3 transposé deux fois accumule vite les artefacts.</li>
+<li><strong>Extraits sociaux :</strong> placez l'accroche dans les 2 premières secondes et coupez tout après la chute. Une réponse d'interview de 45 secondes devient un extrait de 15 secondes en rognant l'installation, pas en accélérant.</li>
+</ul>
+
+<h2>Questions fréquentes</h2>
+<h3>Existe-t-il un moyen gratuit de rogner un MP3 en ligne sans inscription ?</h3>
+<p>Oui. Les outils de rognage audio dans le navigateur permettent de couper des fichiers MP3 sans rien téléverser ni créer de compte. Déposez le fichier sur la page, sélectionnez une zone sur la forme d'onde, puis exportez. L'audio est traité localement via la Web Audio API : cela fonctionne même hors ligne une fois la page chargée, et votre fichier ne quitte jamais votre appareil.</p>
+<h3>Rogner un MP3 réduit-il la qualité audio ?</h3>
+<p>Rogner dans un outil de navigateur décode le MP3 puis ré-encode le résultat : une génération d'encodage supplémentaire. À 192 kbps et au-delà, la différence est inaudible pour la voix comme pour la musique. Si la qualité est critique, rognez l'original WAV ou FLAC et n'encodez en MP3 qu'une seule fois à la fin.</p>
+<h3>Comment supprimer le silence au début et à la fin d'un fichier audio ?</h3>
+<p>Zoomez sur la forme d'onde, repérez où la ligne plate du silence devient une activité visible, et placez le début de la coupe juste avant le premier son. Faites de même à la fin. Laisser 50 à 100 ms de tonalité de pièce sonne plus naturel qu'une coupe nette au premier échantillon, et un fondu de 10 ms élimine tout clic.</p>
+<h3>Quelle est la différence entre rogner et couper un audio ?</h3>
+<p>Rogner raccourcit un extrait par son début ou sa fin : on garde le milieu et on écarte les bords. Couper supprime une section n'importe où, y compris au milieu, et referme l'espace. La plupart des outils font les deux : sélectionnez une zone à garder (rogner) ou une zone à supprimer (couper).</p>
+
+<div style="margin-top:36px;padding:20px;border-radius:16px;background:#11141A;border:1px solid #1E232E;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+<div>
+<p style="margin:0;font-size:14px;color:#E6E8EC;font-weight:600">Rognez votre audio maintenant — gratuit, aucun envoi, aucune inscription</p>
+<p style="margin:4px 0 0;font-size:12px;color:#9AA0A8">Outil de rognage sur forme d'onde • Zoom aux passages par zéro • MP3 / WAV / M4A / OGG</p>
+</div>
+<a class="btn-lime" href="../trim-audio.html" style="text-decoration:none">Ouvrir l'onglet Rogner</a>
+</div>
+
+<div style="margin-top:32px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="how-to-split-audio.html" class="kbd" style="text-decoration:none">Suivant : Diviser l'audio →</a>
+<a href="how-to-join-audio.html" class="kbd" style="text-decoration:none">Fusionner des fichiers audio</a>
+<a href="what-is-lufs.html" class="kbd" style="text-decoration:none">Vérifier le loudness après rognage</a>
+</div>
+
+</main>
+
+
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-row1">
+<div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div>
+<div class="footer-links">
+<a href="../privacy.html">Confidentialité</a><span style="color:#1E232E">·</span>
+<a href="../terms.html">Conditions</a><span style="color:#1E232E">·</span>
+<a href="../cookies.html">Cookies</a><span style="color:#1E232E">·</span>
+<a href="../blog.html">Blog</a><span style="color:#1E232E">·</span>
+<a href="../pricing.html">Tarifs</a><span style="color:#1E232E">·</span>
+<a href="../about.html">À propos</a><span style="color:#1E232E">·</span>
+<a href="../contact.html">Contact</a>
+</div>
+</div>
+<div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Construit à Montréal by Sehmus</span><span>Aucun envoi • Tourne dans le navigateur • Vérifié -14,05 LUFS</span></div><div class="footer-row3" style="margin-top:10px;font-size:11px;color:#9AA0A8">Autres outils gratuits : <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> · <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> · <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> · <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div></div></footer>
+
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none">
+<div style="flex:1">
+<p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies et confidentialité</p>
+<p style="margin:0;font-size:12px;color:#9AA0A8">L'audio ne quitte jamais votre appareil. Nous utilisons des analyses anonymes (GA4) uniquement si vous acceptez. Aucune publicité. <a href="/fr/privacy.html" style="color:#D6FF57">Confidentialité</a> · <a href="/fr/cookies.html" style="color:#D6FF57">Cookies</a></p>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button>
+<button onclick="acceptConsent()" class="btn-lime">Accepter</button>
+</div>
+</div>
+<script src="../../assets/js/main.js" defer></script>
+</body>
+</html>

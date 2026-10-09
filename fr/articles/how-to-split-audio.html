@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Diviser un Audio en Ligne — Outil Gratuit | JSM Loudness</title>
+<meta name="description" content="Divisez vos fichiers audio en plusieurs parties gratuitement en ligne. Chapitres, sections, pistes."/>
+  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-split-audio.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-split-audio.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/how-to-split-audio.html"/>
+  <link rel="canonical" href="https://jsm-loudness.com/fr/articles/how-to-split-audio.html"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="theme-color" content="#0A0C0F"/>
+<link rel="icon" href="../../favicon.ico"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Diviser un Audio en Ligne — Outil Gratuit"/>
+<meta property="og:description" content="Divisez vos fichiers audio en plusieurs parties gratuitement en ligne. Chapitres, sections, pistes."/>
+<meta property="og:url" content="https://jsm-loudness.com/fr/articles/how-to-split-audio.html"/>
+<meta property="og:site_name" content="jsm-loudness.com"/>
+<meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Diviser un Audio en Ligne — Outil Gratuit"/>
+<meta name="twitter:description" content="Divisez vos fichiers audio en plusieurs parties gratuitement en ligne. Chapitres, sections, pistes."/>
+<link rel="stylesheet" href="../../assets/css/style.css?v=20261005d"/>
+<!-- Consent Mode v2 defaults - MUST be before gtag.js -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  analytics_storage:'denied',
+  functionality_storage:'granted',
+  security_storage:'granted',
+  wait_for_update: 500
+});
+gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,sans-serif}
+html,body{margin:0;background:#0A0C0F;color:#E6E8EC;overflow-x:clip;max-width:100vw}
+.mono{font-family:'JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+.header{position:sticky;top:0;z-index:40;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,12,15,0.75);border-bottom:1px solid rgba(30,35,46,0.8);display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px;padding:0 24px;max-width:1200px;margin:0 auto;width:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.02em;font-size:14px;color:#E6E8EC}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#D6FF57;color:#000;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.05em}
+.nav{display:flex;align-items:center;gap:20px;font-size:13px;color:#9AA0A8}
+.nav a{color:#9AA0A8;transition:color .2s,border-color .2s;border-bottom:2px solid transparent;padding-bottom:2px}
+.nav a:hover{color:#fff}
+.nav a.active{color:#fff;border-bottom-color:#D6FF57}
+.dropdown{position:relative}
+.dropdown>a{display:flex;align-items:center;gap:4px}
+.dropdown-menu{opacity:0;visibility:hidden;transform:translateY(8px);transition:all .18s ease;position:absolute;top:100%;left:0;min-width:260px;z-index:1000;background:rgba(15,17,21,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04) inset;padding:8px;display:flex;flex-direction:column;gap:2px}
+.dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown-menu a{padding:10px 12px;border-radius:8px;font-size:13px;color:#E6E8EC;border:1px solid transparent}
+.dropdown-menu a:hover{background:#151821;color:#D6FF57;border-color:rgba(214,255,87,0.15)}
+.dropdown-menu .small{font-size:10px;color:#6B7280;margin-top:6px;padding:8px 12px 4px;border-top:1px solid #1E232E;font-family:'JetBrains Mono',monospace}
+.btn-lime{display:inline-flex;align-items:center;justify-content:center;background:#D6FF57;color:#000;font-weight:700;font-size:12px;letter-spacing:0.02em;padding:9px 16px;border-radius:999px;border:none;cursor:pointer;transition:transform .15s,filter .15s}
+.btn-lime:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer}
+.prose{max-width:760px;margin:0 auto;padding:40px 24px 80px;line-height:1.7}
+.prose .badge{display:inline-flex;background:rgba(16,18,22,0.9);border:1px solid #1E232E;color:#9AA0A8;padding:6px 10px;border-radius:999px;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:0.02em}
+.prose h1{font-size:36px;line-height:1.1;letter-spacing:-0.02em;color:#E6E8EC;margin:18px 0 12px;font-weight:700}
+.prose h2{font-size:20px;line-height:1.3;color:#E6E8EC;margin:40px 0 14px;font-weight:600;letter-spacing:-0.01em}
+.prose h3{font-size:15px;color:#E6E8EC;margin:28px 0 10px;font-weight:600}
+.prose .lead{font-size:17px;line-height:1.6;color:#C5CAD2;margin:0 0 28px}
+.prose p{font-size:14.5px;color:#C5CAD2;margin:0 0 16px}
+.prose ul,.prose ol{padding-left:20px;color:#C5CAD2;font-size:14.5px;margin:0 0 20px}
+.prose li+li{margin-top:8px}
+.prose strong{color:#E6E8EC;font-weight:600}
+.prose code{font-family:'JetBrains Mono',monospace;background:#11141A;border:1px solid #1E232E;padding:2px 6px;border-radius:6px;font-size:12.5px;color:#D6FF57}
+.prose pre{background:#11141A;border:1px solid #1E232E;padding:16px;border-radius:12px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9AA0A8;line-height:1.6;margin:16px 0 24px}
+.prose a{color:#D6FF57;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s}
+.prose a:hover{color:#fff}
+.card{background:#11141A;border:1px solid #1E232E;border-radius:12px;padding:16px 18px;margin:20px 0}
+.card-lime{background:#151A11;border:1px solid rgba(214,255,87,0.25);border-radius:12px;padding:16px 18px;margin:20px 0}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9AA0A8;background:#0F1216;border:1px solid #1E232E;padding:3px 7px;border-radius:6px}
+.table-wrap{overflow:auto;border:1px solid #1E232E;border-radius:12px;margin:20px 0;background:#11141A}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{ text-align:left;padding:12px 14px;background:#0F1216;color:#9AA0A8;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid #1E232E}
+td{padding:12px 14px;border-bottom:1px solid rgba(30,35,46,0.6);color:#C5CAD2}
+tr:last-child td{border-bottom:none}
+.footer{border-top:1px solid #1E232E;background:#080A0C;padding:32px 24px;margin-top:40px}
+.footer-grid{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.footer-row1{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:#9AA0A8}
+.footer-links a{color:#9AA0A8}
+.footer-links a:hover{color:#E6E8EC}
+.footer-row2{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#6B7280;font-family:'JetBrains Mono',monospace;flex-wrap:wrap}
+.consent{position:fixed;bottom:16px;left:16px;right:16px;max-width:680px;margin:0 auto;background:rgba(17,20,26,0.96);backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.6);padding:14px 16px;display:flex;gap:16px;align-items:center;justify-content:space-between;z-index:60}
+@media(max-width:768px){.header{padding:0 16px}.nav{gap:12px;font-size:12px}.prose{padding:24px 16px 60px}.prose h1{font-size:28px}.dropdown-menu{position:fixed;top:56px;left:12px;right:12px;min-width:0}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Comment diviser un audio en plusieurs parties — Outil gratuit en ligne",
+  "description": "Divisez un fichier audio en plusieurs parties gratuitement en ligne : découpez vos MP3, séparez un podcast en chapitres, coupez un long enregistrement au silence. Aucun envoi — divisez dans votre navigateur.",
+  "author": {
+    "@type": "Person",
+    "name": "Sehmus",
+    "url": "https://jsm-loudness.com/fr/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "JSM Loudness",
+    "url": "https://jsm-loudness.com/"
+  },
+  "datePublished": "2026-10-09",
+  "dateModified": "2026-10-09",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jsm-loudness.com/fr/articles/how-to-split-audio.html"
+  },
+  "keywords": "diviser audio, séparer fichier audio, diviser MP3, découper audio en pistes, séparer podcast en chapitres, diviseur audio en ligne, couper long enregistrement"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://jsm-loudness.com/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Apprendre",
+      "item": "https://jsm-loudness.com/fr/blog.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Comment diviser un audio en plusieurs parties",
+      "item": "https://jsm-loudness.com/fr/articles/how-to-split-audio.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Comment découper un gros MP3 en fichiers plus petits ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chargez le MP3 dans un outil de division audio du navigateur, placez des marqueurs où vous voulez couper (aux silences, aux chapitres ou à intervalles réguliers), puis exportez chaque segment. L'outil décode le MP3 une fois et encode chaque partie séparément. Pour la voix à 128 kbps et au-delà, la génération d'encodage supplémentaire est inaudible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on diviser un audio automatiquement aux silences ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui — la division au silence détecte les blancs sous un seuil de loudness (par exemple -45 dB pendant plus de 0,5 seconde) et coupe à ces endroits. Cela marche bien pour les livres audio et les cours avec des pauses nettes, mais peut se tromper sur les passages calmes, les respirations ou les queues de réverbération. Pour la musique ou les podcasts avec fondus enchaînés, les marqueurs manuels donnent des résultats plus propres."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Diviser un MP3 affecte-t-il la qualité audio ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Diviser décode puis ré-encode chaque partie, ajoutant une génération d'encodage. À 192 kbps et au-delà, c'est inaudible. S'il vous faut des découpes parfaites au bit près, coupez sur les limites de trames MP3 (granularité d'environ 26 ms) avec un outil dédié — mais vous perdez la précision de placement et les fondus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment séparer un podcast en chapitres titrés ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Placez un marqueur de division au début de chaque chapitre et exportez les segments, puis nommez chaque fichier avec son titre (p. ex. 01-intro.mp3, 02-interview.mp3). Pour des chapitres intégrés navigables dans les lecteurs, exportez en M4A avec métadonnées de chapitres ou publiez les horodatages dans vos notes d'épisode — la plupart des applis de podcast les lisent."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
+  <a href="../../articles/how-to-split-audio.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a>
+  <span style="color:#2A3140">|</span>
+  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span>
+</div>
+
+<header class="header">
+  <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
+  <nav class="nav">
+    <a href="../index.html">Analyseur</a>
+    <a href="../bleep-audio.html">Bip audio</a><a href="../trim-audio.html">Modifier</a>
+    <div class="dropdown">
+      <a href="./what-is-lufs.html">Apprendre</a>
+      <div class="dropdown-menu">
+        <a href="./what-is-lufs.html">Qu'est-ce que le LUFS ?</a>
+        <a href="./spotify-loudness.html">Spotify -14</a>
+        <a href="./tiktok-loudness.html">TikTok &amp; Shorts</a>
+        <a href="./true-peak.html">True Peak</a>
+        <a href="./lra.html">LRA PLR PSR</a>
+        <a href="./why-minus-14-is-new-zero.html">Pourquoi -14 est le nouveau 0 dB</a>
+        <a href="./dbtp-true-peak-vs-sample.html">DBTP Expliqué</a>
+        <a href="./ebu-r128-5-minutes.html">EBU R128 en 5 min</a>
+        <div class="small">GUIDES DE MONTAGE</div>
+        <a href="./how-to-trim-audio.html">Rogner l'audio</a>
+        <a href="./how-to-split-audio.html">Diviser l'audio</a>
+        <a href="./how-to-join-audio.html">Fusionner l'audio</a>
+      </div>
+    </div>
+    <a href="../blog.html">Blog</a>
+    <a href="../pricing.html">Tarifs</a>
+    <a href="../about.html">À propos</a>
+  </nav>
+</header>
+
+<main class="prose">
+<div class="badge">MONTAGE AUDIO • DIVISER • OUTIL GRATUIT DANS LE NAVIGATEUR</div>
+<h1>Comment diviser un audio en plusieurs parties</h1>
+<p class="lead">Un long enregistrement en entrée, plusieurs fichiers propres en sortie. Diviser un audio, c'est transformer un podcast en chapitres, un mix DJ en liste de morceaux, et un cours de deux heures en leçons digestes. Voici comment diviser un fichier audio en ligne — gratuitement, sans envoi — et comment choisir des points de coupe qui semblent intentionnels plutôt que hachés.</p>
+
+<p>Diviser est l'inverse de <a href="how-to-join-audio.html">fusionner des fichiers audio</a> : au lieu de combiner, on sépare. La mécanique est simple — choisir des points de coupe, exporter chaque zone — mais c'est <em>l'emplacement</em> des coupes qui détermine si les parties semblent avoir toujours été séparées ou arrachées de force.</p>
+
+<h2>Quand diviser un audio ?</h2>
+<ul>
+<li><strong>Chapitres de podcast :</strong> un épisode de 90 minutes devient 6 à 8 segments titrés entre lesquels les auditeurs peuvent naviguer. Les chapitres augmentent les taux d'écoute complète car on peut sauter les parties sans intérêt.</li>
+<li><strong>Mix DJ et lives :</strong> découper un mix continu en fichiers par morceau pour les plateformes qui exigent des pistes séparées.</li>
+<li><strong>Livres audio :</strong> un fichier par chapitre. Les distributeurs de livres audio (ACX, Findaway) exigent des fichiers par chapitre — un seul MP3 de 10 heures est refusé.</li>
+<li><strong>Cours et réunions :</strong> diviser un enregistrement de deux heures par sujet pour que chaque partie soit retrouvable et partageable seule.</li>
+<li><strong>Récolte de samples :</strong> extraire des coups de batterie, des chops vocaux ou des boucles d'un enregistrement plus long.</li>
+<li><strong>Limites de taille :</strong> certaines plateformes plafonnent les envois à 100–250 Mo. Diviser un long WAV en parties contourne la limite sans tout ré-encoder en basse qualité.</li>
+</ul>
+
+<h2>Trois façons de choisir les points de coupe</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Méthode</th><th>Principe</th><th>Idéal pour</th><th>Attention</th></tr></thead>
+<tbody>
+<tr><td><strong>Marqueurs manuels</strong></td><td>Vous placez chaque coupe à l'œil et à l'oreille sur la forme d'onde</td><td>Podcasts, musique, tout ce qui demande de l'intention</td><td>Prend quelques minutes</td></tr>
+<tr><td><strong>Division au silence</strong></td><td>Détecte automatiquement les blancs sous un seuil de loudness</td><td>Livres audio, cours avec des pauses nettes</td><td>Mange les passages calmes, les respirations, les queues de réverbe</td></tr>
+<tr><td><strong>Intervalles fixes</strong></td><td>Coupe toutes les N minutes sans tenir compte du contenu</td><td>Limites de taille, archivage sommaire</td><td>Coupe en plein mot, en pleine note</td></tr>
+</tbody>
+</table>
+</div>
+<p>Les marqueurs manuels gagnent toujours sur la qualité. La détection de silence est une bonne première passe pour la voix avec des pauses nettes — lancez-la, puis contrôlez chaque coupe et corrigez les mauvaises. Un bon seuil de départ : <span class="kbd">-45 dB</span> pendant <span class="kbd">0,5 s</span> ; montez le seuil (vers -35 dB) pour les pièces bruyantes, baissez-le (vers -55 dB) pour les enregistrements très calmes. Les intervalles fixes sont un dernier recours ; ne les utilisez que quand le contenu n'a vraiment pas d'importance (p. ex. découper un field recording de 4 heures en archives d'1 heure).</p>
+
+<h2>Comment diviser un audio dans votre navigateur (pas à pas)</h2>
+<p>Avec l'<a href="../trim-audio.html">outil gratuit pour diviser l'audio</a> (l'onglet Diviser de l'éditeur) — tout tourne localement, rien n'est envoyé :</p>
+<ol>
+<li><strong>Chargez le fichier.</strong> Déposez votre MP3, WAV, M4A ou OGG sur la page. Les longs fichiers mettent quelques secondes à se décoder et à s'afficher.</li>
+<li><strong>Parcourez une fois</strong> à vitesse normale et notez les ruptures naturelles — changements de sujet, silences, transitions de morceaux. Déposez un marqueur à chacune.</li>
+<li><strong>Zoomez sur chaque marqueur.</strong> Ajustez-le au silence ou au passage par zéro le plus proche. Pour la voix, placez la coupe dans la pause <em>entre</em> les phrases, en laissant un souffle de tonalité de pièce de chaque côté.</li>
+<li><strong>Pré-écoutez les limites.</strong> Jouez les 2 dernières secondes de la partie N et les 2 premières de la partie N+1. Si l'une commence ou finit en plein mot, déplacez le marqueur.</li>
+<li><strong>Exportez toutes les parties.</strong> Chaque zone se télécharge comme son propre fichier. Nommez-les au fur et à mesure (voir ci-dessous) pour ne pas finir avec <code>partie1.mp3</code> … <code>partie27.mp3</code>.</li>
+</ol>
+
+<div class="card-lime">
+<p style="margin:0 0 6px;font-weight:600;color:#D6FF57;font-size:13px">La règle des 200 ms</p>
+<p style="margin:0;font-size:13px;color:#C5CAD2">Laissez au moins 200 ms de silence (ou de tonalité de pièce) au début et à la fin de chaque partie. Les lecteurs et les téléphones rognent souvent les premières millisecondes d'un fichier — sans cette marge, la première syllabe de chaque chapitre est mangée.</p>
+</div>
+
+<h3>Diviser un podcast en chapitres</h3>
+<p>Les chapitres de podcast ont leurs conventions. Nommez les fichiers avec un préfixe numérique pour un tri correct : <code>01-intro.mp3</code>, <code>02-actu.mp3</code>, <code>03-interview.mp3</code>. Gardez les musiques d'intro et d'outro attachées au premier et au dernier chapitre plutôt qu'en fichiers isolés — les auditeurs qui sautent les chapitres s'attendent à ce que la musique appartienne quelque part.</p>
+<p>Pour des chapitres navigables <em>à l'intérieur</em> d'un seul fichier (plutôt que des fichiers séparés), il faut des métadonnées de chapitres intégrées : exportez en M4A avec une piste de chapitres, ou publiez les horodatages dans vos notes d'épisode. La plupart des applis de podcast lisent l'un ou l'autre. Des fichiers MP3 séparés par chapitre restent la voie la plus simple et universellement compatible.</p>
+
+<h2>Diviser un MP3 sans perte de qualité : la version honnête</h2>
+<p>Comme pour <a href="how-to-trim-audio.html">rogner</a>, diviser dans un navigateur décode le MP3 et ré-encode chaque partie — une génération d'encodage supplémentaire. À 192 kbps et au-delà, c'est inaudible. Deux alternatives honnêtes existent :</p>
+<ul>
+<li><strong>Coupe sur limites de trames</strong> (mp3DirectCut et similaires) : divise sans ré-encoder, parfait au bit près — mais les coupes s'alignent sur des trames MP3 d'environ 26 ms et les fondus sont impossibles. Bien pour l'archivage sommaire, mauvais pour les chapitres.</li>
+<li><strong>Divisez l'original sans perte</strong> et encodez les parties une fois à la fin. Si vous avez enregistré en WAV, faites toutes vos divisions là.</li>
+</ul>
+<p>Pour 99 % des divisions réelles — podcasts, cours, mix — décodez, coupez précisément avec des fondus, et ré-encodez à 192 kbps ou plus. La précision vaut bien plus que la perte théorique d'une génération.</p>
+
+<h2>Nommer et organiser les parties</h2>
+<p>Faites-le avant d'exporter, pas après. Un schéma qui survit au temps :</p>
+<pre>2026-10-09_ep42_01_intro.mp3
+2026-10-09_ep42_02_sujet-principal.mp3
+2026-10-09_ep42_03_questions.mp3
+2026-10-09_ep42_04_outro.mp3</pre>
+<p>Date + projet + index sur deux chiffres + nom. Tri correct partout, recherche facile, et toujours compréhensible dans cinq ans. Évitez les espaces (utilisez des traits d'union) — certains services d'envoi et scripts s'y étouffent.</p>
+
+<h2>Diviser de la musique : mix DJ et lives</h2>
+<p>La musique est plus dure à diviser que la voix car il y a rarement des silences nets — les mix enchaînent en fondu, le public applaudit entre les morceaux, et la basse ne s'arrête jamais vraiment. Abordez cela différemment :</p>
+<ul>
+<li><strong>Coupez sur le temps, pas dans le blanc.</strong> Trouvez le premier temps où tombe le kick du nouveau morceau et placez le marqueur juste avant. Couper en plein fondu enchaîné sonne naturel car l'énergie est continue ; couper dans un moment « calme » qui ne l'est pas vraiment sonne comme un bug.</li>
+<li><strong>Gardez le bruit du public.</strong> Pour les lives, une seconde d'applaudissements à la fin de la partie N et au début de la partie N+1 agit comme un fondu enchaîné dans la tête de l'auditeur. Les coupes stériles entre morceaux sonnent faux.</li>
+<li><strong>Suivez la structure du mix.</strong> La plupart des DJs mixent 1 à 2 minutes par transition. Vos points de coupe doivent tomber là où le morceau <em>précédent</em> a essentiellement disparu, pas au milieu mathématique du fondu.</li>
+<li><strong>Exportez à la qualité source.</strong> Si le mix est un MP3 320 kbps, exportez les parties en 320. Convertir un mix en 128 pour gagner de la place éteint sensiblement les aigus sur un gros système.</li>
+</ul>
+
+<h2>Diviser ou rogner : que vous faut-il ?</h2>
+<p>Guide de décision rapide : si vous voulez <strong>un seul fichier</strong> sans les passages ennuyeux, c'est <a href="how-to-trim-audio.html">rogner</a>. Si vous voulez <strong>plusieurs fichiers</strong> à partir d'un enregistrement, c'est diviser. Les deux se combinent souvent — rognez d'abord le blanc de l'enregistrement entier, <em>puis</em> divisez-le en chapitres. Dans cet ordre, vous ne nettoyez les bords qu'une fois.</p>
+<p>Et si vous décidez plus tard que les chapitres auraient dû rester un seul fichier, les <a href="how-to-join-audio.html">refusionner</a> est l'opération inverse.</p>
+
+<h2>Contrôle du loudness après division</h2>
+<p>Diviser modifie le loudness de chaque partie : un chapitre d'intro calme peut mesurer -20 LUFS quand le contenu principal tape à -14. Si les parties seront écoutées séparément (ou normalisées individuellement par une plateforme), passez chacune dans l'<a href="../index.html">analyseur de loudness</a> et notez le <a href="what-is-lufs.html">LUFS intégré</a> par partie. Pour une distribution podcast visant le <a href="spotify-loudness.html">-14 LUFS de Spotify</a>, un loudness homogène par chapitre compte plus que la moyenne de l'épisode entier. Vérifiez aussi que le <a href="true-peak.html">true peak reste sous -1 dBTP</a> sur chaque partie après ré-encodage.</p>
+
+<h2>Questions fréquentes</h2>
+<h3>Comment découper un gros MP3 en fichiers plus petits ?</h3>
+<p>Chargez le MP3 dans un outil de division audio du navigateur, placez des marqueurs où vous voulez couper (aux silences, aux chapitres ou à intervalles réguliers), puis exportez chaque segment. L'outil décode le MP3 une fois et encode chaque partie séparément. Pour la voix à 128 kbps et au-delà, la génération d'encodage supplémentaire est inaudible.</p>
+<h3>Peut-on diviser un audio automatiquement aux silences ?</h3>
+<p>Oui — la division au silence détecte les blancs sous un seuil de loudness (par exemple -45 dB pendant plus de 0,5 seconde) et coupe à ces endroits. Cela marche bien pour les livres audio et les cours avec des pauses nettes, mais peut se tromper sur les passages calmes, les respirations ou les queues de réverbération. Pour la musique ou les podcasts avec fondus enchaînés, les marqueurs manuels donnent des résultats plus propres.</p>
+<h3>Diviser un MP3 affecte-t-il la qualité audio ?</h3>
+<p>Diviser décode puis ré-encode chaque partie, ajoutant une génération d'encodage. À 192 kbps et au-delà, c'est inaudible. S'il vous faut des découpes parfaites au bit près, coupez sur les limites de trames MP3 (granularité d'environ 26 ms) avec un outil dédié — mais vous perdez la précision de placement et les fondus.</p>
+<h3>Comment séparer un podcast en chapitres titrés ?</h3>
+<p>Placez un marqueur de division au début de chaque chapitre et exportez les segments, puis nommez chaque fichier avec son titre (p. ex. 01-intro.mp3, 02-interview.mp3). Pour des chapitres intégrés navigables dans les lecteurs, exportez en M4A avec métadonnées de chapitres ou publiez les horodatages dans vos notes d'épisode — la plupart des applis de podcast les lisent.</p>
+
+<div style="margin-top:36px;padding:20px;border-radius:16px;background:#11141A;border:1px solid #1E232E;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+<div>
+<p style="margin:0;font-size:14px;color:#E6E8EC;font-weight:600">Divisez votre audio maintenant — gratuit, aucun envoi, aucune inscription</p>
+<p style="margin:4px 0 0;font-size:12px;color:#9AA0A8">Division par marqueurs • Détection de silence • MP3 / WAV / M4A / OGG</p>
+</div>
+<a class="btn-lime" href="../trim-audio.html" style="text-decoration:none">Ouvrir l'onglet Diviser</a>
+</div>
+
+<div style="margin-top:32px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="how-to-join-audio.html" class="kbd" style="text-decoration:none">Suivant : Fusionner l'audio →</a>
+<a href="how-to-trim-audio.html" class="kbd" style="text-decoration:none">Guide : rogner l'audio</a>
+<a href="what-is-lufs.html" class="kbd" style="text-decoration:none">Vérifier le loudness par partie</a>
+</div>
+
+</main>
+
+
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-row1">
+<div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span><span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span><span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 • EBU R128 Accurate • 100% Browser - No Upload</span></div>
+<div class="footer-links">
+<a href="../privacy.html">Confidentialité</a><span style="color:#1E232E">·</span>
+<a href="../terms.html">Conditions</a><span style="color:#1E232E">·</span>
+<a href="../cookies.html">Cookies</a><span style="color:#1E232E">·</span>
+<a href="../blog.html">Blog</a><span style="color:#1E232E">·</span>
+<a href="../pricing.html">Tarifs</a><span style="color:#1E232E">·</span>
+<a href="../about.html">À propos</a><span style="color:#1E232E">·</span>
+<a href="../contact.html">Contact</a>
+</div>
+</div>
+<div class="footer-row2"><span>© 2026 jsm-loudness.com · Montreal, QC · Construit à Montréal by Sehmus</span><span>Aucun envoi • Tourne dans le navigateur • Vérifié -14,05 LUFS</span></div><div class="footer-row3" style="margin-top:10px;font-size:11px;color:#9AA0A8">Autres outils gratuits : <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> · <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> · <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> · <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div></div></footer>
+
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none">
+<div style="flex:1">
+<p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies et confidentialité</p>
+<p style="margin:0;font-size:12px;color:#9AA0A8">L'audio ne quitte jamais votre appareil. Nous utilisons des analyses anonymes (GA4) uniquement si vous acceptez. Aucune publicité. <a href="/fr/privacy.html" style="color:#D6FF57">Confidentialité</a> · <a href="/fr/cookies.html" style="color:#D6FF57">Cookies</a></p>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button>
+<button onclick="acceptConsent()" class="btn-lime">Accepter</button>
+</div>
+</div>
+<script src="../../assets/js/main.js" defer></script>
+</body>
+</html>
