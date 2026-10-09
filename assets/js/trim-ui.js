@@ -203,7 +203,7 @@ function Transport(wave, updateUI) {
       wave.setPlayhead(offset);
       var self = this;
       src.onended = function () {
-        if (self.src === src) { wave.setPlayhead(buf.duration); self.stop(true); }
+        if (self.src === src) { wave.setPlayhead(buf.duration); self.stop(true); updateUI(); }
       };
       updateUI(); this.tick();
     },
@@ -224,7 +224,11 @@ function Transport(wave, updateUI) {
     toggle: function (buf, offset) {
       if (this.playing()) this.pause();
       else if (this.ctx && this.paused) this.resume();
-      else this.play(buf, offset == null ? wave.playheadTime : offset);
+      else {
+        var off = (offset == null) ? wave.playheadTime : offset;
+        if (buf && off >= buf.duration - 0.25) off = 0;
+        this.play(buf, off);
+      }
     },
     stop: function (silent) {
       if (this.src) {
@@ -232,7 +236,7 @@ function Transport(wave, updateUI) {
       }
       if (this.ctx) { try { this.ctx.close(); } catch (e) {} }
       this.ctx = null; this.src = null; this.paused = false; this.buf = null;
-      if (!silent) { wave.setPlayhead(wave.playheadTime); updateUI(); }
+      if (!silent) { wave.setPlayhead(0); updateUI(); }
     },
     now: function () {
       if (!this.ctx) return this.offset;
@@ -457,6 +461,7 @@ var trim = (function () {
   }
 
   function doPreview() {
+    if (transport.playing()) { transport.stop(); updateUI(); return; }
     if (!decoded) return;
     if (pendingOp) {
       var res = buildResult(pendingOp);
