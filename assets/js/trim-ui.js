@@ -84,7 +84,7 @@ function parseTime(str) {
 var tabBtns = Array.prototype.slice.call(document.querySelectorAll('[data-ttab]'));
 function showTab(name) {
   tabBtns.forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-ttab') === name); });
-  ['trim', 'split', 'join'].forEach(function (k) {
+  ['trim', 'split', 'join', 'convert'].forEach(function (k) {
     var p = $('trimPanel-' + k);
     if (p) p.hidden = (k !== name);
   });
@@ -326,6 +326,7 @@ var sessionRestore = (function () {
   if (isRefresh) return Promise.resolve(true);
   return Persist.clear('trim').then(function () { return Persist.clear('split'); })
     .then(function () { return Persist.clear('join'); })
+    .then(function () { return Persist.clear('convert'); })
     .then(function () { return false; });
 })();
 
@@ -1122,6 +1123,180 @@ var join = (function () {
   };
 })();
 
+/* ================= CONVERT TAB ================= */
+
+var convert = (function () {
+  var decoded = null, fileName = '', channels = null;
+  var result = null; // {blob, ext}
+
+  var el = {};
+  ['convDrop', 'convFile', 'convStage', 'convFileInfo', 'convHint',
+   'convFormat', 'convQuality', 'convQualityWrap',
+   'convConvert', 'convDownload', 'convReplace'
+  ].forEach(function (id) { el[id] = $(id); });
+
+  function setHint(m) { el.convHint.textContent = m || ''; }
+
+  function updateUI() {
+    var has = !!decoded;
+    el.convConvert.disabled = !has || converting;
+    el.convDownload.disabled = !result;
+    el.convQualityWrap.style.display = el.convFormat.value === 'mp3' ? '' : 'none';
+  }
+
+  function loadFile(f) {
+    if (!isAudioFile(f)) { alert(t('notAudio')); return; }
+    setHint(t('decoding'));
+    converting = false; result = null;
+    decodeFile(f).then(function (ab) {
+      decoded = ab; fileName = f.name;
+      channels = bufferChannels(ab);
+      el.convDrop.style.display = 'none';
+      el.convStage.style.display = 'block';
+      el.convFileInfo.textContent = fileName + ' \u2014 ' + fmt(ab.duration) + ' \u00b7 ' +
+        ab.numberOfChannels + (ab.numberOfChannels > 1 ? t('chStereo') : t('chMono'));
+      setHint('');
+      updateUI();
+      Persist.save('convert', f);
+    }).catch(function () { alert(t('decodeFail')); setHint(''); });
+  }
+
+  function floatTo16(ch) {
+    var out = new Int16Array(ch.length);
+    for (var i = 0; i < ch.length; i++) {
+      var v = Math.max(-1, Math.min(1, ch[i]));
+      out[i] = v < 0 ? v * 0x8000 : v * 0x7FFF;
+    }
+    return out;
+  }
+
+  // lamejs only does mono/stereo: downmix anything wider
+  function toStereo(chs) {
+    if (chs.length === 1) return [chs[0]];
+    if (chs.length === 2) return chs;
+    var n = chs[0].length, l = new Float32Array(n), r = new Float32Array(n);
+    for (var i = 0; i < n; i++) {
+      var sl = 0, sr = 0;
+      for (var c = 0; c < chs.length; c++) {
+        if (c % 2 === 0) sl += chs[c][i]; else sr += chs[c][i];
+      }
+      l[i] = sl / Math.ceil(chs.length / 2); r[i] = sr / Math.floor(chs.length / 2);
+    }
+    return [l, r];
+  }
+
+  function lameUrl() {
+    var sc = document.querySelector('script[src*="trim-ui.js"]');
+    var src = sc ? sc.getAttribute('src') : 'assets/js/trim-ui.js';
+    return src.split('?')[0].replace(/trim-ui\.js$/, 'lame.min.js');
+  }
+
+  function ensureLame() {
+    return new Promise(function (res, rej) {
+      if (window.lamejs && window.lamejs.Mp3Encoder) return res();
+      var sc = document.createElement('script');
+      sc.src = lameUrl();
+      sc.onload = function () {
+        (window.lamejs && window.lamejs.Mp3Encoder) ? res() : rej(new Error('no lamejs'));
+      };
+      sc.onerror = function () { rej(new Error('load fail')); };
+      document.head.appendChild(sc);
+    });
+  }
+
+  function encodeMp3(kbps) {
+    var st = toStereo(channels), sr = decoded.sampleRate;
+    var enc = new lamejs.Mp3Encoder(st.length, sr, kbps);
+    var left = floatTo16(st[0]);
+    var right = st.length > 1 ? floatTo16(st[1]) : null;
+    var parts = [], block = 1152, i, chunk;
+    for (i = 0; i < left.length; i += block) {
+      var l = left.subarray(i, i + block);
+      chunk = right ? enc.encodeBuffer(l, right.subarray(i, i + block)) : enc.encodeBuffer(l);
+      if (chunk.length) parts.push(new Int8Array(chunk));
+    }
+    chunk = enc.flush();
+    if (chunk.length) parts.push(new Int8Array(chunk));
+    return new Blob(parts, { type: 'audio/mpeg' });
+  }
+
+  var converting = false;
+  function doConvert() {
+    if (!decoded || converting) return;
+    converting = true; result = null; updateUI();
+    setHint(t('convConverting'));
+    // let the UI paint before the (possibly heavy) encode
+    setTimeout(function () {
+      try {
+        var fmt_ = el.convFormat.value, blob, ext;
+        if (fmt_ === 'wav') {
+          var wav = BA.encodeWav(channels, decoded.sampleRate);
+          blob = new Blob([wav], { type: 'audio/wav' }); ext = 'wav';
+          finish(blob, ext);
+        } else {
+          var kbps = parseInt(el.convQuality.value, 10) || 192;
+          setHint(t('convMp3Loading'));
+          ensureLame().then(function () {
+            try { finish(encodeMp3(kbps), 'mp3'); }
+            catch (e) { fail(); }
+          }).catch(function () { converting = false; updateUI(); setHint(t('convMp3Fail')); });
+        }
+      } catch (e) { fail(); }
+    }, 30);
+    function finish(blob, ext) {
+      converting = false;
+      result = { blob: blob, ext: ext };
+      updateUI();
+      setHint(t('convDone'));
+    }
+    function fail() { converting = false; updateUI(); setHint(t('convFail')); }
+  }
+
+  function doDownload() {
+    if (!result) return;
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(result.blob);
+    a.download = baseName(fileName) + '.' + result.ext;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 3000);
+  }
+
+  el.convFormat.addEventListener('change', updateUI);
+  el.convConvert.addEventListener('click', doConvert);
+  el.convDownload.addEventListener('click', doDownload);
+  el.convReplace.addEventListener('click', function () { el.convFile.click(); });
+  el.convFile.addEventListener('change', function () {
+    if (el.convFile.files[0]) loadFile(el.convFile.files[0]);
+    el.convFile.value = '';
+  });
+  el.convDrop.addEventListener('click', function () { el.convFile.click(); });
+  ['dragenter', 'dragover'].forEach(function (ev) {
+    el.convDrop.addEventListener(ev, function (e) { e.preventDefault(); });
+  });
+  el.convDrop.addEventListener('drop', function (e) {
+    e.preventDefault();
+    var f = (e.dataTransfer.files || [])[0];
+    if (f) loadFile(f);
+  });
+  document.addEventListener('paste', function (e) {
+    if ($('trimPanel-convert').hidden) return;
+    var f = (e.clipboardData && e.clipboardData.files || [])[0];
+    if (f && isAudioFile(f)) loadFile(f);
+  });
+
+  updateUI();
+
+  // restore persisted file (refresh / in-app return); fresh visits were wiped already
+  sessionRestore.then(function (restore) {
+    if (!restore) return;
+    Persist.load('convert').then(function (f) { if (f && f.size) loadFile(f); });
+  });
+
+  return {
+    refresh: function () { updateUI(); }
+  };
+})();
+
 /* ---------- global refresh on tab switch / resize ---------- */
 
 window.TrimUI = {
@@ -1129,6 +1304,7 @@ window.TrimUI = {
     if (!$('trimPanel-trim').hidden && trim.refresh) trim.refresh();
     if (!$('trimPanel-split').hidden && split.refresh) split.refresh();
     if (!$('trimPanel-join').hidden && join.refresh) join.refresh();
+    if (!$('trimPanel-convert').hidden && convert.refresh) convert.refresh();
   }
 };
 

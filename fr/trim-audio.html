@@ -22,8 +22,8 @@
   </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
 
-  <title>Couper un Audio en Ligne Gratuit — Rogner, Diviser &amp; Fusionner MP3/WAV | JSM Loudness</title>
-  <meta name="description" content="Rognez, divisez et fusionnez vos fichiers MP3, WAV, M4A sur une forme d'onde, gratuitement dans le navigateur. Sélection précise, aperçu du résultat, téléchargement WAV. Aucun envoi, aucune inscription."/>
+  <title>Couper un Audio en Ligne Gratuit — Rogner, Diviser, Fusionner &amp; Convertir MP3/WAV | JSM Loudness</title>
+  <meta name="description" content="Rognez, divisez, fusionnez et convertissez vos fichiers MP3, WAV, M4A sur une forme d'onde, gratuitement dans le navigateur. Sélection précise, aperçu du résultat, téléchargement WAV. Aucun envoi, aucune inscription."/>
   <link rel="canonical" href="https://jsm-loudness.com/fr/trim-audio.html"/>
   <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/trim-audio.html"/>
   <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/trim-audio.html"/>
@@ -59,7 +59,8 @@
     {"@type":"Question","name":"Quels formats audio puis-je rogner, diviser ou fusionner ?","acceptedAnswer":{"@type":"Answer","text":"Tout ce que votre navigateur sait décoder : MP3, WAV, M4A/AAC, OGG et FLAC dans la plupart des navigateurs. Le téléchargement est toujours un fichier WAV 16 bits."}},
     {"@type":"Question","name":"Comment diviser un fichier audio en plusieurs parties ?","acceptedAnswer":{"@type":"Answer","text":"Ouvrez l'onglet Diviser, chargez votre fichier, puis appuyez sur « Ajouter une coupe au curseur » (ou la touche C) à chaque point de coupe. Chaque segment peut être pré-écouté et téléchargé séparément, ou téléchargez-les tous d'un coup."}},
     {"@type":"Question","name":"Puis-je fusionner des fichiers avec des fréquences d'échantillonnage différentes ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Chaque fichier est décodé à 44100 Hz au chargement, et les fichiers mono sont convertis quand ils sont fusionnés avec du stéréo, pour un WAV final cohérent."}},
-    {"@type":"Question","name":"Y a-t-il une limite de durée de fichier ?","acceptedAnswer":{"@type":"Answer","text":"Pas de limite stricte. Le fichier entier est décodé en mémoire, donc les très longs enregistrements (une heure ou plus) demandent un navigateur de bureau avec de la RAM libre. Les podcasts et extraits habituels passent partout."}}
+    {"@type":"Question","name":"Y a-t-il une limite de durée de fichier ?","acceptedAnswer":{"@type":"Answer","text":"Pas de limite stricte. Le fichier entier est décodé en mémoire, donc les très longs enregistrements (une heure ou plus) demandent un navigateur de bureau avec de la RAM libre. Les podcasts et extraits habituels passent partout."}},
+    {"@type":"Question","name":"Puis-je convertir des formats audio ?","acceptedAnswer":{"@type":"Answer","text":"Oui. L\u2019onglet Convertir transforme toute entr\u00e9e prise en charge (MP3, WAV, M4A, OGG, FLAC) en MP3 (128, 192 ou 320 kbps) ou en WAV 16 bits, enti\u00e8rement dans votre navigateur."}}
   ]}
   </script>
 <style>
@@ -67,6 +68,9 @@
 .trim-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
 .trim-tabs button{border:1px solid #1E232E;background:#11141A;color:#9AA0A8;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer}
 .trim-tabs button.on{background:#D6FF57;color:#000;border-color:#D6FF57}
+.conv-opts{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0}
+.conv-opts label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#9AA0A8;font-weight:700}
+.conv-opts select{background:#11141A;border:1px solid #1E232E;color:#E8EAED;border-radius:10px;padding:10px 12px;font-size:14px}
 #trimWaveWrap,#splitWaveWrap{position:relative;height:160px;background:#0F1115;border:1px solid #1E232E;border-radius:12px;overflow:hidden;touch-action:none;cursor:crosshair;margin-top:12px}
 #trimWaveWrap canvas,#splitWaveWrap canvas{position:absolute;inset:0}
 #trimPlayhead,#splitPlayhead{position:absolute;top:0;bottom:0;width:2px;background:#fff;display:none;pointer-events:none;box-shadow:0 0 6px rgba(255,255,255,.8)}
@@ -122,8 +126,8 @@
 
 <main>
 <div class="prose">
-<h1>Couper un Audio en Ligne — Rogner, Diviser &amp; Fusionner Gratuitement</h1>
-<p class="lead">Coupez les silences de votre intro de podcast, divisez un long enregistrement en chapitres, ou fusionnez des clips en un seul fichier. Glissez sur la forme d'onde, pré-écoutez le résultat, téléchargez un WAV — 100% dans votre navigateur, votre audio ne quitte jamais votre appareil.</p>
+<h1>Couper un Audio en Ligne — Rogner, Diviser, Fusionner &amp; Convertir Gratuitement</h1>
+<p class="lead">Coupez les silences de votre intro de podcast, divisez un long enregistrement en chapitres, fusionnez des clips en un seul fichier, ou convertissez entre MP3 et WAV. Glissez sur la forme d'onde, pré-écoutez le résultat, téléchargez un WAV — 100% dans votre navigateur, votre audio ne quitte jamais votre appareil.</p>
 
 <section class="bleep-wide">
 <div class="card" id="trimToolCard">
@@ -131,6 +135,7 @@
     <button type="button" data-ttab="trim" class="on">&#9986;&#65039; Rogner</button>
     <button type="button" data-ttab="split">&#128367;&#65039; Diviser</button>
     <button type="button" data-ttab="join">&#128279; Fusionner</button>
+    <button type="button" data-ttab="convert">&#128260; Convertir</button>
   </div>
 
   <!-- ROGNER -->
@@ -206,6 +211,34 @@
       <button type="button" id="joinStop" class="btn-ghost" disabled>&#9209;</button>
       <button type="button" id="joinDownload" class="btn-lime" disabled>&#11015; Télécharger le WAV fusionné</button>
       <button type="button" id="joinClear" class="btn-ghost" disabled>Tout effacer</button>
+    </div>
+  </section>
+  <!-- CONVERTIR -->
+  <section id="trimPanel-convert" aria-label="Convertir" hidden>
+    <div class="bleep-drop" id="convDrop"><b>&#128260; Déposez un fichier audio ici</b><span>ou cliquez pour choisir &mdash; MP3, WAV, M4A, OGG, FLAC. Le collage fonctionne aussi.</span><input type="file" id="convFile" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.flac,.webm" hidden></div>
+    <div id="convStage" style="display:none">
+      <p id="convFileInfo" class="mono"></p>
+      <div class="conv-opts">
+        <label>Format de sortie
+          <select id="convFormat">
+            <option value="mp3">MP3</option>
+            <option value="wav">WAV (16 bits)</option>
+          </select>
+        </label>
+        <label id="convQualityWrap">Qualité
+          <select id="convQuality">
+            <option value="128">128 kbps</option>
+            <option value="192" selected>192 kbps</option>
+            <option value="320">320 kbps</option>
+          </select>
+        </label>
+      </div>
+      <div class="bleep-controls">
+        <button type="button" id="convConvert" class="btn-lime">&#128260; Convertir</button>
+        <button type="button" id="convDownload" class="btn-ghost" disabled>&#11015; Télécharger</button>
+        <button type="button" id="convReplace" class="btn-ghost">&#128260; Remplacer l’audio</button>
+      </div>
+      <p class="bleep-hint" id="convHint"></p>
     </div>
   </section>
 </div>
@@ -288,7 +321,7 @@ window.TRIM_STRINGS = {
   badTime: 'Temps illisibles. Utilisez des secondes ou m:ss, ex. 1:23.5.',
   splitHint: 'Appuyez sur \u00ab Ajouter une coupe au curseur \u00bb (ou la touche C) pour couper ici. Cliquez sur la forme d\u2019onde pour d\u00e9placer le curseur ; glissez les lignes de coupe pour ajuster.',
   splitNoCuts: 'Aucune coupe \u2014 ajoutez votre premi\u00e8re coupe.',
-  segDownload: 'T\u00e9l\u00e9charger',
+  segDownload: 'Télécharger',
   removeCut: 'Supprimer la coupe',
   joinHint2: 'R\u00e9ordonnez avec les fl\u00e8ches, puis fusionnez.',
   joinNeed2: 'Ajoutez au moins 2 fichiers audio \u00e0 fusionner.',
@@ -297,10 +330,15 @@ window.TRIM_STRINGS = {
   moveUp: 'Monter',
   moveDown: 'Descendre',
   remove: 'Supprimer',
+  convConverting: 'Conversion\u2026',
+  convMp3Loading: 'Chargement de l\u2019encodeur MP3\u2026',
+  convMp3Fail: 'Impossible de charger l\u2019encodeur MP3 (r\u00e9seau). Essayez WAV.',
+  convDone: 'Converti ! Cliquez sur T\u00e9l\u00e9charger.',
+  convFail: 'La conversion a \u00e9chou\u00e9. Essayez un autre fichier.',
   play: 'Lecture',
   pause: 'Pause',
   renderFail: 'Impossible de g\u00e9n\u00e9rer l\u2019audio. Essayez un fichier plus court.'
 };
 </script>
-<script src="../assets/js/trim-ui.js?v=20261008d"></script>
+<script src="../assets/js/trim-ui.js?v=20261009"></script>
 <script src="../assets/js/main.js" defer></script></body></html>

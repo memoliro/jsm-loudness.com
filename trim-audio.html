@@ -22,14 +22,14 @@
   </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
 
-  <title>Trim Audio Online Free — Cut, Split &amp; Join MP3/WAV | JSM Loudness</title>
-  <meta name="description" content="Free in-browser audio trimmer: cut, split and join MP3, WAV, M4A on a waveform. Select precisely, preview the result, download WAV. No upload, no signup."/>
+  <title>Trim Audio Online Free — Cut, Split, Join &amp; Convert MP3/WAV | JSM Loudness</title>
+  <meta name="description" content="Free in-browser audio trimmer: cut, split, join and convert MP3, WAV, M4A on a waveform. Select precisely, preview the result, download WAV. No upload, no signup."/>
   <link rel="canonical" href="https://jsm-loudness.com/trim-audio.html"/>
   <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/trim-audio.html"/>
   <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/trim-audio.html"/>
   <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/trim-audio.html"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Trim Audio Online Free — Cut, Split &amp; Join MP3/WAV | JSM Loudness"/>
+  <meta property="og:title" content="Trim Audio Online Free — Cut, Split, Join &amp; Convert MP3/WAV | JSM Loudness"/>
   <meta property="og:description" content="Cut, split and join audio files on a waveform. 100% in your browser — no upload, no signup, WAV download."/>
   <meta property="og:url" content="https://jsm-loudness.com/trim-audio.html"/>
   <meta property="og:site_name" content="jsm-loudness.com"/>
@@ -38,7 +38,7 @@
   <meta property="og:image:height" content="630"/>
   <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Trim Audio Online Free — Cut, Split &amp; Join | JSM Loudness"/>
+  <meta name="twitter:title" content="Trim Audio Online Free — Cut, Split, Join &amp; Convert | JSM Loudness"/>
   <meta name="twitter:description" content="Cut, split and join audio in the browser. Free, private, no upload."/>
   <script type="application/ld+json">
   {
@@ -59,7 +59,8 @@
     {"@type":"Question","name":"What audio formats can I trim, split or join?","acceptedAnswer":{"@type":"Answer","text":"Anything your browser can decode: MP3, WAV, M4A/AAC, OGG and FLAC in most browsers. The download is always a 16-bit WAV file."}},
     {"@type":"Question","name":"How do I split one audio file into parts?","acceptedAnswer":{"@type":"Answer","text":"Open the Split tab, load your file, then press \u201cAdd cut at playhead\u201d (or the C key) at each split point. Each segment can be previewed and downloaded individually, or download them all at once."}},
     {"@type":"Question","name":"Can I join files with different sample rates?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every file is decoded to 44100 Hz on load, and mono files are upmixed when joined with stereo ones, so the merged WAV is consistent."}},
-    {"@type":"Question","name":"Is there a limit on file length?","acceptedAnswer":{"@type":"Answer","text":"No hard limit. The whole file is decoded into memory, so very long recordings (an hour or more) need a desktop browser with free RAM. Podcasts and typical clips work everywhere."}}
+    {"@type":"Question","name":"Is there a limit on file length?","acceptedAnswer":{"@type":"Answer","text":"No hard limit. The whole file is decoded into memory, so very long recordings (an hour or more) need a desktop browser with free RAM. Podcasts and typical clips work everywhere."}},
+    {"@type":"Question","name":"Can I convert audio formats?","acceptedAnswer":{"@type":"Answer","text":"Yes. The Convert tab turns any supported input (MP3, WAV, M4A, OGG, FLAC) into MP3 (128, 192 or 320 kbps) or 16-bit WAV, entirely in your browser."}}
   ]}
   </script>
 <style>
@@ -67,6 +68,9 @@
 .trim-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
 .trim-tabs button{border:1px solid #1E232E;background:#11141A;color:#9AA0A8;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer}
 .trim-tabs button.on{background:#D6FF57;color:#000;border-color:#D6FF57}
+.conv-opts{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0}
+.conv-opts label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#9AA0A8;font-weight:700}
+.conv-opts select{background:#11141A;border:1px solid #1E232E;color:#E8EAED;border-radius:10px;padding:10px 12px;font-size:14px}
 #trimWaveWrap,#splitWaveWrap{position:relative;height:160px;background:#0F1115;border:1px solid #1E232E;border-radius:12px;overflow:hidden;touch-action:none;cursor:crosshair;margin-top:12px}
 #trimWaveWrap canvas,#splitWaveWrap canvas{position:absolute;inset:0}
 #trimPlayhead,#splitPlayhead{position:absolute;top:0;bottom:0;width:2px;background:#fff;display:none;pointer-events:none;box-shadow:0 0 6px rgba(255,255,255,.8)}
@@ -122,8 +126,8 @@
 
 <main>
 <div class="prose">
-<h1>Trim Audio Online — Cut, Split &amp; Join Free</h1>
-<p class="lead">Cut the silence off your podcast intro, split a long recording into chapters, or join clips into one file. Drag on the waveform, preview the result, download a WAV — 100% in your browser, your audio never leaves your device.</p>
+<h1>Trim Audio Online — Cut, Split, Join &amp; Convert Free</h1>
+<p class="lead">Cut the silence off your podcast intro, split a long recording into chapters, join clips into one file, or convert between MP3 and WAV. Drag on the waveform, preview the result, download — 100% in your browser, your audio never leaves your device.</p>
 
 <section class="bleep-wide">
 <div class="card" id="trimToolCard">
@@ -131,6 +135,7 @@
     <button type="button" data-ttab="trim" class="on">&#9986;&#65039; Trim</button>
     <button type="button" data-ttab="split">&#128367;&#65039; Split</button>
     <button type="button" data-ttab="join">&#128279; Join</button>
+    <button type="button" data-ttab="convert">&#128260; Convert</button>
   </div>
 
   <!-- TRIM -->
@@ -206,6 +211,34 @@
       <button type="button" id="joinStop" class="btn-ghost" disabled>&#9209;</button>
       <button type="button" id="joinDownload" class="btn-lime" disabled>&#11015; Download merged WAV</button>
       <button type="button" id="joinClear" class="btn-ghost" disabled>Clear all</button>
+    </div>
+  </section>
+  <!-- CONVERT -->
+  <section id="trimPanel-convert" aria-label="Convert" hidden>
+    <div class="bleep-drop" id="convDrop"><b>&#128260; Drop an audio file here</b><span>or click to choose &mdash; MP3, WAV, M4A, OGG, FLAC. Pasting works too.</span><input type="file" id="convFile" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.flac,.webm" hidden></div>
+    <div id="convStage" style="display:none">
+      <p id="convFileInfo" class="mono"></p>
+      <div class="conv-opts">
+        <label>Output format
+          <select id="convFormat">
+            <option value="mp3">MP3</option>
+            <option value="wav">WAV (16-bit)</option>
+          </select>
+        </label>
+        <label id="convQualityWrap">Quality
+          <select id="convQuality">
+            <option value="128">128 kbps</option>
+            <option value="192" selected>192 kbps</option>
+            <option value="320">320 kbps</option>
+          </select>
+        </label>
+      </div>
+      <div class="bleep-controls">
+        <button type="button" id="convConvert" class="btn-lime">&#128260; Convert</button>
+        <button type="button" id="convDownload" class="btn-ghost" disabled>&#11015; Download</button>
+        <button type="button" id="convReplace" class="btn-ghost">&#128260; Replace audio</button>
+      </div>
+      <p class="bleep-hint" id="convHint"></p>
     </div>
   </section>
 </div>
@@ -297,10 +330,15 @@ window.TRIM_STRINGS = {
   moveUp: 'Move up',
   moveDown: 'Move down',
   remove: 'Remove',
+  convConverting: 'Converting\u2026',
+  convMp3Loading: 'Loading MP3 encoder\u2026',
+  convMp3Fail: 'Could not load the MP3 encoder (network). Try WAV instead.',
+  convDone: 'Converted! Press Download.',
+  convFail: 'Conversion failed. Try another file.',
   play: 'Play',
   pause: 'Pause',
   renderFail: 'Could not render the audio. Try a shorter file.'
 };
 </script>
-<script src="assets/js/trim-ui.js?v=20261008d"></script>
+<script src="assets/js/trim-ui.js?v=20261009"></script>
 <script src="assets/js/main.js" defer></script></body></html>
