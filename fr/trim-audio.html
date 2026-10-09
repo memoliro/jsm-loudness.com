@@ -1,0 +1,306 @@
+<!doctype html><html lang="fr"><head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="robots" content="index, follow, max-image-preview:large"/>
+  <link rel="icon" href="/favicon.svg"/>
+  <link rel="stylesheet" href="../assets/css/style.css?v=20261005d"/>
+  <!-- Consent Mode v2 defaults - MUST be before gtag.js -->
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{
+    ad_storage:'denied',
+    ad_user_data:'denied',
+    ad_personalization:'denied',
+    analytics_storage:'denied',
+    functionality_storage:'granted',
+    security_storage:'granted',
+    wait_for_update: 500
+  });
+  gtag('js', new Date());
+  // Do not send page_view until consent granted - we trigger it in main.js after consent
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+  <title>Couper un Audio en Ligne Gratuit — Rogner, Diviser &amp; Fusionner MP3/WAV | JSM Loudness</title>
+  <meta name="description" content="Rognez, divisez et fusionnez vos fichiers MP3, WAV, M4A sur une forme d'onde, gratuitement dans le navigateur. Sélection précise, aperçu du résultat, téléchargement WAV. Aucun envoi, aucune inscription."/>
+  <link rel="canonical" href="https://jsm-loudness.com/fr/trim-audio.html"/>
+  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/trim-audio.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/trim-audio.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/trim-audio.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Couper un Audio en Ligne Gratuit — Rogner, Diviser &amp; Fusionner | JSM Loudness"/>
+  <meta property="og:description" content="Rognez, divisez et fusionnez vos fichiers audio sur une forme d'onde. 100% dans votre navigateur — aucun envoi, aucune inscription, téléchargement WAV."/>
+  <meta property="og:url" content="https://jsm-loudness.com/fr/trim-audio.html"/>
+  <meta property="og:site_name" content="jsm-loudness.com"/>
+  <meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Couper un Audio en Ligne Gratuit — Rogner, Diviser &amp; Fusionner | JSM Loudness"/>
+  <meta name="twitter:description" content="Rognez, divisez et fusionnez vos fichiers audio dans le navigateur. Gratuit, privé, aucun envoi."/>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"JSM Loudness Rogneur Audio",
+    "applicationCategory":"MultimediaApplication",
+    "operatingSystem":"Web Browser",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"CAD"},
+    "description":"Rogneur audio gratuit en ligne : rogner, diviser et fusionner des fichiers MP3, WAV, M4A sur une forme d'onde. 100% navigateur, aucun envoi.",
+    "author":{"@type":"Person","name":"Sehmus"},
+    "featureList":"Sélection sur forme d'onde, Diviseur audio avec points de coupe, Fusionneur audio, Export WAV, Aucun envoi"
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Mon audio est-il envoyé vers un serveur ?","acceptedAnswer":{"@type":"Answer","text":"Non. Le rogneur fonctionne 100% dans votre navigateur grâce à la Web Audio API. Votre fichier est décodé, modifié et ré-encodé localement — il ne quitte jamais votre appareil."}},
+    {"@type":"Question","name":"Quels formats audio puis-je rogner, diviser ou fusionner ?","acceptedAnswer":{"@type":"Answer","text":"Tout ce que votre navigateur sait décoder : MP3, WAV, M4A/AAC, OGG et FLAC dans la plupart des navigateurs. Le téléchargement est toujours un fichier WAV 16 bits."}},
+    {"@type":"Question","name":"Comment diviser un fichier audio en plusieurs parties ?","acceptedAnswer":{"@type":"Answer","text":"Ouvrez l'onglet Diviser, chargez votre fichier, puis appuyez sur « Ajouter une coupe au curseur » (ou la touche C) à chaque point de coupe. Chaque segment peut être pré-écouté et téléchargé séparément, ou téléchargez-les tous d'un coup."}},
+    {"@type":"Question","name":"Puis-je fusionner des fichiers avec des fréquences d'échantillonnage différentes ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Chaque fichier est décodé à 44100 Hz au chargement, et les fichiers mono sont convertis quand ils sont fusionnés avec du stéréo, pour un WAV final cohérent."}},
+    {"@type":"Question","name":"Y a-t-il une limite de durée de fichier ?","acceptedAnswer":{"@type":"Answer","text":"Pas de limite stricte. Le fichier entier est décodé en mémoire, donc les très longs enregistrements (une heure ou plus) demandent un navigateur de bureau avec de la RAM libre. Les podcasts et extraits habituels passent partout."}}
+  ]}
+  </script>
+<style>
+/* Trim tool — page-local styles (shared bleep classes reused where possible) */
+.trim-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.trim-tabs button{border:1px solid #1E232E;background:#11141A;color:#9AA0A8;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer}
+.trim-tabs button.on{background:#D6FF57;color:#000;border-color:#D6FF57}
+#trimWaveWrap,#splitWaveWrap{position:relative;height:160px;background:#0F1115;border:1px solid #1E232E;border-radius:12px;overflow:hidden;touch-action:none;cursor:crosshair;margin-top:12px}
+#trimWaveWrap canvas,#splitWaveWrap canvas{position:absolute;inset:0}
+#trimPlayhead,#splitPlayhead{position:absolute;top:0;bottom:0;width:2px;background:#fff;display:none;pointer-events:none;box-shadow:0 0 6px rgba(255,255,255,.8)}
+.trim-region{position:absolute;top:0;bottom:0;pointer-events:auto;cursor:grab;border-radius:4px;border:1px solid;background:rgba(87,166,255,.16);border-color:#57A6FF;color:#57A6FF}
+.trim-region.sel{box-shadow:0 0 0 2px #E6E8EC}
+.trim-region.drawing{pointer-events:none}
+.trim-cut{position:absolute;top:0;bottom:0;width:0;border-left:2px dashed #D6FF57;cursor:ew-resize;pointer-events:auto}
+.trim-cut .tx{position:absolute;top:2px;left:-9px;width:18px;height:18px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:12px;line-height:1;cursor:pointer;padding:0}
+.trim-times{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-top:12px}
+.trim-times label{font-size:12px;color:#9AA0A8;display:flex;flex-direction:column;gap:4px}
+.trim-times input{background:#11141A;border:1px solid #1E232E;color:#E6E8EC;border-radius:8px;padding:8px 10px;font-family:ui-monospace,Menlo,monospace;font-size:13px;width:110px}
+.trim-seg-label{font-size:12px;color:#9AA0A8;padding:0 4px 0 8px}
+#joinFileList{margin-top:12px}
+.join-total{font-size:12px;color:#6B7280;margin-top:8px;font-family:ui-monospace,Menlo,monospace}
+</style>
+</head><body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;font-size:12px">
+  <button type="button" id="jsm-lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Langue" style="display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:6px 12px;border-radius:999px;color:#E6E8EC;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.4);font-family:Inter,system-ui,sans-serif">
+    <svg width="18" height="12" viewBox="0 0 3 2" style="border-radius:2px;flex-shrink:0"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg>
+    <span>FR</span>
+    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="opacity:.7"><path d="M1 1l4 4 4-4" stroke="#9AA0A8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div id="jsm-lang-menu" role="listbox" hidden style="display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:160px;background:rgba(15,17,21,0.98);border:1px solid #1E232E;border-radius:12px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,0.5);backdrop-filter:blur(12px)">
+    <a href="/trim-audio.html" role="option" class="jsm-lang-option" data-lang="en" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:#9AA0A8;font-weight:500">
+      <svg width="18" height="12" viewBox="0 0 60 30" style="border-radius:2px;flex-shrink:0"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg>
+      English
+    </a>
+    <a href="/fr/trim-audio.html" role="option" aria-current="true" class="jsm-lang-option" data-lang="fr" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:#E6E8EC;font-weight:600">
+      <svg width="18" height="12" viewBox="0 0 3 2" style="border-radius:2px;flex-shrink:0"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg>
+      Fran&ccedil;ais
+    </a>
+  </div>
+</div>
+<style>
+#jsm-lang-selector .jsm-lang-option:hover{background:#151821;color:#E6E8EC!important}
+#jsm-lang-selector .jsm-lang-option[aria-current="true"]{background:rgba(214,255,87,0.08);color:#D6FF57!important}
+</style>
+<script>
+(function(){
+  var btn=document.getElementById("jsm-lang-btn");
+  var menu=document.getElementById("jsm-lang-menu");
+  if(!btn||!menu) return;
+  function close(){menu.style.display="none";menu.hidden=true;btn.setAttribute("aria-expanded","false");}
+  function open(){menu.style.display="block";menu.hidden=false;btn.setAttribute("aria-expanded","true");}
+  btn.addEventListener("click",function(e){e.stopPropagation();if(menu.hidden) open(); else close();});
+  document.addEventListener("click",function(){close();});
+  menu.addEventListener("click",function(e){e.stopPropagation();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape") close();});
+})();
+</script>
+<header class="header"><a class="logo" href="index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a><nav class="nav"><a href="index.html">Analyseur</a><a href="bleep-audio.html">Bip audio</a><a href="trim-audio.html" class="active">Rogner</a><div class="dropdown"><a href="articles/what-is-lufs.html">Apprendre</a><div class="dropdown-menu"><a href="articles/what-is-lufs.html">Qu'est-ce que le LUFS ?</a><a href="articles/spotify-loudness.html">Spotify -14</a><a href="articles/tiktok-loudness.html">TikTok &amp; Shorts</a><a href="articles/true-peak.html">True Peak</a><a href="articles/lra.html">LRA PLR PSR</a><a href="articles/why-minus-14-is-new-zero.html">Pourquoi -14 est le nouveau 0 dB</a><a href="articles/dbtp-true-peak-vs-sample.html">DBTP Expliqu&eacute;</a><a href="articles/ebu-r128-5-minutes.html">EBU R128 en 5 min</a></div></div><a href="blog.html">Blog</a><a href="pricing.html">Tarifs</a><a href="about.html">&Agrave; propos</a></nav></header>
+
+<main>
+<div class="prose">
+<h1>Couper un Audio en Ligne — Rogner, Diviser &amp; Fusionner Gratuitement</h1>
+<p class="lead">Coupez les silences de votre intro de podcast, divisez un long enregistrement en chapitres, ou fusionnez des clips en un seul fichier. Glissez sur la forme d'onde, pré-écoutez le résultat, téléchargez un WAV — 100% dans votre navigateur, votre audio ne quitte jamais votre appareil.</p>
+
+<section class="bleep-wide">
+<div class="card" id="trimToolCard">
+  <div class="trim-tabs" role="tablist" aria-label="Outils audio">
+    <button type="button" data-ttab="trim" class="on">&#9986;&#65039; Rogner</button>
+    <button type="button" data-ttab="split">&#128367;&#65039; Diviser</button>
+    <button type="button" data-ttab="join">&#128279; Fusionner</button>
+  </div>
+
+  <!-- ROGNER -->
+  <section id="trimPanel-trim" aria-label="Rogner">
+    <div class="bleep-drop" id="trimDrop"><b>&#127908;&#65039; Déposez un fichier audio ici</b><span>ou cliquez pour choisir &mdash; MP3, WAV, M4A, OGG, FLAC. Le collage fonctionne aussi.</span><input type="file" id="trimFile" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.flac,.webm" hidden></div>
+    <div id="trimStage" style="display:none">
+      <p id="trimFileInfo" class="mono"></p>
+      <div id="trimWaveWrap"><canvas id="trimWave"></canvas><div id="trimRegionLayer"></div><div id="trimPlayhead"></div></div>
+      <p class="bleep-hint" id="trimHint"></p>
+      <div class="trim-times">
+        <label>Début <input id="trimStart" inputmode="decimal" placeholder="0:00.0"></label>
+        <label>Fin <input id="trimEnd" inputmode="decimal" placeholder="0:00.0"></label>
+        <button type="button" id="trimSetTime" class="btn-ghost">OK</button>
+      </div>
+      <div class="bleep-controls">
+        <span class="seg"><span class="seg-label">Sélection :</span><button type="button" id="trimKeep">Garder</button><button type="button" id="trimDelete">Supprimer</button></span>
+        <button type="button" id="trimPreview" class="btn-ghost" disabled>&#9654; Aperçu</button>
+        <span class="seg transport">
+          <button type="button" id="trimBack" title="Reculer de 5 secondes" aria-label="Reculer de 5 secondes">&#9198; 5s</button>
+          <button type="button" id="trimPlay" title="Lecture / pause" aria-label="Lecture">&#9654;</button>
+          <button type="button" id="trimStop" title="Arrêter" aria-label="Arrêter">&#9209;</button>
+          <button type="button" id="trimFwd" title="Avancer de 5 secondes" aria-label="Avancer de 5 secondes">5s &#9197;</button>
+        </span>
+        <span class="seg">
+          <button type="button" id="trimZoomOut" title="Zoom arrière" aria-label="Zoom arrière">&minus;</button>
+          <button type="button" id="trimZoomIn" title="Zoom avant" aria-label="Zoom avant">+</button>
+        </span>
+        <button type="button" id="trimDownload" class="btn-lime" disabled>&#11015; Télécharger le WAV</button>
+        <button type="button" id="trimReplace" class="btn-ghost">&#128260; Remplacer l'audio</button>
+      </div>
+      <div class="bleep-subline"><span id="trimViewRange"></span></div>
+    </div>
+  </section>
+
+  <!-- DIVISER -->
+  <section id="trimPanel-split" aria-label="Diviser" hidden>
+    <div class="bleep-drop" id="splitDrop"><b>&#127908;&#65039; Déposez un fichier audio ici</b><span>ou cliquez pour choisir &mdash; MP3, WAV, M4A, OGG, FLAC. Le collage fonctionne aussi.</span><input type="file" id="splitFile" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.flac,.webm" hidden></div>
+    <div id="splitStage" style="display:none">
+      <p id="splitFileInfo" class="mono"></p>
+      <div id="splitWaveWrap"><canvas id="splitWave"></canvas><div id="splitCutLayer"></div><div id="splitPlayhead"></div></div>
+      <p class="bleep-hint" id="splitHint"></p>
+      <div class="bleep-controls">
+        <button type="button" id="splitAddCut" class="btn-lime">&#9988;&#65039; Ajouter une coupe au curseur</button>
+        <span class="seg transport">
+          <button type="button" id="splitBack" title="Reculer de 5 secondes" aria-label="Reculer de 5 secondes">&#9198; 5s</button>
+          <button type="button" id="splitPlay" title="Lecture / pause" aria-label="Lecture">&#9654;</button>
+          <button type="button" id="splitStop" title="Arrêter" aria-label="Arrêter">&#9209;</button>
+          <button type="button" id="splitFwd" title="Avancer de 5 secondes" aria-label="Avancer de 5 secondes">5s &#9197;</button>
+        </span>
+        <span class="seg">
+          <button type="button" id="splitZoomOut" title="Zoom arrière" aria-label="Zoom arrière">&minus;</button>
+          <button type="button" id="splitZoomIn" title="Zoom avant" aria-label="Zoom avant">+</button>
+        </span>
+        <button type="button" id="splitDownloadAll" class="btn-lime" disabled>&#11015; Tout télécharger</button>
+        <button type="button" id="splitReplace" class="btn-ghost">&#128260; Remplacer l'audio</button>
+      </div>
+      <div class="bleep-subline"><span id="splitViewRange"></span></div>
+      <h3 style="margin-top:20px">Segments</h3>
+      <div id="splitSegList"></div>
+    </div>
+  </section>
+
+  <!-- FUSIONNER -->
+  <section id="trimPanel-join" aria-label="Fusionner" hidden>
+    <div class="bleep-drop" id="joinDrop"><b>&#128279; Déposez vos fichiers audio ici</b><span>ou cliquez pour en choisir plusieurs &mdash; ils seront fusionnés dans l'ordre. MP3, WAV, M4A, OGG, FLAC.</span><input type="file" id="joinFile" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.flac,.webm" multiple hidden></div>
+    <p class="bleep-hint" id="joinHint"></p>
+    <div id="joinEmpty" class="bleep-empty">Aucun fichier.</div>
+    <div id="joinFileList"></div>
+    <div class="join-total" id="joinInfo"></div>
+    <div class="bleep-controls">
+      <button type="button" id="joinMerge" class="btn-lime" disabled>&#128279; Fusionner &amp; écouter</button>
+      <button type="button" id="joinPlay" class="btn-ghost" disabled>&#9654; Lecture</button>
+      <button type="button" id="joinStop" class="btn-ghost" disabled>&#9209;</button>
+      <button type="button" id="joinDownload" class="btn-lime" disabled>&#11015; Télécharger le WAV fusionné</button>
+      <button type="button" id="joinClear" class="btn-ghost" disabled>Tout effacer</button>
+    </div>
+  </section>
+</div>
+</section>
+
+<div class="prose">
+<h2>Comment rogner un fichier audio</h2>
+<ol>
+<li><strong>Déposez votre audio</strong> &mdash; MP3, WAV, M4A, OGG ou FLAC. Il est décodé localement ; rien n'est envoyé.</li>
+<li><strong>Glissez sur la forme d'onde</strong> pour sélectionner la partie voulue, ou saisissez des temps exacts de début/fin. Glissez la sélection pour la déplacer, ses bords pour l'ajuster.</li>
+<li><strong>Garder ou Supprimer, puis pré-écoutez et téléchargez</strong> &mdash; Garder n'exporte que la sélection ; Supprimer exporte tout sauf elle. L'aperçu joue le résultat avant de télécharger un WAV 16 bits.</li>
+</ol>
+
+<h2>Comment diviser un audio en parties</h2>
+<ol>
+<li>Ouvrez l'onglet <strong>Diviser</strong> et chargez votre fichier.</li>
+<li>Placez le curseur où couper et appuyez sur <strong>&laquo; Ajouter une coupe au curseur &raquo;</strong> (ou la touche <strong>C</strong>). Glissez les lignes de coupe pour les ajuster ; cliquez sur leur &times; pour les retirer.</li>
+<li>Chaque segment apparaît dans la liste avec ses boutons <strong>aperçu</strong> et <strong>téléchargement</strong>, ou téléchargez-les tous d'un coup.</li>
+</ol>
+
+<h2>Comment fusionner des fichiers audio</h2>
+<ol>
+<li>Ouvrez l'onglet <strong>Fusionner</strong> et déposez deux fichiers ou plus.</li>
+<li><strong>Réordonnez</strong> avec les flèches &mdash; le fichier fusionné suit l'ordre de votre liste, de haut en bas.</li>
+<li>Appuyez sur <strong>&laquo; Fusionner &amp; écouter &raquo;</strong> pour entendre le résultat, puis téléchargez un seul WAV 16 bits. Les fichiers avec des fréquences ou des canaux différents sont normalisés automatiquement.</li>
+</ol>
+
+<h2>Quand l'utiliser</h2>
+<ul>
+<li><strong>Podcasteurs</strong> &mdash; rognez les blancs et les faux départs, divisez les épisodes en chapitres.</li>
+<li><strong>Musiciens</strong> &mdash; découpez des samples, fusionnez des prises, divisez un long bœuf en morceaux.</li>
+<li><strong>Notes vocales &amp; interviews</strong> &mdash; ne gardez que les bons passages, fusionnez des segments enregistrés séparément.</li>
+<li><strong>Créateurs vidéo</strong> &mdash; préparez des segments audio propres avant le montage.</li>
+</ul>
+
+<h2>Questions fréquentes</h2>
+<h3>Mon audio est-il envoyé vers un serveur ?</h3>
+<p>Non. Tout &mdash; décodage, forme d'onde, rognage, fusion, export WAV &mdash; se passe dans votre navigateur avec la Web Audio API.</p>
+<h3>Qu'est-ce que je récupère au téléchargement ?</h3>
+<p>Un fichier WAV 16 bits : <code>votrefichier-trimmed.wav</code>, <code>votrefichier-part1.wav</code> ou <code>joined.wav</code>. Le WAV est sans perte et s'ouvre dans tous les éditeurs ; encodez en MP3/AAC une seule fois, depuis ce fichier, si vous avez besoin d'un format plus léger.</p>
+<h3>Les coupes sont-elles précises ?</h3>
+<p>Précises à l'échantillon en interne. Zoomez avec le bouton +, la molette, ou double-cliquez pour réinitialiser, et glissez les lignes de coupe pour les placer à l'échantillon près.</p>
+<h3>Puis-je fusionner un fichier mono avec un fichier stéréo ?</h3>
+<p>Oui. Tout est décodé à 44100 Hz, et les fichiers mono sont convertis quand la fusion contient du stéréo, pour un résultat cohérent.</p>
+<h3>Y a-t-il une limite de taille de fichier ?</h3>
+<p>Seule la mémoire de votre appareil, puisque tout tourne localement. Les fichiers d'une heure passent sur un ordinateur de bureau ; les très longs fichiers sur un téléphone peu puissant peuvent peiner.</p>
+
+<p>Besoin de censurer des mots plutôt ? Essayez l'<a href="bleep-audio.html">outil de bip audio</a>. Vous masterisez de la musique ? <a href="index.html">Mesurez votre loudness</a> avec l'analyseur LUFS gratuit.</p>
+</div>
+</div>
+</main>
+
+<footer class="footer"><div class="footer-grid">
+  <div class="footer-row1">
+  <div style="display:flex;align-items:center;gap:10px"><span class="logo-mark">JSM</span>
+    <span style="font-weight:700;color:#E6E8EC">jsm-loudness.com</span>
+    <span style="font-size:12px;color:#9AA0A8">ITU-R BS.1770-4 &bull; EBU R128 Précis &bull; 100% Navigateur - Aucun Envoi</span></div>
+    <div class="footer-links"><a href="privacy.html">Confidentialité</a><span style="color:#1E232E">&middot;</span>
+      <a href="terms.html">Conditions</a>
+      <span style="color:#1E232E">&middot;</span><a href="cookies.html">Cookies</a><span style="color:#1E232E">&middot;</span>
+      <a href="blog.html">Blog</a>
+      <span style="color:#1E232E">&middot;</span><a href="pricing.html">Tarifs</a><span style="color:#1E232E">&middot;</span>
+      <a href="about.html">&Agrave; propos</a><span style="color:#1E232E">&middot;</span>
+  <a href="contact.html">Contact</a></div></div>
+  <div class="footer-row2"><span>&copy; 2026 jsm-loudness.com &middot; Montréal, QC &middot; Conçu à Montréal</span>
+    <span>Aucun envoi &bull; Fonctionne dans le navigateur &bull; Vérifié -14,05 LUFS</span></div></div><div class="footer-row3" style="margin-top:10px;font-size:11px;color:#9AA0A8">Autres outils gratuits : <a href="https://jsm-options.com/" style="color:#D6FF57">JSM Options</a> &middot; <a href="https://jsm-image.com/" style="color:#D6FF57">JSM Image</a> &middot; <a href="https://jsm-video.com/" style="color:#D6FF57">JSM Video</a> &middot; <a href="https://lyricprep.com/" style="color:#D6FF57">LyricPrep</a></div></footer>
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none"><div style="flex:1"><p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies &amp; confidentialité</p><p style="margin:0;font-size:12px;color:#9AA0A8">Votre audio ne quitte jamais votre appareil. Nous utilisons une analytique anonyme (GA4) uniquement si vous acceptez. Pas de pub. <a href="privacy.html" style="color:#D6FF57">Confidentialité</a> &middot; <a href="cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button><button onclick="acceptConsent()" class="btn-lime">Accepter</button></div></div>
+<script src="../assets/js/bleep-audio.js?v=20261005b"></script>
+<script>
+window.TRIM_STRINGS = {
+  notAudio: 'Veuillez choisir un fichier audio.',
+  decoding: 'D\u00e9codage de l\u2019audio\u2026',
+  decodeFail: 'Impossible de d\u00e9coder ce fichier audio. Essayez MP3 ou WAV.',
+  chStereo: ' st\u00e9r\u00e9o',
+  chMono: ' mono',
+  trimHintDraw: 'Glissez sur la forme d\u2019onde pour s\u00e9lectionner la partie \u00e0 garder ou \u00e0 supprimer.',
+  trimHintEdit: 'Glissez la s\u00e9lection pour la d\u00e9placer, ses bords pour la redimensionner. Choisissez ensuite Garder ou Supprimer, pr\u00e9-\u00e9coutez et t\u00e9l\u00e9chargez.',
+  trimNoSel: 'S\u00e9lectionnez d\u2019abord une partie de la forme d\u2019onde (glissez dessus).',
+  trimPickOp: 'Choisissez d\u2019abord \u00ab Garder la s\u00e9lection \u00bb ou \u00ab Supprimer la s\u00e9lection \u00bb.',
+  badTime: 'Temps illisibles. Utilisez des secondes ou m:ss, ex. 1:23.5.',
+  splitHint: 'Appuyez sur \u00ab Ajouter une coupe au curseur \u00bb (ou la touche C) pour couper ici. Cliquez sur la forme d\u2019onde pour d\u00e9placer le curseur ; glissez les lignes de coupe pour ajuster.',
+  splitNoCuts: 'Aucune coupe \u2014 ajoutez votre premi\u00e8re coupe.',
+  segDownload: 'T\u00e9l\u00e9charger',
+  removeCut: 'Supprimer la coupe',
+  joinHint2: 'R\u00e9ordonnez avec les fl\u00e8ches, puis fusionnez.',
+  joinNeed2: 'Ajoutez au moins 2 fichiers audio \u00e0 fusionner.',
+  joinTotal: '{n} fichiers \u00b7 {d} au total',
+  joinMergedHint: 'Fusionn\u00e9 ! L\u2019aper\u00e7u joue. T\u00e9l\u00e9chargez quand vous \u00eates satisfait.',
+  moveUp: 'Monter',
+  moveDown: 'Descendre',
+  remove: 'Supprimer',
+  play: 'Lecture',
+  pause: 'Pause',
+  renderFail: 'Impossible de g\u00e9n\u00e9rer l\u2019audio. Essayez un fichier plus court.'
+};
+</script>
+<script src="../assets/js/trim-ui.js?v=20261008"></script>
+<script src="../assets/js/main.js" defer></script></body></html>
