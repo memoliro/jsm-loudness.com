@@ -18,6 +18,12 @@ var BA = window.BleepAudio;
 var AC = window.AudioContext || window.webkitAudioContext;
 
 function fmt(s) { return BA.formatTime(s); }
+function setTimeReadout(id, tm, dur) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var txt = fmt(tm) + ' / ' + fmt(dur || 0);
+  if (el.textContent !== txt) el.textContent = txt;
+}
 function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 function $(id) { return document.getElementById(id); }
 
@@ -198,7 +204,7 @@ function Waveform(wrapId, canvasId, phId) {
 
 /* ---------- transport (play / pause / stop / seek with rAF playhead) ---------- */
 
-function Transport(wave, updateUI) {
+function Transport(wave, updateUI, onTime) {
   var T = {
     ctx: null, src: null, t0: 0, offset: 0, paused: false, buf: null,
     playing: function () { return !!(this.ctx && !this.paused); },
@@ -292,6 +298,7 @@ function Transport(wave, updateUI) {
         wave.positionPlayhead();
       }
       wave.playheadTime = tm;
+      if (onTime) onTime(tm, D);
       var self = this;
       requestAnimationFrame(function () { self.tick(); });
     }
@@ -314,7 +321,7 @@ var trim = (function () {
   var wave = Waveform('trimWaveWrap', 'trimWave', 'trimPlayhead');
   var decoded = null, fileName = '', peaks = null, loadedKey = null;
   var region = null; // {start, end} single selection
-  var transport = Transport(wave, updateUI);
+  var transport = Transport(wave, updateUI, function (tm, d) { setTimeReadout('trimTime', tm, d); });
   var previewing = false; // transport currently carries a preview (playing or paused)
 
   var el = {};
@@ -616,7 +623,7 @@ var split = (function () {
   var segPreviewIdx = null; // which segment the transport is previewing (playing or paused)
   var decoded = null, fileName = '', peaks = null, loadedKey = null;
   var cuts = []; // sorted array of seconds
-  var transport = Transport(wave, updateUI);
+  var transport = Transport(wave, updateUI, function (tm, d) { setTimeReadout('splitTime', tm, d); });
 
   var el = {};
   ['splitDrop', 'splitFile', 'splitStage', 'splitFileInfo', 'splitHint',

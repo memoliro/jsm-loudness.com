@@ -64,6 +64,7 @@
   ]}
   </script>
 <style>
+.time-readout{font-size:12px;color:#9AA0A8;white-space:nowrap;min-width:118px;text-align:left}
 /* Trim tool — page-local styles (shared bleep classes reused where possible) */
 .trim-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
 .trim-tabs button{border:1px solid #1E232E;background:#11141A;color:#9AA0A8;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer}
@@ -157,6 +158,7 @@
           <button type="button" id="trimBack" title="Reculer de 5 secondes" aria-label="Reculer de 5 secondes">&#9198; 5s</button>
           <button type="button" id="trimPlay" title="Lecture / pause" aria-label="Lecture">&#9654;</button>
           <button type="button" id="trimFwd" title="Avancer de 5 secondes" aria-label="Avancer de 5 secondes">5s &#9197;</button>
+          <span class="time-readout mono" id="trimTime">0:00.0 / 0:00.0</span>
         </span>
         <span class="seg">
           <button type="button" id="trimZoomOut" title="Zoom arrière" aria-label="Zoom arrière">&minus;</button>
@@ -182,6 +184,7 @@
           <button type="button" id="splitBack" title="Reculer de 5 secondes" aria-label="Reculer de 5 secondes">&#9198; 5s</button>
           <button type="button" id="splitPlay" title="Lecture / pause" aria-label="Lecture">&#9654;</button>
           <button type="button" id="splitFwd" title="Avancer de 5 secondes" aria-label="Avancer de 5 secondes">5s &#9197;</button>
+          <span class="time-readout mono" id="splitTime">0:00.0 / 0:00.0</span>
         </span>
         <span class="seg">
           <button type="button" id="splitZoomOut" title="Zoom arrière" aria-label="Zoom arrière">&minus;</button>
@@ -338,5 +341,5 @@ window.TRIM_STRINGS = {
 };
 </script>
 <script src="../assets/js/shared-audio.js?v=20261009"></script>
-<script src="../assets/js/trim-ui.js?v=20261009d"></script>
+<script src="../assets/js/trim-ui.js?v=20261009e"></script>
 <script src="../assets/js/main.js" defer></script></body></html>
