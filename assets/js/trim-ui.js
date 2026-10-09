@@ -224,14 +224,25 @@ function Transport(wave, updateUI) {
       if (!this.ctx || this.paused) return;
       this.offset = this.now();
       this.paused = true;
-      try { this.ctx.suspend(); } catch (e) {}
+      // hard-stop the source instead of ctx.suspend(): suspend/resume is
+      // unreliable on some mobile browsers (audio keeps playing).
+      if (this.src) { try { this.src.onended = null; this.src.stop(); } catch (e) {} }
+      this.src = null;
       wave.setPlayhead(this.offset);
       updateUI();
     },
     resume: function () {
-      if (!this.ctx || !this.paused) return;
-      this.paused = false;
-      try { this.ctx.resume(); } catch (e) {}
+      if (!this.ctx || !this.paused || !this.buf) return;
+      var ctx = this.ctx, buf = this.buf, self = this;
+      var src = ctx.createBufferSource();
+      src.buffer = buf; src.connect(ctx.destination);
+      var t0 = ctx.currentTime + 0.05;
+      try { src.start(t0, this.offset); }
+      catch (e) { updateUI(); return; }
+      this.src = src; this.t0 = t0; this.paused = false;
+      src.onended = function () {
+        if (self.src === src) { wave.setPlayhead(buf.duration); self.stop(true); updateUI(); }
+      };
       updateUI(); this.tick();
     },
     toggle: function (buf, offset) {
@@ -309,7 +320,7 @@ var trim = (function () {
   var el = {};
   ['trimDrop', 'trimFile', 'trimStage', 'trimFileInfo', 'trimHint',
    'trimStart', 'trimEnd', 'trimSetTime', 'trimKeep', 'trimDelete', 'trimPreview',
-   'trimPlay', 'trimStop', 'trimBack', 'trimFwd',
+   'trimPlay', 'trimBack', 'trimFwd',
    'trimZoomIn', 'trimZoomOut', 'trimViewRange',
    'trimDownload', 'trimReplace', 'trimRegionLayer'
   ].forEach(function (id) { el[id] = $(id); });
@@ -534,7 +545,6 @@ var trim = (function () {
     el.trimPreview.textContent = (previewing && playing ? '⏸ ' : '▶ ') + pvLabel;
     el.trimPlay.setAttribute('aria-label', playing ? t('pause') : t('play'));
     el.trimPlay.disabled = !has;
-    el.trimStop.disabled = !transport.ctx;
     el.trimBack.disabled = !has; el.trimFwd.disabled = !has;
     el.trimKeep.disabled = !hasRegion; el.trimDelete.disabled = !hasRegion;
     el.trimKeep.classList.toggle('on', pendingOp === 'keep');
@@ -553,7 +563,6 @@ var trim = (function () {
     transport.play(decoded, off);
     updateUI();
   });
-  el.trimStop.addEventListener('click', function () { transport.stop(); updateUI(); });
   el.trimBack.addEventListener('click', function () { transport.seek(-5, dur()); updateUI(); });
   el.trimFwd.addEventListener('click', function () { transport.seek(5, dur()); updateUI(); });
   el.trimZoomIn.addEventListener('click', function () { wave.zoomBy(0.5); renderRegion(); updateViewRange(); });
@@ -612,7 +621,7 @@ var split = (function () {
   var el = {};
   ['splitDrop', 'splitFile', 'splitStage', 'splitFileInfo', 'splitHint',
    'splitAddCut', 'splitSegList',
-   'splitPlay', 'splitStop', 'splitBack', 'splitFwd',
+   'splitPlay', 'splitBack', 'splitFwd',
    'splitZoomIn', 'splitZoomOut', 'splitViewRange',
    'splitDownloadAll', 'splitReplace', 'splitCutLayer'
   ].forEach(function (id) { el[id] = $(id); });
@@ -817,7 +826,6 @@ var split = (function () {
     el.splitPlay.textContent = playing ? '⏸' : '▶';
     el.splitPlay.setAttribute('aria-label', playing ? t('pause') : t('play'));
     el.splitPlay.disabled = !has;
-    el.splitStop.disabled = !transport.ctx;
     el.splitBack.disabled = !has; el.splitFwd.disabled = !has;
     el.splitAddCut.disabled = !has;
     el.splitDownloadAll.disabled = !has || !cuts.length;
@@ -833,7 +841,6 @@ var split = (function () {
     transport.play(decoded, off);
     updateUI(); renderSegs();
   });
-  el.splitStop.addEventListener('click', function () { transport.stop(); updateUI(); });
   el.splitBack.addEventListener('click', function () { transport.seek(-5, dur()); updateUI(); });
   el.splitFwd.addEventListener('click', function () { transport.seek(5, dur()); updateUI(); });
   el.splitZoomIn.addEventListener('click', function () { wave.zoomBy(0.5); renderCuts(); updateViewRange(); });
@@ -900,7 +907,7 @@ var join = (function () {
 
   var el = {};
   ['joinDrop', 'joinFile', 'joinFileList', 'joinHint', 'joinEmpty',
-   'joinMerge', 'joinPlay', 'joinStop', 'joinDownload', 'joinClear', 'joinInfo'
+   'joinMerge', 'joinPlay', 'joinDownload', 'joinClear', 'joinInfo'
   ].forEach(function (id) { el[id] = $(id); });
 
   function setHint(m) { el.joinHint.textContent = m || ''; }
@@ -1030,7 +1037,6 @@ var join = (function () {
     player.play(channelsToBuffer(res.channels, res.sr), off);
     updateUI();
   });
-  el.joinStop.addEventListener('click', function () { player.stop(); updateUI(); });
 
   el.joinDownload.addEventListener('click', function () {
     var res = merged || buildMerged();
@@ -1052,7 +1058,6 @@ var join = (function () {
     var playing = player.playing();
     el.joinPlay.textContent = playing ? '⏸ ' + t('pause') : '▶ ' + t('play');
     el.joinPlay.disabled = !has;
-    el.joinStop.disabled = !player.ctx;
     el.joinMerge.disabled = !has;
     el.joinDownload.disabled = !has;
     el.joinClear.disabled = !files.length;
