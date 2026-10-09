@@ -277,6 +277,58 @@ function Transport(wave, updateUI) {
 
 /* ================= TRIM TAB ================= */
 
+/* ---------- file persistence (IndexedDB) ----------
+   Files stay loaded across refresh / in-app navigation until replaced.
+   A fresh visit (new tab, no sessionStorage flag) wipes them = "exit from the app". */
+var Persist = (function () {
+  var dbp = null;
+  function open() {
+    if (dbp) return dbp;
+    dbp = new Promise(function (res) {
+      if (!('indexedDB' in window)) return res(null);
+      var rq;
+      try { rq = indexedDB.open('trimAudio', 1); } catch (e) { return res(null); }
+      rq.onupgradeneeded = function () { rq.result.createObjectStore('files'); };
+      rq.onsuccess = function () { res(rq.result); };
+      rq.onerror = function () { res(null); };
+    });
+    return dbp;
+  }
+  function tx(mode, fn) {
+    return open().then(function (db) {
+      return new Promise(function (res) {
+        if (!db) return res(null);
+        try {
+          var t = db.transaction('files', mode), st = t.objectStore('files');
+          var r = fn(st);
+          if (r && r.onsuccess !== undefined) {
+            r.onsuccess = function () { res(r.result === undefined ? true : r.result); };
+            r.onerror = function () { res(null); };
+          } else { res(true); }
+        } catch (e) { res(null); }
+      });
+    });
+  }
+  return {
+    save: function (key, val) { return tx('readwrite', function (st) { return st.put(val, key); }); },
+    load: function (key) { return tx('readonly', function (st) { return st.get(key); }); },
+    clear: function (key) { return tx('readwrite', function (st) { return st.delete(key); }); }
+  };
+})();
+
+// true = this is a reload/in-app return -> restore files; false = fresh visit -> wipe first
+var sessionRestore = (function () {
+  var isRefresh = false;
+  try {
+    isRefresh = !!sessionStorage.getItem('trimAudioSession');
+    sessionStorage.setItem('trimAudioSession', '1');
+  } catch (e) {}
+  if (isRefresh) return Promise.resolve(true);
+  return Persist.clear('trim').then(function () { return Persist.clear('split'); })
+    .then(function () { return Persist.clear('join'); })
+    .then(function () { return false; });
+})();
+
 var trim = (function () {
   var wave = Waveform('trimWaveWrap', 'trimWave', 'trimPlayhead');
   var decoded = null, fileName = '', peaks = null;
@@ -312,6 +364,7 @@ var trim = (function () {
         ab.numberOfChannels + (ab.numberOfChannels > 1 ? t('chStereo') : t('chMono')) + ' · ' + ab.sampleRate + ' Hz';
       renderRegion(); updateUI(); updateViewRange();
       setHint(t('trimHintDraw'));
+      Persist.save('trim', f);
       el.trimStage.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }).catch(function () { alert(t('decodeFail')); setHint(''); });
   }
@@ -557,6 +610,11 @@ var trim = (function () {
 
 /* ================= SPLIT TAB ================= */
 
+sessionRestore.then(function (restore) {
+    if (!restore) return;
+    Persist.load('trim').then(function (f) { if (f && f.size) loadFile(f); });
+  });
+
 var split = (function () {
   var wave = Waveform('splitWaveWrap', 'splitWave', 'splitPlayhead');
   var decoded = null, fileName = '', peaks = null;
@@ -591,6 +649,7 @@ var split = (function () {
         ab.numberOfChannels + (ab.numberOfChannels > 1 ? t('chStereo') : t('chMono')) + ' · ' + ab.sampleRate + ' Hz';
       renderCuts(); renderSegs(); updateUI(); updateViewRange();
       setHint(t('splitHint'));
+      Persist.save('split', f);
       el.splitStage.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }).catch(function () { alert(t('decodeFail')); setHint(''); });
   }
@@ -826,6 +885,11 @@ var split = (function () {
 
 /* ================= JOIN TAB ================= */
 
+sessionRestore.then(function (restore) {
+    if (!restore) return;
+    Persist.load('split').then(function (f) { if (f && f.size) loadFile(f); });
+  });
+
 var join = (function () {
   var files = []; // {id, name, buffer, duration}
   var seq = 0;
@@ -855,12 +919,13 @@ var join = (function () {
     var done = 0;
     news.forEach(function (f) {
       decodeFile(f).then(function (ab) {
-        files.push({ id: ++seq, name: f.name, buffer: ab, duration: ab.duration });
+        files.push({ id: ++seq, name: f.name, blob: f, buffer: ab, duration: ab.duration });
         merged = null;
         done++;
         if (done === news.length) {
           renderList(); updateUI();
           setHint(t('joinHint2'));
+          saveJoin();
         }
       }).catch(function () {
         done++;
@@ -898,6 +963,9 @@ var join = (function () {
     });
   }
 
+  function saveJoin() {
+    Persist.save('join', files.map(function (f) { return { name: f.name, type: (f.blob && f.blob.type) || '', blob: f.blob }; }));
+  }
   function move(id, dir) {
     var i = files.findIndex(function (f) { return f.id === id; });
     var j = i + dir;
@@ -906,6 +974,7 @@ var join = (function () {
     merged = null;
     player.stop(true);
     renderList(); updateUI();
+    saveJoin();
   }
 
   function remove(id) {
@@ -913,6 +982,7 @@ var join = (function () {
     merged = null;
     player.stop(true);
     renderList(); updateUI();
+    saveJoin();
   }
 
   function updateTotal() {
@@ -979,6 +1049,7 @@ var join = (function () {
     player.stop(true);
     dummyWave.playheadTime = 0;
     renderList(); updateUI(); setHint('');
+    Persist.clear('join');
   });
 
   function updateUI() {
@@ -1013,6 +1084,17 @@ var join = (function () {
   });
 
   renderList(); updateUI();
+
+  // restore persisted files (refresh / in-app return); fresh visits were wiped already
+  sessionRestore.then(function (restore) {
+    if (!restore) return;
+    Persist.load('join').then(function (saved) {
+      if (!saved || !saved.length) return;
+      var list = saved.filter(function (it) { return it && it.blob && it.blob.size; })
+                      .map(function (it) { return it.blob; });
+      if (list.length) addFiles(list);
+    });
+  });
 
   return {
     refresh: function () { updateUI(); }
