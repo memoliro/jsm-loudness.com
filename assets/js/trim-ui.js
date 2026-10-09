@@ -334,6 +334,7 @@ var trim = (function () {
   var decoded = null, fileName = '', peaks = null;
   var region = null; // {start, end} single selection
   var transport = Transport(wave, updateUI);
+  var previewing = false; // transport currently carries a preview (playing or paused)
 
   var el = {};
   ['trimDrop', 'trimFile', 'trimStage', 'trimFileInfo', 'trimHint',
@@ -364,6 +365,7 @@ var trim = (function () {
         ab.numberOfChannels + (ab.numberOfChannels > 1 ? t('chStereo') : t('chMono')) + ' · ' + ab.sampleRate + ' Hz';
       renderRegion(); updateUI(); updateViewRange();
       setHint(t('trimHintDraw'));
+      previewing = false;
       Persist.save('trim', f);
       el.trimStage.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }).catch(function () { alert(t('decodeFail')); setHint(''); });
@@ -400,6 +402,7 @@ var trim = (function () {
     if (b - a < 0.05) return;
     region = { start: a, end: b };
     pendingOp = null;
+    previewing = false;
     transport.stop(true);
     renderRegion(); updateUI();
     setHint(t('trimHintEdit'));
@@ -509,26 +512,32 @@ var trim = (function () {
   function setPendingOp(mode) {
     if (!region) { alert(t('trimNoSel')); return; }
     pendingOp = mode;
+    previewing = false;
     transport.stop(true);
     updateUI();
   }
 
   function doPreview() {
-    if (transport.playing()) { transport.stop(); updateUI(); return; }
+    // works like the Play button: pause / resume the active preview
+    if (previewing && transport.playing()) { transport.pause(); updateUI(); return; }
+    if (previewing && transport.ctx && transport.paused) { transport.resume(); updateUI(); return; }
     if (!decoded) return;
+    var buf = null;
     if (pendingOp) {
       var res = buildResult(pendingOp);
       if (!res) { alert(t('renderFail')); return; }
-      transport.play(channelsToBuffer(res.channels, res.sr), 0);
+      buf = channelsToBuffer(res.channels, res.sr);
     } else if (region) {
       var chs = currentChannels(), sr = decoded.sampleRate;
       var sel = sliceChannels(chs, sr, region.start, region.end);
       if (!sel) { alert(t('renderFail')); return; }
-      transport.play(channelsToBuffer(sel, sr), 0);
+      buf = channelsToBuffer(sel, sr);
     } else {
       alert(t('trimNoSel'));
       return;
     }
+    previewing = true;
+    transport.play(buf, 0);
     updateUI();
   }
 
@@ -550,7 +559,10 @@ var trim = (function () {
   function updateUI() {
     var has = !!decoded, hasRegion = !!region;
     var playing = transport.playing();
+    if (!transport.ctx) previewing = false;
     el.trimPlay.textContent = playing ? '⏸' : '▶';
+    var pvLabel = el.trimPreview.textContent.replace(/^[▶⏸]\s*/, '');
+    el.trimPreview.textContent = (previewing && playing ? '⏸ ' : '▶ ') + pvLabel;
     el.trimPlay.setAttribute('aria-label', playing ? t('pause') : t('play'));
     el.trimPlay.disabled = !has;
     el.trimStop.disabled = !transport.ctx;
@@ -566,6 +578,7 @@ var trim = (function () {
     if (!decoded) return;
     if (transport.playing()) { transport.pause(); updateUI(); return; }
     if (transport.ctx && transport.paused) { transport.resume(); updateUI(); return; }
+    previewing = false;
     transport.play(decoded, wave.playheadTime);
     updateUI();
   });
@@ -602,6 +615,12 @@ var trim = (function () {
     if (decoded && !$('trimPanel-trim').hidden) { wave.refresh(); renderRegion(); }
   });
 
+  // restore persisted file (refresh / in-app return); fresh visits were wiped already
+  sessionRestore.then(function (restore) {
+    if (!restore) return;
+    Persist.load('trim').then(function (f) { if (f && f.size) loadFile(f); });
+  });
+
   return {
     refresh: function () { if (decoded) { wave.refresh(); renderRegion(); updateViewRange(); } },
     hasAudio: function () { return !!decoded; }
@@ -610,13 +629,9 @@ var trim = (function () {
 
 /* ================= SPLIT TAB ================= */
 
-sessionRestore.then(function (restore) {
-    if (!restore) return;
-    Persist.load('trim').then(function (f) { if (f && f.size) loadFile(f); });
-  });
-
 var split = (function () {
   var wave = Waveform('splitWaveWrap', 'splitWave', 'splitPlayhead');
+  var segPreviewIdx = null; // which segment the transport is previewing (playing or paused)
   var decoded = null, fileName = '', peaks = null;
   var cuts = []; // sorted array of seconds
   var transport = Transport(wave, updateUI);
@@ -769,10 +784,10 @@ var split = (function () {
         '<button type="button" class="bnum">#' + (i + 1) + '</button>' +
         '<span class="btime">' + fmt(s[0]) + ' – ' + fmt(s[1]) + ' <span style="opacity:.6">(' + fmt(s[1] - s[0]) + ')</span></span>' +
         '<span style="flex:1"></span>' +
-        '<button type="button" class="btn-ghost split-play-seg">▶</button>' +
+        '<button type="button" class="btn-ghost split-play-seg">' + (segPreviewIdx === i && transport.playing() ? '⏸' : '▶') + '</button>' +
         '<button type="button" class="btn-lime split-dl-seg">⬇ ' + t('segDownload') + '</button>';
       row.querySelector('.split-play-seg').addEventListener('click', function () {
-        previewSeg(s[0], s[1]);
+        previewSeg(s[0], s[1], i);
       });
       row.querySelector('.split-dl-seg').addEventListener('click', function () {
         downloadSeg(s[0], s[1], i);
@@ -786,11 +801,14 @@ var split = (function () {
     return sliceChannels(bufferChannels(decoded), decoded.sampleRate, a, b);
   }
 
-  function previewSeg(a, b) {
+  function previewSeg(a, b, i) {
+    if (segPreviewIdx === i && transport.playing()) { transport.pause(); updateUI(); renderSegs(); return; }
+    if (segPreviewIdx === i && transport.ctx && transport.paused) { transport.resume(); updateUI(); renderSegs(); return; }
     var chs = segChannels(a, b);
     if (!chs) return;
+    segPreviewIdx = i;
     transport.play(channelsToBuffer(chs, decoded.sampleRate), 0);
-    updateUI();
+    updateUI(); renderSegs();
   }
 
   function downloadSeg(a, b, i) {
@@ -822,6 +840,7 @@ var split = (function () {
   function updateUI() {
     var has = !!decoded;
     var playing = transport.playing();
+    if (!transport.ctx && segPreviewIdx !== null) { segPreviewIdx = null; renderSegs(); }
     el.splitPlay.textContent = playing ? '⏸' : '▶';
     el.splitPlay.setAttribute('aria-label', playing ? t('pause') : t('play'));
     el.splitPlay.disabled = !has;
@@ -835,8 +854,9 @@ var split = (function () {
     if (!decoded) return;
     if (transport.playing()) { transport.pause(); updateUI(); return; }
     if (transport.ctx && transport.paused) { transport.resume(); updateUI(); return; }
+    segPreviewIdx = null;
     transport.play(decoded, wave.playheadTime);
-    updateUI();
+    updateUI(); renderSegs();
   });
   el.splitStop.addEventListener('click', function () { transport.stop(); updateUI(); });
   el.splitBack.addEventListener('click', function () { transport.seek(-5, dur()); updateUI(); });
@@ -878,17 +898,18 @@ var split = (function () {
     if (decoded && !$('trimPanel-split').hidden) { wave.refresh(); renderCuts(); }
   });
 
+  // restore persisted file (refresh / in-app return); fresh visits were wiped already
+  sessionRestore.then(function (restore) {
+    if (!restore) return;
+    Persist.load('split').then(function (f) { if (f && f.size) loadFile(f); });
+  });
+
   return {
     refresh: function () { if (decoded) { wave.refresh(); renderCuts(); updateViewRange(); } }
   };
 })();
 
 /* ================= JOIN TAB ================= */
-
-sessionRestore.then(function (restore) {
-    if (!restore) return;
-    Persist.load('split').then(function (f) { if (f && f.size) loadFile(f); });
-  });
 
 var join = (function () {
   var files = []; // {id, name, buffer, duration}
