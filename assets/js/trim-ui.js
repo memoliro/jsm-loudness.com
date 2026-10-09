@@ -301,9 +301,9 @@ var trim = (function () {
       region = null; pendingOp = null;
       var chs = bufferChannels(ab);
       peaks = BA.computePeaks(BA.mixToMono(chs), 1500);
-      wave.setAudio(peaks, ab.duration);
       el.trimDrop.style.display = 'none';
       el.trimStage.style.display = 'block';
+      wave.setAudio(peaks, ab.duration);
       el.trimFileInfo.textContent = fileName + ' — ' + fmt(ab.duration) + ' · ' +
         ab.numberOfChannels + (ab.numberOfChannels > 1 ? t('chStereo') : t('chMono')) + ' · ' + ab.sampleRate + ' Hz';
       renderRegion(); updateUI(); updateViewRange();
@@ -457,10 +457,20 @@ var trim = (function () {
   }
 
   function doPreview() {
-    if (!pendingOp) { alert(t('trimPickOp')); return; }
-    var res = buildResult(pendingOp);
-    if (!res) { alert(t('renderFail')); return; }
-    transport.play(channelsToBuffer(res.channels, res.sr), 0);
+    if (!decoded) return;
+    if (pendingOp) {
+      var res = buildResult(pendingOp);
+      if (!res) { alert(t('renderFail')); return; }
+      transport.play(channelsToBuffer(res.channels, res.sr), 0);
+    } else if (region) {
+      var chs = currentChannels(), sr = decoded.sampleRate;
+      var sel = sliceChannels(chs, sr, region.start, region.end);
+      if (!sel) { alert(t('renderFail')); return; }
+      transport.play(channelsToBuffer(sel, sr), 0);
+    } else {
+      alert(t('trimNoSel'));
+      return;
+    }
     updateUI();
   }
 
@@ -490,7 +500,7 @@ var trim = (function () {
     el.trimKeep.disabled = !hasRegion; el.trimDelete.disabled = !hasRegion;
     el.trimKeep.classList.toggle('on', pendingOp === 'keep');
     el.trimDelete.classList.toggle('on', pendingOp === 'delete');
-    el.trimPreview.disabled = !pendingOp;
+    el.trimPreview.disabled = !(pendingOp || hasRegion);
     el.trimDownload.disabled = !pendingOp;
   }
 
@@ -569,9 +579,9 @@ var split = (function () {
       cuts = [];
       var chs = bufferChannels(ab);
       peaks = BA.computePeaks(BA.mixToMono(chs), 1500);
-      wave.setAudio(peaks, ab.duration);
       el.splitDrop.style.display = 'none';
       el.splitStage.style.display = 'block';
+      wave.setAudio(peaks, ab.duration);
       el.splitFileInfo.textContent = fileName + ' — ' + fmt(ab.duration) + ' · ' +
         ab.numberOfChannels + (ab.numberOfChannels > 1 ? t('chStereo') : t('chMono')) + ' · ' + ab.sampleRate + ' Hz';
       renderCuts(); renderSegs(); updateUI(); updateViewRange();
