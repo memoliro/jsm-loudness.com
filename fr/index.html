@@ -260,6 +260,7 @@
   </div>
 </div>
 
+<script src="../assets/js/shared-audio.js?v=20261009"></script>
 <script>
 // Batch + CSV - works alongside original React analyzer
 (function(){
@@ -303,6 +304,14 @@
   window.__jsmBatchAdd = async function(files){
     for(let f of files){const r=await analyze(f);if(r){batch.push(r);render();}}
   };
+  // Share analyzed files with the Bleep/Edit pages (stays loaded until replaced/cleared/exit)
+  (function(){
+    var origBatchAdd = window.__jsmBatchAdd;
+    window.__jsmBatchAdd = async function(files){
+      try { if (files && files[0] && window.SharedAudio) window.SharedAudio.saveFile(files[0]); } catch(e){}
+      return origBatchAdd.apply(this, arguments);
+    };
+  })();
 
   document.addEventListener('DOMContentLoaded',()=>{
     const exp=document.getElementById('jsm-export-csv');

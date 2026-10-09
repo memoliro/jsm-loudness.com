@@ -81,6 +81,7 @@
         drawWave(); renderRegions(); renderList(); updateButtons();
         positionPlayhead(); updateViewRange();
         setHint(t('hintDraw'));
+        if (window.SharedAudio) window.SharedAudio.saveFile(f);
         el.bleepStage.scrollIntoView({ behavior: 'smooth', block: 'center' });
       })
       .catch(function () { alert(t('decodeFail')); setHint(''); });
@@ -575,4 +576,13 @@
   });
 
   window.BleepUI = { loadFile: loadFile };
+
+  // Shared audio: pick up the file loaded on another page (Analyzer/Edit),
+  // unless this is a fresh visit (then start clean).
+  if (window.SharedAudio) {
+    window.SharedAudio.wipeIfFresh(['current']).then(function (restore) {
+      if (!restore) return;
+      window.SharedAudio.loadFile().then(function (f) { if (f && f.size) loadFile(f); });
+    });
+  }
 })();

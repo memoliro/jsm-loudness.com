@@ -40,6 +40,7 @@ function bufferChannels(buf) {
 }
 
 function baseName(name) { return ((name || 'audio').replace(/\.[^.]+$/, '') || 'audio'); }
+function fileKey(f) { return (f && f.name || '') + '|' + (f && f.size || 0) + '|' + (f && f.lastModified || 0); }
 
 function downloadWav(channels, sampleRate, filename) {
   var wav = BA.encodeWav(channels, sampleRate);
@@ -87,9 +88,10 @@ var tabBtns = Array.prototype.slice.call(document.querySelectorAll('[data-ttab]'
 function autoShare(name) {
   var tabs = { trim: trim, split: split, convert: convert };
   var tab = tabs[name];
-  if (!tab || !tab.loadFile || tab.hasAudio()) return;
-  Persist.load('sharedAudio').then(function (f) {
-    if (f && f.size && !tab.hasAudio()) tab.loadFile(f);
+  if (!tab || !tab.loadFile || !tab.loadedKey) return;
+  SharedAudio.loadFile().then(function (f) {
+    // sync when the tab is empty OR holds a file replaced in another tab
+    if (f && f.size && tab.loadedKey() !== fileKey(f)) tab.loadFile(f);
   });
 }
 function showTab(name) {
@@ -288,63 +290,18 @@ function Transport(wave, updateUI) {
 
 /* ================= TRIM TAB ================= */
 
-/* ---------- file persistence (IndexedDB) ----------
-   Files stay loaded across refresh / in-app navigation until replaced.
-   A fresh visit (new tab, no sessionStorage flag) wipes them = "exit from the app". */
-var Persist = (function () {
-  var dbp = null;
-  function open() {
-    if (dbp) return dbp;
-    dbp = new Promise(function (res) {
-      if (!('indexedDB' in window)) return res(null);
-      var rq;
-      try { rq = indexedDB.open('trimAudio', 1); } catch (e) { return res(null); }
-      rq.onupgradeneeded = function () { rq.result.createObjectStore('files'); };
-      rq.onsuccess = function () { res(rq.result); };
-      rq.onerror = function () { res(null); };
-    });
-    return dbp;
-  }
-  function tx(mode, fn) {
-    return open().then(function (db) {
-      return new Promise(function (res) {
-        if (!db) return res(null);
-        try {
-          var t = db.transaction('files', mode), st = t.objectStore('files');
-          var r = fn(st);
-          if (r && r.onsuccess !== undefined) {
-            r.onsuccess = function () { res(r.result === undefined ? true : r.result); };
-            r.onerror = function () { res(null); };
-          } else { res(true); }
-        } catch (e) { res(null); }
-      });
-    });
-  }
-  return {
-    save: function (key, val) { return tx('readwrite', function (st) { return st.put(val, key); }); },
-    load: function (key) { return tx('readonly', function (st) { return st.get(key); }); },
-    clear: function (key) { return tx('readwrite', function (st) { return st.delete(key); }); }
-  };
-})();
+/* ---------- shared audio across pages ----------
+   SharedAudio (assets/js/shared-audio.js, loaded before this file) keeps the
+   current file in IndexedDB so it survives reloads and is shared between the
+   Analyzer, Bleep and Edit pages — until replaced, cleared, or a fresh visit. */
+var sessionRestore = (window.SharedAudio
+  ? window.SharedAudio.wipeIfFresh(['current', 'joinList'])
+  : Promise.resolve(false));
 
-// true = this is a reload/in-app return -> restore files; false = fresh visit -> wipe first
-var sessionRestore = (function () {
-  var isRefresh = false;
-  try {
-    isRefresh = !!sessionStorage.getItem('trimAudioSession');
-    sessionStorage.setItem('trimAudioSession', '1');
-  } catch (e) {}
-  if (isRefresh) return Promise.resolve(true);
-  return Persist.clear('trim').then(function () { return Persist.clear('split'); })
-    .then(function () { return Persist.clear('join'); })
-    .then(function () { return Persist.clear('convert'); })
-    .then(function () { return Persist.clear('sharedAudio'); })
-    .then(function () { return false; });
-})();
 
 var trim = (function () {
   var wave = Waveform('trimWaveWrap', 'trimWave', 'trimPlayhead');
-  var decoded = null, fileName = '', peaks = null;
+  var decoded = null, fileName = '', peaks = null, loadedKey = null;
   var region = null; // {start, end} single selection
   var transport = Transport(wave, updateUI);
   var previewing = false; // transport currently carries a preview (playing or paused)
@@ -367,7 +324,7 @@ var trim = (function () {
     setHint(t('decoding'));
     fileName = f.name;
     decodeFile(f).then(function (ab) {
-      decoded = ab;
+      decoded = ab; loadedKey = fileKey(f);
       region = null; pendingOp = null;
       var chs = bufferChannels(ab);
       peaks = BA.computePeaks(BA.mixToMono(chs), 1500);
@@ -379,7 +336,7 @@ var trim = (function () {
       renderRegion(); updateUI(); updateViewRange();
       setHint(t('trimHintDraw'));
       previewing = false;
-      Persist.save('sharedAudio', f);
+      SharedAudio.saveFile(f);
       el.trimStage.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }).catch(function () { alert(t('decodeFail')); setHint(''); });
   }
@@ -591,7 +548,9 @@ var trim = (function () {
     if (transport.playing()) { transport.pause(); updateUI(); return; }
     if (transport.ctx && transport.paused) { transport.resume(); updateUI(); return; }
     previewing = false;
-    transport.play(decoded, wave.playheadTime);
+    var off = wave.playheadTime;
+    if (off >= decoded.duration - 0.25) off = 0; // ended: restart from the beginning
+    transport.play(decoded, off);
     updateUI();
   });
   el.trimStop.addEventListener('click', function () { transport.stop(); updateUI(); });
@@ -630,13 +589,14 @@ var trim = (function () {
   // restore persisted file (refresh / in-app return); fresh visits were wiped already
   sessionRestore.then(function (restore) {
     if (!restore) return;
-    Persist.load('sharedAudio').then(function (f) { if (f && f.size) loadFile(f); });
+    SharedAudio.loadFile().then(function (f) { if (f && f.size) loadFile(f); });
   });
 
   return {
     refresh: function () { if (decoded) { wave.refresh(); renderRegion(); updateViewRange(); } },
     hasAudio: function () { return !!decoded; },
-    loadFile: loadFile
+    loadFile: loadFile,
+    loadedKey: function () { return loadedKey; }
   };
 })();
 
@@ -645,7 +605,7 @@ var trim = (function () {
 var split = (function () {
   var wave = Waveform('splitWaveWrap', 'splitWave', 'splitPlayhead');
   var segPreviewIdx = null; // which segment the transport is previewing (playing or paused)
-  var decoded = null, fileName = '', peaks = null;
+  var decoded = null, fileName = '', peaks = null, loadedKey = null;
   var cuts = []; // sorted array of seconds
   var transport = Transport(wave, updateUI);
 
@@ -666,7 +626,7 @@ var split = (function () {
     setHint(t('decoding'));
     fileName = f.name;
     decodeFile(f).then(function (ab) {
-      decoded = ab;
+      decoded = ab; loadedKey = fileKey(f);
       cuts = [];
       var chs = bufferChannels(ab);
       peaks = BA.computePeaks(BA.mixToMono(chs), 1500);
@@ -677,7 +637,7 @@ var split = (function () {
         ab.numberOfChannels + (ab.numberOfChannels > 1 ? t('chStereo') : t('chMono')) + ' · ' + ab.sampleRate + ' Hz';
       renderCuts(); renderSegs(); updateUI(); updateViewRange();
       setHint(t('splitHint'));
-      Persist.save('sharedAudio', f);
+      SharedAudio.saveFile(f);
       el.splitStage.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }).catch(function () { alert(t('decodeFail')); setHint(''); });
   }
@@ -868,7 +828,9 @@ var split = (function () {
     if (transport.playing()) { transport.pause(); updateUI(); return; }
     if (transport.ctx && transport.paused) { transport.resume(); updateUI(); return; }
     segPreviewIdx = null;
-    transport.play(decoded, wave.playheadTime);
+    var off = wave.playheadTime;
+    if (off >= decoded.duration - 0.25) off = 0; // ended: restart from the beginning
+    transport.play(decoded, off);
     updateUI(); renderSegs();
   });
   el.splitStop.addEventListener('click', function () { transport.stop(); updateUI(); });
@@ -914,7 +876,8 @@ var split = (function () {
   return {
     refresh: function () { if (decoded) { wave.refresh(); renderCuts(); updateViewRange(); } },
     hasAudio: function () { return !!decoded; },
-    loadFile: loadFile
+    loadFile: loadFile,
+    loadedKey: function () { return loadedKey; }
   };
 })();
 
@@ -994,7 +957,7 @@ var join = (function () {
   }
 
   function saveJoin() {
-    Persist.save('join', files.map(function (f) { return { name: f.name, type: (f.blob && f.blob.type) || '', blob: f.blob }; }));
+    SharedAudio.put('joinList', files.map(function (f) { return { name: f.name, type: (f.blob && f.blob.type) || '', blob: f.blob }; }));
   }
   function move(id, dir) {
     var i = files.findIndex(function (f) { return f.id === id; });
@@ -1062,7 +1025,9 @@ var join = (function () {
     if (!res) return;
     merged = res;
     dummyWave.duration = res.channels[0].length / res.sr;
-    player.play(channelsToBuffer(res.channels, res.sr), dummyWave.playheadTime);
+    var off = dummyWave.playheadTime;
+    if (off >= dummyWave.duration - 0.25) { off = 0; dummyWave.playheadTime = 0; } // ended: restart
+    player.play(channelsToBuffer(res.channels, res.sr), off);
     updateUI();
   });
   el.joinStop.addEventListener('click', function () { player.stop(); updateUI(); });
@@ -1079,7 +1044,7 @@ var join = (function () {
     player.stop(true);
     dummyWave.playheadTime = 0;
     renderList(); updateUI(); setHint('');
-    Persist.clear('join');
+    SharedAudio.del('joinList');
   });
 
   function updateUI() {
@@ -1118,7 +1083,7 @@ var join = (function () {
   // restore persisted files (refresh / in-app return); fresh visits were wiped already
   sessionRestore.then(function (restore) {
     if (!restore) return;
-    Persist.load('join').then(function (saved) {
+    SharedAudio.get('joinList').then(function (saved) {
       if (!saved || !saved.length) return;
       var list = saved.filter(function (it) { return it && it.blob && it.blob.size; })
                       .map(function (it) { return it.blob; });
@@ -1134,7 +1099,7 @@ var join = (function () {
 /* ================= CONVERT TAB ================= */
 
 var convert = (function () {
-  var decoded = null, fileName = '', channels = null;
+  var decoded = null, fileName = '', channels = null, loadedKey = null;
   var result = null; // {blob, ext}
 
   var el = {};
@@ -1157,7 +1122,7 @@ var convert = (function () {
     setHint(t('decoding'));
     converting = false; result = null;
     decodeFile(f).then(function (ab) {
-      decoded = ab; fileName = f.name;
+      decoded = ab; fileName = f.name; loadedKey = fileKey(f);
       channels = bufferChannels(ab);
       el.convDrop.style.display = 'none';
       el.convStage.style.display = 'block';
@@ -1165,7 +1130,7 @@ var convert = (function () {
         ab.numberOfChannels + (ab.numberOfChannels > 1 ? t('chStereo') : t('chMono'));
       setHint('');
       updateUI();
-      Persist.save('sharedAudio', f);
+      SharedAudio.saveFile(f);
     }).catch(function () { alert(t('decodeFail')); setHint(''); });
   }
 
@@ -1297,7 +1262,8 @@ var convert = (function () {
   return {
     refresh: function () { updateUI(); },
     hasAudio: function () { return !!decoded; },
-    loadFile: loadFile
+    loadFile: loadFile,
+    loadedKey: function () { return loadedKey; }
   };
 })();
 
