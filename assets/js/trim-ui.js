@@ -82,12 +82,23 @@ function parseTime(str) {
 /* ---------- tabs ---------- */
 
 var tabBtns = Array.prototype.slice.call(document.querySelectorAll('[data-ttab]'));
+// One audio shared across the single-file tabs: switching to an empty
+// Trim/Split/Convert tab auto-loads the current file — no re-uploading.
+function autoShare(name) {
+  var tabs = { trim: trim, split: split, convert: convert };
+  var tab = tabs[name];
+  if (!tab || !tab.loadFile || tab.hasAudio()) return;
+  Persist.load('sharedAudio').then(function (f) {
+    if (f && f.size && !tab.hasAudio()) tab.loadFile(f);
+  });
+}
 function showTab(name) {
   tabBtns.forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-ttab') === name); });
   ['trim', 'split', 'join', 'convert'].forEach(function (k) {
     var p = $('trimPanel-' + k);
     if (p) p.hidden = (k !== name);
   });
+  autoShare(name);
   if (window.TrimUI && window.TrimUI.refresh) window.TrimUI.refresh();
 }
 tabBtns.forEach(function (b) {
@@ -327,6 +338,7 @@ var sessionRestore = (function () {
   return Persist.clear('trim').then(function () { return Persist.clear('split'); })
     .then(function () { return Persist.clear('join'); })
     .then(function () { return Persist.clear('convert'); })
+    .then(function () { return Persist.clear('sharedAudio'); })
     .then(function () { return false; });
 })();
 
@@ -367,7 +379,7 @@ var trim = (function () {
       renderRegion(); updateUI(); updateViewRange();
       setHint(t('trimHintDraw'));
       previewing = false;
-      Persist.save('trim', f);
+      Persist.save('sharedAudio', f);
       el.trimStage.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }).catch(function () { alert(t('decodeFail')); setHint(''); });
   }
@@ -534,8 +546,7 @@ var trim = (function () {
       if (!sel) { alert(t('renderFail')); return; }
       buf = channelsToBuffer(sel, sr);
     } else {
-      alert(t('trimNoSel'));
-      return;
+      buf = decoded; // no selection: preview the whole file, like Play
     }
     previewing = true;
     transport.play(buf, 0);
@@ -571,7 +582,7 @@ var trim = (function () {
     el.trimKeep.disabled = !hasRegion; el.trimDelete.disabled = !hasRegion;
     el.trimKeep.classList.toggle('on', pendingOp === 'keep');
     el.trimDelete.classList.toggle('on', pendingOp === 'delete');
-    el.trimPreview.disabled = !(pendingOp || hasRegion);
+    el.trimPreview.disabled = !has;
     el.trimDownload.disabled = !pendingOp;
   }
 
@@ -619,12 +630,13 @@ var trim = (function () {
   // restore persisted file (refresh / in-app return); fresh visits were wiped already
   sessionRestore.then(function (restore) {
     if (!restore) return;
-    Persist.load('trim').then(function (f) { if (f && f.size) loadFile(f); });
+    Persist.load('sharedAudio').then(function (f) { if (f && f.size) loadFile(f); });
   });
 
   return {
     refresh: function () { if (decoded) { wave.refresh(); renderRegion(); updateViewRange(); } },
-    hasAudio: function () { return !!decoded; }
+    hasAudio: function () { return !!decoded; },
+    loadFile: loadFile
   };
 })();
 
@@ -665,7 +677,7 @@ var split = (function () {
         ab.numberOfChannels + (ab.numberOfChannels > 1 ? t('chStereo') : t('chMono')) + ' · ' + ab.sampleRate + ' Hz';
       renderCuts(); renderSegs(); updateUI(); updateViewRange();
       setHint(t('splitHint'));
-      Persist.save('split', f);
+      Persist.save('sharedAudio', f);
       el.splitStage.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }).catch(function () { alert(t('decodeFail')); setHint(''); });
   }
@@ -899,14 +911,10 @@ var split = (function () {
     if (decoded && !$('trimPanel-split').hidden) { wave.refresh(); renderCuts(); }
   });
 
-  // restore persisted file (refresh / in-app return); fresh visits were wiped already
-  sessionRestore.then(function (restore) {
-    if (!restore) return;
-    Persist.load('split').then(function (f) { if (f && f.size) loadFile(f); });
-  });
-
   return {
-    refresh: function () { if (decoded) { wave.refresh(); renderCuts(); updateViewRange(); } }
+    refresh: function () { if (decoded) { wave.refresh(); renderCuts(); updateViewRange(); } },
+    hasAudio: function () { return !!decoded; },
+    loadFile: loadFile
   };
 })();
 
@@ -1157,7 +1165,7 @@ var convert = (function () {
         ab.numberOfChannels + (ab.numberOfChannels > 1 ? t('chStereo') : t('chMono'));
       setHint('');
       updateUI();
-      Persist.save('convert', f);
+      Persist.save('sharedAudio', f);
     }).catch(function () { alert(t('decodeFail')); setHint(''); });
   }
 
@@ -1286,14 +1294,10 @@ var convert = (function () {
 
   updateUI();
 
-  // restore persisted file (refresh / in-app return); fresh visits were wiped already
-  sessionRestore.then(function (restore) {
-    if (!restore) return;
-    Persist.load('convert').then(function (f) { if (f && f.size) loadFile(f); });
-  });
-
   return {
-    refresh: function () { updateUI(); }
+    refresh: function () { updateUI(); },
+    hasAudio: function () { return !!decoded; },
+    loadFile: loadFile
   };
 })();
 
