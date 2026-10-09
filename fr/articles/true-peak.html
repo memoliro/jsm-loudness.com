@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>True Peak (dBTP) expliqué : inter-sample peaks et sécurité codec | JSM Loudness</title>
-<meta name="description" content="True Peak dBTP vs sample peak : pourquoi l'oversampling 4x est requis, comment les codecs AAC/Opus créent des inter-sample peaks, et quelle marge viser (-1 ou -1,5 dBTP)."/>
+<title>True Peak (dBTP) Expliqué | JSM Loudness</title>
+<meta name="description" content="True Peak dBTP vs sample peak : oversampling 4x requis, risques de clipping avec les codecs AAC/Opus."/>
   <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/true-peak.html"/>
   <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/true-peak.html"/>
   <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/true-peak.html"/>
@@ -32,8 +32,8 @@ gtag('js', new Date());
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
 
 <meta property="og:type" content="article"/>
-<meta property="og:title" content="True Peak vs Sample Peak: Why -1 dBTP Matters"/>
-<meta property="og:description" content="Sample peak meters lie. Learn why true-peak needs 4x oversampling, what inter-sample clips are, and why -1 dBTP is the streaming standard."/>
+<meta property="og:title" content="True Peak (dBTP) Expliqué"/>
+<meta property="og:description" content="True Peak dBTP vs sample peak : oversampling 4x requis, risques de clipping avec les codecs AAC/Opus."/>
 <meta property="og:url" content="https://jsm-loudness.com/fr/articles/true-peak.html"/>
 <meta property="og:site_name" content="jsm-loudness.com"/>
   <meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
@@ -42,8 +42,8 @@ gtag('js', new Date());
   <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
 <meta property="og:locale" content="en_CA"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="True Peak vs Sample Peak: Why -1 dBTP Matters"/>
-<meta name="twitter:description" content="Why sample peak isn't enough: inter-sample clipping, 4x oversampling, and why -1 dBTP headroom is required by EBU R128."/>
+<meta name="twitter:title" content="True Peak (dBTP) Expliqué"/>
+<meta name="twitter:description" content="True Peak dBTP vs sample peak : oversampling 4x requis, risques de clipping avec les codecs AAC/Opus."/>
 
 <script type="application/ld+json">
 {
