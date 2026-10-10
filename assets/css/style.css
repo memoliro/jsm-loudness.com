@@ -27,7 +27,17 @@ a:hover{opacity:0.9}
 .consent{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(19,22,29,0.96);border:1px solid #1E232E;border-radius:16px;padding:16px;display:none;gap:12px;max-width:640px;width:calc(100% - 32px);z-index:100;backdrop-filter:blur(20px)}
 .mono{font-family:ui-monospace, SFMono-Regular, Menlo, monospace}
 
-.footer-grid{display:flex;flex-direction:column;gap:16px;width:100%;max-width:1100px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:40px;width:100%;max-width:1200px;margin:0 auto}
+.footer-col h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#E6E8EC;margin:0 0 18px;font-weight:700}
+.footer-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+.footer-col a{color:#9AA0A8;text-decoration:none;font-size:13px;transition:color .18s ease}
+.footer-col a:hover{color:#E6E8EC}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.footer-brand-name{font-weight:700;color:#E6E8EC;font-size:14px}
+.footer-tagline{font-size:13px;line-height:1.65;color:#9AA0A8;margin:0 0 16px;max-width:280px}
+.footer-copy{font-size:12px;color:#6B7280;margin:0}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
+@media(max-width:560px){.footer-grid{grid-template-columns:1fr;gap:28px}}
 .footer-row1{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px}
 .footer-row2{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:11px;color:#6B7280}
 .footer-links{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px}
