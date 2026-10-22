@@ -1,0 +1,248 @@
+<!doctype html><html lang="en"><head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="robots" content="index, follow, max-image-preview:large"/>
+  <link rel="icon" href="/favicon.svg"/>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261010"/>
+  <!-- Consent Mode v2 defaults - MUST be before gtag.js -->
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{
+    ad_storage:'denied',
+    ad_user_data:'denied',
+    ad_personalization:'denied',
+    analytics_storage:'denied',
+    functionality_storage:'granted',
+    security_storage:'granted',
+    wait_for_update: 500
+  });
+  gtag('js', new Date());
+  // Do not send page_view until consent granted - we trigger it in main.js after consent
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+  <title>AI Stem Splitter — Separate Vocals, Drums, Bass &amp; Other Free | JSM Loudness</title>
+  <meta name="description" content="Free AI stem splitter that runs 100% in your browser: split any song into vocals, drums, bass and other. No upload, no account — download every stem as WAV or MP3."/>
+  <link rel="canonical" href="https://jsm-loudness.com/stem-splitter.html"/>
+  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/stem-splitter.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/stem-splitter.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/stem-splitter.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="AI Stem Splitter — Vocals, Drums, Bass &amp; Other"/>
+  <meta property="og:description" content="Split any song into four stems with AI, right in your browser. Nothing is uploaded. Free WAV &amp; MP3 downloads."/>
+  <meta property="og:url" content="https://jsm-loudness.com/stem-splitter.html"/>
+  <meta property="og:site_name" content="jsm-loudness.com"/>
+  <meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="AI Stem Splitter — Vocals, Drums, Bass &amp; Other"/>
+  <meta name="twitter:description" content="Split any song into four stems with AI, right in your browser. Nothing is uploaded. Free WAV &amp; MP3 downloads."/>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"JSM Loudness AI Stem Splitter",
+    "applicationCategory":"MultimediaApplication",
+    "operatingSystem":"Web Browser",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"CAD"},
+    "description":"Free online AI stem splitter: separate any song into vocals, drums, bass and other stems using the HTDemucs model, running 100% in the browser. No upload, no account.",
+    "author":{"@type":"Person","name":"Sehmus"},
+    "featureList":"4-stem AI separation (vocals, drums, bass, other), In-browser HTDemucs model, Stem mixer with mute, solo and volume, WAV and MP3 downloads, Instrumental mix download, No upload"
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Is my song uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. The AI model (HTDemucs) runs entirely in your browser on your own device. The only download is the model itself, once — your audio never leaves your device."}},
+    {"@type":"Question","name":"Is the stem splitter really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Splitting and downloading are free, with no account and no watermark. Unlike most AI audio services, the free tier here lets you actually download your stems — as WAV or MP3."}},
+    {"@type":"Question","name":"What stems do I get?","acceptedAnswer":{"@type":"Answer","text":"Four stems: vocals, drums, bass and other (guitars, keys, synths and everything else). You can play them in a built-in mixer with mute, solo and volume per stem, download each stem separately, or download the instrumental (drums + bass + other) in one file."}},
+    {"@type":"Question","name":"Why does the first split take a while?","acceptedAnswer":{"@type":"Answer","text":"On your first visit the browser downloads the AI model (about 172 MB) and caches it, so later visits start instantly. The separation itself runs on your device: with a modern laptop GPU (WebGPU) a song splits faster than it plays; on CPU it can take one to three times the song length."}},
+    {"@type":"Question","name":"Does it work on phones?","acceptedAnswer":{"@type":"Answer","text":"Short songs can work on recent phones, but the model plus a full song needs a lot of memory — a desktop or laptop browser is strongly recommended for reliable results. Tracks are limited to 12 minutes."}}
+  ]}
+  </script>
+<style>
+/* Stem splitter — page-local styles */
+.bleep-drop.drag{border-color:#D6FF57;color:#E6E8EC;background:rgba(214,255,87,.05)}
+.stem-warn{display:none;border:1px solid #6b5a1e;background:rgba(255,207,87,.08);color:#F2D38A;border-radius:12px;padding:12px 14px;font-size:13px;margin-bottom:16px}
+.stem-prog{margin:14px 0 4px}
+.stem-prog .track{height:10px;background:#11141A;border:1px solid #1E232E;border-radius:999px;overflow:hidden}
+.stem-prog .fill{height:100%;width:0%;background:#D6FF57;transition:width .25s}
+.stem-prog p{font-size:12px;color:#9AA0A8;margin:6px 0 0}
+.stem-status{font-size:13px;color:#E6E8EC;min-height:18px;margin:10px 0 0}
+.stem-engine{font-size:12px;color:#6B7280;margin:4px 0 0}
+.stem-transport{display:flex;align-items:center;gap:12px;margin:18px 0 6px;flex-wrap:wrap}
+.stem-play{width:48px;height:48px;border-radius:50%;border:0;background:#D6FF57;color:#000;font-size:17px;cursor:pointer;flex:0 0 auto}
+.stem-seek{flex:1 1 200px;height:10px;background:#11141A;border:1px solid #1E232E;border-radius:999px;cursor:pointer;overflow:hidden}
+.stem-seek>div{height:100%;width:0%;background:#D6FF57}
+.stem-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
+.stem-card{border:1px solid #1E232E;border-radius:14px;padding:14px;margin-top:12px;background:#0F1115}
+.stem-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.stem-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.stem-hint{font-size:12px;color:#9AA0A8}
+.stem-wave{width:100%;height:56px;display:block;background:#0B0D10;border-radius:8px}
+.stem-controls{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.stem-controls .btn-ghost.on{background:#D6FF57;color:#000;border-color:#D6FF57}
+.stem-vol{flex:1 1 120px;accent-color:#D6FF57}
+.stem-dl{margin-left:auto;display:flex;gap:8px}
+.stem-table{width:100%;border-collapse:collapse;font-size:14px}
+.stem-table th,.stem-table td{border:1px solid #1E232E;padding:8px 10px;text-align:left}
+.stem-table th{color:#E6E8EC}
+</style>
+</head><body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;font-size:12px">
+  <button type="button" id="jsm-lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Language" style="display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:6px 12px;border-radius:999px;color:#E6E8EC;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.4);font-family:Inter,system-ui,sans-serif">
+    <svg width="18" height="12" viewBox="0 0 60 30" style="border-radius:2px;flex-shrink:0"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg>
+    <span>EN</span>
+    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="opacity:.7"><path d="M1 1l4 4 4-4" stroke="#9AA0A8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div id="jsm-lang-menu" role="listbox" hidden style="display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:160px;background:rgba(15,17,21,0.98);border:1px solid #1E232E;border-radius:12px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,0.5);backdrop-filter:blur(12px)">
+    <a href="/stem-splitter.html" role="option" aria-current="true" class="jsm-lang-option" data-lang="en" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:#E6E8EC;font-weight:600">
+      <svg width="18" height="12" viewBox="0 0 60 30" style="border-radius:2px;flex-shrink:0"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg>
+      English
+    </a>
+    <a href="/fr/stem-splitter.html" role="option" class="jsm-lang-option" data-lang="fr" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:#9AA0A8;font-weight:500">
+      <svg width="18" height="12" viewBox="0 0 3 2" style="border-radius:2px;flex-shrink:0"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg>
+      Fran&ccedil;ais
+    </a>
+  </div>
+</div>
+<style>
+#jsm-lang-selector .jsm-lang-option:hover{background:#151821;color:#E6E8EC!important}
+#jsm-lang-selector .jsm-lang-option[aria-current="true"]{background:rgba(214,255,87,0.08);color:#D6FF57!important}
+</style>
+<script>
+(function(){
+  var btn=document.getElementById("jsm-lang-btn");
+  var menu=document.getElementById("jsm-lang-menu");
+  if(!btn||!menu) return;
+  function close(){menu.style.display="none";menu.hidden=true;btn.setAttribute("aria-expanded","false");}
+  function open(){menu.style.display="block";menu.hidden=false;btn.setAttribute("aria-expanded","true");}
+  btn.addEventListener("click",function(e){e.stopPropagation();if(menu.hidden) open(); else close();});
+  document.addEventListener("click",function(){close();});
+  menu.addEventListener("click",function(e){e.stopPropagation();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape") close();});
+})();
+</script>
+<header class="header"><a class="logo" href="index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a><nav class="nav"><a href="index.html">Analyzer</a><a href="bleep-audio.html">Bleep</a><a href="trim-audio.html">Edit</a><a href="stem-splitter.html" class="active">Stems</a><div class="dropdown"><a href="articles/what-is-lufs.html">Learn</a><div class="dropdown-menu"><a href="articles/what-is-lufs.html">What is LUFS?</a><a href="articles/spotify-loudness.html">Spotify -14</a><a href="articles/tiktok-loudness.html">TikTok &amp; Shorts</a><a href="articles/true-peak.html">True Peak</a><a href="articles/lra.html">LRA PLR PSR</a><a href="articles/why-minus-14-is-new-zero.html">Why -14 is new 0dB</a><a href="articles/dbtp-true-peak-vs-sample.html">DBTP Explained</a><a href="articles/ebu-r128-5-minutes.html">EBU R128 5min</a></div></div><a href="blog.html">Blog</a><a href="pricing.html">Pricing</a><a href="about.html">About</a></nav></header>
+
+<main>
+<div class="prose">
+<h1>AI Stem Splitter — Separate Any Song Into Vocals, Drums, Bass &amp; Other</h1>
+<p class="lead">Drop in a song and an AI model splits it into four stems — vocals, drums, bass and everything else — right here in your browser. No upload, no account, and unlike the big AI audio services, downloading your stems is free. Make a karaoke track, lift an acapella, or study the bass line: your music never leaves your device.</p>
+
+<section class="bleep-wide">
+<div class="card" id="stemToolCard">
+  <div class="stem-warn" id="stemWarn">&#128241; You&rsquo;re on a phone or a low-memory device. The AI model plus a full song needs real memory — short songs may work, but a laptop or desktop browser gives reliable results.</div>
+  <div class="bleep-drop" id="stemDrop"><b>&#127925; Drop a song here</b><span>or click to choose &mdash; MP3, WAV, M4A, OGG, FLAC, up to 12 minutes. Pasting works too.</span><input type="file" id="stemFile" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.flac,.webm" hidden></div>
+  <div id="stemStage" style="display:none">
+    <p id="stemFileInfo" class="mono"></p>
+    <div class="stem-prog" id="stemModelWrap" style="display:none"><div class="track"><div class="fill" id="stemModelBar"></div></div><p id="stemModelText"></p></div>
+    <div class="stem-prog" id="stemProgWrap" style="display:none"><div class="track"><div class="fill" id="stemProgBar"></div></div><p id="stemProgText"></p></div>
+    <p class="stem-status" id="stemStatus"></p>
+    <p class="stem-engine" id="stemEngine"></p>
+    <div id="stemMixer" style="display:none">
+      <div class="stem-transport">
+        <button type="button" id="stemPlay" class="stem-play" aria-label="Play or pause the mix">&#9654;</button>
+        <div class="stem-seek" id="stemSeek"><div id="stemSeekFill"></div></div>
+        <span class="time-readout mono" id="stemTime">0:00 / 0:00</span>
+      </div>
+      <div class="stem-actions">
+        <button type="button" id="stemDlInst" class="btn-lime">&#11015; Instrumental (WAV)</button>
+        <button type="button" id="stemDlAll" class="btn-ghost">&#11015; All stems (WAV)</button>
+        <button type="button" id="stemReset" class="btn-ghost">&#128260; New song</button>
+      </div>
+      <div id="stemCards"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<h2>How to split a song into stems</h2>
+<ol>
+<li><b>Drop your song</b> — MP3, WAV, M4A, OGG or FLAC, up to 12 minutes. It is decoded on your device; nothing is uploaded.</li>
+<li><b>First visit only:</b> the browser downloads the AI model (about 172 MB) and caches it. Every later visit starts instantly.</li>
+<li><b>The AI separates the track</b> into vocals, drums, bass and other. On a modern laptop this runs faster than the song plays; on CPU-only devices it can take one to three times the song length.</li>
+<li><b>Mix and download</b> — play the stems together, mute, solo and ride each volume, then download any stem as WAV or MP3, or grab the instrumental in one click.</li>
+</ol>
+
+<h2>What each stem contains</h2>
+<table class="stem-table">
+<tr><th>Stem</th><th>What lands in it</th><th>Typical use</th></tr>
+<tr><td><b>Vocals</b></td><td>Lead and backing vocals, spoken parts</td><td>Acapellas, remixes, vocal practice</td></tr>
+<tr><td><b>Drums</b></td><td>Kick, snare, hats, cymbals, percussion</td><td>Sampling, drum transcription, play-alongs</td></tr>
+<tr><td><b>Bass</b></td><td>Bass guitar, synth bass, 808s</td><td>Bass practice, low-end study</td></tr>
+<tr><td><b>Other</b></td><td>Guitars, keys, synths, pads, strings</td><td>Karaoke beds (with drums + bass), chord study</td></tr>
+</table>
+
+<h2>How it works — a real AI model, on your device</h2>
+<p>The splitter uses <b>HTDemucs</b>, Meta AI&rsquo;s hybrid-transformer separation model (MIT licensed), exported to ONNX and executed with ONNX Runtime Web — WebGPU where your hardware offers it, multi-threaded WebAssembly everywhere else. There is no server in the loop: the same class of model the subscription services run in their clouds runs here on your own machine, which is exactly why the downloads can be free and why your unreleased tracks stay private. Separation quality is within a whisper of the paid leaders — independent leaderboards put the best open models under 1 dB behind them.</p>
+<p><b>Honest limits:</b> the one-time model download is about 172 MB; phones and low-memory devices can run out of room on long songs, so desktop is recommended; and very dense, reverb-heavy mixes can leave a trace of one stem inside another — that is true of every stem splitter, including the paid ones.</p>
+
+<h2>Frequently asked questions</h2>
+<h3>Is my song uploaded to a server?</h3>
+<p>No. The AI model runs entirely in your browser on your own device. The only download is the model itself, once — your audio never leaves your device.</p>
+<h3>Is the stem splitter really free?</h3>
+<p>Yes. Splitting and downloading are free, with no account and no watermark. Unlike most AI audio services, the free tier here lets you actually download your stems — as WAV or MP3.</p>
+<h3>What stems do I get?</h3>
+<p>Four stems: vocals, drums, bass and other (guitars, keys, synths and everything else). Play them in the built-in mixer with mute, solo and volume per stem, download each stem separately, or download the instrumental (drums + bass + other) in one file.</p>
+<h3>Why does the first split take a while?</h3>
+<p>On your first visit the browser downloads the AI model (about 172 MB) and caches it, so later visits start instantly. The separation itself runs on your device: with a modern laptop GPU (WebGPU) a song splits faster than it plays; on CPU it can take one to three times the song length.</p>
+<h3>Does it work on phones?</h3>
+<p>Short songs can work on recent phones, but the model plus a full song needs a lot of memory — a desktop or laptop browser is strongly recommended for reliable results. Tracks are limited to 12 minutes.</p>
+</div>
+</main>
+
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-col footer-brand">
+<div class="footer-logo"><span class="logo-mark">JSM</span><span class="footer-brand-name">JSM-Loudness</span></div>
+<p class="footer-tagline">Free LUFS loudness meter &amp; audio tools. ITU-R BS.1770-4 accurate, runs 100% in your browser — no upload.</p>
+<p class="footer-copy">&copy; 2026 JSM-Loudness.com</p>
+</div>
+<div class="footer-col">
+<h4>Tools</h4>
+<ul>
+<li><a href="/index.html">LUFS Analyzer</a></li>
+<li><a href="/trim-audio.html">Trim Audio</a></li>
+<li><a href="/bleep-audio.html">Bleep Audio</a></li>
+<li><a href="/stem-splitter.html">AI Stem Splitter</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Guides</h4>
+<ul>
+<li><a href="/blog.html">Blog</a></li>
+<li><a href="/articles/how-to-trim-audio.html">How to Trim Audio</a></li>
+<li><a href="/articles/how-to-split-audio.html">How to Split Audio</a></li>
+<li><a href="/articles/how-to-normalize-audio.html">How to Normalize Audio</a></li>
+<li><a href="/articles/how-to-measure-loudness.html">How to Measure Loudness</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Free tools</h4>
+<ul>
+<li><a href="https://jsm-image.com/" target="_blank" rel="noopener">JSM Image</a></li>
+<li><a href="https://jsm-video.com/" target="_blank" rel="noopener">JSM Video</a></li>
+<li><a href="https://jsm-options.com/" target="_blank" rel="noopener">JSM Options</a></li>
+<li><a href="https://lyricprep.com/" target="_blank" rel="noopener">LyricPrep</a></li>
+<li><a href="https://jsm-enhance.com/" target="_blank" rel="noopener">JSM Enhance <span class="paid-note">(paid · no account needed)</span></a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Company</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy</a></li>
+<li><a href="/terms.html">Terms</a></li>
+<li><a href="/cookies.html">Cookies</a></li>
+</ul>
+</div>
+</div>
+</footer>
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none"><div style="flex:1"><p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies &amp; privacy</p><p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. We use anonymous analytics (GA4) only if you accept. No ads. <a href="privacy.html" style="color:#D6FF57">Privacy</a> &middot; <a href="cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Reject</button><button onclick="acceptConsent()" class="btn-lime">Accept</button></div></div>
+<script src="assets/js/stem-ui.js?v=20261022-1"></script>
+<script src="assets/js/main.js" defer></script></body></html>
