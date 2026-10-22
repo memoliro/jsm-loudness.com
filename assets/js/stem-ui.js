@@ -128,13 +128,20 @@
         el.progWrap.style.display = 'none';
         el.modelWrap.style.display = 'none';
         setStatus(m.message);
+        killWorker();
       }
     };
     worker.onerror = function (err) {
       busy = false;
-      setStatus(T(S.engineError, { msg: err.message || 'worker failed to load' }));
+      var detail = err.message || 'worker failed to load';
+      if (err.filename) detail += ' [' + err.filename.split('/').pop() + (err.lineno ? ':' + err.lineno : '') + ']';
+      setStatus(T(S.engineError, { msg: detail }));
+      killWorker();
     };
     return worker;
+  }
+  function killWorker() {
+    if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
   }
 
   /* ---------- file intake ---------- */

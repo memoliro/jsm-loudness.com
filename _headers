@@ -15,3 +15,15 @@
 /fr/stem-splitter.html
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Embedder-Policy: credentialless
+
+/assets/js/stem-worker.js
+  Cross-Origin-Embedder-Policy: credentialless
+  Cross-Origin-Opener-Policy: same-origin
+/assets/js/stem-core.js
+  Cross-Origin-Embedder-Policy: credentialless
+/assets/vendor/ort/ort.min.js
+  Cross-Origin-Embedder-Policy: credentialless
+/assets/vendor/ort/ort-wasm-simd-threaded.wasm
+  Cross-Origin-Embedder-Policy: credentialless
+/assets/vendor/ort/ort-wasm-simd-threaded.jsep.wasm
+  Cross-Origin-Embedder-Policy: credentialless
