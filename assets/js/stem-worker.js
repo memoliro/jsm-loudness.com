@@ -11,7 +11,7 @@
  */
 'use strict';
 
-importScripts(new URL('stem-core.js?v=20261022-1', self.location.href).href);
+importScripts(new URL('stem-core.js?v=20261022-2', self.location.href).href);
 
 var MODEL_URL = 'https://huggingface.co/timcsy/demucs-web-onnx/resolve/main/htdemucs_embedded.onnx';
 var CACHE_NAME = 'jsm-stems-model-v1';

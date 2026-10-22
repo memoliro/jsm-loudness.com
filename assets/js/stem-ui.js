@@ -98,7 +98,7 @@
   /* ---------- worker ---------- */
   function ensureWorker() {
     if (worker) return worker;
-    worker = new Worker(BASE + 'stem-worker.js?v=20261022-1');
+    worker = new Worker(BASE + 'stem-worker.js?v=20261022-2');
     worker.onmessage = function (e) {
       var m = e.data || {};
       if (m.type === 'model-progress') {
