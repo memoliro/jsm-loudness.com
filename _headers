@@ -33,3 +33,15 @@
 /assets/vendor/ort/ort-wasm-simd-threaded.jsep.mjs
   Cross-Origin-Embedder-Policy: credentialless
   Cross-Origin-Opener-Policy: same-origin
+/assets/vendor/ort2/ort.min.js
+  Cross-Origin-Embedder-Policy: credentialless
+/assets/vendor/ort2/ort-wasm-simd-threaded.wasm
+  Cross-Origin-Embedder-Policy: credentialless
+/assets/vendor/ort2/ort-wasm-simd-threaded.jsep.wasm
+  Cross-Origin-Embedder-Policy: credentialless
+/assets/vendor/ort2/ort-wasm-simd-threaded.mjs
+  Cross-Origin-Embedder-Policy: credentialless
+  Cross-Origin-Opener-Policy: same-origin
+/assets/vendor/ort2/ort-wasm-simd-threaded.jsep.mjs
+  Cross-Origin-Embedder-Policy: credentialless
+  Cross-Origin-Opener-Policy: same-origin
