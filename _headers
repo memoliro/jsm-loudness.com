@@ -45,3 +45,13 @@
 /assets/vendor/ort2/ort-wasm-simd-threaded.jsep.mjs
   Cross-Origin-Embedder-Policy: credentialless
   Cross-Origin-Opener-Policy: same-origin
+
+/stem-gpu-test
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: credentialless
+/stem-gpu-test.html
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: credentialless
+/assets/js/gpu-test-worker.js
+  Cross-Origin-Embedder-Policy: credentialless
+  Cross-Origin-Opener-Policy: same-origin
