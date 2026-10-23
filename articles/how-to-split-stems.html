@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>How to Split a Song Into Stems — Vocals, Drums, Bass & Other</title>
+<meta name="description" content="Split any song into stems free: separate vocals, drums, bass and other with AI in your browser. Make karaoke tracks, instrumentals and remixes — no upload, no account."/>
+  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-split-stems.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-split-stems.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/how-to-split-stems.html"/>
+  <link rel="canonical" href="https://jsm-loudness.com/articles/how-to-split-stems.html"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="theme-color" content="#0A0C0F"/>
+<link rel="icon" href="/favicon.svg"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="How to Split a Song Into Stems — Vocals, Drums, Bass & Other"/>
+<meta property="og:description" content="Separate vocals, drums, bass and other from any song with AI — free in your browser, nothing uploaded. Karaoke, remixes, practice tracks."/>
+<meta property="og:url" content="https://jsm-loudness.com/articles/how-to-split-stems.html"/>
+<meta property="og:site_name" content="jsm-loudness.com"/>
+<meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="How to Split a Song Into Stems — Vocals, Drums, Bass & Other"/>
+<meta name="twitter:description" content="Split any song into vocals, drums, bass & other with AI, right in your browser. No upload."/>
+<link rel="stylesheet" href="../assets/css/style.css?v=20261010"/>
+<!-- Consent Mode v2 defaults - MUST be before gtag.js -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  analytics_storage:'denied',
+  functionality_storage:'granted',
+  security_storage:'granted',
+  wait_for_update: 500
+});
+gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,sans-serif}
+html,body{margin:0;background:#0A0C0F;color:#E6E8EC;overflow-x:clip;max-width:100vw}
+.mono{font-family:'JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+.header{position:sticky;top:0;z-index:40;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,12,15,0.75);border-bottom:1px solid rgba(30,35,46,0.8);display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px;padding:0 24px;max-width:1200px;margin:0 auto;width:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.02em;font-size:14px;color:#E6E8EC}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#D6FF57;color:#000;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.05em}
+.nav{display:flex;align-items:center;gap:20px;font-size:13px;color:#9AA0A8}
+.nav a{color:#9AA0A8;transition:color .2s,border-color .2s;border-bottom:2px solid transparent;padding-bottom:2px}
+.nav a:hover{color:#fff}
+.nav a.active{color:#fff;border-bottom-color:#D6FF57}
+.dropdown{position:relative}
+.dropdown>a{display:flex;align-items:center;gap:4px}
+.dropdown-menu{opacity:0;visibility:hidden;transform:translateY(8px);transition:all .18s ease;position:absolute;top:100%;left:0;min-width:260px;z-index:1000;background:rgba(15,17,21,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04) inset;padding:8px;display:flex;flex-direction:column;gap:2px}
+.dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown-menu a{padding:10px 12px;border-radius:8px;font-size:13px;color:#E6E8EC;border:1px solid transparent}
+.dropdown-menu a:hover{background:#151821;color:#D6FF57;border-color:rgba(214,255,87,0.15)}
+.dropdown-menu .small{font-size:10px;color:#6B7280;margin-top:6px;padding:8px 12px 4px;border-top:1px solid #1E232E;font-family:'JetBrains Mono',monospace}
+.btn-lime{display:inline-flex;align-items:center;justify-content:center;background:#D6FF57;color:#000;font-weight:700;font-size:12px;letter-spacing:0.02em;padding:9px 16px;border-radius:999px;border:none;cursor:pointer;transition:transform .15s,filter .15s}
+.btn-lime:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer}
+.prose{max-width:760px;margin:0 auto;padding:40px 24px 80px;line-height:1.7}
+.prose .badge{display:inline-flex;background:rgba(16,18,22,0.9);border:1px solid #1E232E;color:#9AA0A8;padding:6px 10px;border-radius:999px;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:0.02em}
+.prose h1{font-size:36px;line-height:1.1;letter-spacing:-0.02em;color:#E6E8EC;margin:18px 0 12px;font-weight:700}
+.prose h2{font-size:20px;line-height:1.3;color:#E6E8EC;margin:40px 0 14px;font-weight:600;letter-spacing:-0.01em}
+.prose h3{font-size:15px;color:#E6E8EC;margin:28px 0 10px;font-weight:600}
+.prose .lead{font-size:17px;line-height:1.6;color:#C5CAD2;margin:0 0 28px}
+.prose p{font-size:14.5px;color:#C5CAD2;margin:0 0 16px}
+.prose ul,.prose ol{padding-left:20px;color:#C5CAD2;font-size:14.5px;margin:0 0 20px}
+.prose li+li{margin-top:8px}
+.prose strong{color:#E6E8EC;font-weight:600}
+.prose code{font-family:'JetBrains Mono',monospace;background:#11141A;border:1px solid #1E232E;padding:2px 6px;border-radius:6px;font-size:12.5px;color:#D6FF57}
+.prose pre{background:#11141A;border:1px solid #1E232E;padding:16px;border-radius:12px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9AA0A8;line-height:1.6;margin:16px 0 24px}
+.prose a{color:#D6FF57;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s}
+.prose a:hover{color:#fff}
+.card{background:#11141A;border:1px solid #1E232E;border-radius:12px;padding:16px 18px;margin:20px 0}
+.card-lime{background:#151A11;border:1px solid rgba(214,255,87,0.25);border-radius:12px;padding:16px 18px;margin:20px 0}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9AA0A8;background:#0F1216;border:1px solid #1E232E;padding:3px 7px;border-radius:6px}
+.table-wrap{overflow:auto;border:1px solid #1E232E;border-radius:12px;margin:20px 0;background:#11141A}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{ text-align:left;padding:12px 14px;background:#0F1216;color:#9AA0A8;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid #1E232E}
+td{padding:12px 14px;border-bottom:1px solid rgba(30,35,46,0.6);color:#C5CAD2}
+tr:last-child td{border-bottom:none}
+.footer{border-top:1px solid #1E232E;background:#080A0C;padding:32px 24px;margin-top:40px}
+.footer-grid{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.footer-row1{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:#9AA0A8}
+.footer-links a{color:#9AA0A8}
+.footer-links a:hover{color:#E6E8EC}
+.footer-row2{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#6B7280;font-family:'JetBrains Mono',monospace;flex-wrap:wrap}
+.consent{position:fixed;bottom:16px;left:16px;right:16px;max-width:680px;margin:0 auto;background:rgba(17,20,26,0.96);backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.6);padding:14px 16px;display:flex;gap:16px;align-items:center;justify-content:space-between;z-index:60}
+@media(max-width:768px){.header{padding:0 16px}.nav{gap:12px;font-size:12px}.prose{padding:24px 16px 60px}.prose h1{font-size:28px}.dropdown-menu{position:fixed;top:56px;left:12px;right:12px;min-width:0}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"How to Split a Song Into Stems — Vocals, Drums, Bass & Other",
+  "description":"Split any song into stems free: separate vocals, drums, bass and other with AI in your browser. Make karaoke tracks, instrumentals and remixes — no upload, no account.",
+  "author":{"@type":"Person","name":"Sehmus","url":"https://jsm-loudness.com/about.html"},
+  "publisher":{"@type":"Organization","name":"JSM Loudness","url":"https://jsm-loudness.com/"},
+  "datePublished":"2026-10-22",
+  "dateModified":"2026-10-22",
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://jsm-loudness.com/articles/how-to-split-stems.html"},
+  "keywords":"split song into stems, stem splitter, separate vocals from a song, vocal remover, make karaoke track, extract drums, AI stem separation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://jsm-loudness.com/"},
+    {"@type":"ListItem","position":2,"name":"Learn","item":"https://jsm-loudness.com/blog.html"},
+    {"@type":"ListItem","position":3,"name":"How to Split a Song Into Stems","item":"https://jsm-loudness.com/articles/how-to-split-stems.html"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Is the stem splitter really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The AI model runs entirely in your browser, so there is no server bill to pass on to you: no account, no minutes, no per-song credits. Your song is never uploaded — the separation happens on your own device."}},
+    {"@type":"Question","name":"Why can I still hear faint drums in the vocal stem?","acceptedAnswer":{"@type":"Answer","text":"That is bleed, and it is normal for AI separation. The model estimates what belongs to each stem from a finished stereo mix; reverb, effects and instruments that overlap the voice in frequency leave faint traces. Starting from a high-quality source (WAV or FLAC rather than a low-bitrate MP3) reduces it noticeably."}},
+    {"@type":"Question","name":"How do I make a karaoke track from a song?","acceptedAnswer":{"@type":"Answer","text":"Separate the song, then use the Instrumental download — it combines the drums, bass and other stems, which is the original mix minus the vocals. In the built-in mixer you can also mute just the vocals and listen before downloading."}},
+    {"@type":"Question","name":"What is the difference between stems and multitracks?","acceptedAnswer":{"@type":"Answer","text":"Multitracks are the studio's original recordings — every microphone and instrument on its own track, sometimes 50 or more. Stems are grouped sub-mixes (all drums together, all vocals together). AI separation produces estimated stems from a finished mix; it cannot recover true multitracks that were never released."}}
+  ]
+}
+</script>
+</head>
+<body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
+  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</span>
+  <span style="color:#2A3140">|</span>
+  <a href="fr/articles/how-to-split-stems.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</a>
+</div>
+
+<header class="header">
+  <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
+  <nav class="nav">
+    <a href="../index.html">Analyzer</a>
+    <a href="../bleep-audio.html">Bleep</a><a href="../trim-audio.html">Edit</a><a href="../stem-splitter.html">Stems</a>
+    <div class="dropdown">
+      <a href="./what-is-lufs.html">Learn</a>
+      <div class="dropdown-menu">
+        <a href="./what-is-lufs.html">What is LUFS?</a>
+        <a href="./spotify-loudness.html">Spotify -14</a>
+        <a href="./tiktok-loudness.html">TikTok & Shorts</a>
+        <a href="./true-peak.html">True Peak</a>
+        <a href="./lra.html">LRA PLR PSR</a>
+        <a href="./why-minus-14-is-new-zero.html">Why -14 is new 0dB</a>
+        <a href="./dbtp-true-peak-vs-sample.html">DBTP Explained</a>
+        <a href="./ebu-r128-5-minutes.html">EBU R128 5min</a>
+        <div class="small">EDITING GUIDES</div>
+        <a href="./how-to-trim-audio.html">Trim Audio</a>
+        <a href="./how-to-split-audio.html">Split Audio</a>
+        <a href="./how-to-split-stems.html">Split Stems</a>
+        <a href="./how-to-join-audio.html">Join Audio</a>
+      </div>
+    </div>
+    <a href="../blog.html">Blog</a>
+    <a href="../pricing.html">Pricing</a>
+    <a href="../about.html">About</a>
+  </nav>
+</header>
+
+<main class="prose">
+<div class="badge">AUDIO EDITING • STEMS • FREE IN-BROWSER TOOL</div>
+<h1>How to Split a Song Into Stems</h1>
+<p class="lead">A finished song is a cake. Stems are the ingredients — vocals, drums, bass and everything else — separated back out so you can mute the singer for karaoke night, solo the bassline to learn it, or lift a vocal for a remix. AI made this possible from an ordinary MP3 or WAV, no studio files required. Here is how it works and how to do it free, in your browser.</p>
+
+<h2>What is a stem, exactly?</h2>
+<p>In the studio, a <strong>stem</strong> is a grouped sub-mix exported as its own stereo file: all the drums together, all the vocals together, the bass on its own, and a catch-all "other" for guitars, keys, synths and strings. Producers trade stems so a remixer can rebuild a track without juggling a hundred raw recordings.</p>
+<p>Do not confuse stems with <strong>multitracks</strong>. Multitracks are the original session recordings — every microphone, every take, sometimes 50+ tracks — and they almost never leave the studio. When you separate a released song, AI produces <em>estimated</em> stems from the finished stereo mix. They are remarkably good, but they are reconstructions, not the studio's files.</p>
+
+<h2>Stems vs splitting audio into parts</h2>
+<p>These two phrases get mixed up constantly, so let us be precise. <a href="how-to-split-audio.html">Splitting audio into parts</a> cuts one file into sequential pieces — chapters, tracks, segments along the timeline. <strong>Stem splitting separates layers that play at the same time</strong> — the voice comes off the top of the drums, for the whole song at once. Cutting a cake into slices vs un-baking it into eggs, flour and sugar. If you want chapters, use the <a href="../trim-audio.html">audio editor's Split tab</a>. If you want the singer gone, read on.</p>
+
+<h2>What people actually do with stems</h2>
+<ul>
+<li><strong>Karaoke &amp; instrumentals:</strong> remove the vocal and sing over the real backing track instead of a cheap MIDI remake.</li>
+<li><strong>Remixes, mashups &amp; sampling:</strong> lift a clean-ish vocal (an acapella) or isolate a drum break to build on.</li>
+<li><strong>Practice &amp; play-along:</strong> mute your own instrument and play its part yourself, at the real tempo, with the real band.</li>
+<li><strong>Learning &amp; transcription:</strong> solo the bass or the "other" stem to hear lines that are buried in the full mix.</li>
+<li><strong>DJ edits:</strong> strip a track down to drums for transitions, or extend an intro with its own percussion.</li>
+<li><strong>Content creation:</strong> keep a song's energy under your video with the vocal removed, so it does not fight your narration. (Check the rights for anything you publish — separation does not change who owns the song.)</li>
+</ul>
+
+<h2>How AI stem separation works</h2>
+<p>Modern separators like HTDemucs — the model our <a href="../stem-splitter.html">stem splitter</a> runs — are neural networks trained on thousands of songs where the true stems were known. Shown a new mix, the model predicts each stem's waveform directly. It "knows" what voices, kick drums and basslines typically look like in a spectrogram, and it rebuilds each layer sample by sample.</p>
+<p>Two honest consequences. First, <strong>bleed is normal</strong>: a faint ghost of the drums in the vocal stem, especially where reverb smears everything together. Second, the model can only work with what survives in your file — a 96 kbps MP3 has already thrown away detail the AI could have used. Neither is a deal-breaker for karaoke, practice or remixing; both are worth knowing before you judge the result.</p>
+
+<h2>How to split a song into stems (step by step)</h2>
+<p>Using the <a href="../stem-splitter.html">free AI stem splitter</a> — everything runs on your device, nothing uploads:</p>
+<ol>
+<li><strong>Load the song.</strong> Drop an MP3, WAV, M4A, OGG or FLAC onto the page (up to 12 minutes). The file is decoded locally and resampled to 44.1 kHz, the model's native rate.</li>
+<li><strong>Wait for the model — once.</strong> On your first visit the AI model (~172 MB) downloads and is cached in your browser. Later visits skip straight to work.</li>
+<li><strong>Let it separate.</strong> The song is processed in short segments; a progress bar counts them off. A typical song takes under a minute on a desktop, longer on a phone.</li>
+<li><strong>Audition in the mixer.</strong> Four stem cards appear — vocals, drums, bass, other — each with its own waveform, mute, solo and volume. Solo the vocal: that is what the AI heard as "the singer".</li>
+<li><strong>Download what you need.</strong> Every stem as WAV (lossless) or MP3, an <strong>Instrumental</strong> button (drums + bass + other — your karaoke track), or all stems at once. On phones you can also share a stem straight into another app.</li>
+</ol>
+
+<div class="card-lime">
+<p style="margin:0 0 6px;font-weight:600;color:#D6FF57;font-size:13px">Start from the best source you have</p>
+<p style="margin:0;font-size:13px;color:#C5CAD2">WAV or FLAC from a CD rip separates noticeably cleaner than a low-bitrate MP3, and far cleaner than a screen-recorded or re-uploaded file. The AI cannot invent detail that compression already deleted — garbage in, ghosty vocals out.</p>
+</div>
+
+<h2>Five tips for cleaner stems</h2>
+<ul>
+<li><strong>Feed it lossless when you can.</strong> Same song, better input, better separation — this is the single biggest quality lever you control.</li>
+<li><strong>Avoid clipped, loudness-war masters.</strong> Heavily limited mixes glue instruments together; the model struggles to pull them apart. A quieter, more dynamic master separates better.</li>
+<li><strong>Expect "other" to be busy.</strong> Guitars, keys, synths, strings — and usually the backing vocals' reverb — live there. It is a catch-all by design.</li>
+<li><strong>Live recordings bleed more.</strong> Room reverb and microphone spill are baked into every layer. Studio recordings separate cleanest.</li>
+<li><strong>Check loudness before you publish a stem.</strong> A solo stem is usually quieter than the full mix. Run it through the <a href="../index.html">loudness analyzer</a> and know its <a href="what-is-lufs.html">integrated LUFS</a> before it goes anywhere near a platform target like <a href="spotify-loudness.html">Spotify's -14 LUFS</a>.</li>
+</ul>
+
+<h2>Frequently asked questions</h2>
+<h3>Is the stem splitter really free?</h3>
+<p>Yes. The AI model runs entirely in your browser, so there is no server bill to pass on to you: no account, no minutes, no per-song credits. Your song is never uploaded — the separation happens on your own device.</p>
+<h3>Why can I still hear faint drums in the vocal stem?</h3>
+<p>That is bleed, and it is normal for AI separation. The model estimates what belongs to each stem from a finished stereo mix; reverb, effects and instruments that overlap the voice in frequency leave faint traces. Starting from a high-quality source (WAV or FLAC rather than a low-bitrate MP3) reduces it noticeably.</p>
+<h3>How do I make a karaoke track from a song?</h3>
+<p>Separate the song, then use the Instrumental download — it combines the drums, bass and other stems, which is the original mix minus the vocals. In the built-in mixer you can also mute just the vocals and listen before downloading.</p>
+<h3>What is the difference between stems and multitracks?</h3>
+<p>Multitracks are the studio's original recordings — every microphone and instrument on its own track, sometimes 50 or more. Stems are grouped sub-mixes (all drums together, all vocals together). AI separation produces estimated stems from a finished mix; it cannot recover true multitracks that were never released.</p>
+
+<div style="margin-top:36px;padding:20px;border-radius:16px;background:#11141A;border:1px solid #1E232E;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+<div>
+<p style="margin:0;font-size:14px;color:#E6E8EC;font-weight:600">Split a song now — free, no upload, no signup</p>
+<p style="margin:4px 0 0;font-size:12px;color:#9AA0A8">Vocals • Drums • Bass • Other — separated by AI on your device</p>
+</div>
+<a class="btn-lime" href="../stem-splitter.html" style="text-decoration:none">Open the AI Stem Splitter</a>
+</div>
+
+<div style="margin-top:32px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="../stem-splitter.html" class="kbd" style="text-decoration:none">Try: AI Stem Splitter →</a>
+<a href="how-to-split-audio.html" class="kbd" style="text-decoration:none">Split Audio Into Parts Guide</a>
+<a href="what-is-lufs.html" class="kbd" style="text-decoration:none">Check loudness of your stems</a>
+</div>
+
+</main>
+
+
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-col footer-brand">
+<div class="footer-logo"><span class="logo-mark">JSM</span><span class="footer-brand-name">JSM-Loudness</span></div>
+<p class="footer-tagline">Free LUFS loudness meter &amp; audio tools. ITU-R BS.1770-4 accurate, runs 100% in your browser — no upload.</p>
+<p class="footer-copy">&copy; 2026 JSM-Loudness.com</p>
+</div>
+<div class="footer-col">
+<h4>Tools</h4>
+<ul>
+<li><a href="/index.html">LUFS Analyzer</a></li>
+<li><a href="/trim-audio.html">Trim Audio</a></li>
+<li><a href="/bleep-audio.html">Bleep Audio</a></li>
+<li><a href="/stem-splitter.html">AI Stem Splitter</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Guides</h4>
+<ul>
+<li><a href="/blog.html">Blog</a></li>
+<li><a href="/articles/how-to-trim-audio.html">How to Trim Audio</a></li>
+<li><a href="/articles/how-to-split-audio.html">How to Split Audio</a></li>
+<li><a href="/articles/how-to-split-stems.html">How to Split Stems</a></li>
+<li><a href="/articles/how-to-normalize-audio.html">How to Normalize Audio</a></li>
+<li><a href="/articles/how-to-measure-loudness.html">How to Measure Loudness</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Free tools</h4>
+<ul>
+<li><a href="https://jsm-image.com/" target="_blank" rel="noopener">JSM Image</a></li>
+<li><a href="https://jsm-video.com/" target="_blank" rel="noopener">JSM Video</a></li>
+<li><a href="https://jsm-options.com/" target="_blank" rel="noopener">JSM Options</a></li>
+<li><a href="https://lyricprep.com/" target="_blank" rel="noopener">LyricPrep</a></li>
+<li><a href="https://jsm-enhance.com/" target="_blank" rel="noopener">JSM Enhance <span class="paid-note">(paid · no account needed)</span></a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Company</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy</a></li>
+<li><a href="/terms.html">Terms</a></li>
+<li><a href="/cookies.html">Cookies</a></li>
+</ul>
+</div>
+</div>
+</footer>
+
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none">
+<div style="flex:1">
+<p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies & privacy</p>
+<p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. We use anonymous analytics (GA4) only if you accept. No ads. <a href="../privacy.html" style="color:#D6FF57">Privacy</a> · <a href="../cookies.html" style="color:#D6FF57">Cookies</a></p>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Reject</button>
+<button onclick="acceptConsent()" class="btn-lime">Accept</button>
+</div>
+</div>
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>

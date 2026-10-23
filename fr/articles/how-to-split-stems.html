@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Séparer une Chanson en Pistes — Voix, Batterie, Basse | JSM Loudness</title>
+<meta name="description" content="Séparez n'importe quelle chanson en pistes, gratuitement : voix, batterie, basse et autres, grâce à l'IA dans votre navigateur. Karaoké, instrumentaux et remixes — sans envoi, sans compte."/>
+  <link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-split-stems.html"/>
+  <link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-split-stems.html"/>
+  <link rel="alternate" hreflang="x-default" href="https://jsm-loudness.com/articles/how-to-split-stems.html"/>
+  <link rel="canonical" href="https://jsm-loudness.com/fr/articles/how-to-split-stems.html"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="theme-color" content="#0A0C0F"/>
+<link rel="icon" href="/favicon.svg"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Séparer une Chanson en Pistes — Voix, Batterie, Basse"/>
+<meta property="og:description" content="Séparez n'importe quelle chanson en pistes, gratuitement : voix, batterie, basse et autres, grâce à l'IA dans votre navigateur. Karaoké, instrumentaux et remixes — sans envoi, sans compte."/>
+<meta property="og:url" content="https://jsm-loudness.com/fr/articles/how-to-split-stems.html"/>
+<meta property="og:site_name" content="jsm-loudness.com"/>
+<meta property="og:image" content="https://jsm-loudness.com/og.jpg"/>
+  <meta name="twitter:image" content="https://jsm-loudness.com/og.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Séparer une Chanson en Pistes — Voix, Batterie, Basse"/>
+<meta name="twitter:description" content="Séparez n'importe quelle chanson en pistes, gratuitement : voix, batterie, basse et autres, grâce à l'IA dans votre navigateur. Karaoké, instrumentaux et remixes — sans envoi, sans compte."/>
+<link rel="stylesheet" href="../../assets/css/style.css?v=20261010"/>
+<!-- Consent Mode v2 defaults - MUST be before gtag.js -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  analytics_storage:'denied',
+  functionality_storage:'granted',
+  security_storage:'granted',
+  wait_for_update: 500
+});
+gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64EC8JJF7Q"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,sans-serif}
+html,body{margin:0;background:#0A0C0F;color:#E6E8EC;overflow-x:clip;max-width:100vw}
+.mono{font-family:'JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+.header{position:sticky;top:0;z-index:40;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,12,15,0.75);border-bottom:1px solid rgba(30,35,46,0.8);display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px;padding:0 24px;max-width:1200px;margin:0 auto;width:100%}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.02em;font-size:14px;color:#E6E8EC}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#D6FF57;color:#000;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;letter-spacing:-0.05em}
+.nav{display:flex;align-items:center;gap:20px;font-size:13px;color:#9AA0A8}
+.nav a{color:#9AA0A8;transition:color .2s,border-color .2s;border-bottom:2px solid transparent;padding-bottom:2px}
+.nav a:hover{color:#fff}
+.nav a.active{color:#fff;border-bottom-color:#D6FF57}
+.dropdown{position:relative}
+.dropdown>a{display:flex;align-items:center;gap:4px}
+.dropdown-menu{opacity:0;visibility:hidden;transform:translateY(8px);transition:all .18s ease;position:absolute;top:100%;left:0;min-width:260px;z-index:1000;background:rgba(15,17,21,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04) inset;padding:8px;display:flex;flex-direction:column;gap:2px}
+.dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown-menu a{padding:10px 12px;border-radius:8px;font-size:13px;color:#E6E8EC;border:1px solid transparent}
+.dropdown-menu a:hover{background:#151821;color:#D6FF57;border-color:rgba(214,255,87,0.15)}
+.dropdown-menu .small{font-size:10px;color:#6B7280;margin-top:6px;padding:8px 12px 4px;border-top:1px solid #1E232E;font-family:'JetBrains Mono',monospace}
+.btn-lime{display:inline-flex;align-items:center;justify-content:center;background:#D6FF57;color:#000;font-weight:700;font-size:12px;letter-spacing:0.02em;padding:9px 16px;border-radius:999px;border:none;cursor:pointer;transition:transform .15s,filter .15s}
+.btn-lime:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer}
+.prose{max-width:760px;margin:0 auto;padding:40px 24px 80px;line-height:1.7}
+.prose .badge{display:inline-flex;background:rgba(16,18,22,0.9);border:1px solid #1E232E;color:#9AA0A8;padding:6px 10px;border-radius:999px;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:0.02em}
+.prose h1{font-size:36px;line-height:1.1;letter-spacing:-0.02em;color:#E6E8EC;margin:18px 0 12px;font-weight:700}
+.prose h2{font-size:20px;line-height:1.3;color:#E6E8EC;margin:40px 0 14px;font-weight:600;letter-spacing:-0.01em}
+.prose h3{font-size:15px;color:#E6E8EC;margin:28px 0 10px;font-weight:600}
+.prose .lead{font-size:17px;line-height:1.6;color:#C5CAD2;margin:0 0 28px}
+.prose p{font-size:14.5px;color:#C5CAD2;margin:0 0 16px}
+.prose ul,.prose ol{padding-left:20px;color:#C5CAD2;font-size:14.5px;margin:0 0 20px}
+.prose li+li{margin-top:8px}
+.prose strong{color:#E6E8EC;font-weight:600}
+.prose code{font-family:'JetBrains Mono',monospace;background:#11141A;border:1px solid #1E232E;padding:2px 6px;border-radius:6px;font-size:12.5px;color:#D6FF57}
+.prose pre{background:#11141A;border:1px solid #1E232E;padding:16px;border-radius:12px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9AA0A8;line-height:1.6;margin:16px 0 24px}
+.prose a{color:#D6FF57;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s}
+.prose a:hover{color:#fff}
+.card{background:#11141A;border:1px solid #1E232E;border-radius:12px;padding:16px 18px;margin:20px 0}
+.card-lime{background:#151A11;border:1px solid rgba(214,255,87,0.25);border-radius:12px;padding:16px 18px;margin:20px 0}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9AA0A8;background:#0F1216;border:1px solid #1E232E;padding:3px 7px;border-radius:6px}
+.table-wrap{overflow:auto;border:1px solid #1E232E;border-radius:12px;margin:20px 0;background:#11141A}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{ text-align:left;padding:12px 14px;background:#0F1216;color:#9AA0A8;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid #1E232E}
+td{padding:12px 14px;border-bottom:1px solid rgba(30,35,46,0.6);color:#C5CAD2}
+tr:last-child td{border-bottom:none}
+.footer{border-top:1px solid #1E232E;background:#080A0C;padding:32px 24px;margin-top:40px}
+.footer-grid{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.footer-row1{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:#9AA0A8}
+.footer-links a{color:#9AA0A8}
+.footer-links a:hover{color:#E6E8EC}
+.footer-row2{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#6B7280;font-family:'JetBrains Mono',monospace;flex-wrap:wrap}
+.consent{position:fixed;bottom:16px;left:16px;right:16px;max-width:680px;margin:0 auto;background:rgba(17,20,26,0.96);backdrop-filter:blur(20px);border:1px solid #1E232E;border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.6);padding:14px 16px;display:flex;gap:16px;align-items:center;justify-content:space-between;z-index:60}
+@media(max-width:768px){.header{padding:0 16px}.nav{gap:12px;font-size:12px}.prose{padding:24px 16px 60px}.prose h1{font-size:28px}.dropdown-menu{position:fixed;top:56px;left:12px;right:12px;min-width:0}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Séparer une Chanson en Pistes — Voix, Batterie, Basse et Autres",
+  "description":"Séparez n'importe quelle chanson en pistes, gratuitement : voix, batterie, basse et autres, grâce à l'IA dans votre navigateur. Karaoké, instrumentaux et remixes — sans envoi, sans compte.",
+  "author":{"@type":"Person","name":"Sehmus","url":"https://jsm-loudness.com/fr/about.html"},
+  "publisher":{"@type":"Organization","name":"JSM Loudness","url":"https://jsm-loudness.com/"},
+  "datePublished":"2026-10-22",
+  "dateModified":"2026-10-22",
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://jsm-loudness.com/fr/articles/how-to-split-stems.html"},
+  "keywords":"séparer une chanson en pistes, séparateur de pistes, extraire la voix d'une chanson, karaoké, instrumental, séparation IA"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Accueil","item":"https://jsm-loudness.com/fr/"},
+    {"@type":"ListItem","position":2,"name":"Apprendre","item":"https://jsm-loudness.com/fr/blog.html"},
+    {"@type":"ListItem","position":3,"name":"Séparer une Chanson en Pistes","item":"https://jsm-loudness.com/fr/articles/how-to-split-stems.html"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Le séparateur de pistes est-il vraiment gratuit ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Le modèle d'IA fonctionne entièrement dans votre navigateur : il n'y a aucune facture de serveur à vous refiler. Ni compte, ni minutes, ni crédits par chanson. Votre chanson n'est jamais envoyée — la séparation se fait sur votre propre appareil."}},
+    {"@type":"Question","name":"Pourquoi entend-on encore un peu de batterie dans la piste voix ?","acceptedAnswer":{"@type":"Answer","text":"C'est la diaphonie (le « bleed »), et c'est normal pour une séparation par IA. Le modèle estime ce qui appartient à chaque piste à partir d'un mix stéréo fini ; la réverbération, les effets et les instruments qui recouvrent la voix en fréquence laissent de légères traces. Partir d'une source de haute qualité (WAV ou FLAC plutôt qu'un MP3 à faible débit) réduit nettement le phénomène."}},
+    {"@type":"Question","name":"Comment créer une version karaoké d'une chanson ?","acceptedAnswer":{"@type":"Answer","text":"Séparez la chanson, puis utilisez le téléchargement « Instrumental » : il combine les pistes batterie, basse et autres, c'est-à-dire le mix d'origine sans la voix. Dans le mixeur intégré, vous pouvez aussi couper uniquement la voix et écouter avant de télécharger."}},
+    {"@type":"Question","name":"Quelle est la différence entre pistes (stems) et multipistes ?","acceptedAnswer":{"@type":"Answer","text":"Les multipistes sont les enregistrements originaux du studio — chaque microphone et chaque instrument sur sa propre piste, parfois plus de 50. Les stems sont des sous-mix groupés (toute la batterie ensemble, toutes les voix ensemble). La séparation par IA produit des stems estimés à partir d'un mix fini ; elle ne peut pas retrouver des multipistes jamais publiés."}}
+  ]
+}
+</script>
+</head>
+<body>
+<!-- Language selector -->
+<div id="jsm-lang-selector" style="position:fixed;top:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;border:1px solid #1E232E;background:#11141A;padding:5px 12px;border-radius:999px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4)">
+  <a href="../../articles/how-to-split-stems.html" style="color:#9AA0A8;text-decoration:none;opacity:.7;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1;this.style.color='#E6E8EC'" onmouseout="this.style.opacity=.7;this.style.color='#9AA0A8'"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/></svg> EN</a>
+  <span style="color:#2A3140">|</span>
+  <span style="display:flex;align-items:center;gap:6px;color:#E6E8EC;font-weight:600"><svg width="20" height="14" viewBox="0 0 3 2" style="border-radius:2px"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg> FR</span>
+</div>
+
+<header class="header">
+  <a class="logo" href="../index.html"><span class="logo-mark">JSM</span>jsm-loudness.com</a>
+  <nav class="nav">
+    <a href="../index.html">Analyseur</a>
+    <a href="../bleep-audio.html">Bip audio</a><a href="../trim-audio.html">Modifier</a><a href="../stem-splitter.html">Pistes</a>
+    <div class="dropdown">
+      <a href="./what-is-lufs.html">Apprendre</a>
+      <div class="dropdown-menu">
+        <a href="./what-is-lufs.html">Qu'est-ce que le LUFS ?</a>
+        <a href="./spotify-loudness.html">Spotify -14</a>
+        <a href="./tiktok-loudness.html">TikTok &amp; Shorts</a>
+        <a href="./true-peak.html">True Peak</a>
+        <a href="./lra.html">LRA PLR PSR</a>
+        <a href="./why-minus-14-is-new-zero.html">Pourquoi -14 est le nouveau 0 dB</a>
+        <a href="./dbtp-true-peak-vs-sample.html">DBTP Expliqué</a>
+        <a href="./ebu-r128-5-minutes.html">EBU R128 en 5 min</a>
+        <div class="small">GUIDES DE MONTAGE</div>
+        <a href="./how-to-trim-audio.html">Rogner l'audio</a>
+        <a href="./how-to-split-audio.html">Diviser l'audio</a>
+        <a href="./how-to-split-stems.html">Séparer en pistes</a>
+        <a href="./how-to-join-audio.html">Fusionner l'audio</a>
+      </div>
+    </div>
+    <a href="../blog.html">Blog</a>
+    <a href="../pricing.html">Tarifs</a>
+    <a href="../about.html">À propos</a>
+  </nav>
+</header>
+
+<main class="prose">
+<div class="badge">ÉDITION AUDIO • PISTES • OUTIL GRATUIT DANS LE NAVIGATEUR</div>
+<h1>Comment séparer une chanson en pistes</h1>
+<p class="lead">Une chanson finie est un gâteau. Les pistes (les « stems ») en sont les ingrédients — voix, batterie, basse et tout le reste — séparés à nouveau pour pouvoir couper le chanteur le soir du karaoké, isoler la ligne de basse pour l'apprendre, ou récupérer une voix pour un remix. L'IA a rendu cela possible à partir d'un simple MP3 ou WAV, sans les fichiers du studio. Voici comment cela fonctionne, et comment le faire gratuitement, dans votre navigateur.</p>
+
+<h2>Qu'est-ce qu'une piste (un stem), exactement ?</h2>
+<p>En studio, un <strong>stem</strong> est un sous-mix groupé exporté dans son propre fichier stéréo : toute la batterie ensemble, toutes les voix ensemble, la basse seule, et un fourre-tout « autres » pour les guitares, claviers, synthés et cordes. Les producteurs s'échangent des stems pour qu'un remixeur puisse reconstruire un morceau sans jongler avec une centaine d'enregistrements bruts.</p>
+<p>Ne confondez pas les stems avec les <strong>multipistes</strong>. Les multipistes sont les enregistrements originaux de la session — chaque microphone, chaque prise, parfois plus de 50 pistes — et ils ne quittent presque jamais le studio. Quand vous séparez une chanson publiée, l'IA produit des stems <em>estimés</em> à partir du mix stéréo final. Ils sont remarquablement bons, mais ce sont des reconstructions, pas les fichiers du studio.</p>
+
+<h2>Pistes ou découpage en parties : deux opérations différentes</h2>
+<p>Les deux expressions se confondent sans cesse, alors soyons précis. <a href="how-to-split-audio.html">Diviser un audio en parties</a> découpe un fichier en morceaux qui se suivent — chapitres, titres, segments le long de la ligne du temps. <strong>Séparer en pistes isole des couches qui jouent en même temps</strong> : la voix se détache de la batterie, sur toute la chanson d'un coup. Découper un gâteau en tranches, ou le « dé-cuire » en œufs, farine et sucre. Pour des chapitres, utilisez <a href="../trim-audio.html">l'onglet Diviser de l'éditeur audio</a>. Pour faire disparaître le chanteur, lisez la suite.</p>
+
+<h2>À quoi servent les pistes, concrètement</h2>
+<ul>
+<li><strong>Karaoké et instrumentaux :</strong> retirez la voix et chantez sur le vrai accompagnement plutôt que sur une pâle imitation MIDI.</li>
+<li><strong>Remixes, mashups et sampling :</strong> récupérez une voix (une acapella) ou isolez un break de batterie pour construire par-dessus.</li>
+<li><strong>Travail et play-along :</strong> coupez votre propre instrument et jouez sa partie vous-même, au vrai tempo, avec le vrai groupe.</li>
+<li><strong>Apprentissage et transcription :</strong> mettez la basse ou la piste « autres » en solo pour entendre des lignes noyées dans le mix complet.</li>
+<li><strong>Éditions DJ :</strong> réduisez un morceau à sa batterie pour vos transitions, ou prolongez une intro avec ses propres percussions.</li>
+<li><strong>Création de contenu :</strong> gardez l'énergie d'une chanson sous votre vidéo sans la voix, pour qu'elle ne concurrence pas votre narration. (Vérifiez les droits pour tout ce que vous publiez — la séparation ne change pas le propriétaire de la chanson.)</li>
+</ul>
+
+<h2>Comment fonctionne la séparation par IA</h2>
+<p>Les séparateurs modernes comme HTDemucs — le modèle qu'exécute notre <a href="../stem-splitter.html">séparateur de pistes</a> — sont des réseaux de neurones entraînés sur des milliers de chansons dont les vraies pistes étaient connues. Devant un nouveau mix, le modèle prédit directement la forme d'onde de chaque piste. Il « sait » à quoi ressemblent des voix, une grosse caisse et des lignes de basse dans un spectrogramme, et il reconstruit chaque couche échantillon par échantillon.</p>
+<p>Deux conséquences honnêtes. D'abord, <strong>la diaphonie est normale</strong> : un léger fantôme de batterie dans la piste voix, surtout là où la réverbération mélange tout. Ensuite, le modèle ne peut travailler qu'avec ce qui survit dans votre fichier — un MP3 à 96 kbit/s a déjà jeté des détails que l'IA aurait pu utiliser. Ni l'un ni l'autre n'est rédhibitoire pour le karaoké, le travail ou le remix ; les deux méritent d'être connus avant de juger le résultat.</p>
+
+<h2>Séparer une chanson en pistes, étape par étape</h2>
+<p>Avec le <a href="../stem-splitter.html">séparateur de pistes IA gratuit</a> — tout se fait sur votre appareil, rien n'est envoyé :</p>
+<ol>
+<li><strong>Chargez la chanson.</strong> Déposez un MP3, WAV, M4A, OGG ou FLAC sur la page (12 minutes maximum). Le fichier est décodé localement et rééchantillonné à 44,1 kHz, la fréquence native du modèle.</li>
+<li><strong>Attendez le modèle — une seule fois.</strong> À votre première visite, le modèle d'IA (~172 Mo) se télécharge et reste en cache dans votre navigateur. Les visites suivantes passent directement au travail.</li>
+<li><strong>Laissez-le séparer.</strong> La chanson est traitée par courts segments ; une barre de progression les décompte. Un morceau typique prend moins d'une minute sur un ordinateur, davantage sur un téléphone.</li>
+<li><strong>Écoutez dans le mixeur.</strong> Quatre cartes apparaissent — voix, batterie, basse, autres — chacune avec sa forme d'onde, son bouton muet, son solo et son volume. Mettez la voix en solo : c'est ce que l'IA a entendu comme « le chanteur ».</li>
+<li><strong>Téléchargez ce qu'il vous faut.</strong> Chaque piste en WAV (sans perte) ou MP3, un bouton <strong>Instrumental</strong> (batterie + basse + autres — votre version karaoké), ou toutes les pistes d'un coup. Sur téléphone, vous pouvez aussi partager une piste directement vers une autre application.</li>
+</ol>
+
+<div class="card-lime">
+<p style="margin:0 0 6px;font-weight:600;color:#D6FF57;font-size:13px">Partez de la meilleure source dont vous disposez</p>
+<p style="margin:0;font-size:13px;color:#C5CAD2">Un WAV ou un FLAC extrait d'un CD se sépare nettement mieux qu'un MP3 à faible débit, et bien mieux qu'un fichier enregistré à l'écran ou ré-uploadé. L'IA ne peut pas inventer les détails que la compression a déjà supprimés — source médiocre, voix fantomatique.</p>
+</div>
+
+<h2>Cinq conseils pour des pistes plus propres</h2>
+<ul>
+<li><strong>Donnez-lui du sans-perte quand vous pouvez.</strong> Même chanson, meilleure entrée, meilleure séparation — c'est le levier de qualité le plus important, et il est entre vos mains.</li>
+<li><strong>Évitez les masters écrêtés par la guerre du volume.</strong> Les mix très limités collent les instruments entre eux ; le modèle peine à les décoller. Un master plus calme et plus dynamique se sépare mieux.</li>
+<li><strong>Attendez-vous à une piste « autres » bien remplie.</strong> Guitares, claviers, synthés, cordes — et souvent la réverbération des chœurs — y vivent. C'est un fourre-tout par conception.</li>
+<li><strong>Les enregistrements live saignent davantage.</strong> La réverbération de la salle et les reprises entre micros sont cuites dans chaque couche. Les enregistrements studio se séparent le plus proprement.</li>
+<li><strong>Vérifiez le volume avant de publier une piste.</strong> Une piste solo est généralement plus faible que le mix complet. Passez-la dans <a href="../index.html">l'analyseur de loudness</a> et relevez ses <a href="what-is-lufs.html">LUFS intégrés</a> avant de l'envoyer vers une cible comme <a href="spotify-loudness.html">les -14 LUFS de Spotify</a>.</li>
+</ul>
+
+<h2>Questions fréquentes</h2>
+<h3>Le séparateur de pistes est-il vraiment gratuit ?</h3>
+<p>Oui. Le modèle d'IA fonctionne entièrement dans votre navigateur : il n'y a aucune facture de serveur à vous refiler. Ni compte, ni minutes, ni crédits par chanson. Votre chanson n'est jamais envoyée — la séparation se fait sur votre propre appareil.</p>
+<h3>Pourquoi entend-on encore un peu de batterie dans la piste voix ?</h3>
+<p>C'est la diaphonie (le « bleed »), et c'est normal pour une séparation par IA. Le modèle estime ce qui appartient à chaque piste à partir d'un mix stéréo fini ; la réverbération, les effets et les instruments qui recouvrent la voix en fréquence laissent de légères traces. Partir d'une source de haute qualité (WAV ou FLAC plutôt qu'un MP3 à faible débit) réduit nettement le phénomène.</p>
+<h3>Comment créer une version karaoké d'une chanson ?</h3>
+<p>Séparez la chanson, puis utilisez le téléchargement « Instrumental » : il combine les pistes batterie, basse et autres, c'est-à-dire le mix d'origine sans la voix. Dans le mixeur intégré, vous pouvez aussi couper uniquement la voix et écouter avant de télécharger.</p>
+<h3>Quelle est la différence entre pistes (stems) et multipistes ?</h3>
+<p>Les multipistes sont les enregistrements originaux du studio — chaque microphone et chaque instrument sur sa propre piste, parfois plus de 50. Les stems sont des sous-mix groupés (toute la batterie ensemble, toutes les voix ensemble). La séparation par IA produit des stems estimés à partir d'un mix fini ; elle ne peut pas retrouver des multipistes jamais publiés.</p>
+
+<div style="margin-top:36px;padding:20px;border-radius:16px;background:#11141A;border:1px solid #1E232E;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+<div>
+<p style="margin:0;font-size:14px;color:#E6E8EC;font-weight:600">Séparez une chanson maintenant — gratuit, sans envoi, sans inscription</p>
+<p style="margin:4px 0 0;font-size:12px;color:#9AA0A8">Voix • Batterie • Basse • Autres — séparés par l'IA sur votre appareil</p>
+</div>
+<a class="btn-lime" href="../stem-splitter.html" style="text-decoration:none">Ouvrir le séparateur de pistes IA</a>
+</div>
+
+<div style="margin-top:32px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="../stem-splitter.html" class="kbd" style="text-decoration:none">Essayer : séparateur de pistes IA →</a>
+<a href="how-to-split-audio.html" class="kbd" style="text-decoration:none">Guide : diviser un audio en parties</a>
+<a href="what-is-lufs.html" class="kbd" style="text-decoration:none">Vérifier le volume de vos pistes</a>
+</div>
+
+</main>
+
+
+
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-col footer-brand">
+<div class="footer-logo"><span class="logo-mark">JSM</span><span class="footer-brand-name">JSM-Loudness</span></div>
+<p class="footer-tagline">Mesureur LUFS gratuit et outils audio. Pr&eacute;cis ITU-R BS.1770-4, 100% dans votre navigateur — aucun t&eacute;l&eacute;versement.</p>
+<p class="footer-copy">&copy; 2026 JSM-Loudness.com</p>
+</div>
+<div class="footer-col">
+<h4>Outils</h4>
+<ul>
+<li><a href="/fr/index.html">Analyseur LUFS</a></li>
+<li><a href="/fr/trim-audio.html">Rogner audio</a></li>
+<li><a href="/fr/bleep-audio.html">Bip audio</a></li>
+<li><a href="/fr/stem-splitter.html">Séparateur de pistes IA</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Guides</h4>
+<ul>
+<li><a href="/fr/blog.html">Blog</a></li>
+<li><a href="/fr/articles/how-to-trim-audio.html">Couper un audio</a></li>
+<li><a href="/fr/articles/how-to-split-audio.html">Diviser un audio</a></li>
+<li><a href="/fr/articles/how-to-split-stems.html">Séparer en pistes</a></li>
+<li><a href="/fr/articles/how-to-normalize-audio.html">Normaliser un audio</a></li>
+<li><a href="/fr/articles/how-to-measure-loudness.html">Mesurer la loudness</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Outils gratuits</h4>
+<ul>
+<li><a href="https://jsm-image.com/" target="_blank" rel="noopener">JSM Image</a></li>
+<li><a href="https://jsm-video.com/" target="_blank" rel="noopener">JSM Video</a></li>
+<li><a href="https://jsm-options.com/" target="_blank" rel="noopener">JSM Options</a></li>
+<li><a href="https://lyricprep.com/" target="_blank" rel="noopener">LyricPrep</a></li>
+<li><a href="https://jsm-enhance.com/" target="_blank" rel="noopener">JSM Enhance <span class="paid-note">(payant · sans compte)</span></a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Soci&eacute;t&eacute;</h4>
+<ul>
+<li><a href="/fr/about.html">&Agrave; propos</a></li>
+<li><a href="/fr/contact.html">Contact</a></li>
+<li><a href="/fr/privacy.html">Confidentialit&eacute;</a></li>
+<li><a href="/fr/terms.html">Conditions</a></li>
+<li><a href="/fr/cookies.html">Cookies</a></li>
+</ul>
+</div>
+</div>
+</footer>
+
+<div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none">
+<div style="flex:1">
+<p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies et confidentialité</p>
+<p style="margin:0;font-size:12px;color:#9AA0A8">L'audio ne quitte jamais votre appareil. Nous utilisons des analyses anonymes (GA4) uniquement si vous acceptez. Aucune publicité. <a href="/fr/privacy.html" style="color:#D6FF57">Confidentialité</a> · <a href="/fr/cookies.html" style="color:#D6FF57">Cookies</a></p>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button>
+<button onclick="acceptConsent()" class="btn-lime">Accepter</button>
+</div>
+</div>
+<script src="../../assets/js/main.js" defer></script>
+</body>
+</html>

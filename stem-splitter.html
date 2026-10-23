@@ -132,6 +132,7 @@
 <div class="prose">
 <h1>AI Stem Splitter — Separate Any Song Into Vocals, Drums, Bass &amp; Other</h1>
 <p class="lead">Drop in a song and an AI model splits it into four stems — vocals, drums, bass and everything else — right here in your browser. No upload, no account, and unlike the big AI audio services, downloading your stems is free. Make a karaoke track, lift an acapella, or study the bass line: your music never leaves your device.</p>
+<p style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><a href="articles/how-to-split-stems.html" style="color:#D6FF57">New to stems? Read the guide: How to Split a Song Into Stems &rarr;</a><button type="button" id="stemShareTool" class="btn-ghost">&#128279; Share this tool</button></p>
 
 <section class="bleep-wide">
 <div class="card" id="stemToolCard">
@@ -151,6 +152,7 @@
       </div>
       <div class="stem-actions">
         <button type="button" id="stemDlInst" class="btn-lime">&#11015; Instrumental (WAV)</button>
+        <button type="button" id="stemShareInst" class="btn-ghost" style="display:none">&#11014; Share instrumental</button>
         <button type="button" id="stemDlAll" class="btn-ghost">&#11015; All stems (WAV)</button>
         <button type="button" id="stemReset" class="btn-ghost">&#128260; New song</button>
       </div>
@@ -217,6 +219,7 @@
 <li><a href="/blog.html">Blog</a></li>
 <li><a href="/articles/how-to-trim-audio.html">How to Trim Audio</a></li>
 <li><a href="/articles/how-to-split-audio.html">How to Split Audio</a></li>
+<li><a href="/articles/how-to-split-stems.html">How to Split Stems</a></li>
 <li><a href="/articles/how-to-normalize-audio.html">How to Normalize Audio</a></li>
 <li><a href="/articles/how-to-measure-loudness.html">How to Measure Loudness</a></li>
 </ul>
@@ -244,5 +247,5 @@
 </div>
 </footer>
 <div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none"><div style="flex:1"><p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies &amp; privacy</p><p style="margin:0;font-size:12px;color:#9AA0A8">Audio never leaves your device. We use anonymous analytics (GA4) only if you accept. No ads. <a href="privacy.html" style="color:#D6FF57">Privacy</a> &middot; <a href="cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Reject</button><button onclick="acceptConsent()" class="btn-lime">Accept</button></div></div>
-<script src="assets/js/stem-ui.js?v=20261022-5"></script>
+<script src="assets/js/stem-ui.js?v=20261022-6"></script>
 <script src="assets/js/main.js" defer></script></body></html>

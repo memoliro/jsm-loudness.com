@@ -292,6 +292,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://jsm-loudness.com/articles/how-to-split-stems.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-split-stems.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-split-stems.html"/>
+    <lastmod>2026-10-22</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jsm-loudness.com/fr/articles/how-to-split-stems.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-split-stems.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-split-stems.html"/>
+    <lastmod>2026-10-22</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://jsm-loudness.com/articles/how-to-join-audio.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://jsm-loudness.com/articles/how-to-join-audio.html"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://jsm-loudness.com/fr/articles/how-to-join-audio.html"/>

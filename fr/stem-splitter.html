@@ -132,6 +132,7 @@
 <div class="prose">
 <h1>S&eacute;parateur de pistes IA &mdash; s&eacute;parez n'importe quelle chanson en voix, batterie, basse et autres</h1>
 <p class="lead">D&eacute;posez une chanson et un mod&egrave;le d'IA la s&eacute;pare en quatre pistes &mdash; voix, batterie, basse et tout le reste &mdash; directement dans votre navigateur. Aucun t&eacute;l&eacute;versement, aucun compte et, contrairement aux grands services audio IA, le t&eacute;l&eacute;chargement de vos pistes est gratuit. Cr&eacute;ez une version karaok&eacute;, extrayez un acapella ou &eacute;tudiez la ligne de basse : votre musique ne quitte jamais votre appareil.</p>
+<p style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><a href="articles/how-to-split-stems.html" style="color:#D6FF57">Nouveau dans les pistes ? Lisez le guide : Comment s&eacute;parer une chanson en pistes &rarr;</a><button type="button" id="stemShareTool" class="btn-ghost">&#128279; Partager cet outil</button></p>
 
 <section class="bleep-wide">
 <div class="card" id="stemToolCard">
@@ -151,6 +152,7 @@
       </div>
       <div class="stem-actions">
         <button type="button" id="stemDlInst" class="btn-lime">&#11015; Instrumental (WAV)</button>
+        <button type="button" id="stemShareInst" class="btn-ghost" style="display:none">&#11014; Partager l'instrumental</button>
         <button type="button" id="stemDlAll" class="btn-ghost">&#11015; Toutes les pistes (WAV)</button>
         <button type="button" id="stemReset" class="btn-ghost">&#128260; Nouvelle chanson</button>
       </div>
@@ -208,6 +210,7 @@
 <li><a href="/fr/index.html">Analyseur LUFS</a></li>
 <li><a href="/fr/trim-audio.html">Rogner audio</a></li>
 <li><a href="/fr/bleep-audio.html">Bip audio</a></li>
+<li><a href="/fr/stem-splitter.html">Séparateur de pistes IA</a></li>
 <li><a href="/fr/stem-splitter.html">S&eacute;parateur de pistes IA</a></li>
 </ul>
 </div>
@@ -217,6 +220,7 @@
 <li><a href="/fr/blog.html">Blog</a></li>
 <li><a href="/fr/articles/how-to-trim-audio.html">Couper un audio</a></li>
 <li><a href="/fr/articles/how-to-split-audio.html">Diviser un audio</a></li>
+<li><a href="/fr/articles/how-to-split-stems.html">Séparer en pistes</a></li>
 <li><a href="/fr/articles/how-to-normalize-audio.html">Normaliser un audio</a></li>
 <li><a href="/fr/articles/how-to-measure-loudness.html">Mesurer la loudness</a></li>
 </ul>
@@ -246,6 +250,8 @@
 <div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none"><div style="flex:1"><p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies &amp; confidentialit&eacute;</p><p style="margin:0;font-size:12px;color:#9AA0A8">Votre audio ne quitte jamais votre appareil. Nous utilisons une analytique anonyme (GA4) uniquement si vous acceptez. Pas de pub. <a href="privacy.html" style="color:#D6FF57">Confidentialit&eacute;</a> &middot; <a href="cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button><button onclick="acceptConsent()" class="btn-lime">Accepter</button></div></div>
 <script>
 window.STEM_STRINGS = {
+    share: 'Partager', copied: '✓ Copié',
+    shareText: "Séparez n'importe quelle chanson en voix, batterie, basse et autres grâce à l'IA — gratuit, dans votre navigateur :", 
   stems: {
     vocals: { label: 'Voix', hint: 'Voix principale et ch\u0153urs' },
     drums: { label: 'Batterie', hint: 'Grosse caisse, caisse claire, charley, percussions' },
@@ -271,5 +277,5 @@ window.STEM_STRINGS = {
   mp3Unavailable: 'Encodeur MP3 indisponible dans ce navigateur \u2014 le WAV fonctionne.'
 };
 </script>
-<script src="../assets/js/stem-ui.js?v=20261022-5"></script>
+<script src="../assets/js/stem-ui.js?v=20261022-6"></script>
 <script src="../assets/js/main.js" defer></script></body></html>

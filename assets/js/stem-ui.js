@@ -31,7 +31,9 @@
     done: 'Done — four stems, separated on your device. Nothing was uploaded.',
     mp3Loading: 'Loading the MP3 encoder…',
     mp3Fail: 'MP3 encoder failed to load — WAV works.',
-    mp3Unavailable: 'MP3 encoder unavailable in this browser — WAV works.'
+    mp3Unavailable: 'MP3 encoder unavailable in this browser — WAV works.',
+    share: 'Share', copied: '✓ Copied',
+    shareText: 'Split any song into vocals, drums, bass & other with AI — free, in your browser:'
   };
   if (window.STEM_STRINGS) {
     for (var k in window.STEM_STRINGS) {
@@ -65,7 +67,7 @@
     progWrap: $('stemProgWrap'), progBar: $('stemProgBar'), progText: $('stemProgText'),
     mixer: $('stemMixer'), play: $('stemPlay'), time: $('stemTime'),
     seek: $('stemSeek'), seekFill: $('stemSeekFill'),
-    cards: $('stemCards'), dlAll: $('stemDlAll'), dlInst: $('stemDlInst'),
+    cards: $('stemCards'), dlAll: $('stemDlAll'), dlInst: $('stemDlInst'), shareInst: $('stemShareInst'), shareTool: $('stemShareTool'),
     reset: $('stemReset'), engine: $('stemEngine')
   };
   if (!el.drop) return;
@@ -245,7 +247,8 @@
         '<button type="button" class="btn-ghost stem-solo" data-stem="' + s + '">' + S.solo + '</button>' +
         '<input type="range" class="stem-vol" data-stem="' + s + '" min="0" max="1.25" step="0.01" value="1" aria-label="' + meta.label + ' ' + S.volume + '">' +
         '<span class="stem-dl"><button type="button" class="btn-lime stem-wav" data-stem="' + s + '">WAV</button>' +
-        '<button type="button" class="btn-ghost stem-mp3" data-stem="' + s + '">MP3</button></span>' +
+        '<button type="button" class="btn-ghost stem-mp3" data-stem="' + s + '">MP3</button>' +
+        '<button type="button" class="btn-ghost stem-share" data-stem="' + s + '"' + (canShareFiles() ? '' : ' style="display:none"') + '>&#11014; ' + S.share + '</button></span>' +
         '</div>';
       el.cards.appendChild(card);
       drawWave(card.querySelector('.stem-wave'), stems[s], STEM_COLORS[s]);
@@ -277,6 +280,13 @@
     });
     el.cards.querySelectorAll('.stem-mp3').forEach(function (b) {
       b.addEventListener('click', function () { downloadStem(b.getAttribute('data-stem'), 'mp3'); });
+    });
+    el.cards.querySelectorAll('.stem-share').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var st = b.getAttribute('data-stem');
+        if (!stems) return;
+        shareFile(encodeWAV(stems[st][0], stems[st][1]), baseName + '-' + st + '.wav', baseName + ' — ' + S.stems[st].label);
+      });
     });
   }
 
@@ -374,6 +384,45 @@
     var pos = Math.max(0, Math.min(duration() - 0.05, p * duration()));
     if (playing) playFrom(pos); else { startOffset = pos; drawSeek(); }
   });
+
+  /* ---------- sharing ---------- */
+  function canShareFiles() {
+    try {
+      if (!navigator.canShare) return false;
+      var probe = new File([new Blob(['x'], { type: 'audio/wav' })], 'x.wav', { type: 'audio/wav' });
+      return navigator.canShare({ files: [probe] });
+    } catch (e) { return false; }
+  }
+  function shareFile(blob, name, title) {
+    var f = new File([blob], name, { type: blob.type });
+    if (navigator.share && canShareFiles()) {
+      navigator.share({ files: [f], title: title }).catch(function (e) {
+        if (e && e.name !== 'AbortError') saveBlob(blob, name);
+      });
+    } else saveBlob(blob, name);
+  }
+  if (el.shareInst) {
+    if (canShareFiles()) el.shareInst.style.display = '';
+    el.shareInst.addEventListener('click', function () {
+      if (!stems) return;
+      var m = mixStems(['drums', 'bass', 'other']);
+      shareFile(encodeWAV(m[0], m[1]), baseName + '-instrumental.wav', baseName + ' — Instrumental');
+    });
+  }
+  if (el.shareTool) {
+    el.shareTool.addEventListener('click', function () {
+      var url = location.href.split('#')[0];
+      if (navigator.share) {
+        navigator.share({ title: document.title, text: S.shareText, url: url }).catch(function () {});
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(function () {
+          var old = el.shareTool.innerHTML;
+          el.shareTool.innerHTML = S.copied;
+          setTimeout(function () { el.shareTool.innerHTML = old; }, 1600);
+        });
+      }
+    });
+  }
 
   /* ---------- downloads ---------- */
   function encodeWAV(l, r) {
