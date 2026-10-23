@@ -68,7 +68,16 @@ function init() {
   if (initPromise) return initPromise;
   initPromise = (async function () {
     importScripts(new URL('../vendor/ort/ort.min.js', self.location.href).href);
-    ort.env.wasm.wasmPaths = ortBase();
+    // Explicit per-file URLs with a version query: fresh cache keys (the
+    // pthread workers the .mjs spawns from import.meta.url inherit them)
+    // and no reliance on prefix-join behavior.
+    var base = ortBase(), V = '?v=20261022-2';
+    ort.env.wasm.wasmPaths = {
+      'ort-wasm-simd-threaded.wasm': base + 'ort-wasm-simd-threaded.wasm' + V,
+      'ort-wasm-simd-threaded.mjs': base + 'ort-wasm-simd-threaded.mjs' + V,
+      'ort-wasm-simd-threaded.jsep.wasm': base + 'ort-wasm-simd-threaded.jsep.wasm' + V,
+      'ort-wasm-simd-threaded.jsep.mjs': base + 'ort-wasm-simd-threaded.jsep.mjs' + V
+    };
     ort.env.wasm.numThreads = self.crossOriginIsolated
       ? Math.max(1, Math.min(4, (self.navigator.hardwareConcurrency || 2)))
       : 1;
