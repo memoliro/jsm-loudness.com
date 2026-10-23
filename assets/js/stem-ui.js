@@ -33,6 +33,7 @@
     mp3Fail: 'MP3 encoder failed to load — WAV works.',
     mp3Unavailable: 'MP3 encoder unavailable in this browser — WAV works.',
     share: 'Share', copied: '✓ Copied',
+    fromCache: 'Stems restored from this browser — this song has not changed, so there was nothing to separate again.',
     shareText: 'Split any song into vocals, drums, bass & other with AI — free, in your browser:'
   };
   if (window.STEM_STRINGS) {
@@ -83,6 +84,7 @@
   var state = {};
   var playing = false;
   var soloPlay = null;
+  var currentHash = null;
   var startCtxTime = 0;
   var startOffset = 0;
   var rafId = 0;
@@ -154,8 +156,25 @@
     setStatus(T(S.decoding, { name: file.name }));
     var rd = new FileReader();
     rd.onload = function () {
+      var raw = rd.result;
+      hashBytes(raw).then(function (h) {
+        currentHash = h;
+        decodeAndGo(raw, file);
+      });
+    };
+    rd.readAsArrayBuffer(file);
+  }
+
+  function hashBytes(buf) {
+    if (!(window.crypto && crypto.subtle)) return Promise.resolve(null);
+    return crypto.subtle.digest('SHA-256', buf).then(function (h) {
+      return Array.prototype.map.call(new Uint8Array(h), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+    }).catch(function () { return null; });
+  }
+
+  function decodeAndGo(raw, file) {
       var tmp = new (window.AudioContext || window.webkitAudioContext)();
-      tmp.decodeAudioData(rd.result.slice(0), function (decoded) {
+      tmp.decodeAudioData(raw.slice(0), function (decoded) {
         tmp.close();
         if (decoded.duration > MAX_SECONDS) {
           setStatus(T(S.tooLong, { dur: fmtTime(decoded.duration) }));
@@ -169,13 +188,11 @@
             ch: decoded.numberOfChannels > 1 ? S.stereo : S.mono
           });
           el.stage.style.display = 'block';
-          startSeparation(lr[0], lr[1]);
+          restoreFromCache(lr);
         });
       }, function () {
         setStatus(S.decodeFail);
       });
-    };
-    rd.readAsArrayBuffer(file);
   }
 
   function resample(decoded) {
@@ -198,6 +215,39 @@
     });
   }
 
+  /* Stems cache: the model is deterministic — same file bytes, same stems.
+   * One song's stems are kept in the shared IndexedDB (16-bit PCM, the same
+   * precision the WAV downloads use); a hash of the file proves the audio
+   * did not change. A different song replaces the entry. */
+  function f32ToI16(a) {
+    var o = new Int16Array(a.length);
+    for (var i = 0; i < a.length; i++) o[i] = Math.max(-1, Math.min(1, a[i])) * 32767;
+    return o;
+  }
+  function i16ToF32(a) {
+    var o = new Float32Array(a.length);
+    for (var i = 0; i < a.length; i++) o[i] = a[i] / 32767;
+    return o;
+  }
+  function restoreFromCache(lr) {
+    if (!currentHash || !window.SharedAudio) return startSeparation(lr[0], lr[1]);
+    window.SharedAudio.get('stemsCache').then(function (e) {
+      if (e && e.hash === currentHash && e.stems && e.stems.vocals) {
+        var out = {};
+        STEM_ORDER.forEach(function (s) { out[s] = [i16ToF32(e.stems[s][0]), i16ToF32(e.stems[s][1])]; });
+        onStems(out, true);
+      } else startSeparation(lr[0], lr[1]);
+    }).catch(function () { startSeparation(lr[0], lr[1]); });
+  }
+  function saveToCache(result) {
+    if (!currentHash || !window.SharedAudio) return;
+    var snap = {};
+    STEM_ORDER.forEach(function (s) { snap[s] = [f32ToI16(result[s][0]), f32ToI16(result[s][1])]; });
+    setTimeout(function () {
+      try { window.SharedAudio.put('stemsCache', { hash: currentHash, name: baseName, stems: snap }); } catch (e) {}
+    }, 60);
+  }
+
   function startSeparation(l, r) {
     busy = true;
     stems = null;
@@ -213,12 +263,13 @@
   }
 
   /* ---------- results ---------- */
-  function onStems(result) {
+  function onStems(result, fromCache) {
     busy = false;
     soloPlay = null;
     stems = result;
     el.progWrap.style.display = 'none';
-    setStatus(S.done);
+    setStatus(fromCache ? S.fromCache : S.done);
+    if (!fromCache) saveToCache(result);
     if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
     buffers = {};
     STEM_ORDER.forEach(function (s) {
