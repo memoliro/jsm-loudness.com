@@ -249,7 +249,8 @@
 <div id="consent-banner" class="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title" style="display:none"><div style="flex:1"><p id="consent-title" style="margin:0 0 4px 0;font-size:13px;color:#E6E8EC;font-weight:600">Cookies &amp; confidentialit&eacute;</p><p style="margin:0;font-size:12px;color:#9AA0A8">Votre audio ne quitte jamais votre appareil. Nous utilisons une analytique anonyme (GA4) uniquement si vous acceptez. Pas de pub. <a href="privacy.html" style="color:#D6FF57">Confidentialit&eacute;</a> &middot; <a href="cookies.html" style="color:#D6FF57">Cookies</a></p></div><div style="display:flex;gap:8px;align-items:center"><button onclick="rejectConsent()" class="btn-ghost" style="background:transparent;border:1px solid #2A2F3C;color:#9AA0A8;padding:8px 14px;border-radius:999px;font-size:12px">Refuser</button><button onclick="acceptConsent()" class="btn-lime">Accepter</button></div></div>
 <script>
 window.STEM_STRINGS = {
-    share: 'Partager', copied: '✓ Copié',
+    share: 'Partager', copied: '✓ Copié', include: 'Inclure', dlSelected: '⬇ Pistes sélectionnées (WAV)',
+    noneSelected: 'Cochez au moins une piste à inclure dans le téléchargement.',
     fromCache: 'Pistes restaurées depuis ce navigateur — cette chanson n\'a pas changé, inutile de la séparer à nouveau.',
     shareText: "Séparez n'importe quelle chanson en voix, batterie, basse et autres grâce à l'IA — gratuit, dans votre navigateur :", 
   stems: {
@@ -278,5 +279,5 @@ window.STEM_STRINGS = {
 };
 </script>
 <script src="../assets/js/shared-audio.js?v=20261009"></script>
-<script src="../assets/js/stem-ui.js?v=20261022-9"></script>
+<script src="../assets/js/stem-ui.js?v=20261022-10"></script>
 <script src="../assets/js/main.js" defer></script></body></html>

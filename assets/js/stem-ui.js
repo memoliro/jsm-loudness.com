@@ -34,6 +34,8 @@
     mp3Unavailable: 'MP3 encoder unavailable in this browser — WAV works.',
     share: 'Share', copied: '✓ Copied',
     fromCache: 'Stems restored from this browser — this song has not changed, so there was nothing to separate again.',
+    include: 'Include', dlSelected: '⬇ Selected stems (WAV)',
+    noneSelected: 'Tick at least one stem to include it in the download.',
     shareText: 'Split any song into vocals, drums, bass & other with AI — free, in your browser:'
   };
   if (window.STEM_STRINGS) {
@@ -297,6 +299,7 @@
         '<b>' + meta.label + '</b><span class="stem-hint">' + meta.hint + '</span></div>' +
         '<canvas class="stem-wave" width="640" height="56"></canvas>' +
         '<div class="stem-controls">' +
+        '<label class="stem-inc" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#9AA0A8;cursor:pointer"><input type="checkbox" class="stem-include" data-stem="' + s + '" checked style="accent-color:#D6FF57;width:15px;height:15px;cursor:pointer">' + S.include + '</label>' +
         '<button type="button" class="btn-ghost stem-play-one" data-stem="' + s + '" title="Play this stem alone">&#9654;</button>' +
         '<button type="button" class="btn-ghost stem-mute" data-stem="' + s + '">' + S.mute + '</button>' +
         '<button type="button" class="btn-ghost stem-solo" data-stem="' + s + '">' + S.solo + '</button>' +
@@ -347,6 +350,10 @@
         if (!playing) playFrom(startOffset); else updateTransport();
       });
     });
+    el.cards.querySelectorAll('.stem-include').forEach(function (c) {
+      c.addEventListener('change', refreshDlAllLabel);
+    });
+    refreshDlAllLabel();
     el.cards.querySelectorAll('.stem-share').forEach(function (b) {
       b.addEventListener('click', function () {
         var st = b.getAttribute('data-stem');
@@ -495,6 +502,13 @@
     });
   }
 
+  var dlAllOriginal = el.dlAll ? el.dlAll.textContent : '';
+  function refreshDlAllLabel() {
+    if (!el.dlAll) return;
+    var n = el.cards.querySelectorAll('.stem-include:checked').length;
+    el.dlAll.textContent = (n > 0 && n < STEM_ORDER.length) ? S.dlSelected : dlAllOriginal;
+  }
+
   /* ---------- downloads ---------- */
   function encodeWAV(l, r) {
     var len = l.length;
@@ -567,7 +581,12 @@
   });
   el.dlAll.addEventListener('click', function () {
     if (!stems) return;
-    STEM_ORDER.forEach(function (s, i) {
+    var sel = STEM_ORDER.filter(function (s) {
+      var c = el.cards.querySelector('.stem-include[data-stem="' + s + '"]');
+      return !c || c.checked;
+    });
+    if (!sel.length) { setStatus(S.noneSelected); return; }
+    sel.forEach(function (s, i) {
       setTimeout(function () { downloadStem(s, 'wav'); }, i * 350);
     });
   });
