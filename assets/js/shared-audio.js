@@ -1,5 +1,5 @@
 /* shared-audio.js — one loaded audio file shared across jsm-loudness.com pages.
-   Used by: trim-audio (Edit), bleep-audio (Bleep), and the Analyzer batch intake.
+   Used by: trim-audio (Edit), bleep-audio (Bleep), stem-splitter (Stems), and the Analyzer batch intake.
    The file stays available until replaced, cleared, or a fresh visit (new tab/session).
    Everything stays in the browser (IndexedDB); nothing is uploaded. */
 (function () {

@@ -161,6 +161,7 @@
           return;
         }
         resample(decoded).then(function (lr) {
+          if (window.SharedAudio) window.SharedAudio.saveFile(file);
           mixLen = lr[0].length;
           el.fileInfo.textContent = T(S.fileInfo, {
             name: file.name, dur: fmtTime(decoded.duration),
@@ -527,6 +528,15 @@
     var items = e.clipboardData && e.clipboardData.files;
     if (items && items[0]) handleFile(items[0]);
   });
+
+  /* Shared audio pool: pick up the file loaded in the Analyzer / Edit /
+   * Bleep pages (assets/js/shared-audio.js), unless this is a fresh visit. */
+  if (window.SharedAudio) {
+    window.SharedAudio.wipeIfFresh(['current']).then(function (restore) {
+      if (!restore) return;
+      window.SharedAudio.loadFile().then(function (f) { if (f && f.size && !busy) handleFile(f); });
+    });
+  }
 
   /* Phone honesty: the model + a song need real RAM. Warn, never block. */
   if (el.warn) {
