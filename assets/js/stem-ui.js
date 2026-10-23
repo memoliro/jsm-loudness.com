@@ -82,6 +82,7 @@
   var sources = {};
   var state = {};
   var playing = false;
+  var soloPlay = null;
   var startCtxTime = 0;
   var startOffset = 0;
   var rafId = 0;
@@ -214,6 +215,7 @@
   /* ---------- results ---------- */
   function onStems(result) {
     busy = false;
+    soloPlay = null;
     stems = result;
     el.progWrap.style.display = 'none';
     setStatus(S.done);
@@ -244,6 +246,7 @@
         '<b>' + meta.label + '</b><span class="stem-hint">' + meta.hint + '</span></div>' +
         '<canvas class="stem-wave" width="640" height="56"></canvas>' +
         '<div class="stem-controls">' +
+        '<button type="button" class="btn-ghost stem-play-one" data-stem="' + s + '" title="Play this stem alone">&#9654;</button>' +
         '<button type="button" class="btn-ghost stem-mute" data-stem="' + s + '">' + S.mute + '</button>' +
         '<button type="button" class="btn-ghost stem-solo" data-stem="' + s + '">' + S.solo + '</button>' +
         '<input type="range" class="stem-vol" data-stem="' + s + '" min="0" max="1.25" step="0.01" value="1" aria-label="' + meta.label + ' ' + S.volume + '">' +
@@ -282,6 +285,17 @@
     el.cards.querySelectorAll('.stem-mp3').forEach(function (b) {
       b.addEventListener('click', function () { downloadStem(b.getAttribute('data-stem'), 'mp3'); });
     });
+    el.cards.querySelectorAll('.stem-play-one').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var st = b.getAttribute('data-stem');
+        if (soloPlay === st) {
+          if (playing) { pauseAt(currentPos()); return; }
+          soloPlay = null; applyGains(); updateTransport(); return;
+        }
+        soloPlay = st; applyGains();
+        if (!playing) playFrom(startOffset); else updateTransport();
+      });
+    });
     el.cards.querySelectorAll('.stem-share').forEach(function (b) {
       b.addEventListener('click', function () {
         var st = b.getAttribute('data-stem');
@@ -316,7 +330,7 @@
     var solo = anySolo();
     STEM_ORDER.forEach(function (s) {
       if (!gains[s]) return;
-      var audible = solo ? state[s].solo : !state[s].mute;
+      var audible = soloPlay ? (s === soloPlay) : (solo ? state[s].solo : !state[s].mute);
       gains[s].gain.value = audible ? state[s].vol : 0;
     });
   }
@@ -371,6 +385,11 @@
   function updateTransport() {
     el.play.innerHTML = playing ? '&#10073;&#10073;' : '&#9654;';
     drawSeek();
+    el.cards.querySelectorAll('.stem-play-one').forEach(function (b) {
+      var active = soloPlay === b.getAttribute('data-stem');
+      b.innerHTML = (active && playing) ? '&#10073;&#10073;' : '&#9654;';
+      b.classList.toggle('on', active);
+    });
   }
 
   el.play.addEventListener('click', function () {
@@ -503,6 +522,7 @@
   });
   el.reset.addEventListener('click', function () {
     pauseAt(0);
+    soloPlay = null;
     stems = null; buffers = {};
     el.stage.style.display = 'none';
     el.mixer.style.display = 'none';
